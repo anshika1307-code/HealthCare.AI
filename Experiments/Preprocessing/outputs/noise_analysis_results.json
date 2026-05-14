@@ -1,0 +1,112 @@
+[
+  {
+    "pdf": "ada_standards_care_diabetes_6.pdf",
+    "raw_chars": 83887,
+    "raw_noise_hits": 48,
+    "raw_noise_breakdown": {
+      "fda_header_footer": 0,
+      "reference_id": 0,
+      "standalone_page_num": 40,
+      "footnote_superscript": 2,
+      "ada_section_header": 0,
+      "doi_url": 2,
+      "url_generic": 3,
+      "copyright_line": 1
+    },
+    "custom_cleaned_chars": 83721,
+    "chars_removed_by_custom": 166,
+    "pct_removed_by_custom": 0.2,
+    "unstructured_chars": 83784,
+    "unstructured_elements": 327,
+    "unstructured_noise_hits": 37,
+    "unstructured_error": null
+  },
+  {
+    "pdf": "ada_standards_care_diabetes_9.pdf",
+    "raw_chars": 217870,
+    "raw_noise_hits": 54,
+    "raw_noise_breakdown": {
+      "fda_header_footer": 0,
+      "reference_id": 0,
+      "standalone_page_num": 0,
+      "footnote_superscript": 0,
+      "ada_section_header": 0,
+      "doi_url": 2,
+      "url_generic": 51,
+      "copyright_line": 1
+    },
+    "custom_cleaned_chars": 211766,
+    "chars_removed_by_custom": 6104,
+    "pct_removed_by_custom": 2.8,
+    "unstructured_chars": 221668,
+    "unstructured_elements": 3675,
+    "unstructured_noise_hits": 34,
+    "unstructured_error": null
+  },
+  {
+    "pdf": "jnc8_guidelines_management_hypertension.pdf",
+    "raw_chars": 6505,
+    "raw_noise_hits": 3,
+    "raw_noise_breakdown": {
+      "fda_header_footer": 0,
+      "reference_id": 0,
+      "standalone_page_num": 0,
+      "footnote_superscript": 0,
+      "ada_section_header": 0,
+      "doi_url": 0,
+      "url_generic": 3,
+      "copyright_line": 0
+    },
+    "custom_cleaned_chars": 6406,
+    "chars_removed_by_custom": 99,
+    "pct_removed_by_custom": 1.52,
+    "unstructured_chars": 6406,
+    "unstructured_elements": 36,
+    "unstructured_noise_hits": 3,
+    "unstructured_error": null
+  },
+  {
+    "pdf": "metformin_fda_label.pdf",
+    "raw_chars": 81211,
+    "raw_noise_hits": 143,
+    "raw_noise_breakdown": {
+      "fda_header_footer": 35,
+      "reference_id": 35,
+      "standalone_page_num": 36,
+      "footnote_superscript": 2,
+      "ada_section_header": 0,
+      "doi_url": 0,
+      "url_generic": 35,
+      "copyright_line": 0
+    },
+    "custom_cleaned_chars": 68777,
+    "chars_removed_by_custom": 12434,
+    "pct_removed_by_custom": 15.31,
+    "unstructured_chars": 74030,
+    "unstructured_elements": 808,
+    "unstructured_noise_hits": 157,
+    "unstructured_error": null
+  },
+  {
+    "pdf": "nutrients-11-00766.pdf",
+    "raw_chars": 71132,
+    "raw_noise_hits": 8,
+    "raw_noise_breakdown": {
+      "fda_header_footer": 0,
+      "reference_id": 0,
+      "standalone_page_num": 4,
+      "footnote_superscript": 0,
+      "ada_section_header": 1,
+      "doi_url": 0,
+      "url_generic": 3,
+      "copyright_line": 0
+    },
+    "custom_cleaned_chars": 71123,
+    "chars_removed_by_custom": 9,
+    "pct_removed_by_custom": 0.01,
+    "unstructured_chars": 74567,
+    "unstructured_elements": 234,
+    "unstructured_noise_hits": 5,
+    "unstructured_error": null
+  }
+]

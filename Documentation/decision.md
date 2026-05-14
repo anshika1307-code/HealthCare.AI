@@ -23,7 +23,7 @@
 
 ## Data Extraction from PDFs
 
- - Lib - PyMuPDF (faster for bulk extraction) or pdfplumber (better for table extraction)
+ - Lib - PyMuPDF (faster for bulk extraction) and pdfplumber (better for table extraction)
  
 ## Data chunking
 
