@@ -1,0 +1,802 @@
+nutrients
+Review
+Reversing Type 2 Diabetes: A Narrative Review of
+the Evidence
+SarahJHallberg1,2,3,* ,VictoriaMGershuni4,TamaraLHazbun2,3
+andShaminieJAthinarayanan1
+1 VirtaHealth,535MissionStreet,SanFrancisco,CA94105,USA;shaminie@virtahealth.com
+2 IndianaUniversityHealthArnett,Lafayette,IN47904,USA;thazbun@iuhealth.org
+3 IndianaUniversitySchoolofMedicine,Indianapolis,IN46202,USA
+4 DepartmentofSurgery,PerelmanSchoolofMedicineUniversityofPennsylvania,
+Philadelphia,PA19104,USA;victoriagershunimd@gmail.com
+* Correspondence: sarah@virtahealth.com
+(cid:1)(cid:2)(cid:3)(cid:1)(cid:4)(cid:5)(cid:6)(cid:7)(cid:8)(cid:1)
+(cid:1)(cid:2)(cid:3)(cid:4)(cid:5)(cid:6)(cid:7)
+Received: 27February2019;Accepted: 22March2019;Published: 1April2019
+Abstract: Background: Type2diabetes(T2D)haslongbeenidentifiedasanincurablechronicdisease
+based on traditional means of treatment. Research now exists that suggests reversal is possible
+throughothermeansthathaveonlyrecentlybeenembracedintheguidelines. Thisnarrativereview
+examinestheevidenceforT2Dreversalusingeachofthethreemethods,includingadvantagesand
+limitationsforeach. Methods: Aliteraturesearchwasperformed,andatotalof99originalarticles
+containinginformationpertainingtodiabetesreversalorremissionwereincluded. Results: Evidence
+existsthatT2Dreversalisachievableusingbariatricsurgery,low-caloriediets(LCD),orcarbohydrate
+restriction(LC).BariatricsurgeryhasbeenrecommendedforthetreatmentofT2Dsince2016by
+an international diabetes consensus group. Both the American Diabetes Association (ADA) and
+theEuropeanAssociationfortheStudyofDiabetes(EASD)nowrecommendaLCeatingpattern
+andsupporttheshort-termuseofLCDforweightloss. However,onlyT2Dtreatment,notreversal,
+isdiscussedintheirguidelines. Conclusion: GiventhestateofevidenceforT2Dreversal,healthcare
+providersneedtobeeducatedonreversaloptionssotheycanactivelyengageincounselingpatients
+whomaydesirethisapproachtotheirdisease.
+Keywords: diabetes;diabetesreversal;bariatricsurgery;very-low-calorie;low-carbohydrate
+1. Introduction
+According to 2017 International Diabetes Federation (IDF) statistics, there are approximately
+425millionpeoplewithdiabetesworldwide[1]. IntheUnitedStates,thereareanestimated30.3million
+adultslivingwithdiabetes,anditsprevalencehasbeenrisingrapidly,withatleast1.5millionnew
+diabetes cases diagnosed each year [2]. Diabetes is a major public health epidemic despite recent
+advancesinbothpharmaceuticalandtechnologictreatmentoptions.
+Type2diabetes(T2D)haslongbeenidentifiedasanincurablechronicdisease. Thebestoutcome
+thathasbeenexpectedisameliorationofdiabetessymptomsorslowingitsinevitableprogression.
+Approximately50%ofT2Dpatientswillneedinsulintherapywithintenyearsofdiagnosis[3]Although
+inthepastdiabeteshasbeencalledchronicandirreversible,theparadigmischanging[4,5].
+Therecent2016WorldHealthOrganization(WHO)globalreportondiabetesaddedasection
+on diabetes reversal and acknowledged that it can be achieved through weight loss and calorie
+restriction[4]. “Diabetesreversal”isatermthathasfounditswayintoscientificarticlesandthelay
+pressalike;“remission”hasalsobeenused. Whiletheexactcriteriaarestilldebated,mostagreethata
+hemoglobinA1c(HbA1c)underthediabetesthresholdof6.5%foranextendedperiodoftimewithout
+Nutrients2019,11,766;doi:10.3390/nu11040766 www.mdpi.com/journal/nutrientsNutrients2019,11,766 2of17
+theuseofglycemiccontrolmedicationswouldqualify[6]. Excludingmetforminfromtheglycemic
+control medications list, as it has indications beyond diabetes, may also be a consideration [7,8].
+Likewise, terms such as “partial” (HbA1c <6.5 without glycemic control medications for 1 year)
+or“complete”(HbA1c<5.7withoutglycemiccontrolmedicationsfor1year)remissionhavebeen
+definedbyanexpertpanelasmoreevidenceaccumulatesthatpointstothepossibilityofavoidingthe
+presumablyprogressivenatureofT2D[9]. Itisimportanttonotethattheterm“cure”hasnotbeen
+appliedtoT2D,astheredoesexistthepotentialforre-occurrence,whichhasbeenwelldocumentedin
+theliterature.
+Despite the growing evidence that reversal is possible, achieving reversal is not commonly
+encouragedbyourhealthcaresystem. Infact,reversalisnotagoalindiabetesguidelines. Specific
+interventionsaimedatreversalallhaveonethingincommon: theyarenotfirst-linestandardofcare.
+Thisisimportant,becausethereisevidencesuggestingthatstandardofcaredoesnotleadtodiabetes
+reversal. Thisraisesthequestionofwhetherstandardofcareisreallythebestpractice. Alargestudy
+byKaiserPermanentefoundadiabetesremissionrateof0.23%withstandardofcare[10]. Thestatus
+quoapproachwillnotreversethehealthcrisisofdiabetes.
+A significant number of studies indicate that diabetes reversal is achievable using bariatric
+surgery, while other approaches, such as low-calorie diets (LCD) or carbohydrate restriction (LC),
+havealsoshowneffectivenessinanincreasingnumberofstudies. Thisreviewwillexamineeachof
+theseapproaches,identifyingtheirbeneficialeffects,supportingevidence,drawbacks,anddegree
+ofsustainability.
+2. MaterialsandMethods
+A literature search was performed as appropriate for narrative reviews, including electronic
+databasesofPubMed,EMBASE,andGoogleScholarfrom1970throughDecember2018. Wereviewed
+English-languageoriginalandreviewarticlesfoundunderthesubjectheadingsdiabetes,bariatric
+surgery,metabolicsurgery,verylow-caloriediet,calorierestriction,lowcarbohydratediet,ketogenic
+diet,diabetesremission,anddiabetesreversal. Referencesoftheidentifiedpublicationsweresearched
+formoreresearcharticlestoincludeinthisreview. Selectedstudieswerereviewedandevaluatedfor
+eligibilityforinclusioninthisreviewbasedontheirrelevancefordiabetesreversalandremission.
+Eitherremissionorreversalneededtobediscussedinthepaperortheresultswereconsistentwiththese
+termsforinclusion. Randomizedclinicaltrialsandintervention-basedstudiesweregivenemphasis
+forinclusion.
+Atotalof99originalarticlescontaininginformationpertainingtodiabetesreversalorremission
+wereincludedinthisnarrativereview.
+3. ResultsandDiscussion
+3.1. BariatricSurgery
+Bariatricsurgeryhaslongbeenrecognizedasapotentialtreatmentforbothmorbidobesityand
+themetabolicprocessesthataccompanyit,specificallyT2D.WhiletheefficacyofT2Dreversaldepends
+onthechoiceofprocedure,thereisunilateralimprovementinglycemiafollowingoperation[11],and
+bariatricsurgeryhasbeenfoundtobesuperiortointensiveT2Dmedicalmanagement. Accordingly,in
+2016,thesecondDiabetesSurgerySummit(DSS-II)releasedrecommendations,endorsedby45medical
+andscientificsocietiesworldwide,tousebariatricsurgeryasatreatmentforT2D(bariatricsurgeryis
+currentlyapprovedbythe2016recommendationsforadultswithabodymassindex(BMI)>40,or
+>35kg/m2withobesity-relatedcomorbidities)[12]. Ofinterestistheconsistentfindingthatglycemic
+improvements occur rapidly, often within hours to days, and precede weight loss, which likely
+representstheenteroendocrineresponsestoalteredflowofintestinalcontents(i.e.,bileacidsignaling
+andchangesinmicrobiotaandtheirmetabolome)[13–19].Nutrients2019,11,766 3of17
+ThemostcommonlyperformedbariatricsurgeriesintheUnitedStatesincludelaparoscopicand
+roboticRoux-en-YGastricBypass(RYGB)orSleeveGastrectomy(SG).Whilesurgicaltreatmentis
+basedontheprinciplesofrestrictionandintestinalmalabsorption,evidencesuggeststhatthereare
+morecomplexmechanismsatplay. Bariatricsurgeryhasconsistentlybeenshowntodramaticallyand
+rapidlyimprovebloodglucose[20]whileallowingdecreasedoralhypoglycemicmedicationsand
+insulinuse,effectivelyreversingdiabetesinupto80%ofpatients[21]intheshortterm. Inaddition
+toearlypost-operativeimprovementinbloodglucoseandinsulinsensitivity,bariatricsurgeryhas
+alsobeenshowntocausealterationsinGIhormonerelease,includingghrelin,leptin,cholecystokinin
+(CCK),peptide-tyrosine-tyrosine(PYY),andglucagon-likepeptide1(GLP-1),thatmayimpactfeeding
+behaviorviathegut–brainaxisinadditiontomodulatingeuglycemia[22]. Furthermore,microbial
+changes in the human gut have been linked to obesity, and surgical alterations to gastrointestinal
+anatomyhavebeenassociatedwithdramaticchangesingutmicrobiotapopulationswithreversion
+froman“obesogenic”toaleanbacterialpopulation[13,14,16,19,23,24].
+Long-term outcomes from bariatric surgery depend on multiple factors, including type of
+surgeryperformed,patientcomorbidities,patientreadinessforlifelongdietarychange,andongoing
+surveillance. While bariatric surgery has been demonstrated to be safe and effective overall, it is
+importanttorecognizethatitisnotwithoutrisks. Eachpatientmustweightherisksandbenefits
+associatedwithuntreatedmorbidobesityversusthoseassociatedwithsurgeryoreffectivedietary
+management and choose accordingly. Surgery of any type can be associated with complications
+leading to morbidity or mortality; the complication rates have been stated to be as high as 13%
+and21%forSGandRYGB,respectively. Thepostoperativemortalityrateis0.28–0.34%forSGand
+0.35–0.79% for RYGB; in comparison, an elective laparoscopic cholecystectomy is associated with
+overall complication rates of 9.29% and with a 30-day mortality rate of 0.15–0.6%, depending on
+theseries[25,26]. Significantcomplicationsincludeanastomoticleakorhemorrhage,post-operative
+readmission,needforreoperation,post-operativehypoglycemia,dumpingsyndrome,worseningacid
+reflux,marginalulceration,andmicronutrientdeficiencies[25–29].
+It is important to consider that while short-duration studies have shown early resolution of
+comorbidities following bariatric procedures, when followed for multiple decades, there may be
+decreased efficacy of disease resolution and increased incidence of hospital admission long-term.
+Long-termreversalofT2Dandtrueglucosehomeostasisremainuncertain. Weightlossaftersurgeryis
+asignificantpredictorofareturntoeuglycemiapost-operatively. Multiplestudieshavereportedinitial
+T2Dremissionratesashighas80%[30,31],however,long-termremissionislessdurable. Thefive-year
+follow-upoutcomesoftheSLEEVEPASSRCTfoundcompleteorpartialremissionofT2Din37%ofSG
+and45%ofRYGBpatients,whichissimilartootherstudiesshowinglong-termT2Dremissioninupto
+athirdofpatients[32]. InthelargeprospectivecohortstudyLongitudinalAssessmentofBariatric
+Surgery2(LABS-2),theinvestigatorsfoundthatlong-termdiabetesremissionafterRYGBwashigher
+thanpredictedbyweightlossalone,whichsuggeststhatthesurgeryitselfimpactsmetabolicfactors
+thatcontributetodiseasemanagement[31]. Similarly,theSTAMPEDEtrial—anRCTthatfollowed150
+patientswithT2Dwhowererandomizedtointensivemedicalintervention(IMT)versusIMTplus
+RYGBversusIMTplusSGfordiabetesresolution(definedasHbA1c<6.0%)andfollowedforfive
+years—revealedincreasedratesofT2DresolutionwithRYGB(29%)andSG(23%)comparedtoIMT
+alone(5%)(Figure1). Thesurgerycohortalsodemonstratedgreaterweightlossandimprovementsin
+triglycerides,HDL,needforinsulin,andoverallqualityoflife[33–35].
+Despitethelikelihoodofimprovedglycemiccontrol,therearesignificantfinancialcostsforthe
+patient,healthsystem,andinsurancecompaniesassociatedwithbariatricsurgery(U.S.averageof
+$14,389)[36]. Despitethehighinitialcostofsurgery,Poriesandcolleaguesfoundthatpriortosurgery,
+patientsspendover$10,000peryearondiabetesmedications; afterRYGB,theannualcostfallsto
+less than $2000, which represents an $8000 cost savings at the individual level [30]. Furthermore,
+economic analyses show that surgery is likely to be cost-effective, especially in patients who are
+obese[37,38]. Inaclinicaleffectivenessreviewoftheliteraturethatincluded26trialsextractedfromNutrients2019,11,766 4of17
+over5000references,Picotetal. foundthatbariatricsurgerywasamoreeffectiveinterventionforweight
+lossthannon-surgicaloptions;however,therewasextremeheterogeneityandquestionablelong-term
+adherencetothenon-surgicalinterventions[39]. Aftersurgery,metabolicsyndromeimproved,and
+therewerehigherratesofT2Dremissioncomparedtothenon-surgicalgroups[39]. Further,while
+therewereimprovementsincomorbiditiesaftersurgeryindependentofbariatricprocedure,there
+wasalsoanincreasedlikelihoodofadverseevents. Whiletheoveralleventrateremainedlow,major
+adverseeventsincludedmedicationintolerance,needforreoperation,infection,anastomoticleakage,
+andvenousandthromboembolicevents[39].
+It is imperative to consider that one of the requirements of qualifying for bariatric surgery is
+demonstrationofatleastsixmonthsofunsuccessfulattemptsatweightlossusingtraditionaldietaryand
+exerciseadviceaccordingtothe2016Recommendations[12]. Thereare,however,norequirementsas
+towhatweightlossstrategyisemployed,whichmayrepresentatimepointwheredietaryintervention,
+includinglow-calorie,ketogenic,orcarbohydrate-restricteddiets,shouldbeutilized. Atleasttwo
+recentclinicaltrialshavedemonstratedsafetyandefficacyinpre-operativeverylow-carbohydrate
+ketogenicdietsbeforebariatricsurgeryforincreasingweightlossanddecreasinglivervolume[40,41].
+Furthermore, despite technically adequate surgery, an alarming number of patients may still
+experience weight regain and/or recurrence of comorbid obesity-associated conditions. In these
+patients,effectivestrategiesfordietaryinterventionareevenmoreimportant. Approximately10–15%
+ofpatientsfailtoloseadequateweight(failuredefinedas<50%ofexcessweight)ordemonstrate
+significantweightregainafterbariatricsurgerywithoutevidenceofananatomicortechnicalreason[42].
+Additionally,in25–35%ofpatientswhoundergosurgery,significantweightregain(definedas>15%
+of initial weight loss) occurs within two to five years post-operatively [43]. These patients often
+requirefurthermedicalmanagementwithweightlossmedications,furtherdietaryandbehavioral
+intervention,and,forsome,reoperation. Reoperationcanbeforeitherrevisionforfurtherweight
+loss(narrowingofthegastricsleeve,conversionofVSGtoRYGB,andincreasingthelengthofthe
+rouxlimb)orreversalofRYGBduetohealthconcerns,mostcommonlyassociatedwithmalnutrition.
+Asmallcohortofpatients(4%)mayexperiencesevereweightlosswithsignificantmalnutritionleading
+tohospitalizationinover50%,mortalityratesof18%,andneedforreversalofRYGBanatomy. While
+theincidenceofRYGBreversalisunknown,baseduponasystematicreviewthatincluded100patients
+spanning1985–2015,therateofreversalparallelstheincreasingrateofbariatricsurgery[44].
+Intheshortterm,T2Dreversalrateswithsurgeryhavebeenreportedtobeashighas80%,with
+anadditional15%demonstratingpartialimprovementinT2Ddespitestillrequiringmedication[17].
+WithinoneweekafterRYGB,patientsexperienceimprovedfastinghepaticinsulinclearance,reduced
+basaldenovoglucoseproduction,andincreasedhepaticinsulinsensitivity;bythreemonthsandone
+yearaftersurgery,patientshaveimprovedbeta-cellsensitivitytoglucose,increasedGLP-1secretion
+fromthegut,andimprovedinsulinsensitivityinmuscleandfatcells[45]. Overtime,T2Dremission
+ratesremainhighbutdodecline;Purnellandcolleaguesreportedthree-yearremissionratesof68.7%
+after RYGB [29]. However, Pories published results from a 14-year prospective study with mean
+follow-upof7.6years, andfound10-yearremissionratesremainedaround83%[46]. Ina10-year
+follow-up study of participants from the Swedish Obese Subjects (SOS) study that prospectively
+followedpatientswhounderwentbariatricsurgery,theauthorsreporteda72%(n=342)and36%
+(n=118)recoveryratefromT2DforRYGBattwoyearsand10years,respectively[47].
+Thelong-termmetabolicimpactandriskreductionfromsurgeryremainhighinasubstantial
+number of patients and this route to reversal clearly has the most robust data to support its use.
+Asevidencedbythedramaticimprovementsinmetabolicstatethatprecedeweightloss, bariatric
+surgery is far more than merely a restrictive and/or malabsorptive procedure. Large shifts in bile
+acidsignalinginthelumenofthesmallintestine,gutnutrientsensing,andchangesinthemicrobiota
+community appear to greatly impact overall host health. Further research is ongoing using both
+basicandtranslationalsciencemodelstoidentifytheroleofthesevarioushormonesandmetabolites;Nutrients2019,11,766 5of17
+perhapstherewillbeawaytoonedayharnessthebeneficialeffectsofbariatricsurgerywithoutthe
+needforanatomicrearrangement.
+3.2. Low-CalorieDiets(LCD)
+As diabetes rates have risen to unprecedented levels [1,2], the number of studies examining
+diabetesreversalusingnon-surgicaltechniqueshasincreased. Ahandfulofstudieshavereported
+successfulweightlosswithdecreasedinsulinresistance,plasmaglucose,andmedicationusefollowing
+aLCD.Asearlyas1976,Bistrianetal.[48]reportedthataverylow-calorieprotein-sparingmodified
+fastallowedforinsulineliminationinallsevenobesepatientswithT2D.Theaveragetimetoinsulin
+discontinuation was only 6.5 days, and the longest was 19 days. In a study by Bauman et al.,
+alow-caloriedietof900kcal,including115gofprotein,ledtosignificantimprovementinglycemic
+controlthatwasmainlyattributedtoimprovementsininsulinsensitivity[49]. Furthermore,astudy
+conductedinobeseT2DpatientsfoundthataLCDandgastricbypasssurgerywereequallyeffectivein
+achievingweightlossandimprovingglucoseandHbA1clevelsintheshortterm[50]. Weightloss,
+however,persistedinthediet-treatedpatientsonlyforthefirstthreemonths,indicatingdifficultywith
+long-termmaintenance[47]. Similarly,otherstudiesalsoreportedsimilarpatternofearlybloodglucose
+normalizationwithoutmedicationuse,buttheimprovementswerenotsustainedlong-term[51–53].
+Likewise,thestudybyWingetal.,eventhoughreportedsignificantandgreaterimprovementsof
+HbA1cat1yearintheintermittentlydeliveredverylow-caloriediet,theHbA1cimprovementwas
+not significantly different than what was reported in the patients receiving low-calorie diet (LCD)
+throughouttheoneyearperiod[54]. Furthermore,theglycemicimprovementsobservedat1year
+werenotmaintainedthrough2-years,eventhoughthegroupwithintermittentverylow-caloriediet
+hadlessmedicationrequirementthanthegroupintheLCDarmat2years[54]. Lastly,micronutrient
+deficiencieswiththeuseofcalorierestricteddietshasbeenshownandsupplementationandmonitoring
+fordeficienciesisaconsiderationwiththeiruse[55,56].
+Whilethesepreviousstudieswerenotassessingdiabetesremissionorreversalrateperse,they
+demonstratedtheeffectivenessofcalorierestrictioninachievingweightlossandimprovedglycemic
+control, which are the core goals of reversal. In 2003, the Look AHEAD trial randomized 5145
+overweight or obese patients with T2D to an intervention group that received either an intensive
+lifestyleintervention(ILI)includingcalorierestrictionandincreasedphysicalactivityortoacontrol
+groupthatincludeddiabetessupportandeducation(DSE)[57]. Posthocanalysisofthisstudyrevealed
+thatatoneyear,11.5%oftheparticipantsintheILIgroupachievedremission(partialorcomplete);
+however,remissionratessubsequentlydecreasedovertime(9.2%atyeartwoand7.3%atyearfour).
+Nevertheless, the remission rates achieved through ILI were three to six times higher than those
+achievedintheDSEgroup. LowerbaselineHbA1c,greaterlevelofweightloss,shorterdurationofT2D
+diagnosis,andlackofinsulinuseatbaselinepredictedhigherremissionrateinILIparticipants[58].
+Following the Look AHEAD study, other studies have evaluated a LCD for diabetes
+remission [59–61]. Most of these studies assessedremission overa short period of timein a small
+studysample. Bhattetal. reportedthatsixofthe12individualsachievedpartialremissionatthe
+endofthethree-monthintervention[61]. Adesetal. studiedanintensivelifestyleprogramincluding
+calorierestrictionandexercise,andreportedthateightofthe10individualswithrecentlydiagnosed
+T2Dachievedpartialremissionatsixmonths,includingonewithcompleteremission[60]. Thestudy
+endedatsixmonths,thereforelongtermsustainabilitywasnotassessed. Anotherstudyassessinga
+one-yeardiabetesremissionretrospectivelyamongthoseundergoing12weeksoftheintensiveweight
+loss program “Why Wait” had a much lower remission rate of 4.5%, with 2.3% of them achieving
+partialremission,whileanother2.3%hadcompleteremission[59]. Thisstudysuggeststhatlong-term
+maintenanceofremissionisachallenge. Moreover,diabetesremissionwasmorelikelyreportedin
+thosewhohadashorterdiabetesduration,lowerbaselineHbA1c,andweretakingfewerhypoglycemic
+medications[59,61].Nutrients2019,11,766 6of17
+Aninitial2011diabetesreversalstudybyTaylorandcolleaguesshowedthataverylow-calorie
+dietof600Kcal/daynotonlynormalizedglucose,HbA1c,andhepaticinsulinsensitivitylevelswithina
+week,butalsoledtodecreasedhepaticandpancreatictriacylglycerolcontentandnormalizationofthe
+insulinresponsewithineightweeks[62]. At12weekspost-intervention,manyoftheimprovements
+were maintained, but over a quarter of the patients had an early recurrence of diabetes. Further,
+averageweightregainduringthe12weekspost-interventionwas20%[62]. Asafollow-uptothe2011
+study,thesamegroupperformedalargerandlongerstudywitheightweeksofaverylow-calorie
+mealreplacement(624–700kcal/day)followedbytwoweeksofsolidfoodreplacementandaweight
+maintenance program of up to six months [63]. In this study, those who achieved a fasting blood
+glucoseof<7mmol/L(<126mg/dL)werecategorizedasresponders,whileotherswerecategorized
+asnon-responders. Atsixmonths,40%ofparticipantswhoinitiallyrespondedtotheintervention
+werestillinT2Dremissionwhichwasdefinedbyachievingafastingplasmaglucoseof<7mmol/L;the
+majorityofthosewhoremitted(60%)hadashorterdiabetesduration(<4years)[63].
+Theseshort-termstudieswerethefoundationforacommunity-basedcluster-randomizedclinical
+trialcalledDiRECT(DiabetesRemissionClinicalTrial). DiRECTenrolledasampleof306relatively
+healthyparticipantswithT2D(peopleoninsulinorwithadiabetesdurationlongerthansixyears
+were excluded) [64] (Figure 1). They were cluster randomized to either standard diabetes care or
+aninterventionusinglow-caloriemealreplacementdiet(825–853kcal/day)forthreetofivemonths,
+followedbystepwisefoodre-introductionandalong-termweightmaintenanceprogram. Atone-year
+follow-up, 46% of patients met the study criteria of diabetes remission (HbA1c <6.5% without
+antiglycemicmedications)[64]andattwoyearstheremissionratewas36%[65]. TheDiRECTstudy
+hasextendedtheirfollow-upanadditionalthreeyearstoassessthelong-termimpactonremission.
+Takentogether,evidencesuggeststhataLCDiseffectiveinreversingdiabetesintheshortterm
+uptotwoyears,anditseffectivenesswaspredominantlydemonstratedinthosewithshorterduration
+sincediabetesdiagnosis. Itisimportanttonotethatasubstantiallevelofcalorierestrictionisneededto
+generateasufficientlevelofweightlossforreversingdiabetes. Short-terminterventionwithmoderate
+energyrestrictionandmetforminformodestweightlosswasnotaseffectiveinreversingdiabetesas
+comparedtostandarddiabetescare[66]. Lifestyleinterventionwithsevereenergyrestrictionmay
+have some deleterious effect on the body composition and physiology, which poses a concern for
+long-termhealth[67]. Furthermore,long-termachievementofdiabetesremission,adherencetothe
+diet, and weight loss maintenance after the diet remain a challenge. Studies have also suggested
+thatphysiologicalandmetabolicadaptationofthebodyinresponsetocaloricrestrictionmayshift
+energybalanceandhormonalregulationofweighttowardweightregainafterweightloss[67,68].
+Thus,itiscrucialthatfuturestudiesaredirectedtowardsassessingthelong-termsustainabilityof
+diabetesremissionledbyLCDandfeasibilityofthisdietonthephysiologicaladaptationandbody
+compositionchanges.
+3.3. Carbohydrate-RestrictedDiets(LC)
+Beforethediscoveryofinsulinin1921,lowcarbohydrate(LC)dietswerethemostfrequently
+prescribed treatment for diabetes [69,70]. The paradigm shifted both with the development of
+exogenousinsulinandlaterwiththeemergenceofthelow-fatdietparadigm. Adietlowinfat,which
+bydefaultishighincarbohydrate,becamethestandardrecommendationinguidelinesaroundthe
+globe[71]. Ratherthanpreventingelevationsinglucose,thegoalbecamemaintenanceofbloodsugar
+controlviatheincreaseduseofglycemiccontrolmedications,includinginsulin[72]. Overthelast
+decade, clinical studies have begun to resurrect the pre-insulin LC dietary approach. In response
+tothenewevidenceontheefficacyofcarbohydraterestriction,low-carbohydratehasrecentlybeen
+endorsedasaneatingpatternbytheADAandtheEuropeanAssociationfortheStudyofDiabetes
+(EASD)[5,73]. Inaddition,theVeteransAffairs/DepartmentofDefense(VA/DOD)guidelinesnow
+recommendcarbohydraterestrictionaslowas14%ofenergyintakeinitsmostrecentguidelinesfor
+treatmentofdiabetes(VA)[74].Nutrients2019,11,766 7of17
+LC diets are based on macronutrient changes rather than a focus on calorie restriction [75].
+Althoughtheexactdefinitionvaries,alow-carbohydratedietusuallyrestrictstotalcarbohydratesto
+lessthan130gramsperday,whileaverylow-carbohydrateorketogenicdietusuallyrestrictstotal
+carbohydratestoaslowas20–30gramsperday. Proteinconsumptionisgenerallyunchangedfroma
+standardADAdiet(around20%ofintake),withtheremainingenergyneedsmetbyfatfromeitherthe
+dietormobilizedbodyfatstores. Carbohydratesourcesareprimarilynon-starchyvegetableswith
+somenuts,dairy,andlimitedfruit[75].
+A total of 32 separate trials examining carbohydrate restriction as a treatment for T2D were
+found when our search was performed [76–108]. However, for reasons that may include varied
+levels of carbohydrate restriction and differing levels of support given, not all studies had results
+that would be consistent with diabetes reversal. A number of shorter-term trials have found a
+significantbetween-groupadvantageofalow-carbohydrateinterventionforT2D[80,84,92,97]. Data
+from longer-term trials are limited, and in some follow-up studies, the between-group advantage
+seen initially was lost or reduced, although it often remains significantly improved from baseline.
+This raises the question of long-term sustainability using this approach. Due to heterogeneity in
+methodologyanddefinitionofcarbohydraterestriction,theabilitytofullyexamineT2Dreversalbased
+ontheexistingstudiesislimited. BaseduponarecentsystematicreviewofLC,itappearsthatthe
+greatestimprovementsinglycemiccontrolandgreatestmedicationreductionshavebeenassociated
+withthelowestcarbohydrateintake[109]. Inconsiderationoftheselimitations,itappearsimportantto
+assessthelevelofcarbohydraterestriction,supportorothermethodsgiventoencouragesustainability,
+andlengthoffollow-up.
+Astudycomparinganadlibitumverylow-carbohydrate(<20gtotal)diettoanenergy-restricted
+low-glycemic diet in T2D found greater reduction in HbA1c, weight, and insulin levels in the
+low-carbohydratearm[89]. Additionally,95%ofparticipantsinthelow-carbohydratearmreducedor
+eliminatedglycemiccontrolmedications,comparedto62%inthelowglycemicindexarmat24weeks.
+Instructionwasgiveninaone-timesessionwithadieticianandincludedtake-homematerialsfor
+reference. Aslightlylongerstudy(34weeks)trial[85]foundthataverylow-carbohydrateketogenic
+dietintervention(20–50gnetcarbsperday)resultedinHbA1cbelowthethresholdfordiabetesin55%
+ofthepatients,comparedto0%ofpatientsinthelow-fatarm. Theeducationsessionswereallonline
+andincludedbehaviormodificationstrategiesandmindfuleatingwhichwasaimedtoaddressbinge
+eating. Newlessonswereemailedtothepatientsweeklyforthefirst16weeksandtheneverytwo
+weeksfortheremainderofthestudy.
+Asmall(34participants)one-yearstudyofanadlibitum,verylow-carbohydratedietcompared
+toacalorie-restrictedmoderatecarbohydratedietfoundasignificantreductioninHbA1cbetween
+groupsfavoringthelow-carbohydratearm[86]. Atoneyear,78%ofparticipantswhobeganthetrial
+withaHbA1cabove6.5%nolongermetthecutoffforthediagnosisofdiabetes,nolongerrequiredany
+non-metforminmedication,andsignificantlyreducedoreliminatedmetformin. Totalkilocalorieintake
+wasnotsignificantlydifferentbetweenthetwogroups,evenwithmoderatecarbohydraterestriction.
+Despite equal energy intake, the low carbohydrate group lost significantly more weight and had
+improvedglycemiccontrol,whichindicatesapotentialmechanisticroleforcarbohydraterestriction
+itself. Thesupportgivenwas19classesoverthe12-monthperiod,taperinginfrequencyovertime.
+Another one-year trial [76] found significant HbA1c reduction in the subset of patients with
+diabetes(n=54)assignedtoanadlibitumlow-carbohydratediet(<30totalgramsperday),compared
+toanenergy-restrictedlow-fatdiet. Theseresultsremainedsignificantafteradjustingthemodelfor
+weight loss, indicating an effect of the carbohydrate reduction itself. The support given was four
+weeklysessionsduringthefirstmonth,followedbymonthlysessionsfortheremaining11months.
+Ametabolicwardstudyon10patientswithT2D[96]foundthat24-hglucosecurvesnormalized
+within two weeks on a very low-carbohydrate diet (<21 g total per day). This was in addition to
+medicationreductionandeliminationincludinginsulinandsulfonylureasAfteraccountingforbody
+waterchanges,theaverageweightlossduringthetwo-weekperiodwas1.65kg(averageof<2%totalNutrients2019,11,766 8of17
+bodyweightwhichissimilartotheresultsofbariatricsurgery,wherenormoglycemiaisseenpriorto
+significantweightloss. Interestingly,despitethedietbeingadlibitumotherthanthecarbohydrate
+limit, the average energy intake decreased by 1000 kcal per day. Assuming no further change in
+glycemiccontrol,HbA1cwouldbe5.6%aftereightweeks,whichwouldrepresentareductionof23%
+from baseline. The fact that HbA1c reductions were greater than in other, longer-term outpatient
+studiesmayindicatethatsupportofdietarychangesisthekeytolonger-termsuccess.
+In our published trial providing significant support through the use of a continuous care
+intervention(CCI),weexaminedusingalow-carbohydratedietaimedatinducingnutritionalketosis
+inpatientswithT2D(n=262),comparedwithusualcareT2Dpatients(n=87)[98](Figure1). Atone
+year,theHbA1cdecreasedby1.3%intheCCI,with60%ofcompletersachievingaHbA1cbelow6.5%
+withouthypoglycemicmedication(notincludingmetformin). Overall,medicationsweresignificantly
+reduced, including complete elimination of sulfonylureas and reduction or elimination of insulin
+therapy in 94% of users. Most cardiovascular risk factors showed significant improvement [110].
+Theone-yearretentionratewas83%,whichindicatesthatanon-calorie-restricted,low-carbohydrate
+interventioncanbesustained. Improvementswerenotobservedintheusualcarepatients. Thenewly
+releasedtwo-yearresultsofthistrial[106]showsustainedimprovementsinnormoglycemia,with54%
+ofcompletersmaintainingHbA1cbelow6.5%withoutmedicationoronlyonmetformin. Theretention
+rateattwoyearswas74%,furthersupportingthesustainabilityofthisdietaryinterventionfordiabetes
+reversal. Weightlossof10%wasseenat2-yearsdespitenointentionalcaloricrestrictioninstruction.
+Additionally, this trial involved participants with a much longer duration of diabetes (8.4 years
+on average) than other nutrition trial interventions [58,64,65] and did not exclude anyone taking
+exogenousinsulin. AsdurationofT2Dandinsulinusehavebothbeenidentifiedtobenegativefactors
+inpredictingremissionafterbariatricsurgery[111,112],the2-yearresultsofthistrialmaybeeven
+moresignificant.
+Itisinterestingtonotethatmoststudiesutilizeadlibitumintakeinthecarbohydrate-restricted
+arm. Despite this, in studies that have tracked energy intake, spontaneous calorie restriction has
+occurred[113,114]. Inmanytrialswhereenergyintakehasbeenprescribedorweightlosshasbeenequal,
+anadvantagehasbeenseeninglycemiccontrol,weight,orbothinthelow-carbohydratearm[86,91,107].
+Abetterunderstandingoftherolethatcaloricintake,whetherprescribedorspontaneous,playsinthe
+overallsuccessisimportant. Incasesofspontaneousenergyintakereduction,elucidatingthespecific
+mechanismbehindthisreductionwouldhelpintheoverallpersonalizationofthisapproach.
+Multiplestudieshaveevaluatedsideeffectsorpotentialcomplicationsofcarbohydraterestriction.
+Thediethasbeenfoundtobesafeandwelltoleratedalthoughlongtermhardoutcomedataislacking
+andshouldbeafocusoffutureresearch. Atransientriseinuricacidearlyinverylow-carbohydrate
+restrictionwithoutanassociatedincreaseingoutorkidneystoneshasbeendocumented[84,98,100].
+Bloodureanitrogen(BUN)hasbeenfoundtoincreaseanddecreaseindifferentstudieswithoutan
+associated change in kidney function [87,98,100,115,116]. Recently, bone mineral density has been
+foundtobeunchangeddespitesignificantweightlossaftertwoyearsofaketogenicdietintervention
+inpatientswithT2D[108]. WhilemoststudiesshowanimprovementornochangeinLDL-Clevels
+in patients with T2D on a low-carbohydrate diet, there have been two studies that have found an
+increase in LDL-C in participants with T2D [99,111]. In one of the studies that found an increase
+in calculated LDL-C, a non-significant reduction in measured ApoB lipoproteins and unchanged
+non-HDLcholesterolwereseen. MonitoringLDL-Corameasuredvalueofpotentiallyatherogenic
+lipoproteinssuchasApoBshouldbeconsidered. Lastly,micronutrientdeficiencyhasbeenseenwitha
+carbohydraterestricteddiet,supplementationandmonitoringshouldbegivenconsiderationwiththis
+intervention[56].
+Althoughtheuseofverylow-carbohydratedietsfordiabetesreversalshowspromisingresults,
+thelackoflonger-termfollow-upstudiesremainsalimitation. Followupislimitedtotwoyears,and
+thereforelonger-termstudiesareneededtodeterminethesustainabilityofthemetabolicimprovements.
+Determiningtheappropriatemethodofsupportmaybeakeytotheoverallsuccesswithdiseasereversal.Nutrients 2019, 11, x FOR PEER REVIEW 8 of 16
+6.5% without hypoglycemic medication (not including metformin). Overall, medications were
+significantly reduced, including complete elimination of sulfonylureas and reduction or elimination
+of insulin therapy in 94% of users. Most cardiovascular risk factors showed significant improvement
+[110]. The one-year retention rate was 83%, which indicates that a non-calorie-restricted, low-
+carbohydrate intervention can be sustained. Improvements were not observed in the usual care
+patients. The newly released two-year results of this trial [106] show sustained improvements in
+normoglycemia, with 54% of completers maintaining HbA1c below 6.5% without medication or only
+on metformin. The retention rate at two years was 74%, further supporting the sustainability of this
+dietary intervention for diabetes reversal. Weight loss of 10% was seen at 2-years despite no
+intentional caloric restriction instruction. Additionally, this trial involved participants with a much
+longer duration of diabetes (8.4 years on average) than other nutrition trial interventions [58,64,65]
+and did not exclude anyone taking exogenous insulin. As duration of T2D and insulin use have both
+been identified to be negative factors in predicting remission after bariatric surgery [111,112], the 2-
+year results of this trial may be even more significant.
+Nutrie nts2019,11,766 9of17
+(A)
+(B)
+FFiigguurree 11.. ((AA)) MMeeaann cchhaannggeess ooff hheemmoogglloobbiinn AA11cc ((HHbbAA11cc)) ffrroomm bbaasseelliinnee ttoo llaasstt ppuubblliisshheedd ddaattee ffoorr eeaacchh
+ssttuuddyy rreettrriieevveedd ttoo rreepprreesseenntt tthhee tthhrreeeem meeththooddsso offr erevveresrasla;l(; B(B))m meaenanc hcahnagnegseos fowf weigeihgthftr ofrmomba bsaelsienleinteo
+tloa sltasptu pbulibslhisehdedd adteatfeo froera ecahchst sutduideisesr ertertireiveevdedt otor erpeprerseesnenttt htheet hthrereeem meeththooddsso off rreevveerrssaall.. NNoottee:: WWee
+cchhoossee tthheessee tthhrreeee ssttuuddiieess ttoo rreepprreesseenntt tthhee tthhrreeee mmeetthhooddss ooff rreevveerrssaall bbaasseedd oonn ppuubblliiccaattiioonn ddaattee aanndd
+rreelleevvaannccee ttoo ddiiaabbeetteess rreevveerrssaall.. NNoottee tthhaatt bbaasseelliinnee cchhaarraacctteerriissttiiccss ddiif ff feerr.. SSuurrggeerryy ttrriiaall eexxaammiinneedd bbyy
+sleevegastrectomyandRoux-en-Ygastricbypassseparatelyandwererepresentedassleeveandbypass
+inthegraph. Surgery: STAMPEDE[34,35]. Low-caloriediets(LCD):DIRECT[65,66];carbohydrate
+restriction(LC):IUH[99,107].
+4. Summary
+Additionalevidencehasbecomeavailableinrecentyearssuggestingthatdiabetesreversalisa
+possiblealternativetoconsiderinplaceoftraditionaldiabetestreatmentandmanagement. Inthis
+paper, weprovide a reviewof three methodsthat havebeen shownto successfullyreversetype 2
+diabetes. Thecurrentbodyofevidencesuggeststhatbariatricsurgeryisthemosteffectivemethodfor
+overallefficacyandprolongedremission,eventhoughconcernsassociatedwithsurgicalcomplications,
+treatmentcostandcompletelifestylemodificationaftersurgeryremainchallengesforwideadoption
+ofthisapproach. WhileboththeLCDandLCdietaryapproachesareconvincingforreversingdiabetes
+intheshortterm(uptotwoyears),longtermmaintenanceofdiabetesremissionisstillunproven.
+Therearelimitedavailabledatasupportinglongtermmaintenanceofweightlossanditsassociated
+glycemicimprovementsinresponsetoLCD;similarly,long-termadherencetoalowcarbohydrateNutrients2019,11,766 10of17
+dietwilllikelyremainanobstaclewithoutthedevelopmentofproperpatienteducationandoptimal
+supportforlong-termbehavioralchange. Moreover, researchinunderstandingthemechanismof
+diabetesreversibilityinallthreeapproachesanditsoverlappingmechanisticpathwaysarelacking;
+thisisanareaforfutureresearchemphasis.
+Therearesimilaridentifiednegativepredictorsofremissionforallthreeapproaches. Thesefactors
+includelongerdiabetesdurationandincreasedseverity, lowerBMI,advancedage, poorglycemic
+control,andlowC-peptidelevels(indicatingdecreasedendogenousinsulinproduction)[117]. Further
+exploration into the heterogeneity of these factors will help personalize the approach, determine
+realistic goals for each patient, and should be considered during treatment discussions. Ongoing
+researchintoalgorithmdevelopmentwillbehelpfulinthisregard.
+5. Conclusions
+Overall,asasocietywecannolongeraffordortoleratethecontinuedrisingratesofdiabetes.
+Despitemanybarrierswithinthehealthcaresystemasawhole,providersareresponsibleonadaily
+basisforthelivesofpatientscaughtupinthisunprecedentedepidemic. Thecurrentstandardofcare
+maybesuitableforsome, butotherswouldsurelychoosereversaliftheyunderstoodtherewasa
+choice. Thechoicecanonlybeofferedifprovidersarenotonlyawarethatreversalispossiblebuthave
+theeducationneededtoreviewtheseoptionsinapatient-centricdiscussion.
+Author Contributions: Conceptualization, S.J.H. and S.J.A. Investigation, S.J.H., V.M.G., T.L.H., S.J.A.
+Writing—originaldraft,S.J.H.,V.M.G.,S.J.A.Writing—reviewandediting,S.J.H.,V.M.G.,T.L.H.,S.J.A.Allauthors
+approvedofthefinalmanuscript.
+Acknowledgments: WethankJamesMcCarterandStephenPhinneyfortheiredits,whichgreatlyimproved
+themanuscript.
+ConflictsofInterest: S.J.H.isanemployeeandshareholderofVirtaHealth,afor-profitcompanythatprovides
+remotediabetescareusingalow-carbohydratenutritionintervention,andservesasanadvisorforAtkinsCorp.
+V.M.G.hasnoconflictsofinteresttodeclare. T.L.H.isanemployeeofVirtaHealth. S.J.A.isanemployeeand
+shareholderofVirtaHealth.
+Abbreviations:
+C carbohydraterestriction
+DSS-II DiabetesSurgerySummit
+RYGB Roux-en-YGastricBypass
+SG SleeveGastrectomy
+CCK cholecystokinin
+PYY peptide-tyrosine-tyrosine
+GLP-1 glucagon-likepeptide1
+LABS-2 LongitudinalAssessmentofBariatricSurgery2
+LCD low-caloriediet
+IMT intensivemedicalintervention
+DiRECT DiabetesRemissionClinicalTrial
+ASD EuropeanAssociationfortheStudyofDiabetes
+VA/DOD VeteransAffairs/DepartmentofDefense
+References
+1. InternationalDiabetesFederation. InIDFDiabetesAtlas,8thed.;InternationalDiabetesFederation: Brussels,
+Belgium,2017.
+2. Centers for Disease Control and Prevention. National Diabetes Statistics Report, 2017. Available
+online: https://www.cdc.gov/diabetes/pdfs/data/statistics/national-diabetes-statistics-report.pd(accessedon
+1February2019).Nutrients2019,11,766 11of17
+3. Home,P.;Riddle,M.;Cefalu,W.T.;Bailey,C.J.;DelPrato,S.;Leroith,D.;Schemthaner,G.;vanGaal,L.;
+Raz,I.InsulintherapyinpeoplewithType2diabetes: Opportunitiesandchallenges. DiabetesCare2014,37,
+1499–1508. [CrossRef][PubMed]
+4. WorldHealthOrganization. GlobalReportonDiabetes. 2016. Availableonline: https://www.who.int/
+diabetes/publications/grd-2016/en/(accessedon1February2019).
+5. Davies,M.J.;D’Alessio,D.A.;Fradkin,J.;Kernan,W.N.;Mathieu,C.;Mingrone,G.;Rossing,P.;Tsapas,A.;
+Wexler,D.J.;Buse,J.B.ManagementofhyperglycemiainType2diabetes,2018. Aconsensusreportbythe
+AmericanDiabetesAssociation(ADA)andtheEuropeanAssociationfortheStudyofDiabetes(EASD).
+DiabetesCare2018,41,2669–2701. [CrossRef][PubMed]
+6. Ramos-Levi,A.M.;Cabrerizo,L.;Matia,P.;Sanchez-Pernaute,A.;Torres,A.J.;Rubio,M.A.Whichcriteria
+shouldbeusedtodefinetype2diabetesremissionafterbariatricsurgery. BMCSurgery2013,13,8. [CrossRef]
+[PubMed]
+7. Xiang,A.H.;Trigo,E.;Martinez,M.;Katkhouda,N.;Beale,E.;Wang,X.;Wu,J.;Chow,T.;Montgomery,C.;
+Nayak,K.S.;etal. Impactofgastricbandingversusmetforminonβ-cellfunctioninadultswithimpaired
+glucosetoleranceormildtype2diabetes. DiabetesCare2018,41,2544–2551. [CrossRef]
+8. DiabetesPreventionProgramResearchGroup. Long-termeffectsofmetforminondiabetesprevention:
+Identificationofsubgroupsthatbenefitedmostinthediabetespreventionprogramanddiabetesprevention
+outcomesstudy. DiabetesCare2019,dc181970. [CrossRef]
+9. Buse,J.B.;Caprio,S.;Cefalu,W.T.;Ceriello,A.;DelPrato,S.;Inzucchi,S.E.;McLaughlin,S.;Phillips,G.L.,II;
+Robertson,R.P.;Rubino,F.;etal. Howdowedefinecureofdiabetes? DiabetesCare2009,32,2133–2135.
+[CrossRef]
+10. Karter,A.J.;Nundy,S.;Parker,M.M.;Moffet,H.H.;Huang,E.S.IncidenceofremissioninadultswithType2
+diabetes: TheDiabetes&AgingStudy. DiabetesCare2014,37,3188–3195.
+11. Steven,S.;Carey,P.E.;Small,P.K.;Taylor,R.ReversalofType2diabetesafterbariatricsurgeryisdetermined
+bythedegreeofachievedweightlossinbothshort-andlong-durationdiabetes. DiabetMed. 2015,32,47–53.
+[CrossRef][PubMed]
+12. Rubino,F.;Nathan,D.;Eckel,R.H.;Schauer,P.R.;Alberti,K.G.;Zimmet,P.Z.;DelPrato,S.;Ji,L.;Sadikot,S.M.;
+Herman,W.H.;etal. Delegatesofthe2ndDiabetesSurgerySummit. Metabolicsurgeryinthetreatment
+algorithmfortype2diabetes: AjointstatementbyInternationalDiabetesOrganizations. DiabetesCare2016,
+39,861–877. [CrossRef]
+13. Anhe,F.F.;Varin,T.V.;Schertzer,J.D.;Marette,A.TheGutMicrobiotaasaMediatorofMetabolicBenefits
+afterBariatricSurgery. Can. J.Diabetes2017,41,439–447. [CrossRef]
+14. Medina,D.A.;Pedreros,J.P.;Turiel,D.;Quezada,N.;Pimentel,F.;Escalona,A.;Garrido,D.Distinctpatterns
+inthegutmicrobiotaaftersurgicalormedicaltherapyinobesepatients. PeerJ2017,5,e3443. [CrossRef]
+15. Magouliotis,D.E.;Tasiopoulou,V.S.;Sioka,E.;Chatedaki,C.;Zacharoulis,D.ImpactofBariatricSurgery
+onMetabolicandGutMicrobiotaProfile: ASystematicReviewandMeta-analysis. Obes. Surg. 2017,27,
+1345–1357. [CrossRef]
+16. Murphy,R.;Tsai,P.;Jullig,M.;Liu,A.;Plank,L.;Booth,M.DifferentialChangesinGutMicrobiotaAfter
+GastricBypassandSleeveGastrectomyBariatricSurgeryVaryAccordingtoDiabetesRemission. Obes. Surg.
+2017,27,917–925. [CrossRef][PubMed]
+17. Kaska, L.; Sledzinski, T.; Chomiczewska, A.; Dettlaff-Pokora, A.; Swierczynski, J. Improved glucose
+metabolismfollowingbariatricsurgeryisassociatedwithincreasedcirculatingbileacidconcentrationsand
+remodelingofthegutmicrobiome. WorldJ.Gastroenterol. 2016,22,8698–8719. [CrossRef][PubMed]
+18. Penney,N.C.;Kinross,J.;Newton,R.C.;Purkayastha,S.Theroleofbileacidsinreducingthemetabolic
+complicationsofobesityafterbariatricsurgery: asystematicreview. Int. J.Obes. (Lond). 2015,39,1565–1574.
+[CrossRef][PubMed]
+19. Sweeney,T.E.;Morton,J.M.Thehumangutmicrobiome: Areviewoftheeffectofobesityandsurgically
+inducedweightloss. JAMASurg. 2013,148,563–569. [CrossRef]
+20. Rubino,F.;Gagner,M.Potentialofsurgeryforcuringtype2diabetesmellitus. Ann. Surg. 2002,236,554–559.
+[CrossRef]
+21. Cohen,R.;Caravatto,P.P.;Correa,J.L.;Noujaim,P.;Petry,T.Z.;Salles,J.E.;Schiavon,C.A.Glycemiccontrol
+after stomach-sparing duodenal-jejunal bypass surgery in diabetic patients with low body mass index.
+Surg.Obes. Relat. Dis. 2012,8,375–380. [CrossRef]Nutrients2019,11,766 12of17
+22. Federico,A.;Dallio,M.;Tolone,S.;Gravina,A.G.;Patrone,V.;Romano,M.;Tuccillo,C.;Mozzillo,A.L.;
+Amoroso,V.;Misso,G.;etal. GastrointestinalHormones,IntestinalMicrobiotaandMetabolicHomeostasis
+inObesePatients: EffectofBariatricSurgery. InVivo2016,30,321–330.
+23. Peat,C.M.;Kleiman,S.C.;Bulik,C.M.;Carroll,I.M.TheIntestinalMicrobiomeinBariatricSurgeryPatients.
+Eur. Eat. Disord. Rev. 2015,23,496–503. [CrossRef][PubMed]
+24. Sweeney,T.E.;Morton,J.M.Metabolicsurgery: Actionviahormonalmilieuchanges,changesinbileacidsor
+gutmicrobiota? Asummaryoftheliterature.BestPract. Res. Clin. Gastroenterol.2014,28,727–740. [CrossRef]
+25. Ma,I.T.;Madura,J.A.GastrointestinalComplicationsafterBariatricSurgery. Gastroenterol. Hepatol. (NY).
+2015,11,526–535.
+26. Rubino,F.;Schauer,P.R.;Kaplan,L.M.;Cummings,D.E.Metabolicsurgerytotreattype2diabetes: Clinical
+outcomeandmechanismsofaction. Annu. Rev. Med. 2010,61,393–411. [CrossRef][PubMed]
+27. Abraham,A.;Ikramuddin,S.;Jahansouz,C.;Arafat,F.;Hevelone,N.;Leslie,D.Trendsinbariatricsurgery:
+Procedureselection,revisionalsurgeries,andreadmissions. Obes. Surg. 2016,26,1371–1377. [CrossRef]
+[PubMed]
+28. Tack,J.;Deloose,E.Complicationsofbariatricsurgery: Dumpingsyndrome,refluxandvitamindeficiencies.
+BestPrac. Res. Clin. Gastroenterol. 2014,28,741–749. [CrossRef][PubMed]
+29. Eisenbarg,D.;Azagury,D.E.;Ghiassi,S.;Grover,B.T.;Ki,J.J.ASMBSpositionstatementonpostprandial
+hyperinsulinemichypoglycemiaafterbariatricsurgery. Surg. Obes. Relat. Dis. 2017,13,371–378. [CrossRef]
+30. Pories,W.J.;Mehaffey,J.H.;Staton,K.M.Thesurgicaltreatmentoftypetwodiabetesmellitus. SurgClin. N.
+Am. 2011,91,821–836. [CrossRef]
+31. Purnell,J.Q.; Selzer,F.; Wahed,A.S.; Pender,J.; Pories,W.; Pomp,A.; Dakin,G.; Mitchell,J.; Garcia,L.;
+Staten,M.A.;etal. Type2DiabetesRemissionRatesAfterLaparoscopicGastricBypassandGastricBanding:
+Results of the Longitudinal Assessment of Bariatric Surgery Study. Diabetes Care 2016, 39, 1101–1107.
+[CrossRef][PubMed]
+32. Salminen,P.;Helmio,M.;Ovaska,J.;Juuti,A.;Leivonen,M.;Peromaa-Haavista,P.;Hurme,S.;Soinio,M.;
+Nuutila,P.; Victorzon,M.Effectoflaparoscopicsleevegastrectomyvs. laparoscopicRoux-en-Ygastric
+bypassonweightlossat5yearsamongpatientswithmorbidobesity: TheSLEEVEPASSrandomizedclinical
+trial. JAMA2018,319,241–254. [CrossRef][PubMed]
+33. Schauer,P.R.;Kashyap,S.R.;Wolski,K.;Brethauer,S.A.;Kirwan,J.P.;Pothier,C.E.;Thomas,S.;Abood,B.;
+Nissen,S.E.;Bhatt,D.L.Bariatricsurgeryversusmedicaltherapyinobesepatientswithdiabetes. N.Engl.
+J.Med. 2012,366,1567–1576. [CrossRef]
+34. Kashyap,S.R.;Bhatt,D.L.;Wolski,K.;Watanabe,R.M.;Abdul-Ghani,M.;Abood,B.;Pothier,C.E.;Brethauer,S.;
+Nissen,S.;Gupta,M.;etal. Metaboliceffectsofbariatricsurgeryinpatientswithmoderateobesityandtype
+2diabetes: Analysisofarandomizedcontroltrialcomparingsurgerywithintensivemedicaltreatment.
+DiabetesCare2013,36,2175–2182. [CrossRef][PubMed]
+35. Schauer,P.R.;Bhatt,D.L.;Kirwan,J.P.;Wolski,K.;Aminian,A.;Brethauer,S.A.;Navaneethan,S.D.;Singh,R.P.;
+Pothier,C.E.;Nissen,S.E.;etal. Bariatricsurgeryversusintensivemedicaltherapyfordiabetes: 5-year
+outcomes. N.Engl. J.Med. 2017,376,641–651. [CrossRef][PubMed]
+36. Doble, B.; Wordsworth, S.; Rogers, C.A.; Welbourn, R.; Byrne, J.; Blazeby, J.M.; By-Band-Sleeve Trial
+ManagementGroup. Whataretherealproceduralcostsofbariatricsurgery? Asystematicliteraturereview
+ofpublishedcostanalyses. Obes. Surg. 2017,27,2179–2192. [CrossRef][PubMed]
+37. Warren,J.A.;Ewing,J.A.;Hale,A.L.;Blackhurst,D.W.;Bour,E.S.;Scott,J.D.Cost-effectivenessofbariatric
+surgery: Increasing the economic viability of the most effective treatment for type II diabetes mellitus.
+Am.Surgeon. 2015,81,807–811.
+38. Klein,S.;Ghosh,A.;Cremieux,P.Y.;Eapen,S.;McGavock,T.J.Economicimpactoftheclinicalbenefitsof
+bariatricsurgeryindiabetespatientswithBMI≥35kg/m2. Obesity2011,19,581–587. [CrossRef][PubMed]
+39. Picot, J.; Jones, J.; Colquitt, J.L.; Gospodarevskaya, E.; Loveman, E.; Baxter, L.; Clegg, A.J. The clinical
+effectivenessandcost-effectivenessofbariatric(weightloss)surgeryforobesity: Asystematicreviewand
+economicevaluation. HealthTechnol. Assess. 2009,13,1–190. [CrossRef]
+40. Schiavo, L.; Pilone, V.; Rossetti, G.; Barbarisi, A.; Cesaretti, M.; Iannelli, A. A 4-Week Preoperative
+KetogenicMicronutrient-EnrichedDietIsEffectiveinReducingBodyWeight,LeftHepaticLobeVolume,and
+MicronutrientDeficienciesinPatientsUndergoingBariatricSurgery: AProspectivePilotStudy. Obes.Surg.
+2018,28,2215–2224. [CrossRef]Nutrients2019,11,766 13of17
+41. Leonetti,F.;Campanile,F.C.;Coccia,F.;Capoccia,D.;Alessandroni,L.;Puzziello,A.;Coluzzi,I.;Silecchia,G.
+Verylow-carbohydrateketogenicdietbeforebariatricsurgery: Prospectiveevaluationofasequentialdiet.
+Obes. Surg. 2015,25,64–71. [CrossRef]
+42. Gumbs,A.A.;Pomp,A.;Gagner,M.Revisionalbariatricsurgeryforinadequateweightloss. Obes. Surg.
+2007,17,1137–1145. [CrossRef]
+43. Velapati,S.R.;Shah,M.;Kuchkuntla,A.R.;Abu-Dayyeh,B.;Grothe,K.;Hurt,R.T.;Mundi,M.S.Weight
+RegainAfterBariatricSurgery: Prevalence,Etiology,andTreatment. Curr. Nutr. Rep. 2018,7,329–334.
+[CrossRef][PubMed]
+44. Shoar,S.;Nguyen,T.;Ona,M.A.;Reddy,M.;Anand,S.;Alkuwari,M.J.;Saber,A.A.Roux-end-Ygastric
+bypassreversal: Asystematicreview. Surg. Obes. Relat. Dis. 2016,12,1366–1372. [CrossRef]
+45. Bojsen-Moller,K.N.MechanismsofimprovedglycemiccontrolafterRoux-en-Ygastricbypass. Dan. Med. J.
+2015,62,B5057. [PubMed]
+46. Pories,W.J.; Swanson,M.S.; MacDonald,K.G.; Long,S.B.; Morris,P.G.; Brown,B.M.; Barakat,H.A.; de
+Ramon,R.A.;Israel,G.;Dolezal,J.M.Whowouldhavethoughtit? Anoperationprovestobethemost
+effectivetherapyforadult-onsetdiabetesmellitus. Ann. Surg. 1995,222,339–350. [CrossRef]
+47. Sjostrom,L.;Lindroos,A.K.;Peltonen,M.;Torgerson,J.;Bouchard,C.;Carlsson,B.;Dahlgren,S.;Larsson,B.;
+Narbro,K.;Sjostrom,D.;etal. Lifestyle,diabetesandcardiovascularriskfactors10yearsafterbariatric
+surgery. N.Engl. J.Med. 2004,351,2683–2693. [CrossRef][PubMed]
+48. Bistrian,B.R.;Blackburn,G.L.;Flatt,J.P.;Sizer,J.;Scrimshaw,N.S.;Sherman,M.Nitrogenmetabolismand
+insulinrequirementsinobesediabeticadultsonaprotein-sparingmodifiedfast. Diabetes1976,25,494–504.
+[CrossRef][PubMed]
+49. Bauman,W.A.;Schwartz,E.;Rose,H.G.;Eisenstein,H.N.;Johnson,D.W.Earlyandlongtermeffectsofacute
+caloricdeprivationinobesediabeticpatients. Am. J.Med. 1988,85,38–46. [CrossRef]
+50. Hughes,T.A.;Gwynne,J.T.;Switzer,B.R.;Herbst,C.;White,G.Effectsofcaloricrestrictionandweightloss
+onglycemiccontrol,insulinreleaseandresistance,andatheroscleroticriskinobesepatientswithtypeII
+diabetesmellitus. Am. J.Med. 1984,77,7–17. [CrossRef]
+51. Hammer,S.;Snel,M.;Lamb,H.J.;Jazet,I.M.;vanderMeer,R.W.;Pijl,H.;Meinders,E.A.;Romijn,J.A.;de
+Roos,A.;Smit,J.W.Prolongedcaloricrestrictioninobesepatientswithtype2diabetesmellitusdecreases
+myocardialtriglyceridecontentandimprovesmyocardialfunction. J.Am. Coll. Cardiol. 2008,52,1006–1012.
+[CrossRef]
+52. Snel, M.; Jonker, J.T.; Hammer, S.; Kerpershoek, G.; Lamb, H.J.; Meinders, A.E.; Pijl, H.; de Roos, A.;
+Romijn,J.A.;Smit,J.W.A.Long-termbeneficialeffectofa16-weekverylowcaloriedietonpericardialfatin
+obesetype2diabetesmellituspatients. Obesity2012,20,1572–1576. [CrossRef]
+53. Paisey,R.B.;Harvey,P.;Rice,S.;Belka,I.;Bower,L.;Dunn,M.;Taylor,P.;Paisey,R.M.Anintensiveweight
+lossprogrammeinestablishedtype2diabetesandcontrols: Effectonweightandatherosclerosisriskfactors
+at1year. Diabet. Med. 1998,15,73–79. [CrossRef]
+54. Wing,R.R.;Blair,E.;Marcus,M.;Epstein,L.H.;Harvey,J.Year-longweightlosstreatmentforobesepatients
+withtypeIIdiabetes: Doesincludinganintermittentvery-low-caloriedietimproveoutcome? Am. J.Med.
+1994,97,354–362. [CrossRef]
+55. Damms-Machado,A.;Weser,G.;Bischoff,SC.Micronutrientdeficiencyinobesesubjectsundergoinglow
+caloriediet. Nutr. J.2012,11. [CrossRef][PubMed]
+56. Gardner,C.D.;Kim,S.;Bersamin,A.;Dopler-Nelson,M.;Otten,J.;Oelrich,B.;Cherin,R.Micronutrient
+qualityofweight-lossdietsthatfocusonmacronutrients: ResultsfromtheAtoZstudy. Am. J.Clin. Nutr.
+2010,92,304–312. [CrossRef][PubMed]
+57. Ryan, D.H.; Espeland, M.A.; Foster, G.D.; Haffner, S.M.; Hubbard, V.S.; Johnson, K.C.; Kahn, S.E.;
+Knowler, W.C.; Yanovski, S.Z.; Look AHEAD Research Group. Look AHEAD (Action for Health in
+Diabetes): Designandmethodsforaclinicaltrialofweightlossforthepreventionofcardiovasculardisease
+intype2diabetes. ControlClinTrials. 2003,24,610–628. [PubMed]
+58. Gregg,E.W.;Chen,H.;Wagenknecht,L.E.;Clark,J.M.;Delahanty,L.M.;Bantle,J.;Pownall,H.J.;Johnson,K.C.;
+Safford,M.M.;Kitabchi,A.E.;etal. Associationofanintensivelifestyleinterventionwithremissionoftype2
+diabetes. JAMA.2012,308,2489–2496. [CrossRef][PubMed]
+59. Mottalib,A.;Sakr,M.;Shehabeldin,M.;Hamdy,O.Diabetesremissionafternonsurgicalintensivelifestyle
+interventioninobesepatientswithType2diabetes. J.DiabetesRes. 2015,468704. [CrossRef]Nutrients2019,11,766 14of17
+60. Ades,P.A.; Savage,P.D.; Marney,A.M.; Harvey,J.; Evans,K.A.Remissionofrecentlydiagnosedtype2
+diabetesmellituswithweightlossandexercise. J.Cardiopulm. Rehabil. Prev. 2015,35,193–197. [CrossRef]
+[PubMed]
+61. Bhatt, A.A.; Choudhari, P.K.; Mahajan, R.R.; Sayyad, M.G.; Pratyush, D.D.; Hasan, I.; Javherani, R.S.;
+Bothale, M.M.; Purandare, V.B.; Unnikrishnan, A.G. Effect of a low-calorie diet on restoration of
+normoglycemia in obese subjects with Type 2 diabetes. Indian J. Endocrinol. Metab. 2017, 21, 776–780.
+[PubMed]
+62. Lim,E.L.;Hollingsworth,K.G.;Aribisala,B.S.;Chen,M.J.;Mathers,J.C.;Taylor,R.Reversaloftype2diabetes:
+Normalisationofbetacellfunctioninassociationwithdecreasedpancreasandlivertriacylglycerol. Diabetol
+2011,54,2506–2514. [CrossRef]
+63. Steven,S.;Hollingsworth,K.G.;Al-Mrabeh,A.;Avery,L.;Aribisala,B.;Caslake,M.;Taylor,R.Verylow-calorie
+dietand6monthsofweightstabilityintype2diabetes: Pathophysiologicalchangesinrespondersand
+nonresponders. DiabetesCare2016,39,808–815. [CrossRef]
+64. Lean,M.J.;Leslie,W.S.;Barnes,A.C.;Brosnahan,N.;Thom,G.;McCombie,L.;Peters,C.;Zhyzhneuskaya,S.;
+Al-Mrabeh,A.;Hollingsworth,K.G.;etal. Primarycare-ledweightmanagementforremissionoftype2
+diabetes(DiRECT):Anopen-label,cluster-randomisedtrial. Lancet. 2018,391,541–551. [CrossRef]
+65. Lean,M.E.J.;Leslie,W.S.;Barnes,A.C.;Brosnahan,N.;Thom,G.;McCombie,L.;Peters,C.;Zhyzhneuskaya,S.;
+Al-Mrabeh,A.;Hollingsworth,K.G.;etal. Durabilityofaprimarycare-ledweight-managementintervention
+forremissionoftype2diabetes: 2-yearresultsoftheDiRECTopen-label,cluster-randomisedtrial. Lancet
+DiabetesEndocrinol. 2019. [CrossRef]
+66. McInnes,N.;Smith,A.;Otto,R.;Vandermey,J.;Punthakee,Z.;Sherifali,D.;Balasubramaniam,K.;Hall,S.;
+Gerstein,HC.Pilotingaremissionstrategyintype2diabetes: Resultsofarandomizedcontrolledtrial.
+J.Clin. Endocrinol. Metab. 2017,102,1596–1605. [CrossRef]
+67. Fothergill,E.;Guo,J.;Howard,L.;Kerns,J.C.;Knuth,N.D.;Brychta,R.;Chen,K.Y.;Skarulis,M.C.;Walter,M.;
+Walter,P.J.;etal. Persistentmetabolicadaptation6yearsafter“TheBiggestLoser”competition. Obesity2016,
+24,1612–1619. [CrossRef][PubMed]
+68. Greenway,F.L.Physiologicaladaptationstoweightlossandfactorsfavouringweightregain. Int. J.Obes.
+2015,39,1188–1196. [CrossRef]
+69. Campbell,W.R.Dietetictreatmentindiabetesmellitus. Can. Med. Assoc. J.1923,13,487–492. [PubMed]
+70. Westman,E.C.;Yancy,W.S.;Humphreys,M.Dietarytreatmentofdiabetesmellitusinthepre-insulinera
+(1914–1922). Perspect. Biol. Med. 2006,49,77–83. [CrossRef]
+71. Arky,R.;Wylie-Rosett,J.;El-Beheri,B.Examinationofcurrentdietaryrecommendationsforindividualswith
+diabetesmellitus. DiabetesCare1982,5,59–63. [CrossRef]
+72. Anderson,J.W.;Geil,P.B.Newperspectivesinnutritionmanagementofdiabetesmellitus. Am. J.Med. 1988,
+85,159–165. [CrossRef]
+73. AmericanDiabetesAssociation.SummaryofRevisions:StandardsofMedicalCareinDiabetes-2019.Diabetes
+Care2019,42,S4–S6.
+74. Department of Veteran Affairs and Department of Defense. VA/DoD Clinical Practice Guideline for
+the Management of Type 2 Diabetes Mellitus in Primary Care. Version 5.0. Available online: https:
+//www.healthquality.va.gov/guidelines/cd/diabetes/(accessedon20January2019).
+75. Westman,E.C.;Feinman,R.D.;Mavropoulos,J.C.;Vernon,M.C.;Volek,J.S.;Wortman,J.A.;Yancy,W.S.;
+Phinney,S.D.Lowcarbohydratenutritionandmetabolism. Am. J.Clin. Nutr. 2007,86,276–284. [CrossRef]
+[PubMed]
+76. Stern,L.;Iqbal,N.;Seshadri,P.;Chicano,K.L.;Daily,D.A.;McGrory,J.;Williams,M.;Gracely,E.J.;Samaha,F.F.
+Theeffectsoflow-carbohydrateversusconventionalweightlossdietsinseverelyobeseadults: One-year
+follow-upofarandomizedtrial. Ann. Intern. Med. 2004,140,778–785. [CrossRef]
+77. Miyashita,Y.;Koide,N.;Ohtsuka,M.;Ozaki,H.;Itoh,Y.;Oyama,T.;Uetake,T.;Ariga,K.;Shirai,K.Beneficial
+effectoflowcarbohydrateinlowcaloriedietsonvisceralfatreductionintype2diabeticpatientswithobesity.
+DiabetesRes. Clin. Pract. 2004,65,235–241. [CrossRef][PubMed]
+78. Jönsson,T.;Granfeldt,Y.;Ahren,B.;Branell,U.C.;Pålsson,G.;Hansson,A.;Söderström,M.;Lindeberg,S.
+Beneficial effects of a Paleolithic diet on cardiovascular risk factors in type 2 diabetes: A randomized
+cross-overpilotstudy. Cardiovasc. Diabetol. 2009,8,3. [CrossRef][PubMed]Nutrients2019,11,766 15of17
+79. Davis,N.J.;Tomuta,N.;Schechter,C.;Isasi,C.R.;Segal-Isaacson,C.J.;Stein,D.;Zonszein,J.;Wylie-Rosett,J.
+Comparativestudyoftheeffectsofa1-yeardietaryinterventionofalow-carbohydratedietversusalow-fat
+dietonweightandglycemiccontrolintype2diabetes. DiabetesCare2009,32,1147–1152. [CrossRef]
+80. Daly,M.E.;Paisey,R.;Paisey,R.;Millward,B.A.;Eccles,C.;Williams,K.;Hammersley,S.;MacLeod,K.M.;
+Gale,T.J.Short-termeffectsofseveredietarycarbohydrate-restrictionadviceintype2diabetes:Arandomized
+controlledtrial. Diabet. Med. 2006,23,15–20. [CrossRef]
+81. Dyson,P.A.;Beatty,S.;Matthews,D.R.Alow-carbohydratedietismoreeffectiveinreducingbodyweight
+thanhealthyeatinginbothdiabeticandnon-diabeticsubjects. Diabet. Med. 2007,24,1430–1435. [CrossRef]
+82. Wolever,T.M.;Gibbs,A.L.;Mehling,C.;Chiasson,J.L.;Connelly,P.W.;Josse,R.G.;Leiter,L.A.;Maheux,P.;
+Rabasa-Lhoret, R.; Rodger, N.W.; et al. The Canadian trial of carbohydrates in diabetes (CCD), a 1-yr
+controlledoflow-glycemicindexdietarycarbohydrateintype2diabetes: Noeffectonglycatedhemoglobin
+butreductioninC-reactiveprotein. Am. J.Clin. Nutr. 2008,87,114–125. [CrossRef][PubMed]
+83. Iqbal, N.; Vetter, M.L.; Moore, R.H.; Chittams, J.L.; Dalton-Bakes, C.V.; Dowd, M.; Williams-Smith, C.;
+Cardillo,S.;Wadden,T.A.Effectsofalow-intensityinterventionthatprescribedalow-carbohydratevs. a
+low-fatdietinobese,diabeticparticipants. Obesity(SilverSpring)2010,18,1733–1738. [CrossRef][PubMed]
+84. Goday,A.;Bellido,D.;Sajoux,I.;Crujeiras,A.B.;Burguera,B.;García-Luna,P.P.;Casanueva,F.F.Short-term
+safety,tolerabilityandefficacyofaverylow-calorieketogenicdietinterventionalweightlossprogramversus
+hypocaloricdietinpatientswithtype2diabetesmellitus. Nutr. Diabetes. 2016,6,e230. [CrossRef]
+85. Saslow, L.R.; Mason, A.E.; Kim, S.; Goldman, V.; Ploutz-Snyder, R.; Bayandorian, H.; Daubenmier, J.;
+Hecht,F.M.;Moskowitz,J.T.Anonlineinterventioncomparingaverylow-carbohydrateketogenicdietand
+lifestylerecommendationsversusaplatemethoddietinoverweightindividualswithtype2diabetes: A
+randomizedcontrolledtrial. J.Med. Int. Res. 2017,19,e36. [CrossRef][PubMed]
+86. Saslow, L.R.; Daubenmier, J.J.; Moskowitz, J.T.; Kim, S.; Murphy, E.J.; Phinney, S.D.; Ploutz-Snyder, R.;
+Goldman, V.; Cox, R.M.; Mason, A.E.; et al. Twelve-month outcomes of a randomized trial of a
+moderate-carbohydrate versus very low-carbohydrate diet in overweight adults with type 2 diabetes
+mellitusorprediabetes. Nutr. Diabetes. 2017,7,304. [CrossRef]
+87. Yamada, Y.; Uchida, J.; Izumi, H.; Tsukamoto, Y.; Inoue, G.; Watanabe, Y.; Irie, J.; Yamada, S.
+A non-calorie-restricted low-carbohydrate diet is effective as an alternative therapy for patients with
+type2diabetes. Int. Med. 2014,53,13–19. [CrossRef]
+88. Guldbrand,H.;Dizdar,B.;Bunjaku,B.;Lindström,T.;Bachrach-Lindström,M.;Fredrikson,M.;Östgren,C.J.;
+Nystrom,F.H.Intype2diabetes,randomisationtoadvicetofollowalow-carbohydratediettransiently
+improvesglycaemiccontrolcomparedwithadvicetofollowalow-fatdietproducingasimilarweightloss.
+Diabetologi. 2012,55,2118–2127. [CrossRef]
+89. Westman,E.C.;Yancy,W.S.;Mavropoulos,J.C.;Marquart,M.;McDuffie,J.R.Theeffectofalow-carbohydrate,
+ketogenicdietversusalow-glycemicindexdietonglycemiccontrolintype2diabetesmellitus. Nutr. Metab.
+2008,19,36. [CrossRef]
+90. Haimoto,H.;Iwata,M.;Wakai,K.;Umegaki,H.Long-termeffectsofadietlooselyrestrictingcarbohydrates
+onHbA1clevels,BMIandtaperingofsulfonylureasintype2diabetes: A2-yearfollow-upstudy. Diabetes
+Res. Clin. Pract. 2008,79,350–356. [CrossRef][PubMed]
+91. Tay,J.;Thompson,C.H.;Luscombe-Marsh,N.D.;Wycherley,T.P.;Noakes,M.;Buckley,J.D.;Wittert,G.A.;
+Yancy,W.S.,Jr.;Brinkworth,G.D.Effectsofanenergy-restrictedlow-carbohydrate,highunsaturatedfat/low
+saturatedfatdietversusahigh-carbohydrate,low-fatdietintype2diabetes: A2-yearrandomizedclinical
+trial. DiabetesObes. Metab. 2018,20,858–871. [CrossRef][PubMed]
+92. Wang, L.L.; Wang, Q.; Hong, Y.; Ojo, O.; Jiang, Q.; Hou, Y.Y.; Huang, Y.-H.; Wang, X.H. The effect of
+low-carbohydratedietonglycemiccontrolinpatientswithtype2diabetesmellitus. Nutrients2018,10,661.
+[CrossRef][PubMed]
+93. Larsen, R.N.; Mann, N.J.; Maclean, E.; Shaw, J.E. The effect of high-protein, low-carbohydrate diets in
+thetreatmentoftype2diabetes: A12monthrandomisedcontrolledtrial. Diabetologia2011,54,731–740.
+[CrossRef][PubMed]
+94. Sato,J.;Kanazawa,A.;Makita,S.;Hatae,C.;Komiya,K.;Shimizu,T.;Ikeda,F.;Tamura,Y.;Ogihara,T.;
+Mita,T.;etal. Arandomizedcontrolledtrialof130g/daylow-carbohydratedietintype2diabeteswithpoor
+glycemiccontrol. Clin. Nutr. 2017,36,992–1000. [CrossRef]Nutrients2019,11,766 16of17
+95. Sanada,M.;Kabe,C.;Hata,H.;Uchida,J.;Inoue,G.;Tsukamoto,Y.;Yamada,Y.;Irie,J.;Tabata,S.;Tabata,M.;
+etal. Efficacyofamoderatelylowcarbohydratedietina36-monthobservationalstudyofJapanesepatients
+withType2diabetes. Nutrients2018,10,528. [CrossRef][PubMed]
+96. Boden,G.;Sargrad,K.;Homko,C.;Mozzoli,M.;Stein,T.P.Effectofalowcarbohydratedietonappetite,
+bloodglucoselevels,andinsulinresistanceinobesepatientswithtype2diabetes. Ann. Intern. Med. 2005,
+142,403–411. [CrossRef][PubMed]
+97. Gannon,M.C.; Nuttall,F.Q.Effectofahigh-protein,low-carbohydratedietonbloodglucosecontrolin
+peoplewithtype2diabetes. Diabetes2004,53,2375–2382. [CrossRef][PubMed]
+98. Hallberg,S.J.;McKenzie,A.L.;Williams,P.T.;Bhanpuri,N.H.;Peters,A.L.;Campbell,W.W.;Hazbun,T.L.;
+Volk, B.M.; McCarter, J.P.; Phinney, S.D.; et al. Effectiveness and safety of a novel care model for the
+managementoftype2diabetesat1year: Anopen-label,non-randomized,controlledstudy. DiabetesTher.
+2018,9,583–612. [CrossRef][PubMed]
+99. Krebs,J.D.;Bell,D.;Hall,R.;Parry-Strong,A.;Docherty,P.D.;Clarke,K.;Chase,J.G.Improvementsinglucose
+metabolismandinsulinsensitivitywithalow-carbohydratedietinobesepatientswithtype2diabetes. J.Am.
+Coll. Nutr. 2013,32,11–17. [CrossRef][PubMed]
+100. Hussain,T.A.;Matthew,T.C.;Dashti,A.A.;Asfar,S.;Al-Zaid,N.;Dashti,H.M.Effectoflow-calorieversus
+low-carbohydrateketogenicdietintype2diabetes. Nutrition2012,28,1016–1021. [CrossRef]
+101. Sasakabe,T.;Haimoto,H.;Umegaki,H.;Wakai,K.Effectsofamoderatelow-carbohydratedietonpreferential
+abdominalfatlossandcardiovascularriskfactorsinpatientswithtype2diabetes. DiabetesMetab. Syndr.
+Obes. 2011,4,167–174. [CrossRef][PubMed]
+102. Nielsen,J.V.;Joensson,E.A.Lowcarbohydratedietintype2diabetes: Stableimprovementofbodyweight
+andglycemiccontrolduring44monthsfollow-up. Nutr. Metab. 2008,5,14. [CrossRef][PubMed]
+103. Dashti,H.M.;Mathew,T.C.;Khadada,M.;Al-Mousawi,M.;Talib,H.;Asfar,S.K.;Behbahani,A.I.;Al-Zaid,N.S.
+Beneficialeffectsofketogenicdietinobesediabeticsubjects. Mol. CellBiochem. 2007,302,249–256. [CrossRef]
+[PubMed]
+104. Yancy,W.S.;Foy,M.;Chalecki,A.M.;Vernon,A.C.;Westman,E.C.Alowcarbohydrate,ketogenicdietto
+treattype2diabetes. Nutr. Metab. 2005,2,34. [CrossRef][PubMed]
+105. Dashti,H.M.; Mathew,T.C.; Hussein,T.; Asfar,S.K.; Behbahani,A.; Khoursheed,M.A.; Al-Sayer,H.M.;
+Bo-Abbas,Y.Y.;Al-Zaid,N.S.Long-termeffectsofaketogenicdietinobesepatients. Exp. Clin. Cardiol. 2004,
+9,200–205.
+106. Shai,I.;Schwarzfuchs,D.;Henkin,Y.;Shahar,D.R.;Witkow,S.;Greenberg,I.;Golan,R.;Fraser,D.;Bolotin,A.;
+Vardi,H.;etal. Weightlosswithalow-carbohydrate,Mediterranean,orlow-fatdiet. N.Engl. J.Med. 2008,
+359,229–241. [CrossRef][PubMed]
+107. Elhayany,A.; Lustman,A.; Abel,R.; Attal-Singer,J.; Vinker,S.AlowcarbohydrateMediterraneandiet
+improvescardiovascularriskfactorsanddiabetescontrolamongoverweightpatientswithtype2diabetes
+mellitus: A1-yearprospectiverandomizedinterventionstudy. DiabetesObes. Metab. 2010,12,204–209.
+[CrossRef]
+108. Athinarayanan,S.J.;Adams,R.N.;Hallberg,S.J.;McKenzie,A.L.;Bhanpuri,N.H.;Campbell,W.W.;Volek,J.S.;
+Phinney,S.D.;McCarter,J.P.Long-termeffectsofanovelcontinuousremotecareinterventionincluding
+nutritionalketosisforthemanagementoftype2diabetes: A2-yearnon-randomizedclinicaltrial. bioRxiv
+2018,476275. [CrossRef]
+109. Snorgaard,O.;Poulsen,G.M.;Andersen,H.K.;Astrup,A.Systematicreviewandmeta-analysisofdietary
+carbohydraterestrictioninpatientswithtype2diabetes. BMJOpenDiabetesRes. Care. 2017,5,e000354.
+[CrossRef][PubMed]
+110. Bhanpuri,N.H.;Hallberg,S.J.;Williams,P.T.;McKenzie,A.L.;Ballard,K.D.;Campbell,W.W.;McCarter,J.P.;
+Phinney, S.D.; Volek, J.S. Cardiovascular disease risk factor responses to a type 2 diabetes care model
+includingnutritionalketosisinducedbysustainedcarbohydraterestrictionatoneyear: Anopenlabel,
+non-randomized,controlledstudy. Cardiovasc. Diabetol. 2018,17,56. [CrossRef]
+111. Wang,G.F.;Yan,Y.X.;Yin,D.;Hui,Y.;Zhang,J.P.;Han,G.J.;Ma,N.;Wu,Y.;Xu,J.Z.;Yang,T.Predictive
+factorsofType2diabetesmellitusremissionfollowingbariatricsurgery: AMeta-analysis. Obes. Surg. 2015,
+25,199–208. [CrossRef]Nutrients2019,11,766 17of17
+112. Yan,W.;Bai,R.;Li,Y.;Xu,J.;Zhong,Z.;Xing,Y.;Yan,M.;Lin,Y.;Song,M.Analysisofpredictorsoftype
+2diabetesmellitusremissionafterroux-en-Ygastricbypassin101Chinesepatients. Obes. Surg. 2019.
+[CrossRef]
+113. Brehm, B.J.; Seeley, R.J.; Daniels, S.R.; D’Alessio, D.A. A Randomized Trial Comparing a Very Low
+CarbohydrateDietandaCalorie-RestrictedLowFatDietonBodyWeightandCardiovascularRiskFactors
+inHealthyWomen. J.Clin. Endocrinol. Metab. 2003,88,1617–1623. [CrossRef]
+114. Nordmann,A.J.; Nordmann,A.; Briel,M.; Keller,U.; Yancy,W.S.; Brehm,B.J.; Bucher,H.C.Effectsofa
+low-carbohydratevs. low-fatdietsonweightlossandcardiovascularriskfactors. Arch. Intern. Med. 2006,
+166,285–293. [CrossRef][PubMed]
+115. Westman,E.C.;Yancy,W.S.;Edman,J.S.;Tomlin,K.F.;Perkins,CE.Effectof6-monthadherencetoaverylow
+carbohydratedietprogram. Am. J.Med. 2002,113,30–36. [CrossRef]
+116. Nuttall,F.Q.;Gannon,M.C.Themetabolicresponsetoahigh-protein,low-carbohydratedietinmenwith
+type2diabetesmellitus. Metabolism2006,55,243–251. [CrossRef][PubMed]
+117. Min,T.; Barry,J.D.; Stephens,J.W.PredictingtheResolutionofType2DiabetesafterBariatricSurgical
+Procedures: AConciseReview. J.DiabetesMetab. 2015,6,617.
+©2019bytheauthors. LicenseeMDPI,Basel,Switzerland. Thisarticleisanopenaccess
+articledistributedunderthetermsandconditionsoftheCreativeCommonsAttribution
+(CCBY)license(http://creativecommons.org/licenses/by/4.0/).

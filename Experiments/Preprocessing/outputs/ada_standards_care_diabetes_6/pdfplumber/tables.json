@@ -1,0 +1,278 @@
+[
+  {
+    "page": 2,
+    "data": [
+      [
+        "A1C(%) mg/dL* mmol/L",
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        "5",
+        "",
+        "97(76–120)",
+        "",
+        "5.4(4.2–6.7)"
+      ],
+      [
+        "6",
+        "",
+        "126(100–152)",
+        "",
+        "7.0(5.5–8.5)"
+      ],
+      [
+        "7",
+        "",
+        "154(123–185)",
+        "",
+        "8.6(6.8–10.3)"
+      ],
+      [
+        "8",
+        "",
+        "183(147–217)",
+        "",
+        "10.2(8.1–12.1)"
+      ],
+      [
+        "9",
+        "",
+        "212(170–249)",
+        "",
+        "11.8(9.4–13.9)"
+      ],
+      [
+        "10",
+        "",
+        "240(193–282)",
+        "",
+        "13.4(10.7–15.7)"
+      ],
+      [
+        "11",
+        "",
+        "269(217–314)",
+        "",
+        "14.9(12.0–17.5)"
+      ],
+      [
+        "12",
+        "",
+        "298(240–347)",
+        "",
+        "16.5(13.3–19.3)"
+      ]
+    ]
+  },
+  {
+    "page": 3,
+    "data": [
+      [
+        "Table6.2—StandardizedCGMmetricsforclinicalcare",
+        null,
+        null
+      ],
+      [
+        "1.NumberofdaysCGMdeviceisworn(recommend14days)",
+        "",
+        ""
+      ],
+      [
+        "2.PercentageoftimeCGMdeviceisactive(recommend70%\nofdatafrom14days)",
+        "",
+        ""
+      ],
+      [
+        "3.Meanglucose",
+        "",
+        ""
+      ],
+      [
+        "4.Glucosemanagementindicator",
+        "",
+        ""
+      ],
+      [
+        "5.Glycemicvariability(%CV)target#36%*",
+        "",
+        ""
+      ],
+      [
+        "6.TAR:%ofreadingsandtime>250mg/dL(>13.9mmol/L)",
+        "",
+        "Level2hyperglycemia"
+      ],
+      [
+        "7.TAR:%ofreadingsandtime181–250mg/dL(10.1–13.9mmol/L)",
+        "",
+        "Level1hyperglycemia"
+      ],
+      [
+        "8.TIR:%ofreadingsandtime70–180mg/dL(3.9–10.0mmol/L)",
+        "",
+        "Inrange"
+      ],
+      [
+        "9.TBR:%ofreadingsandtime54–69mg/dL(3.0–3.8mmol/L)",
+        "",
+        "Level1hypoglycemia"
+      ],
+      [
+        "10.TBR:%ofreadingsandtime<54mg/dL(<3.0mmol/L)",
+        "",
+        "Level2hypoglycemia"
+      ],
+      [
+        "CGM, continuous glucose monitoring; CV, coefficient of variation; TAR, time above range;\nTBR, time below range; TIR, time in range. *Some studies suggest that lower %CV targets\n(<33%)provideadditionalprotectionagainsthypoglycemiaforthosereceivinginsulinorsul-\nfonylureas.AdaptedfromBattelinoetal.(35).",
+        null,
+        null
+      ]
+    ]
+  },
+  {
+    "page": 4,
+    "data": [
+      [
+        "Average Glucose........................................... 175 mg/dL\nGoal: <154 mg/dL"
+      ],
+      [
+        "Glucose Management Indicator (GMI)............... 7.5%\nGoal: <7%"
+      ]
+    ]
+  },
+  {
+    "page": 4,
+    "data": [
+      [
+        "9",
+        "10",
+        "",
+        "11",
+        "",
+        "12",
+        "",
+        "111333",
+        "",
+        "14",
+        ""
+      ]
+    ]
+  },
+  {
+    "page": 4,
+    "data": [
+      [
+        "16",
+        "17",
+        "",
+        "18",
+        "",
+        "19",
+        "",
+        "20",
+        "",
+        "21",
+        ""
+      ]
+    ]
+  },
+  {
+    "page": 6,
+    "data": [
+      [
+        "Risks potentially associated\nwith hypoglycemia and\nother drug adverse effects\nlow high"
+      ],
+      [
+        "Disease duration\nnewly diagnosed long-standing"
+      ],
+      [
+        "Life expectancy\nlong short"
+      ],
+      [
+        "Important comorbidities\nabsent few / mild severe"
+      ],
+      [
+        "Established vascular\ncomplications\nabsent few / mild severe"
+      ]
+    ]
+  },
+  {
+    "page": 6,
+    "data": [
+      [
+        "Patient preference\nhighly motivated, excellent preference for less\nself-care capabilities burdensome therapy"
+      ],
+      [
+        "Resources and support\nsystem\nreadily available limited"
+      ]
+    ]
+  },
+  {
+    "page": 8,
+    "data": [
+      [
+        "Table6.3—Summaryofglycemicrecommendationsformanynonpregnant\nadultswithdiabetes",
+        null,
+        null
+      ],
+      [
+        "A1C",
+        "",
+        "<7.0%(53mmol/mol)*#"
+      ],
+      [
+        "Preprandialcapillaryplasmaglucose",
+        "",
+        "80–130mg/dL*(4.4–7.2mmol/L)"
+      ],
+      [
+        "Peakpostprandialcapillaryplasmaglucose†",
+        "",
+        "<180mg/dL*(10.0mmol/L)"
+      ],
+      [
+        "*More or less stringent glycemic goals may be appropriate for individual patients. #CGM\nmay be used to assess glycemic target as noted in Recommendation 6.5b and Fig. 6.1.\nGoalsshouldbeindividualizedbasedondurationofdiabetes,age/lifeexpectancy,comorbid\nconditions, known CVD or advanced microvascular complications, hypoglycemia unaware-\nness, and individual patient considerations (as per Fig. 6.2). †Postprandial glucose may be\ntargeted if A1C goals are not met despite reaching preprandial glucose goals. Postprandial\nglucose measurements should be made 1–2 h after the beginning of the meal, generally\npeaklevelsinpeoplewithdiabetes.",
+        null,
+        null
+      ]
+    ]
+  },
+  {
+    "page": 9,
+    "data": [
+      [
+        "Table6.4—Classificationofhypoglycemia",
+        null,
+        null
+      ],
+      [
+        "Glycemiccriteria/description",
+        null,
+        null
+      ],
+      [
+        "Level1",
+        "",
+        "Glucose<70mg/dL(3.9mmol/L)and$54mg/dL(3.0mmol/L)"
+      ],
+      [
+        "Level2",
+        "",
+        "Glucose<54mg/dL(3.0mmol/L)"
+      ],
+      [
+        "Level3",
+        "",
+        "Asevereeventcharacterizedbyalteredmentaland/orphysicalstatusrequiring\nassistancefortreatmentofhypoglycemia"
+      ],
+      [
+        "ReprintedfromAgiostratidouetal.(74).",
+        null,
+        null
+      ]
+    ]
+  }
+]

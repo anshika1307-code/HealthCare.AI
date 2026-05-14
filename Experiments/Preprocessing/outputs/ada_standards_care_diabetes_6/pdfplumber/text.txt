@@ -1,0 +1,1090 @@
+6. Glycemic Targets: Standardsof
+NuhaA.ElSayed,GraziaAleppo,
+— VanitaR.Aroda,RaveendharaR.Bannuru,
+CareinDiabetes 2023
+FlorenceM.Brown,DennisBruemmer,
+BillyS.Collins,MarisaE.Hilliard,
+DiabetesCare 2023;46(Suppl. 1):S97–S110 | https://doi.org/10.2337/dc23-S006 DianaIsaacs,EricL.Johnson,
+ScottKahan,KamleshKhunti,JoseLeon,
+SarahK.Lyons,MaryLouPerry,
+PriyaPrahalad,RichardE.Pratley,
+JaneJeffrieSeley,RobertC.Stanton,and
+RobertA.Gabbay,onbehalfofthe
+AmericanDiabetesAssociation
+The American Diabetes Association (ADA) “Standards of Care in Diabetes” in-
+cludes the ADA’s current clinical practice recommendations and is intended to
+provide the components of diabetes care, general treatment goals and guide-
+lines, and tools to evaluate quality of care. Members of the ADA Professional
+PracticeCommittee,amultidisciplinaryexpertcommittee,areresponsibleforup-
+datingtheStandardsofCareannually,ormorefrequentlyaswarranted.Forade-
+tailed description of ADA standards, statements, and reports, as well as the
+evidence-grading systemfor ADA’s clinical practice recommendations and a full
+list of Professional Practice Committee members, please refer to Introduction
+andMethodology.ReaderswhowishtocommentontheStandardsofCareare
+invitedtodosoatprofessional.diabetes.org/SOC.
+ASSESSMENTOFGLYCEMICCONTROL
+Glycemic control is assessed by the A1C measurement, continuous glucose moni-
+toring (CGM) using time in range (TIR) and/or glucose management indicator
+(GMI),andbloodglucosemonitoring(BGM).A1Cisthemetricusedtodateinclini-
+cal trials demonstrating the benefits of improved glycemic control. Individual glu-
+cosemonitoring(discussedindetailinSection7,“DiabetesTechnology”)isauseful
+tool for diabetes self-management, which includes meals, physical activity, and
+medicationadjustment,particularlyinindividualstakinginsulin.CGMservesanin-
+creasingly important role in the management of the effectiveness and safety of
+treatmentinmanypeoplewithtype1diabetesandinselectedpeoplewithtype2
+diabetes.Individualsonavarietyof insulintreatmentplanscan benefitfromCGM
+withimprovedglucosecontrol,decreasedhypoglycemia,andenhancedself-efficacy
+(Section7,“DiabetesTechnology”)(1).
+GlycemicAssessment
+Recommendations
+6.1 Assess glycemic status(A1Corotherglycemicmeasurement such astime Disclosure information for each author is
+in range or glucose management indicator) at least two times a year in availableathttps://doi.org/10.2337/dc23-SDIS.
+patientswhoaremeetingtreatmentgoals(andwhohavestableglycemic Suggestedcitation:ElSayedNA,AleppoG,Aroda
+control).E VR, et al., American Diabetes Association. 6.
+6.2 Assessglycemicstatusatleastquarterlyandasneededinpatientswhose
+Glycemictargets:StandardsofCareinDiabetes—
+2023.DiabetesCare2023;46(Suppl.1):S97–S110
+therapy has recently changed and/or who are not meeting glycemic
+goals.E © 2022 by the American Diabetes Association.
+Readers may use this article as long as the
+work is properly cited, the use is educational
+and not for profit, and the work is not altered.
+A1Creflectsaverageglycemiaoverapproximately3months.Theperformanceofthe
+More information is available at https://www.
+test is generally excellent for National Glycohemoglobin Standardization Program diabetesjournals.org/journals/pages/license.
+6.GLYCEMICTARGETS
+DiabetesCare Volume46,Supplement1,January2023 S97S98 GlycemicTargets DiabetesCare Volume46,Supplement1,January2023
+(NGSP)-certified assays (ngsp.org). The most assays in use in the U.S. are accu-
+Table6.1—Estimatedaverageglucose
+testistheprimarytoolforassessinggly- rate in individualswho are heterozygous
+(eAG)
+cemiccontrolandhasastrongpredictive for the most common variants (ngsp.
+A1C(%) mg/dL* mmol/L
+value for diabetes complications (2–4). org/interf.asp). Other measures of aver-
+5 97(76–120) 5.4(4.2–6.7)
+Thus, A1C testing should be performed age glycemia such as fructosamine and
+routinely in all people with diabetes at 1,5-anhydroglucitol are available, but 6 126(100–152) 7.0(5.5–8.5)
+initialassessmentandaspartofcontinu- their translation into average glucose 7 154(123–185) 8.6(6.8–10.3)
+ing care. Measurement approximately levels and their prognostic significance
+8 183(147–217) 10.2(8.1–12.1)
+every3monthsdetermineswhetherpa- are not as clear as for A1C and CGM.
+tients’glycemictargetshavebeenreached Though some variability in the relation- 9 212(170–249) 11.8(9.4–13.9)
+andmaintained.A14-dayCGMassess- ship between average glucose levels 10 240(193–282) 13.4(10.7–15.7)
+ment of TIR and GMI can serve as a and A1C exists among different individ- 11 269(217–314) 14.9(12.0–17.5)
+surrogate for A1C for use in clinical uals,ingeneraltheassociationbetween
+management (5–9). The frequency of mean glucose and A1C within an indi- 12 298(240–347) 16.5(13.3–19.3)
+A1Ctestingshoulddependontheclin- vidualcorrelatesovertime(12). Datainparenthesesare95%CI.Acalcula-
+ical situation, the treatment plan, and A1C does not provide a measure of tor forconvertingA1Cresults into eAG,in
+the clinician’s judgment. The use of glycemic variability or hypoglycemia. For either mg/dL or mmol/L, is available at
+professional.diabetes.org/eAG. *These esti-
+point-of-care A1C testing or CGM- patientsprone to glycemic variability, es-
+mates are based on ADAG data of (cid:1)2,700
+derived TIR and GMI may provide an pecially people with type 1 diabetes or
+glucose measurements over 3 months per
+opportunity for more timely treatment type 2 diabetes with severe insulin defi- A1Cmeasurementin507adultswithtype1,
+changesduringencountersbetweenpa- ciency,glycemiccontrolisbestevaluated type 2, or no diabetes. The correlation be-
+tients and health care professionals. bythecombinationofresultsfromBGM/ tween A1C and average glucose was 0.92
+People withtype2 diabetes withstable CGM and A1C. Discordant results be- (13,14).AdaptedfromNathanetal.(13).
+glycemiawellwithintargetmaydowell tween BGM/CGM and A1C can be the
+with A1C testing or other glucose as- result of the conditions outlined above
+has considerable potential for optimizing
+sessment only twice per year. Unstable or glycemic variability, with BGM miss-
+theirglycemicmanagement(13).
+orintensivelymanagedpatientsorpeople ingtheextremes.
+not at goal with treatment adjustments
+mayrequiretestingmorefrequently(every CorrelationBetweenBGMandA1C A1CDifferencesinEthnic
+3 months with interim assessments as Table6.1showsthecorrelationbetween PopulationsandChildren
+Inthe ADAGstudy,therewerenosignifi-
+needed for safety) (10). CGM parameters A1Clevelsandmeanglucoselevelsbased
+cant differences among racial and ethnic
+can be tracked in the clinic or via tele- ontheinternationalA1C-DerivedAverage
+groups in the regression lines between
+healthtooptimizediabetesmanagement. Glucose (ADAG) study, which assessed
+A1C and mean glucose, although the
+the correlation between A1C and fre-
+study was underpowered to detect a dif-
+A1CLimitations quentBGMandCGMin507adults(83%
+ference and there was a trend toward a
+TheA1Ctestisanindirectmeasureofav- non-HispanicWhite)withtype1,type2,
+difference between the African and Afri-
+erageglycemiaand,assuch,issubjectto and no diabetes (13), and an empirical
+canAmericanandthenon-HispanicWhite
+limitations. As with any laboratory test, studyoftheaveragebloodglucoselevels
+thereisvariabilityinthemeasurementof atpremeal,postmeal,andbedtimeasso- cohorts, with higher A1C values observed
+A1C.AlthoughA1Cvariabilityisloweron ciated with specified A1C levels using in the African and African American co-
+anintraindividualbasisthanthatofblood datafromtheADAGtrial(14).TheAmer- horts compared with non-Hispanic White
+glucose measurements, clinicians should ican Diabetes Association (ADA) and the cohorts for a given mean glucose. Other
+exercise judgment when using A1C as AmericanAssociationforClinicalChemis- studieshavealsodemonstratedhigherA1C
+thesolebasisforassessingglycemiccon- tryhavedeterminedthatthecorrelation levelsinAfricanAmericanparticipantsthan
+trol, particularly if the result is close to (r = 0.92) in the ADAG trial is strong inWhiteparticipantsatagivenmeanglu-
+the threshold that might prompt a enoughtojustifyreportingboththeA1C coseconcentration(15,16).Incontrast,a
+change inmedicationtherapy.Forexam- resultandtheestimatedaverageglucose recent report in Afro-Caribbean individu-
+ple, conditions that affect red blood cell (eAG) result when a clinician orders the als found lower A1C relative to glucose
+turnover (hemolytic and other anemias, A1C test. Clinicians should note that the values(17).Takentogether,A1Candglu-
+glucose-6-phosphatedehydrogenasedefi- mean plasma glucose numbers in Table coseparametersareessentialfortheop-
+ciency, recent blood transfusion, use of 6.1 are based on (cid:1)2,700 readings per timalassessmentofglycemicstatus.
+drugs that stimulate erythropoiesis, end- A1CmeasurementintheADAGtrial.Ina A1C assays are available that do not
+stage kidney disease, and pregnancy) report, mean glucose measured with demonstrate a statistically significantdif-
+may result in discrepancies between the CGMversuscentrallaboratory–measured ference in individuals with hemoglobin
+A1C result and the patient’s true mean A1Cin387participantsinthreerandom- variants. Other assays have statistically
+glycemia(11).Hemoglobinvariantsmust ized trials demonstrated that A1C may significant interference, but the differ-
+be considered, particularly when the underestimateoroverestimatemeanglu- ence is not clinically significant. Use of
+A1C result does not correlate with the cose in individuals (12). Thus, as sug- anassaywithsuchstatisticallysignificant
+patient’s CGM or BGM levels. However, gested, a patient’s BGM or CGM profile interference may explain a report thatdiabetesjournals.org/care GlycemicTargets S99
+glycemictargets.Majorclinicaltrialsofin-
+Table6.2—StandardizedCGMmetricsforclinicalcare
+sulin-treatedpatientshaveincludedBGM
+1.NumberofdaysCGMdeviceisworn(recommend14days)
+as part of multifactorial interventions to
+2.PercentageoftimeCGMdeviceisactive(recommend70% demonstrate the benefit of intensive gly-
+ofdatafrom14days)
+cemic control on diabetes complications
+3.Meanglucose (33). BGM is thus an integral component
+4.Glucosemanagementindicator of effective therapy of patients taking in-
+sulin.Inrecentyears,CGMhasbecomea
+5.Glycemicvariability(%CV)target#36%*
+standard method for glucose monitoring
+6.TAR:%ofreadingsandtime>250mg/dL(>13.9mmol/L) Level2hyperglycemia formostadultswithtype1diabetes(34).
+7.TAR:%ofreadingsandtime181–250mg/dL(10.1–13.9mmol/L) Level1hyperglycemia Both approaches to glucose monitor-
+8.TIR:%ofreadingsandtime70–180mg/dL(3.9–10.0mmol/L) Inrange ing allow patients to evaluate individ-
+ual responses to therapy and assess
+9.TBR:%ofreadingsandtime54–69mg/dL(3.0–3.8mmol/L) Level1hypoglycemia
+whetherglycemictargetsarebeingsafely
+10.TBR:%ofreadingsandtime<54mg/dL(<3.0mmol/L) Level2hypoglycemia achieved.The international consensus on
+CGM, continuous glucose monitoring; CV, coefficient of variation; TAR, time above range; TIR provides guidance on standardized
+TBR, time below range; TIR, time in range. *Some studies suggest that lower %CV targets CGM metrics (Table 6.2) and considera-
+(<33%)provideadditionalprotectionagainsthypoglycemiaforthosereceivinginsulinorsul- tions for clinical interpretation and care
+fonylureas.AdaptedfromBattelinoetal.(35). (35).To make these metrics more action-
+able, standardized reports with visual
+for any level of mean glycemia, African cues,suchastheambulatoryglucosepro-
+visual cues, such as the ambula-
+American individuals heterozygous for tory glucose profile, should be file (Fig 6.1), are recommended (35) and
+the common hemoglobin variant HbS mayhelpthepatientandthehealthcare
+consideredasastandardsummary
+had lower A1C by about 0.3 percentage professional better interpret the data to
+forallCGMdevices.E
+points when compared with those with- guide treatment decisions (24,27). BGM
+6.4 Timeinrangeisassociatedwith
+out the trait (18,19). Another genetic andCGM canbe usefulto guide medical
+the risk of microvascular com-
+variant,X-linkedglucose-6-phosphatede- nutrition therapy and physical activity,
+plications and can be used for
+hydrogenase G202A, carried by 11% of preventhypoglycemia,andaidmedication
+assessment of glycemic control.
+AfricanAmericanindividuals,wasassoci-
+management. While A1C is currently the
+Additionally, time below range
+ated with a decrease in A1C of about
+primary measure to guide glucose man-
+0.8% in hemizygous men and 0.7% in and time above range are use-
+agement and a valuable risk marker for
+homozygous women compared with fulparametersfortheevaluation
+developing diabetes complications, the
+thosewithoutthetrait(20). of the treatment plan (Table
+CGMmetricsTIR(withtimebelowrange
+AsmallstudycomparingA1CtoCGM 6.2).C
+and time above range) and GMI provide
+data in children with type 1 diabetes
+the insightsfora more personalized dia-
+foundahighlystatisticallysignificantcor-
+CGMisrapidlyimprovingdiabetesman- betes management plan. The incorpora-
+relation between A1C and mean blood
+agement.Asstatedintherecommenda- tionofthesemetricsintoclinicalpractice
+glucose, although the correlation (r =
+0.7) was significantly lower than that in tions, time in range (TIR) is a useful is in evolution, and remote access to
+the ADAG trial (21). Whether there are metric of glycemic control and glucose thesedatacanbecriticalfortelehealth.A
+rapid optimization and harmonization of
+clinically meaningful differences in how patterns,anditcorrelateswellwithA1C
+A1C relates to average glucose in chil- in most studies (24–29). New data sup- CGM terminology and remote access is
+occurringtomeetpatientandhealthcare
+drenorindifferentethnicitiesisanarea portthepremisethatincreasedTIRcor-
+professional needs (36–38).The patient’s
+forfurtherstudy(15,22,23).Untilfurther relates with the risk of complications.
+specific needs and goals should dictate
+evidence is available, it seems prudent The studies supporting this assertion
+to establish A1C goals in these popula- BGM frequency and timing and con-
+arereviewedinmoredetailinSection7,
+tionswithconsiderationofindividualized “DiabetesTechnology”;theyincludecross- siderationofCGMuse.Pleaserefer to
+CGM, BGM, and A1C results. Limitations Section 7, “Diabetes Technology,” for
+sectionaldataandcohortstudies(30–32)
+in perfect alignment between glycemic a more complete discussion of the use
+demonstrating TIR as an acceptable end
+measurementsdo not interfere with the ofBGMandCGM.
+point for clinical trials moving forward
+usefulnessofBGM/CGMforinsulindose With the advent of new technology,
+and that it can be used for assessment
+adjustments. CGM has evolved rapidly in both accu-
+ofglycemiccontrol.Additionally,timebe- racy and affordability. Assuch,manypa-
+GlucoseAssessmentbyContinuous
+lowrange(<70and<54mg/dL[3.9and
+tients have these data available to assist
+GlucoseMonitoring 3.0 mmol/L]) and time above range with self-management and their health
+(>180 mg/dL [10.0 mmol/L]) are useful careprofessionals’assessmentofglycemic
+Recommendations
+parameters for insulin dose adjustments status. Reports can be generated from
+6.3 Standardized, single-page glucose
+andreevaluationofthetreatmentplan. CGM that will allow the health care
+reports from continuous glucose
+For many people with diabetes, glu- professional and person with diabetes
+monitoring (CGM) devices with
+cose monitoring is key for achieving to determine TIR, calculate GMI, andAGP Report: Continuous Glucose Monitoring
+Time in Ranges Goals for Type 1 and Type 2 Diabetes Test Patient DOB: Jan 1, 1970
+Goal: <5% 14 Days: August 8–August 21, 2021
+Very High 20%
+Time CGM Active: 100%
+44%
+Goal: <25%
+250
+High 24% Glucose Metrics
+180 Average Glucose........................................... 175 mg/dL
+Goal: <154 mg/dL
+46%
+mg/dL Target Goal: >70% Glucose Management Indicator (GMI)............... 7.5%
+Goal: <7%
+70 Low 5%
+54 10%
+Goal: <4%
+Glucose Variability............................................ 45.5%
+Very Low 5%
+Goal: <36%
+Goal: <1% Each 1% time in range = ~15 minutes
+AGP is a summary of glucose values from the report period, with median (50%) and other percentiles shown as if they occurred in a single day.
+350
+mg/dL
+95%
+75%
+250
+50%
+25%
+180
+Target
+Range
+5%
+70
+54
+0
+12am 3am 6am 9am 12pm 3pm 6pm 9pm 12am
+Sunday Monday Tuesday Wednesday Thursday Friday Saturday
+8 9 10 11 12 13 14
+180
+70
+12pm 12pm 12pm 12pm 12pm 12pm 12pm
+15 16 17 18 19 20 21
+180
+70
+Ld/gm
+Ld/gm
+S100 GlycemicTargets DiabetesCare Volume46,Supplement1,January2023
+1133
+Figure6.1—Keypointsincludedinstandardambulatoryglucoseprofile(AGP)report.ReprintedfromHoltetal.(34).diabetesjournals.org/care GlycemicTargets S101
+assess hypoglycemia, hyperglycemia, and glycemic separation between the treat-
+parallelgoalformanynonpreg-
+glycemic variability. As discussed in a re- ment groups diminished and disap-
+nant adults is time in range of
+cent consensus document, a report for- >70% with time below range pearedduringfollow-up.
+matted as shown in Fig. 6.1 can be <4% and time <54 mg/dL The Kumamoto Study (44) and UK
+generated (35). Published data from two Prospective Diabetes Study (UKPDS)
+<1%. For those with frailty or
+retrospectivestudiessuggestastrongcor- (45,46) confirmed that intensive gly-
+at high riskof hypoglycemia, a
+relation between TIR and A1C, with a cemic control significantly decreased
+target of >50% time in range
+goal of 70% TIR aligning with an A1C of rates of microvascular complications
+with <1% time below range
+(cid:1)7% (8,26). Note the goals of therapy in people with short-duration type 2
+is recommended. (See Fig. 6.1
+next to each metric in Fig. 6.1 (e.g., low, diabetes. Long-term follow-up of the
+andTable6.2.)B
+<4%; very low, <1%) as values to guide UKPDS cohorts showed enduring ef-
+6.6 On the basis of health care
+changesintherapy. fectsofearlyglycemiccontrolonmost
+professional judgment and pa-
+microvascularcomplications(47).
+tient preference, achievement
+GLYCEMICGOALS Therefore, achieving A1C targets of
+of lower A1C levels than the <7% (53 mmol/mol) has been shown
+Forglycemicgoalsinolderadults,please
+goal of 7% may be acceptable
+refer to Section 13, “Older Adults.” For andeven beneficialifitcan be to reduce microvascular complications
+of type 1 and type 2 diabetes when in-
+glycemicgoalsinchildren,pleasereferto achieved safely without signifi-
+Section 14, “Children and Adolescents.” stituted early in the course of disease
+canthypoglycemiaorotherad-
+For glycemic goals during pregnancy, (2,48). Findings from the DCCT (33) and
+verseeffectsoftreatment.B
+pleaserefertoSection15,“Management UKPDS(49) studies demonstrate a curvi-
+6.7 Less stringent A1C goals (such
+of Diabetes in Pregnancy.” Overall, re- linear relationship between A1C and mi-
+as <8% [64 mmol/mol]) may
+gardless of the population being served, crovascular complications. Such analyses
+itiscriticalfortheglycemictargetsto be beappropriateforpatientswith suggest that, on a population level, the
+woven into the overall person-centered limited life expectancy or where greatest number of complications will
+strategy. For example, in a very young the harms of treatment are be averted by taking patients from very
+child, safety and simplicity may outweigh
+greaterthanthebenefits.Health
+poor control to fair/good control.These
+the need for glycemic stability in the care professionals should con- analysesalso suggestthatfurtherlower-
+short run. Simplification may decrease sider deintensification of ther- ing of A1C from 7 to 6% (53 mmol/mol
+parental anxiety and build trust and apy if appropriate to reduce to 42 mmol/mol) is associated with
+confidence, which could support fur- the riskof hypoglycemia in pa- further reduction in the risk of micro-
+ther strengthening of glycemic targets tients with inappropriate strin- vascular complications, although the
+andself-efficacy.Inhealthyolderadults, gentA1Ctargets.B absolute risk reductions become much
+there is noempiric needtoloosen con- 6.8 Reassessglycemictargetsbased smaller.Theimplicationofthesefindings
+trol; however, less stringent A1C goals on the individualized criteria in is that there is no need to deintensify
+may be appropriate for patients with Fig.6.2.E therapy for an individual with an A1C
+limited life expectancy or where the 6.9 Setting a glycemic goal during between 6 and 7% in the setting of
+harms of treatment are greater than consultationsislikelytoimprove low hypoglycemia risk with a long life
+thebenefits(39,40). patientoutcomes.E expectancy.There are now newer agents
+However,thehealthcareprofessional that do not cause hypoglycemia, making
+needs to work with an individual and it possible to maintain glucose control
+should consider adjusting targets for A1CandMicrovascularComplications without the risk of hypoglycemia (see
+simplifying the treatment plan if this
+Hyperglycemiadefinesdiabetes,andgly-
+Section 9, “Pharmacologic Approaches
+cemiccontrolisfundamentaltodiabetes
+changeisneededtoimprovesafetyand toGlycemicTreatment”).
+management. The Diabetes Control and
+medication-taking behavior. Setting Giventhesubstantiallyincreasedriskof
+ComplicationsTrial(DCCT)(33),aprospec-
+goals by face-to-face or remote consul- hypoglycemiaintype1diabetesandwith
+tive randomized controlled trial of inten-
+tations has been shown to be more ef- polypharmacyintype2diabetes,therisks
+sive(meanA1Cabout7%[53mmol/mol])
+fective than usual care for glycemic of lower glycemic targets may outweigh
+versus standard (mean A1C about 9%
+control in type 2 diabetes for fasting the potential benefits on microvascular
+[75 mmol/mol]) glycemiccontrolinpeo-
+plasma glucose and glycated hemoglo- ple with type 1 diabetes, showed defini- complications. Three landmark trials (Ac-
+bin(41). tiontoControlCardiovascularRiskinDia-
+tively that better glycemic control is
+associated with 50–76% reductions in betes [ACCORD], Action in Diabetes and
+Recommendations ratesofdevelopmentandprogression Vascular Disease: Preterax and Diamicron
+6.5a An A1C goal for many non- of microvascular (retinopathy, neurop- MRControlledEvaluation[ADVANCE],
+pregnant adults of <7% (53 athy,anddiabetickidneydisease)com- andVeteransAffairsDiabetesTrial[VADT])
+mmol/mol) without significant plications. Follow-upoftheDCCTcohorts were conducted to test the effects of
+in the Epidemiology of Diabetes Inter- near normalization of blood glucose
+hypoglycemiaisappropriate.A
+ventions andComplications(EDIC)study on cardiovascularoutcomes in individ-
+6.5b If using ambulatory glucose
+profile/glucose managementin- (42,43) demonstrated persistence of uals with long-standing type 2 diabe-
+these microvascular benefits over two tes and either known cardiovascular
+dicator to assess glycemia, a
+decades despite the fact that the disease (CVD) or high cardiovascularof nonfatal myocardial infarction (MI),
+Approach to Individualization of Glycemic Targets
+stroke, or cardiovascular death com-
+Patient / Disease Features More stringent A1C 7% Less stringent paredwiththosepreviouslyrandomized
+Risks potentially associated
+tothestandardarm(54).Thebenefitof
+with hypoglycemia and intensiveglycemiccontrolinthiscohort
+other drug adverse effects
+low high with type 1 diabetes has been shown
+to persist for several decades (55) and
+Disease duration tobeassociatedwithamodestreduction
+long-standing inall-causemortality(56).
+Life expectancy CardiovascularDiseaseandType2Diabetes
+short In type 2 diabetes, there is evidence
+that more intensive treatment of glyce-
+Important comorbidities mia in newly diagnosed patients may
+severe reducelong-termCVDrates.Inaddition,
+data from the Swedish National Diabe-
+Established vascular
+complications tes Registry (56) and the Joint Asia Dia-
+severe betes Evaluation (JADE) demonstrate
+greater proportions of people with dia-
+Patient preference betes being diagnosed at <40 years of
+preference for less age and a demonstrably increased bur-
+burdensome therapy
+den of heart disease and years of life
+Resources and support lost in people diagnosed at a younger
+system age (57–60).Thus, to prevent both mi-
+limited
+crovascular and macrovascular compli-
+cationsofdiabetes,thereisamajorcall
+to overcome therapeutic inertia and
+treat to target for an individual patient
+(60,61). During the UKPDS, there was a
+16%reductioninCVDevents(combined
+risk. These trials showed that lower higher versus lower A1C; therefore, fatal or nonfatal MI and sudden death)
+A1Clevelswereassociatedwithreduced beyond post hoc analysis of these tri- in the intensive glycemic control arm
+onset or progression of some micro- als, we do not have evidence that it is thatdidnotreachstatisticalsignificance
+vascularcomplications(50–52). theglucoseloweringbytheseagentsthat (P = 0.052), and there was no sugges-
+The concerning mortality findings confers the CVD and renal benefit (53). tion of benefit on other CVD outcomes
+in the ACCORD trial discussed below Assuch,basedonclinicianjudgmentand (e.g., stroke). Similar to the DCCT/EDIC,
+and the relatively intense efforts re- patientpreferences,selectpatients,espe- after 10 years of observational follow-
+quiredtoachieveneareuglycemiashould cially those with little comorbidity and a up, those originally randomized to in-
+also be considered when setting gly- long life expectancy, may benefit from tensive glycemic control had significant
+cemic targets for individuals with long- adoptingmoreintensiveglycemictargets long-term reductions in MI (15% with
+standingdiabetes,suchasthosepopula- iftheycanachievethemsafelyandwith- sulfonylureaorinsulinasinitialpharma-
+tionsstudiedinACCORD,ADVANCE,and out hypoglycemia or significant thera- cotherapy, 33% with metformin as ini-
+VADT. Findings from these studies sug- peuticburden. tial pharmacotherapy) and in all-cause
+gestcaution isneeded intreating diabe- mortality (13% and 27%, respectively)
+tes to near-normal A1C goals in people A1CandCardiovascularDisease (47).
+with long-standing type 2 diabetes with Outcomes ACCORD, ADVANCE, and VADT sug-
+oratsignificantriskofCVD. CardiovascularDiseaseandType1Diabetes gested no significant reduction in CVD
+These landmark studies need to be CVD is a more common cause of death outcomes with intensive glycemic control
+considered with an important caveat; thanmicrovascularcomplicationsinpop- in participants followed for shorter dura-
+glucagon-likepeptide1(GLP-1)receptor ulationswithdiabetes.There isevidence tions (3.5–5.6 years) and who had more
+agonists and sodium–glucose cotrans- for a cardiovascular benefit of intensive advanced type 2 diabetes and CVD risk
+porter2(SGLT2)inhibitorswerenotap- glycemic control after long-term follow- thantheUKPDSparticipants.Allthreetri-
+proved at the time of these trials. As upofcohortstreatedearlyinthecourse alswereconductedinrelativelyolderpar-
+such,these agents with established car- of type 1 diabetes. In the DCCT, there ticipants with a longer known duration
+diovascularandrenalbenefitsappearto was a trend toward lower risk of CVD of diabetes (mean duration 8–11 years)
+be safe and beneficial in this group of events with intensive control. In the and either CVD or multiple cardio-
+individuals at high risk for cardiorenal 9-year post-DCCT follow-up of the vascular risk factors. The target A1C
+complications.Randomizedclinicaltrials EDIC cohort, participants previously among intensive-control participants
+examining these agents for cardiovas- randomized to the intensive arm had was <6% (42 mmol/mol) in ACCORD,
+cular safety were not designed to test a significant 57% reduction in the risk <6.5% (48 mmol/mol) in ADVANCE,
+Usually
+not
+modifiable
+Potentially
+modifiable
+S102 GlycemicTargets DiabetesCare Volume46,Supplement1,January2023
+newly diagnosed
+long
+absent few / mild
+absent few / mild
+highly motivated, excellent
+self-care capabilities
+readily available
+Figure6.2—Patientanddiseasefactorsusedtodetermineoptimalglycemictargets.Character-
+isticsandpredicamentstowardtheleftjustifymorestringenteffortstolowerA1C;thoseto-
+wardtherightsuggestlessstringentefforts.A1C7%=53mmol/mol.Adaptedwithpermission
+fromInzucchietal.(71).diabetesjournals.org/care GlycemicTargets S103
+and a 1.5% reduction in A1C compared and mortality (69). Therefore, health engagepeoplewithtype1andtype2di-
+with control participants in VADT, care professionals should be vigilant abetes in shared decision-making. More
+with achieved A1C of 6.4% vs. 7.5% in preventing hypoglycemia and should aggressive targets may be recommended
+(46 mmol/mol vs. 58 mmol/mol) in not aggressively attempt to achieve if they can be achieved safely and
+ACCORD, 6.5% vs. 7.3% (48 mmol/mol near-normal A1C levels in people in with an acceptable burden of therapy
+vs.56mmol/mol)inADVANCE,and6.9% whom such targets cannot be safely and if life expectancy is sufficient to
+vs.8.4%(52mmol/molvs.68mmol/mol) and reasonably achieved. As discussed reap the benefits of stringent targets.
+in VADT. Details of these studies are inSection9,“PharmacologicApproaches Less stringent targets (A1C up to 8%
+reviewed extensively in the joint ADA toGlycemicTreatment,”additionofspe- [64 mmol/mol]) may be recommended
+position statement “Intensive Glycemic cific SGLT2 inhibitors or GLP-1 receptor if the patient’s life expectancy is such
+Control and the Prevention of Cardio- agonists that have demonstrated CVD that the benefits of an intensive goal
+vascular Events: Implications of the benefit is recommended in patients may not be realized, or if the risks and
+ACCORD, ADVANCE, and VA Diabetes with established CVD, chronic kidney burdens outweigh the potential bene-
+Trials”(61). disease,and heart failure. Asoutlinedin fits. Severe or frequent hypoglycemia
+The glycemic control comparison in moredetailinSection9,“Pharmacologic is an absolute indication for the modi-
+ACCORD was halted early due to an in- ApproachestoGlycemicTreatment,”and fication of treatment plans, including
+creased mortality rate in the intensive Section 10, “Cardiovascular Disease and settinghigherglycemicgoals.
+compared with the standard treatment Risk Management,” the cardiovascular Diabetes is a chronic disease that pro-
+arm (1.41% vs. 1.14% per year; hazard benefits of SGLT2 inhibitors or GLP-1 re- gresses over decades. Thus, a goal that
+ratio 1.22 [95% CI 1.01–1.46]), with a ceptor agonists are not contingent upon might be appropriate for an individual
+similar increase in cardiovascular deaths. A1C lowering; therefore, initiation can early in the course of theirdiabetes may
+Analysis of the ACCORD data did not be considered in people with type 2 change over time. Newly diagnosed pa-
+tientsand/orthosewithoutcomorbidities
+identifyaclearexplanationfortheexcess diabetes and CVD independent of the
+that limit life expectancy may benefit
+mortality in the intensive treatment arm current A1C or A1C goal or metformin
+from intensive control proven to prevent
+(62). therapy. Based on these considera-
+microvascular complications. Both DCCT/
+Longer-term follow-up has shown no tions, the following two strategies are
+EDICandUKPDSdemonstratedmetabolic
+evidence of cardiovascular benefit, or offered(70): memory,oralegacyeffect,inwhichafi-
+harm,intheADVANCEtrial(63).Theend-
+nite period of intensive control yielded
+stagerenaldiseaseratewaslowerinthe 1. If already on dual therapy or multi- benefits that extended for decades after
+intensivetreatmentgroupoverfollow-up. ple glucose-lowering therapies and that control ended. Thus, a finite period
+However, 10-year follow-up of the VADT not on an SGLT2 inhibitor or GLP-1 of intensive control to near-normal A1C
+cohort (64) did demonstrate a reduction receptor agonist, consider switching may yield enduring benefits even if con-
+in the risk of cardiovascular events (52.7 to one of these agents with proven trol is subsequently deintensified as pa-
+[control group] vs. 44.1 [intervention
+cardiovascularbenefit.
+tient characteristics change. Over time,
+2. Introduce SGLT2 inhibitors or GLP-1 comorbiditiesmayemerge,decreasinglife
+group] events per 1,000 person-years)
+with no benefit in cardiovascular or receptoragonistsin people with CVD expectancy and thereby decreasing the
+at A1C goal (independent of met- potential to reap benefits from intensive
+overall mortality. Heterogeneityof mor-
+formin) for cardiovascular benefit, control. Also, with longer disease dura-
+tality effects across studies was noted,
+independentofbaselineA1Corin- tion, diabetes may become more diffi-
+which mayreflectdifferences inglyce-
+dividualizedA1Ctarget. culttocontrol,withincreasingrisksand
+mic targets, therapeutic approaches,
+burdens of therapy. Thus, A1C targets
+and, importantly,populationcharacteris- shouldbereevaluatedovertimetobal-
+SettingandModifyingA1CGoals
+tics(65). ance the risks and benefits as patient
+Numerous factors must be considered
+MortalityfindingsinACCORD(62)and factorschange.
+when setting glycemic targets.The ADA
+subgroup analyses of VADT (66) suggest Recommended glycemic targets for
+proposes general targets appropriate
+thatthepotentialrisksofintensiveglyce- many nonpregnant adults are shown
+for many people but emphasizes the
+mic control may outweigh its benefits inTable6.3.Therecommendationsin-
+importance of individualization based
+in higher-risk individuals. In all three on key patient characteristics. Glycemic clude blood glucose levelsthatappear
+trials,severehypoglycemiawassignifi-
+targets must be individualized in the
+to correlate with achievement of an
+A1C of <7% (53 mmol/mol). Pregnancy
+cantly more likely in participants who context of shared decision-making to
+recommendationsarediscussedinmore
+were randomly assigned to the inten- address individual needs and prefer- detail in Section 15, “Management of
+sive glycemic control arm. Individuals encesandconsidercharacteristicsthat DiabetesinPregnancy.”
+withalongdurationofdiabetes,aknown influence risks and benefits of therapy;
+The issue of preprandial versus post-
+historyofhypoglycemia,advanced ath- thisapproachmayoptimizeengagement
+prandialBGMtargetsiscomplex(72,73).
+erosclerosis, oradvancedage/frailtymay andself-efficacy.
+Elevated postchallenge (2-h oral glucose
+benefit from less aggressive targets The factors to consider in individualiz- tolerancetest)glucosevalueshavebeen
+(67,68). inggoalsaredepictedinFig.6.2.Thisfig- associated with increased cardiovascular
+As discussed further below, severe ure is not designed to be applied rigidly risk independent of fasting plasma glu-
+hypoglycemiaisapotentmarkerofhigh but to be used as a broad construct to cose in some epidemiologic studies,
+absolute risk of cardiovascular events guide clinical decision-making (71) and whereas intervention trials have notS104 GlycemicTargets DiabetesCare Volume46,Supplement1,January2023
+Table6.3—Summaryofglycemicrecommendationsformanynonpregnant hypoglycemia avoidance educa-
+adultswithdiabetes tion and reevaluation and ad-
+A1C <7.0%(53mmol/mol)*# justment ofthetreatmentplan
+Preprandialcapillaryplasmaglucose 80–130mg/dL*(4.4–7.2mmol/L) todecreasehypoglycemia.E
+6.14 Insulin-treated patients with hy-
+Peakpostprandialcapillaryplasmaglucose† <180mg/dL*(10.0mmol/L)
+poglycemia unawareness, one
+*More or less stringent glycemic goals may be appropriate for individual patients. #CGM level3hypoglycemicevent,ora
+may be used to assess glycemic target as noted in Recommendation 6.5b and Fig. 6.1. pattern of unexplained level 2
+Goalsshouldbeindividualizedbasedondurationofdiabetes,age/lifeexpectancy,comorbid
+hypoglycemiashouldbeadvised
+conditions, known CVD or advanced microvascular complications, hypoglycemia unaware-
+ness, and individual patient considerations (as per Fig. 6.2). †Postprandial glucose may be to raise their glycemic targets
+targeted if A1C goals are not met despite reaching preprandial glucose goals. Postprandial to strictly avoid hypoglycemia
+glucose measurements should be made 1–2 h after the beginning of the meal, generally forat least several weeks in or-
+peaklevelsinpeoplewithdiabetes. dertopartiallyreversehypogly-
+cemia unawareness and reduce
+riskoffutureepisodes.A
+shown postprandial glucose to be a to 80–130 mg/dL (4.4–7.2 mmol/L) 6.15 Ongoing assessment of cogni-
+cardiovascular risk factor independent but did not affect the definition of tivefunction issuggested with
+ofA1C.Inpeoplewithdiabetes,surro- hypoglycemia. increased vigilance forhypogly-
+gate measures of vascular pathology,
+cemia by the clinician, patient,
+such as endothelial dysfunction, are
+HYPOGLYCEMIA and caregivers if impaired or
+negatively affected by postprandial hy-
+decliningcognitionisfound.B
+perglycemia.Itisclearthatpostprandial Recommendations
+hyperglycemia, like preprandial hyper- 6.10 Occurrenceandriskforhypogly-
+glycemia, contributes to elevated A1C cemiashouldbereviewedatev- Hypoglycemia is the major limiting fac-
+levels, with its relative contribution ery encounter and investigated tor in the glycemic management of
+being greater at A1C levels that are asindicated.Awarenessofhypo- type1andtype2diabetes.Recommen-
+closerto7%(53mmol/mol).However,
+glycemia should be considered dations regarding the classification of
+outcome studies have shown A1C to
+usingvalidatedtools.C hypoglycemia are outlined in Table 6.4
+be the primary predictor of complica- 6.11 Glucose(approximately15–20g) (74–83). Level 1 hypoglycemia is defined
+tions, and landmark trials of glycemic
+is the preferred treatment for as a measurable glucose concentration
+control such as the DCCT and UKPDS
+relied overwhelmingly on preprandial
+the conscious individual with <70mg/dL(3.9mmol/L)but$54mg/dL
+blood glucose <70 mg/dL (3.9
+BGM. Additionally, a randomized con- (3.0mmol/L).Abloodglucoseconcentra-
+mmol/L), although any form of
+trolled trialinpatientswithknownCVD tion of 70 mg/dL (3.9 mmol/L) has been
+found no CVD benefit of insulin treat- carbohydrate thatcontains glu- recognizedasathresholdforneuroendo-
+ment plans targeting postprandial glu- cose may be used. Fifteen mi- crineresponsestofallingglucoseinpeo-
+cose compared with those targeting nutes after treatment, if blood ple without diabetes. Because many
+preprandial glucose (73). Therefore, it glucosemonitoring(BGM)shows people with diabetes demonstrate im-
+is reasonable to check postprandial glu- continued hypoglycemia, the paired counterregulatory responses to
+cose in individuals who have premeal treatment should be repeated.
+hypoglycemia and/or experience hypo-
+glucose values within target but A1C Once the BGM or glucose pat-
+glycemia unawareness, a measured glu-
+values above target. In addition,when tern is trending up, the individ- cose level <70 mg/dL (3.9 mmol/L) is
+intensifying insulin therapy, measuring ual should consume a meal or
+considered clinically important (indepen-
+postprandial plasma glucose 1–2 h af- snack to prevent recurrence of
+dent of the severity of acute hypoglyce-
+ter the start of a meal (using BGM or hypoglycemia.B
+mic symptoms). Level 2 hypoglycemia
+CGM) and using treatments aimed at
+6.12 Glucagon should be prescribed (definedasabloodglucoseconcentration
+reducing postprandial plasma glucose
+values to <180 mg/dL (10.0 mmol/L) for all individuals at increased <54mg/dL[3.0mmol/L])isthethreshold
+risk of level 2 or 3 hypoglyce-
+mayhelptolowerA1C. at which neuroglycopenic symptoms be-
+mia,sothatitisavailableshould
+Ananalysisofdatafrom470partici- gin to occur and requires immediate ac-
+it be needed. Caregivers, school
+pants in the ADAG study (237 with tiontoresolvethehypoglycemicevent.If
+personnel, or family members
+type 1 diabetes and 147 with type 2 a patient has level 2 hypoglycemia with-
+providing support to these indi-
+diabetes) found thatthe glucoseranges out adrenergic or neuroglycopenic symp-
+viduals should know where it is
+highlighted in Table 6.1 are adequate toms, they likely have hypoglycemia
+and when and how to admin-
+tomeettargetsanddecreasehypogly- unawareness (discussed further below).
+ister it. Glucagon administra-
+cemia (14).These findings support that This clinicalscenario warrantsinvestiga-
+tion is not limited to health
+premealglucosetargetsmayberelaxed tion and review of the treatment plan
+careprofessionals.E
+without undermining overall glycemic (75,79). Use Clarke score, Gold score,
+6.13 Hypoglycemia unawareness or
+controlasmeasuredbyA1C.Thesedata or Pedersen-Bjergaard score to assess
+oneormoreepisodesoflevel3
+prompted the revision in the ADA- impaired awareness (76). Lastly, level 3
+hypoglycemia should trigger
+recommendedpremealglucosetarget hypoglycemia is defined as a severediabetesjournals.org/care GlycemicTargets S105
+In2015,theADAchangeditsprepran-
+Table6.4—Classificationofhypoglycemia
+dial glycemic target from 70–130 mg/dL
+Glycemiccriteria/description (3.9–7.2 mmol/L) to 80–130 mg/dL
+Level1 Glucose<70mg/dL(3.9mmol/L)and$54mg/dL(3.0mmol/L) (4.4–7.2 mmol/L). This change reflects
+Level2 Glucose<54mg/dL(3.0mmol/L) the results of the ADAG study, which
+demonstratedthat higher glycemic tar-
+Level3 Asevereeventcharacterizedbyalteredmentaland/orphysicalstatusrequiring
+gets corresponded to A1C goals (14).
+assistancefortreatmentofhypoglycemia
+An additional goal of raising the lower
+ReprintedfromAgiostratidouetal.(74).
+range of the glycemic target was to
+limitovertreatmentandprovideasafety
+margin in patients titrating glucose-
+event characterized by altered mental increased risk of level 3 hypoglycemia
+lowering drugs such as insulin to gly-
+and/or physical functioning that re- (88,89). In addition to age and race,
+cemictargets.
+quires assistance from another person other important risk factors found in
+forrecovery. a community-based epidemiologic co-
+HypoglycemiaTreatment
+Symptoms of hypoglycemia include, hortofolderadultswithtype2diabetes
+Health care professionals should con-
+but are not limited to, shakiness, irrita- include insulin use, poor or moderate
+tinue to counsel patientsto treat hypo-
+bility, confusion, tachycardia, and hun- versus good glycemic control, albumin-
+glycemia with fast-acting carbohydrates
+ger. Hypoglycemia may be inconvenient uria, and poor cognitive function (88).
+at the hypoglycemia alert value of
+or frightening to people with diabetes. Level 3 hypoglycemia was associated
+70 mg/dL (3.9 mmol/L) or less. This
+Level3hypoglycemiamayberecognized with mortality in participants in both
+should be reviewed at each patient
+orunrecognizedandcanprogresstoloss the standard and the intensive glyce-
+visit. Hypoglycemia treatment requires
+ofconsciousness, seizure, coma, ordeath. mia arms of the ACCORD trial, butthe
+ingestion of glucose- or carbohydrate-
+Hypoglycemia is reversed by administra- relationships between hypoglycemia, containing foods (98–100). The acute
+tion of rapid-acting glucose or glucagon. achieved A1C, and treatment intensity
+glycemic response correlates better with
+Hypoglycemia can cause acute harm to were not straightforward. An associa-
+the glucose content of food than with
+the person with diabetes or others, espe- tionoflevel3hypoglycemiawithmor-
+the carbohydrate content of food. Pure
+cially if it causes falls, motor vehicle acci- tality was also found in the ADVANCE
+glucose is the preferred treatment, but
+dents, or other injury. Recurrent level 2 trial(90).Anassociationbetweenself-
+any form of carbohydrate that contains
+hypoglycemiaand/orlevel3hypoglycemia reported level 3 hypoglycemia and 5-year
+glucose will raise blood glucose. Added
+isanurgentmedicalissueandrequiresin- mortalityhasalsobeenreportedinclinical
+fat may retard and then prolong the
+tervention with medical treatment plan practice (91). Glucose variability is also
+acute glycemic response. In type 2 dia-
+adjustment, behavioral intervention, and, associated with an increased risk for
+betes,ingestedproteinmayincreaseinsu-
+insomecases,useoftechnologytoassist hypoglycemia(92).
+lin response without increasing plasma
+withhypoglycemiapreventionandidenti- Young children with type 1 diabetes
+glucose concentrations (101). Therefore,
+fication(76,79–82).Alargecohortstudy and the elderly, including those with
+carbohydratesourceshighinproteinshould
+suggested thatamongolderadultswith type 1 and type 2 diabetes (84,93), are
+not be used to treat or prevent hypogly-
+type 2 diabetes, a history of level 3 hy- noted as particularly vulnerable to hy-
+cemia. Ongoing insulin activity or insulin
+poglycemia was associated with greater poglycemia because of their reduced
+secretagogues may lead to recurrent hy-
+risk of dementia (84). Conversely, in a ability to recognize hypoglycemic symp-
+poglycemia unless more food is ingested
+substudy of the ACCORD trial, cognitive tomsand effectivelycommunicate their
+after recovery. Once the glucose returns
+impairment at baseline or decline in needs. Individualized glucose targets,
+tonormal,theindividualshouldbecoun-
+cognitive function during the trial was patient education, nutrition interven-
+seled to eat a meal or snack to prevent
+significantly associated withsubsequent tion (e.g., bedtime snack to prevent
+recurrenthypoglycemia.
+episodes of level 3 hypoglycemia (85). overnight hypoglycemia when specifi-
+Evidence from DCCT/EDIC, which in- cally needed to treat low blood glu-
+Glucagon
+volved adolescents and younger adults cose), physical activity management,
+The use of glucagon is indicated for the
+with type 1 diabetes, found no asso- medication adjustment, glucose moni-
+treatmentofhypoglycemiainpeopleun-
+ciation between frequency of level 3 toring, and routine clinical surveillance
+able or unwilling to consume carbohy-
+hypoglycemia and cognitive decline may improve patient outcomes (94).
+drates by mouth.Those in close contact
+(86). CGMwithautomatedlowglucose sus-
+with, or having custodial care of, people
+Studies of rates of level 3 hypoglyce- pend and hybrid closed-loop systems
+with hypoglycemia-prone diabetes (fam-
+mia that rely on claims data for hospi- havebeenshowntobeeffectiveinre- ilymembers,roommates,schoolperson-
+talization, emergency department visits, ducing hypoglycemia in type 1 diabetes nel, childcare professionals, correctional
+and ambulance use substantially under- (95). For people with type 1 diabetes institution staff, orcoworkers) should be
+estimate rates of level 3 hypoglycemia with level 3 hypoglycemia and hypogly- instructed on the use of glucagon, in-
+(87) yet reveal a high burden of hypo- cemiaunawarenessthatpersistsdespite cluding where the glucagon product is
+glycemia in adults over 60 years of medical treatment, human islet trans- kept and when and how to administer
+age in the community (88). African plantation may be an option, butthe ap- it. An individual does not need to be
+Americanindividualsareatsubstantially proachremainsexperimental(96,97). a health care professional to safelyS106 GlycemicTargets DiabetesCare Volume46,Supplement1,January2023
+administer glucagon. In addition to tra- diabetes (106). Hence, individuals with insulin dosing can improve A1C with
+ditional glucagon injection powder that one or more episodes of clinically signifi- minimalhypoglycemia(133,134).
+requires reconstitution prior to injec- cant hypoglycemia may benefit from at
+tion,intranasalglucagonandready-to- least short-term relaxation of glycemic
+INTERCURRENTILLNESS
+inject glucagon preparations for sub- targets and availability of glucagon (107).
+Forfurtherinformationonmanagement
+cutaneous injection are available and Any person with recurrent hypoglycemia
+maybe beneficialinviewofsafety,ef- or hypoglycemia unawareness should of individuals withhyperglycemiainthe
+ficacy,andeaseofuse.Careshouldbe have their glucose management treat- hospital, see Section 16, “Diabetes Care
+taken to ensure that glucagon products mentplanadjusted.
+intheHospital.”
+arenotexpired(102). Stressful events (e.g., illness, trauma,
+surgery)mayworsenglycemiccontroland
+UseofCGMTechnologyinHypoglycemia
+HypoglycemiaPrevention Prevention precipitatediabeticketoacidosisornonke-
+Hypoglycemia prevention is a critical With the advent of sensor-augmented totic hyperglycemic hyperosmolar state,
+component of diabetes management. CGM and CGM-assisted pump therapy, life-threateningconditionsthatrequireim-
+BGM and, for some individuals, CGM therehasbeenapromiseofalarm-based mediatemedicalcaretopreventcomplica-
+are essential tools to assess therapy preventionofhypoglycemia(108,109).To tions and death. Any condition leading to
+anddetectincipienthypoglycemia.Peo- date, there have been a number of ran- deterioration in glycemic control necessi-
+plewithdiabetesshouldunderstandsit- domized controlled trials in adults with tates more frequent monitoring of blood
+uations that increase their risk of type1diabetesandstudiesinadultsand glucose; ketosis-prone patients also re-
+hypoglycemia, such as when fasting for childrenwithtype1diabetesusingreal- quireurineorbloodketonemonitoring.If
+laboratory tests or procedures, when time CGM (see Section 7, “Diabetes accompaniedbyketosis,vomiting,oral-
+meals are delayed, duringand after the Technology”). These studies had differ-
+teration in the level of consciousness,
+consumption of alcohol, during and af-
+ing A1C at entry and differing primary
+marked hyperglycemia requires tempo-
+ter intense physical activity, and during
+end points and thus must be inter-
+sleep. Hypoglycemia may increase the rary adjustment of the treatment plan
+preted carefully. Real-time CGM studies
+risk of harm to self or others, such as and immediate interaction with the dia-
+can be divided into studies with ele-
+whendriving.Teachingpeoplewithdia- betescareteam.Thepatienttreatedwith
+vated A1C with the primary end point
+betes to balance insulin use and carbo- noninsulin therapies or medical nutrition
+of A1C reduction and studies with A1C
+hydrate intake and physical activity are therapy alone may require insulin. Ade-
+near target with the primary end
+necessary, but these strategies are not quate fluid and caloric intake must be
+always sufficient for prevention (77, point of reduction in hypoglycemia (98, ensured. Infection or dehydration are
+103–105). Formal training programs to 109–124). In people with type 1 and
+more likely to necessitate hospitaliza-
+increase awareness of hypoglycemia type 2 diabetes with A1C above target,
+tion of individuals with diabetes versus
+and to develop strategies to decrease CGM improved A1C between 0.3 and
+thosewithoutdiabetes.
+hypoglycemia have been developed, in- 0.6%. For studies targeting hypoglyce-
+cluding the Blood Glucose Awareness mia,moststudiesdemonstratedasignifi- A clinician with expertise in diabetes
+management should treat the hospital-
+Training Program, Dose Adjusted for cantreductionintimespentbetween54
+ized patient. For further information on
+Normal Eating (DAFNE), and DAFNE- and 70 mg/dL. A report in people with
+plus. Conversely, some individuals with type1diabetesovertheageof60years themanagementofdiabeticketoacidosis
+type 1 diabetes or type 2 diabetes and revealed a small but statistically signifi- andthenonketotichyperglycemichyper-
+hypoglycemia who have a fearof hyper- cantdecreaseinhypoglycemia(125).No osmolar state, please refer to the ADA
+glycemia are resistant to relaxation of studytodatehasreportedadecreasein consensus report “Hyperglycemic Crises
+glycemic targets (74–83). Regardless of level 3 hypoglycemia. In a single study inAdultPatientsWithDiabetes”(134).
+the factors contributingto hypoglycemia
+usingintermittentlyscannedCGM,adults
+andhypoglycemiaunawareness,thisrep- with type 1 diabetes with A1C neargoal References
+resentsanurgentmedicalissuerequiring 1. Deshmukh H,Wilmot EG, Gregory R, et al.
+andimpaired awarenessof hypoglycemia
+intervention. Effect of flash glucose monitoring on glycemic
+demonstrated no change in A1C and
+Intype1diabetesandseverelyinsulin- control,hypoglycemia,diabetes-relateddistress,
+decreasedlevel2hypoglycemia(115).For
+deficient type 2 diabetes, hypoglycemia and resource utilization in the Association of
+people with type 2 diabetes, studies BritishClinicalDiabetologists(ABCD)nationwide
+unawareness(orhypoglycemia-associated
+examining the impact of CGM on hy- audit.DiabetesCare2020;43:2153–2160
+autonomic failure) can severely compro-
+poglycemic events are limited; a re- 2. Laiteerapong N, Ham SA, Gao Y, et al.The
+mise stringent diabetes control and qual-
+cent meta-analysis does not reflect a legacyeffectintype2diabetes:impactofearly
+ity of life.This syndrome is characterized glycemic control on future complications (the
+by deficient counterregulatory hormone
+significantimpactonhypoglycemicevents
+Diabetes&AgingStudy).DiabetesCare2019;42:
+release, especially in older adults, and a in type 2 diabetes (126), whereas im- 416–426
+diminished autonomic response, which provements in A1C were observed in 3. Stratton IM, Adler AI, Neil HAW, et al.
+are both risk factors for and caused by most studies (126–132). Overall, real- Associationofglycaemiawithmacrovascularand
+hypoglycemia. A corollary to this “vicious time CGM appears to be a useful tool microvascular complications of type 2 diabetes
+(UKPDS 35): prospective observational study.
+cycle” isthat several weeks of avoidance for decreasing time spent in a hypo-
+BMJ2000;321:405–412
+of hypoglycemia has been demonstrated glycemic rangeinpeople with impaired 4. LittleRR,RohlfingCL;NationalGlycohemoglobin
+to improve counterregulation and hypo- awareness.Forpeoplewithtype2diabe- StandardizationProgram(NGSP)SteeringCommittee.
+glycemia awarenessin many people with tes,other strategies to assist them with StatusofhemoglobinA1cmeasurementandgoalsdiabetesjournals.org/care GlycemicTargets S107
+forimprovement:fromchaostoorderforimproving Cohort Study. Impact of common genetic fortheStudyofDiabetes(EASD).DiabetesCare
+diabetescare.ClinChem2011;57:205–214 determinants of hemoglobin A1c on type 2 2021;44:2589–2625
+5. ValenzanoM,CibrarioBertolottiI,Valenzano diabetesriskanddiagnosisinancestrallydiverse 35. BattelinoT, Danne T,BergenstalRM, etal.
+A, Grassi G. Time in range-A1c hemoglobin populations: a transethnic genome-wide meta- Clinicaltargetsforcontinuousglucosemonitoring
+relationshipincontinuousglucosemonitoringof analysis.PLoSMed2017;14:e1002383 datainterpretation:recommendationsfromthe
+type1diabetes:areal-worldstudy.BMJOpen 21. Diabetes Research in Children Network InternationalConsensusonTimeinRange.Diabetes
+DiabetesResCare2021;9:e001045 (DirecNet)Study Group.Relationshipof A1Cto Care2019;42:1593–1603
+6. Fabris C, Heinemann L, Beck R, Cobelli C, glucose concentrations in children with type 1 36. TcheroH,KangambegaP,BriatteC,Brunet-
+KovatchevB.EstimationofhemoglobinA1cfrom diabetes:assessmentsbyhigh-frequencyglucose Houdard S, Retali GR, Rusch E. Clinical effec-
+continuousglucosemonitoringdatainindividuals determinationsbysensors.DiabetesCare2008; tiveness of telemedicine in diabetes mellitus: a
+withtype1diabetes:istimeinrangeallweneed? 31:381–385 meta-analysisof42randomizedcontrolledtrials.
+DiabetesTechnolTher2020;22:501–508 22. Buse JB, Kaufman FR, Linder B, Hirst K, El TelemedJEHealth2019;25:569–583
+7. RanjanAG,RosenlundSV,HansenTW,Rossing Ghormli L; HEALTHY Study Group. Diabetes 37. Salabelle C, Ly Sall K, Eroukhmanoff J,
+P,AndersenS,NørgaardK.Improvedtimeinrange screeningwith hemoglobin A(1c)versus fasting etal.COVID-19pandemiclockdowninyoung
+over1yearisassociatedwithreducedalbuminuria plasma glucose in a multiethnic middle-school peoplewithtype1diabetes:positiveresultsof
+in individuals with sensor-augmented insulin cohort.DiabetesCare2013;36:429–435 an unprecedented challenge for patients
+pump-treated type 1 diabetes. Diabetes Care 23. Kamps JL, Hempe JM, Chalew SA. Racial through telemedicine and change in use of
+2020;43:2882–2885
+disparity in A1C independent of mean blood continuous glucose monitoring. Prim Care
+8. Beck RW, Bergenstal RM, Cheng P, et al.The glucoseinchildrenwithtype1diabetes.Diabetes Diabetes2021;15:884–886
+relationshipsbetweentimeinrange,hyperglycemia Care2010;33:1025–1027 38. PrabhuNavisJ,LeelarathnaL,MubitaW,etal.
+metrics,andHbA1c.JDiabetesSciTechnol2019; 24. AdvaniA.Positioningtimeinrangeindiabetes ImpactofCOVID-19lockdownonflashandreal-
+13:614–626 management.Diabetologia2020;63:242–252 timeglucosesensoruserswithtype1diabetesin
+9. (cid:1) SoupalJ,Petru(cid:1)zelkov(cid:3)aL,GrunbergerG,etal. 25. AvariP,UdukuC,GeorgeD,HerreroP,Reddy England.ActaDiabetol2021;58:231–237
+Glycemic outcomes in adults with T1D are M,OliverN.Differencesforpercentagetimesin 39. SeiduS,KunutsorSK,TopseverP,Hambling
+impactedmorebycontinuousglucosemonitoring glycemic range between continuous glucose CE, Cos FX, Khunti K. Deintensification in older
+than by insulin delivery method: 3 years of
+monitoringandcapillarybloodglucosemonitoring patients with type 2 diabetes: a systematic
+follow-up from the COMISAIR study. Diabetes
+in adults with type 1 diabetes: analysis of the review of approaches, rates and outcomes.
+Care2020;43:37–43
+REPLACE-BGdataset.DiabetesTechnolTher2020; DiabetesObesMetab2019;21:1668–1679
+10. Jovanovi(cid:1)c L, Savas H, Mehta M,Trujillo A, 22:222–227 40. KhuntiK,DaviesMJ.Clinicalinertia–timeto
+Pettitt DJ. Frequent monitoring of A1C during
+26. VigerskyRA,McMahonC.Therelationshipof reappraisetheterminology?PrimCareDiabetes
+pregnancyasatreatmenttooltoguidetherapy. hemoglobin A1C to time-in-range in patients 2017;11:105–106
+DiabetesCare2011;34:53–54
+with diabetes. Diabetes Technol Ther 2019;21: 41. Whitehead L, Glass C, Coppell K. The
+11. KidneyDisease:ImprovingGlobalOutcomes
+81–85 effectivenessofgoalsettingonglycaemiccontrol
+(KDIGO)DiabetesWorkGroup.KDIGO2020clinical 27. Kro€gerJ, ReichelA, Siegmund T, ZieglerR. forpeoplewithtype2diabetesandprediabetes:
+practice guideline for diabetes management in
+Clinical recommendations for the use of the a systematic review and meta-analysis. J Adv
+chronic kidney disease. Kidney Int 2020;98(4S):
+ambulatory glucose profile in diabetes care. J Nurs2022;78:1212–1227
+S1–S115
+DiabetesSciTechnol2020;14:586–594 42. Diabetes Control and Complications Trial
+12. Beck RW, Connor CG, Mullen DM,Wesley
+28. Livingstone R, Boyle JG, Petrie JR. How (DCCT)/Epidemiology of Diabetes Interventions
+DM,BergenstalRM.Thefallacyofaverage:how
+tightlycontrolleddofluctuationsinbloodglucose andComplications(EDIC)ResearchGroup;Lachin
+usingHbA alonetoassessglycemiccontrolcan
+bemislead 1 i C ng.DiabetesCare2017;40:994–999 levelsneedtobetoreducetheriskofdeveloping JM,White NH, Hainsworth DP, et al. Effect of
+complications in people with type 1 diabetes? intensivediabetestherapyontheprogressionof
+13. Nathan DM, Kuenen J, Borg R, Zheng H,
+DiabetMed2020;37:513–521 diabetic retinopathy in patients with type 1
+Schoenfeld D; A1c-Derived Average Glucose
+29. MesserLH,BergetC,VigersT,etal.Realworld diabetes:18yearsoffollow-upintheDCCT/EDIC.
+Study Group. Translating the A1C assay into
+hybridclosed-loopdiscontinuation:Predictorsand Diabetes2015;64:631–642
+estimatedaverageglucosevalues.DiabetesCare
+2008;31:1473–1478 perceptions of youth discontinuing the 670G 43. Diabetes Control and Complications Trial/
+system in the first 6 months. Pediatr Diabetes Epidemiology of Diabetes Interventions and
+14. Wei N, Zheng H, Nathan DM. Empirically
+2020;21:319–327 ComplicationsResearchGroup;LachinJM,Genuth
+establishing blood glucose targets to achieve
+HbA1cgoals.DiabetesCare2014;37:1048–1051 30. MayedaL, Katz R, Ahmad I, etal. Glucose S, Cleary P, Davis MD, Nathan DM. Retinopathy
+15. Selvin E. Are there clinical implications of timeinrangeandperipheralneuropathyintype2 andnephropathyinpatientswithtype1diabetes
+racialdifferencesinHbA1c?Adifference,tobea diabetesmellitusandchronickidneydisease.BMJ fouryearsafteratrialofintensivetherapy.NEnglJ
+difference, must make a difference. Diabetes OpenDiabetesResCare2020;8:e000991 Med2000;342:381–389
+Care2016;39:1462–1467 31. Yoo JH, Choi MS, Ahn J, et al. Association 44. OhkuboY,KishikawaH,ArakiE,etal.Intensive
+16. Bergenstal RM, Gal RL, Connor CG, et al.; between continuous glucose monitoring-derived insulintherapypreventstheprogressionofdiabetic
+T1D Exchange Racial Differences Study Group. timeinrange,othercoremetrics,andalbuminuria microvascular complications in Japanese patients
+Racialdifferencesintherelationshipofglucose intype2diabetes.DiabetesTechnolTher2020; with non-insulin-dependent diabetes mellitus: a
+concentrationsandhemoglobinA1clevels.Ann 22:768–776 randomizedprospective6-yearstudy.DiabetesRes
+InternMed2017;167:95–102 32. Lu J,MaX,ShenY, etal.Time in range is ClinPract1995;28:103–117
+17. Khosla L, Bhat S, Fullington LA, Horlyck- associatedwithcarotidintima-mediathicknessin 45. UK Prospective Diabetes Study (UKPDS)
+Romanovsky MF. HbA performance in african type2diabetes.DiabetesTechnolTher2020;22: Group.Effectofintensiveblood-glucosecontrol
+descent populations in 1c the United States with 72–78 withmetforminoncomplicationsinoverweight
+normalglucosetolerance,prediabetes,ordiabetes: 33. Diabetes Control and Complications Trial patientswithtype2diabetes(UKPDS34).Lancet
+ascopingreview.PrevChronicDis2021;18:E22 ResearchGroup;NathanDM,GenuthS,LachinJ, 1998;352:854–865
+18. LacyME,WelleniusGA,SumnerAE,Correa et al. The effect of intensive treatment of 46. UKProspectiveDiabetesStudy(UKPDS)Group.
+A,CarnethonMR,LiemRI,etal.Associationof diabetesonthedevelopmentandprogressionof Intensiveblood-glucosecontrolwithsulphonylureas
+sickle cell trait with hemoglobin A1c in African long-term complications in insulin-dependent or insulin compared with conventional treatment
+Americans.JAMA2017;317:507–515. diabetes mellitus.NEnglJMed1993;329:977– and riskofcomplications in patients with type 2
+19. RohlfingC,HansonS,LittleRR.Measurement 986 diabetes(UKPDS33).Lancet1998;352:837–853
+ofhemoglobinA1cinpatientswithsicklecelltrait. 34. HoltRIG,DeVriesJH,Hess-FischlA,etal.The 47. HolmanRR,PaulSK,BethelMA,Matthews
+JAMA2017;317:2237. management of type 1 diabetes in adults. A DR, Neil HAW. 10-year follow-up of intensive
+20. WheelerE,LeongA,LiuCT,etal.;EPIC-CVD Consensus report by the American Diabetes glucosecontrolintype2diabetes.NEnglJMed
+Consortium; EPIC-InterAct Consortium; Lifelines Association(ADA)andtheEuropeanAssociation 2008;359:1577–1589S108 GlycemicTargets DiabetesCare Volume46,Supplement1,January2023
+48. LindM,PivodicA,SvenssonAM,O (cid:3) lafsdo(cid:3)ttir 61. Skyler JS, Bergenstal R, Bonow RO, et al.; Association, the Endocrine Society, JDRF Interna-
+AF,WedelH,LudvigssonJ.HbA1clevelasarisk AmericanDiabetesAssociation;AmericanCollege tional, The Leona M. and Harry B. Helmsley
+factor for retinopathy and nephropathy in of Cardiology Foundation; American Heart CharitableTrust,thePediatricEndocrineSociety,and
+childrenandadultswithtype1diabetes:Swedish Association. Intensive glycemic control and the theT1DExchange.DiabetesCare2017;40:1622–1630
+population based cohort study. BMJ 2019;366: preventionofcardiovascularevents:implicationsof 75. PolonskyWH,FortmannAL,PriceD,Fisher
+l4894 theACCORD,ADVANCE,andVAdiabetestrials:a L.“Hyperglycemiaaversiveness”:investigatingan
+49. Adler AI, Stratton IM, Neil HAW, et al. position statement of the American Diabetes overlooked problem among adults with type 1
+Association of systolic blood pressure with Association and a scientific statement of the diabetes. J Diabetes Complications 2021;35:
+macrovascular and microvascular complications AmericanCollegeofCardiologyFoundationand 107925
+of type 2 diabetes (UKPDS 36): prospective the American Heart Association. Diabetes Care 76. GhandiK,PieriB,DornhorstA,HussainS.A
+observationalstudy.BMJ2000;321:412–419 2009;32:187–192 comparisonofvalidatedmethodsusedtoassess
+50. Duckworth W, Abraira C, Moritz T, et al.; 62. Gerstein HC, Miller ME, Byington RP, et al.; impairedawarenessofhypoglycaemiaintype1
+VADTInvestigators.Glucosecontrolandvascular ActiontoControlCardiovascularRiskinDiabetes diabetes:anobservationalstudy.DiabetesTher
+complicationsinveteranswithtype2diabetes.N StudyGroup.Effectsofintensiveglucoselowering 2021;12:441–451
+EnglJMed2009;360:129–139 in type 2 diabetes. N Engl J Med 2008;358: 77. LiP,GengZ,LadageVP,WuJ,LorinczI,Doshi
+51. Patel A, MacMahon S, Chalmers J, et al.; 2545–2559 JA.Earlyhypoglycaemiaandadherenceafterbasal
+ADVANCE Collaborative Group. Intensive blood 63. Zoungas S, Chalmers J, Neal B, et al.; insulin initiation in a nationally representative
+glucosecontrolandvascularoutcomesinpatients ADVANCE-ONCollaborativeGroup.Follow-upof sample of Medicare beneficiaries with type 2
+with type 2 diabetes. N Engl J Med 2008;358: blood-pressure loweringand glucose control in diabetes.DiabetesObesMetab2019;21:2486–2495
+2560–2572 type2diabetes.NEnglJMed2014;371:1392– 78. Hendrieckx C, Ivory N, Singh H, Frier BM,
+52. Ismail-BeigiF,CravenT,BanerjiMA,etal.; 1406 Speight J. Impact of severe hypoglycaemia on
+ACCORDtrialgroup.Effectofintensivetreatment 64. HaywardRA,ReavenPD,WiitalaWL,etal.; psychological outcomes in adults with type 2
+ofhyperglycaemiaonmicrovascularoutcomesin VADTInvestigators.Follow-upofglycemiccontrol diabetes: a systematic review. Diabet Med
+type 2 diabetes: an analysis of the ACCORD andcardiovascularoutcomesintype2diabetes. 2019;36:1082–1091
+randomisedtrial.Lancet2010;376:419–430 NEnglJMed2015;372:2197–2206 79. AmielSA,PottsL,GoldsmithK,etal.Aparallel
+53. BuseJB,BainSC,MannJFE,etal.;LEADER 65. TurnbullFM,AbrairaC,AndersonRJ,etal.; randomised controlled trial of the Hypoglycaemia
+Trial Investigators.Cardiovascular riskreduction Control Group. Intensive glucose control and Awareness Restoration Programme for adults with
+withliraglutide:anexploratorymediationanalysis macrovascular outcomes in type 2 diabetes. type 1 diabetes and problematic hypoglycaemia
+of the LEADER trial. Diabetes Care 2020;43: Diabetologia2009;52:2288–2298 despiteoptimisedself-care(HARPdoc).NatCommun
+1546–1552 66. DuckworthWC,AbrairaC,MoritzTE,etal.; 2022;13:2229
+54. Nathan DM, Cleary PA, Backlund JYC, Investigators of the VADT. The duration of 80. KhuntiK,AlsifriS,AronsonR,etal.Impactof
+et al.; Diabetes Control and Complications diabetesaffectstheresponsetointensiveglucose hypoglycaemiaonpatient-reportedoutcomesfrom
+Trial/Epidemiology of Diabetes Interventions and controlintype2subjects:theVADiabetesTrial.J aglobal,24-countrystudyof27,585peoplewith
+Complications(DCCT/EDIC)StudyResearchGroup. DiabetesComplications2011;25:355–361 type1andinsulin-treatedtype2diabetes.Diabetes
+Intensive diabetes treatment and cardiovascular 67. LipskaKJ,RossJS,MiaoY,ShahND,LeeSJ, ResClinPract 2017;130:121–129
+diseaseinpatientswithtype1diabetes.NEnglJ SteinmanMA.Potentialovertreatmentofdiabetes 81. Choudhary P, Amiel SA. Hypoglycaemia in
+Med2005;353:2643–2653 mellitusinolderadultswithtightglycemiccontrol. type1diabetes:technologicaltreatments,their
+55. Nathan DM, Zinman B, Cleary PA, et al.; JAMAInternMed2015;175:356–362 limitationsandtheplaceofpsychology.Diabetologia
+Diabetes Control and Complications Trial/ 68. VijanS,SussmanJB,YudkinJS,HaywardRA. 2018;61:761–769
+Epidemiology of Diabetes Interventions and Effectofpatients’risksandpreferencesonhealth 82. HopkinsD,LawrenceI,MansellP,Thompson
+Complications (DCCT/EDIC) Research Group. gainswithplasmaglucoselevelloweringintype2 G,AmielS,CampbellM,etal.Improvedbiomedical
+Modern-dayclinicalcourseoftype1diabetes diabetes mellitus. JAMA Intern Med 2014;174: andpsychologicaloutcomes1yearafterstructured
+mellitusafter30years’duration:thediabetes 1227–1234 educationinflexibleinsulintherapyforpeoplewith
+control and complications trial/epidemiology 69. Lee AK, Warren B, Lee CJ, et al. The type 1 diabetes: the U.K. DAFNE experience.
+of diabetes interventions and complications associationofseverehypoglycemiawithincident DiabetesCare2012;35:1638–1642
+andPittsburghepidemiologyofdiabetescomp- cardiovasculareventsandmortalityinadultswith 83. YangW,MaJ,YuanG,etal.Determiningthe
+lications experience (1983-2005). Arch Intern type2diabetes.DiabetesCare2018;41:104–111 optimalfastingglucosetargetforpatientswithtype2
+Med2009;169:1307–1316 70. Davies MJ, D’Alessio DA, Fradkin J, et al. diabetes: results of the multicentre, open-label,
+56. Emerging Risk Factors Collaboration; Di Managementofhyperglycemiaintype2diabetes, randomized-controlledFPGGOALtrial.DiabetesObes
+Angelantonio E, Kaptoge S, Wormser D, et al. 2018. A consensus report by the American Metab2019;21:1973–1977
+Association of cardiometabolic multimorbidity Diabetes Association (ADA) and the European 84. WhitmerRA,KarterAJ,YaffeK,Quesenberry
+withmortality.JAMA2015;314:52–60 Association for the Study of Diabetes (EASD). CPJr,SelbyJV.Hypoglycemicepisodesandriskof
+57. YeungRO,ZhangY,LukA,etal.Metabolic DiabetesCare2018;41:2669–2701 dementiainolderpatientswithtype2diabetes
+profilesandtreatmentgapsinyoung-onsettype2 71. InzucchiSE, Bergenstal RM, BuseJB, et al. mellitus.JAMA2009;301:1565–1572
+diabetesinAsia(theJADEprogramme):across- Management of hyperglycemia in type 2 85. Punthakee Z, Miller ME, Launer LJ, et al.;
+sectional study of a prospective cohort. Lancet diabetes, 2015: a patient-centered approach: ACCORDGroupofInvestigators;ACCORD-MIND
+DiabetesEndocrinol2014;2:935–943 updatetoapositionstatementoftheAmerican Investigators.Poorcognitivefunctionandriskof
+58. SattarN,RawshaniA,Franz(cid:3)enS,etal.Age Diabetes Association and the European Asso- severehypoglycemiaintype2diabetes:posthoc
+at diagnosis of type 2 diabetes mellitus and ciationfortheStudyofDiabetes.DiabetesCare epidemiologic analysis of the ACCORD trial.
+associations with cardiovascular and mortality 2015;38:140–149 DiabetesCare2012;35:787–793
+risks.Circulation2019;139:2228–2237 72. AmericanDiabetesAssociation.Postprandial 86. Jacobson AM, Musen G, Ryan CM, et al.;
+59. ZabalaA,DarsaliaV,HolzmannMJ,etal.Risk bloodglucose.DiabetesCare2001;24:775–778 Diabetes Control and Complications Trial/
+offirststrokeinpeoplewithtype2diabetesand 73. RazI,WilsonPWF,StrojekK,etal.Effectsof Epidemiology of Diabetes Interventions and
+its relation to glycaemic control: a nationwide prandialversusfastingglycemiaoncardiovascular ComplicationsStudyResearchGroup.Long-term
+observationalstudy.DiabetesObesMetab2020; outcomesintype2diabetes:theHEART2Dtrial. effectofdiabetesanditstreatmentoncognitive
+22:182–190 DiabetesCare2009;32:381–386 function.NEnglJMed2007;356:1842–1852
+60. Zoungas S, Woodward M, Li Q, et al.; 74. Agiostratidou G, Anhalt H, Ball D, et al. 87. Karter AJ, Moffet HH, Liu JY, Lipska KJ.
+ADVANCECollaborativegroup.Impactofage,age Standardizing clinically meaningful outcome Surveillance of hypoglycemia—limitations of
+atdiagnosisanddurationofdiabetesontheriskof measures beyond HbA for type 1 diabetes: a emergency department and hospital utilization
+1c
+macrovascularandmicrovascularcomplicationsand consensusreportoftheAmericanAssociationof data.JAMAInternMed2018;178:987–988
+death in type 2 diabetes. Diabetologia 2014;57: ClinicalEndocrinologists,theAmericanAssociation 88. LeeAK,LeeCJ,HuangES,SharrettAR,Coresh
+2465–2474 of Diabetes Educators, the American Diabetes J,SelvinE.riskfactorsforseverehypoglycemiaindiabetesjournals.org/care GlycemicTargets S109
+black and white adults with diabetes: the 104. Farrell CM, McCrimmon RJ. Clinical randomised, open-label, crossover trial. Lancet
+AtherosclerosisRiskinCommunities(ARIC)study. approaches to treat impaired awareness of DiabetesEndocrinol2016;4:893–902
+DiabetesCare2017;40:1661–1667 hypoglycaemia. Ther Adv Endocrinol Metab 118. BattelinoT,CongetI,OlsenB,etal.;SWITCH
+89. Karter AJ, Lipska KJ, O’Connor PJ, et al.; 2021;12:20420188211000248 StudyGroup.Theuseandefficacyofcontinuous
+SUPREME-DMStudyGroup.Highratesofsevere 105. Cox DJ, Gonder-Frederick L, Julian DM, glucosemonitoringintype1diabetestreatedwith
+hypoglycemiaamongAfricanAmericanpatients Clarke W. Long-term follow-up evaluation of insulin pump therapy: a randomised controlled
+withdiabetes:thesurveillance,prevention,and bloodglucoseawarenesstraining.DiabetesCare trial.Diabetologia2012;55:3155–3162
+Management of Diabetes Mellitus (SUPREME- 1994;17:1–5 119. Deiss D, Bolinder J, Riveline JP, et al.
+DM)network.JDiabetesComplications2017;31: 106. CryerPE.Diversecausesofhypoglycemia- Improved glycemic control in poorly controlled
+869–873 associatedautonomicfailureindiabetes.NEnglJ patients with type 1 diabetes using real-time
+90. ZoungasS,PatelA,ChalmersJ,etal.;ADVANCE Med2004;350:2272–2279 continuous glucose monitoring. Diabetes Care
+CollaborativeGroup.Severehypoglycemiaandrisks 107. MitchellBD,HeX,SturdyIM,CagleAP,Settles 2006;29:2730–2732
+of vascular events and death. N Engl J Med JA.Glucagonprescriptionpatternsinpatientswith 120. Tamborlane WV, Beck RW, Bode BW,
+2010;363:1410–1418 eithertype1or2diabeteswithnewlyprescribed etal.;JuvenileDiabetesResearchFoundation
+91. McCoy RG, Van Houten HK, Ziegenfuss JY, insulin.EndocrPract2016;22:123–135 ContinuousGlucoseMonitoringStudyGroup.
+Shah ND, Wermers RA, Smith SA. Increased 108. HermannsN,HeinemannL,FreckmannG, Continuous glucose monitoring and intensive
+mortality of patients with diabetes reporting WaldenmaierD,EhrmannD.ImpactofCGMon treatment of type 1 diabetes. N Engl J Med
+severe hypoglycemia. Diabetes Care 2012;35: the management of hypoglycemia problems: 2008;359:1464–1476
+1897–1901 overviewandsecondaryanalysisoftheHypoDE 121. O’ConnellMA,DonathS,O’NealDN,etal.
+92. CahnA, ZukerI, Eilenberg R, etal.Machine study.JDiabetesSciTechnol2019;13:636–644 Glycaemicimpactofpatient-leduseofsensor-
+learningbasedstudyoflongitudinalHbA1ctrends 109. Heinemann L, Freckmann G, Ehrmann D, guided pump therapy in type 1 diabetes: a
+Faber-Heinemann G, Guerra S, Waldenmaier D, randomisedcontrolledtrial.Diabetologia2009;
+and their association with all-cause mortality:
+etal.HeinemannL,FreckmannG,EhrmannD,etal. 52:1250–1257
+analysesfromanationaldiabetesregistry.Diabetes
+Real-timecontinuousglucosemonitoringinadults 122. BeckRW,HirschIB,LaffelL,etal.;Juvenile
+MetabResRev2022;38:e3485
+withtype1diabetesandimpairedhypoglycaemia DiabetesResearchFoundationContinuousGlucose
+93. DuBose SN,Weinstock RS, Beck RW, et al.
+awareness or severe hypoglycaemia treated with MonitoringStudyGroup.Theeffectofcontinuous
+Hypoglycemiainolderadultswithtype1diabetes.
+DiabetesTechnolTher2016;18:765–771 multiple daily insulin injections (HypoDE): a glucose monitoring in well-controlled type 1
+multicentre, randomised controlled trial. Lancet diabetes.DiabetesCare2009;32:1378–1383
+94. Seaquist ER, Anderson J, Childs B, et al.
+2018;391:1367–1377 123. BattelinoT,PhillipM,BratinaN,NimriR,
+Hypoglycemia and diabetes: a report of a
+110. BeckRW,RiddlesworthT,RuedyK,Ahmann Oskarsson P, Bolinder J. Effect of continuous
+workgroupoftheAmericanDiabetesAssociation
+A,BergenstalR,HallerS,etal.Effectofcontinuous glucose monitoring on hypoglycemia in type 1
+and the Endocrine Society. Diabetes Care
+2013;36:1384–1395
+glucosemonitoringonglycemiccontrolinadults diabetes.DiabetesCare2011;34:795–800
+withtype1diabetesusinginsulininjections:the 124. Ludvigsson J, Hanas R. Continuous
+95. BergenstalRM,KlonoffDC,GargSK,etal.;
+DIAMOND randomized clinical trial. JAMA 2017; subcutaneous glucose monitoring improved
+ASPIRE In-Home Study Group.Threshold-based
+317:371–378 metabolic control in pediatric patients with
+insulin-pumpinterruptionforreductionofhypo-
+111. Sequeira PA, Montoya L, Ruelas V, et al. type1diabetes:acontrolledcrossoverstudy.
+glycemia.NEnglJMed2013;369:224–232
+Continuous glucose monitoring pilot in low- Pediatrics2003;111:933–938
+96. Hering BJ, Clarke WR, Bridges ND, et al.;
+incometype1diabetespatients.DiabetesTechnol 125. PratleyRE,KanapkaLG,RickelsMR,Ahmann
+ClinicalIsletTransplantationConsortium.Phase3
+Ther2013;15:855–858 A, Aleppo G, Beck R, etal. Effect ofcontinuous
+trialoftransplantationofhumanisletsintype1 112. TumminiaA,CrimiS,SciaccaL,etal.Efficacy glucose monitoring on hypoglycemia in older
+diabetes complicated by severe hypoglycemia.
+of real-time continuous glucose monitoring on adultswithtype1diabetes:arandomizedclinical
+DiabetesCare2016;39:1230–1240
+glycaemiccontrolandglucosevariabilityintype1 trial.JAMA2020;323:2397–2406
+97. Harlan DM. Islet transplantation for
+diabeticpatientstreatedwitheitherinsulinpumps 126. DicembriniI,MannucciE,MonamiM,PalaL.
+hypoglycemiaunawareness/severehypoglycemia:
+ormultipleinsulininjectiontherapy:arandomized Impactoftechnologyonglycemiccontrolintype2
+caveatemptor.DiabetesCare2016;39:1072–1074
+controlledcrossovertrial.DiabetesMetabResRev diabetes:ameta-analysisofrandomizedtrialson
+98. McTavishL,WiltshireE.Effectivetreatment 2015;31:61–68 continuous glucose monitoring and continuous
+ofhypoglycemiainchildrenwithtype1diabetes:
+113. BolinderJ,AntunaR,Geelhoed-DuijvestijnP, subcutaneous insulin infusion. Diabetes Obes
+a randomized controlled clinical trial. Pediatr Kro€ger J, Weitgasser R. Novel glucose-sensing Metab2019;21:2619–2625
+Diabetes2011;12(4pt2):381–387
+technologyandhypoglycaemiaintype1diabetes: 127. BeckRW,RiddlesworthTD,RuedyK,etal.;
+99. McTavishL,CorleyB,WeatherallM,Wiltshire
+amulticentre,non-masked,randomisedcontrolled DIAMOND Study Group. Continuous glucose
+E,KrebsJD.Weight-basedcarbohydratetreatment trial.Lancet2016;388:2254–2263 monitoring versus usual care in patients with
+ofhypoglycaemiainpeoplewithtype1diabetes 114. HermannsN,SchumannB,KulzerB,Haak type 2 diabetes receiving multiple daily insulin
+usinginsulinpumptherapy:arandomizedcrossover T.Theimpactofcontinuousglucosemonitoring injections: a randomized trial. Ann Intern Med
+clinicaltrial.DiabetMed2018;35:339–346 onlowinterstitialglucosevaluesandlowblood 2017;167:365–374
+100. GeorgakopoulosK,KatsilambrosN,FragakiM, glucose values assessed by point-of-care blood 128. Ehrhardt NM, Chellappa M, Walker MS,
+etal.Recoveryfrominsulin-inducedhypoglycemia glucose meters: results of a crossover trial. J Fonda SJ, Vigersky RA. The effect of real-time
+after saccharose or glucose administration. Clin DiabetesSciTechnol2014;8:516–522 continuous glucose monitoring on glycemic
+PhysiolBiochem1990;8:267–272
+115. ReddyM,JugneeN,ElLaboudiA,Spanudakis controlinpatientswithtype2diabetesmellitus.
+101. LaymanDK,CliftonP,GannonMC,Krauss E,AnantharajaS,OliverN.Arandomizedcontrolled JDiabetesSciTechnol2011;5:668–675
+RM,NuttallFQ.Proteininoptimalhealth:heart pilot studyofcontinuousglucosemonitoringand 129. Haak T, Hanaire H, Ajjan R, Hermanns N,
+disease and type 2 diabetes. Am J Clin Nutr flash glucose monitoring in people with Type 1 Riveline JP, Rayman G. Flash glucose-sensing
+2008;87:1571S–1575S diabetesandimpairedawarenessofhypoglycaemia. technology as a replacement for blood glucose
+102. PontiroliAE,CerianiV.Intranasalglucagon DiabetMed2018;35:483–490 monitoring for the management of insulin-treated
+for hypoglycaemia in diabetic patients. An old 116. Riddlesworth T, Price D, Cohen N, Beck type 2 diabetes: a multicenter, open-label rando-
+dreamisbecomingreality?DiabetesObesMetab RW. Hypoglycemic event frequency and the mizedcontrolledtrial.DiabetesTher2017;8:55–73
+2018;20:1812–1816 effect of continuous glucose monitoring in 130. YooHJ,AnHG,ParkSY,etal.Useofareal
+103. Stanton-FaySH,HamiltonK,ChadwickPM, adultswithtype1diabetesusingmultipledaily timecontinuousglucosemonitoringsystemasa
+et al.; DAFNEplus study group.The DAFNEplus insulininjections.DiabetesTher2017;8:947–951 motivationaldeviceforpoorlycontrolledtype2
+programme for sustained type 1 diabetes self 117. van Beers CAJ, DeVries JH, Kleijer SJ, diabetes.DiabetesResClinPract2008;82:73–79
+management: intervention development using et al. Continuous glucose monitoring for 131. Garg S, Zisser H, Schwartz S, et al.
+theBehaviourChangeWheel.DiabetMed2021; patients with type 1 diabetes and impaired Improvement in glycemic excursions with a
+38:e14548 awareness of hypoglycaemia (IN CONTROL): a transcutaneous, real-time continuous glucoseS110 GlycemicTargets DiabetesCare Volume46,Supplement1,January2023
+sensor:arandomizedcontrolledtrial.Diabetes Level Awareness in Diabetes Study (GLADIS). diabetes: a multicentre, randomised controlled
+Care2006;29:44–50 DiabetMed2015;32:609–617 trial.Lancet2019;393:1138–1148
+132. NewJP,AjjanR,PfeifferAFH,FreckmannG. 133. BergenstalRM,JohnsonM,PassiR,etal. 134. KitabchiAE,UmpierrezGE,MilesJM,Fisher
+Continuous glucose monitoring in people with Automatedinsulin dosing guidance tooptimise JN. Hyperglycemic crises in adult patients with
+diabetes: the randomized controlled Glucose insulin management in patients with type 2 diabetes.DiabetesCare2009;32:1335–1343

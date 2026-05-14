@@ -1,0 +1,475 @@
+[
+  {
+    "page": 5,
+    "data": [
+      [
+        "a\nSubject Groups: GLUCOPHAGE dose\n(number of subjects)",
+        "b\nCmax\n(µg/mL)",
+        "c\nTmax\n(hrs)",
+        "Renal Clearance\n(mL/min)"
+      ],
+      [
+        "Healthy, nondiabetic adults:\n500 mg single dose (24)\nd\n850 mg single dose (74)\ne\n850 mg three times daily for 19 doses (9)",
+        "1.03 (±0.33)\n1.60 (±0.38)\n2.01 (±0.42)",
+        "2.75 (±0.81)\n2.64 (±0.82)\n1.79 (±0.94)",
+        "600 (±132)\n552 (±139)\n642 (±173)"
+      ],
+      [
+        "Adults with type 2 diabetes:\n850 mg single dose (23)\ne\n850 mg three times daily for 19 doses (9)",
+        "1.48 (±0.5)\n1.90 (±0.62)",
+        "3.32 (±1.08)\n2.01 (±1.22)",
+        "491 (±138)\n550 (±160)"
+      ],
+      [
+        "f\nElderly , healthy nondiabetic adults:\n850 mg single dose (12)",
+        "2.45 (±0.70)",
+        "2.71 (±1.05)",
+        "412 (±98)"
+      ],
+      [
+        "Renal-impaired adults:\n850 mg single dose\ng\nMild (CLcr 61-90 mL/min) (5)\nModerate (CLcr 31-60 mL/min) (4)\nSevere (CLcr 10-30 mL/min) (6)",
+        "1.86 (±0.52)\n4.12 (±1.83)\n3.93 (±0.92)",
+        "3.20 (±0.45)\n3.75 (±0.50)\n4.01 (±1.10)",
+        "384 (±122)\n108 (±57)\n130 (±90)"
+      ]
+    ]
+  },
+  {
+    "page": 6,
+    "data": [
+      [
+        "",
+        "GLUCOPHAGE\n(n=141)",
+        "Placebo\n(n=145)",
+        "p-Value"
+      ],
+      [
+        "FPG (mg/dL)\nBaseline\nChange at FINAL VISIT",
+        "241.5\n–53.0",
+        "237.7\n6.3",
+        "NS**\n0.001"
+      ],
+      [
+        "Hemoglobin A1c (%)\nBaseline\nChange at FINAL VISIT",
+        "8.4\n–1.4",
+        "8.2\n0.4",
+        "NS**\n0.001"
+      ],
+      [
+        "Body Weight (lbs)\nBaseline\nChange at FINAL VISIT",
+        "201.0\n–1.4",
+        "206.0\n–2.4",
+        "NS**\nNS**"
+      ]
+    ]
+  },
+  {
+    "page": 7,
+    "data": [
+      [
+        "",
+        "Comb\n(n=213)",
+        "Glyb\n(n=209)",
+        "GLU\n(n=210)",
+        "p-values",
+        null,
+        null
+      ],
+      [
+        null,
+        null,
+        null,
+        null,
+        "Glyb vs\nComb",
+        "GLU vs\nComb",
+        "GLU vs\nGlyb"
+      ],
+      [
+        "Fasting Plasma Glucose (mg/dL)\nBaseline\nChange at FINAL VISIT",
+        "250.5\n–63.5",
+        "247.5\n13.7",
+        "253.9\n–0.9",
+        "NS**\n0.001",
+        "NS**\n0.001",
+        "NS**\n0.025"
+      ],
+      [
+        "Hemoglobin A1c (%)\nBaseline\nChange at FINAL VISIT",
+        "8.8\n–1.7",
+        "8.5\n0.2",
+        "8.9\n–0.4",
+        "NS**\n0.001",
+        "NS**\n0.001",
+        "0.007\n0.001"
+      ],
+      [
+        "Body Weight (lbs)\nBaseline\nChange at FINAL VISIT",
+        "202.2\n0.9",
+        "203.0\n–0.7",
+        "204.0\n–8.4",
+        "NS**\n0.011",
+        "NS**\n0.001",
+        "NS**\n0.001"
+      ]
+    ]
+  },
+  {
+    "page": 8,
+    "data": [
+      [
+        "",
+        "GLUCOPHAGE vs\nPlacebo",
+        null,
+        "Combined GLUCOPHAGE/Glyburide\nvs Monotherapy",
+        null,
+        null
+      ],
+      [
+        "",
+        "GLUCOPHAGE\n(n=141)",
+        "Placebo\n(n=145)",
+        "GLUCOPHAGE\n(n=210)",
+        "GLUCOPHAGE/\nGlyburide\n(n=213)",
+        "Glyburide\n(n=209)"
+      ],
+      [
+        "Total Cholesterol (mg/dL)\nBaseline\nMean % Change at FINAL VISIT",
+        "211.0\n–5%",
+        "212.3\n1%",
+        "213.1\n–2%",
+        "215.6\n–4%",
+        "219.6\n1%"
+      ],
+      [
+        "Total Triglycerides (mg/dL)\nBaseline\nMean % Change at FINAL VISIT",
+        "236.1\n–16%",
+        "203.5\n1%",
+        "242.5\n–3%",
+        "215.0\n–8%",
+        "266.1\n4%"
+      ],
+      [
+        "LDL-Cholesterol (mg/dL)\nBaseline\nMean % Change at FINAL VISIT",
+        "135.4\n–8%",
+        "138.5\n1%",
+        "134.3\n–4%",
+        "136.0\n–6%",
+        "137.5\n3%"
+      ],
+      [
+        "HDL-Cholesterol (mg/dL)\nBaseline\nMean % Change at FINAL VISIT",
+        "39.0\n2%",
+        "40.5\n–1%",
+        "37.2\n5%",
+        "39.0\n3%",
+        "37.0\n1%"
+      ]
+    ]
+  },
+  {
+    "page": 9,
+    "data": [
+      [
+        "",
+        "GLUCOPHAGE/\nInsulin\n(n=26)",
+        "Placebo/\nInsulin\n(n=28)",
+        "Treatment\nDifference\nMean ± SE"
+      ],
+      [
+        "Hemoglobin A1c (%)\nBaseline\nChange at FINAL VISIT",
+        "8.95\n–2.10",
+        "9.32\n–1.56",
+        "a\n–0.54 ± 0.43"
+      ],
+      [
+        "Insulin Dose (U/day)\nBaseline\nChange at FINAL VISIT",
+        "93.12\n–0.15",
+        "94.64\n15.93",
+        "b\n–16.08 ± 7.77"
+      ]
+    ]
+  },
+  {
+    "page": 10,
+    "data": [
+      [
+        "",
+        "GLUCOPHAGE XR",
+        null,
+        null,
+        null,
+        null,
+        "Placebo"
+      ],
+      [
+        null,
+        "500 mg\nOnce\nDaily",
+        "1000 mg\nOnce\nDaily",
+        "1500 mg\nOnce\nDaily",
+        "2000 mg\nOnce\nDaily",
+        "1000 mg\nTwice\nDaily",
+        null
+      ],
+      [
+        "Hemoglobin A1c (%)\nBaseline\nChange at FINAL VISIT\na\np-value",
+        "(n=115)\n8.2\n–0.4\n<0.001",
+        "(n=115)\n8.4\n–0.6\n<0.001",
+        "(n=111)\n8.3\n–0.9\n<0.001",
+        "(n=125)\n8.4\n–0.8\n<0.001",
+        "(n=112)\n8.4\n–1.1\n<0.001",
+        "(n=111)\n8.4\n0.1\n–"
+      ],
+      [
+        "FPG (mg/dL)\nBaseline\nChange at FINAL VISIT\na\np-value",
+        "(n=126)\n182.7\n–15.2\n<0.001",
+        "(n=118)\n183.7\n–19.3\n<0.001",
+        "(n=120)\n178.9\n–28.5\n<0.001",
+        "(n=132)\n181.0\n–29.9\n<0.001",
+        "(n=122)\n181.6\n–33.6\n<0.001",
+        "(n=113)\n179.6\n7.6\n–"
+      ],
+      [
+        "Body Weight (lbs)\nBaseline\nChange at FINAL VISIT\na\np-value",
+        "(n=125)\n192.9\n–1.3\nNS**",
+        "(n=119)\n191.8\n–1.3\nNS**",
+        "(n=117)\n188.3\n–0.7\nNS**",
+        "(n=131)\n195.4\n–1.5\nNS**",
+        "(n=119)\n192.5\n–2.2\nNS**",
+        "(n=113)\n194.3\n–1.8\n–"
+      ]
+    ]
+  },
+  {
+    "page": 11,
+    "data": [
+      [
+        "",
+        "GLUCOPHAGE\n500 mg\nTwice Daily",
+        "GLUCOPHAGE XR",
+        null
+      ],
+      [
+        null,
+        null,
+        "1000 mg\nOnce Daily",
+        "1500 mg\nOnce Daily"
+      ],
+      [
+        "Hemoglobin A1c (%)\nBaseline\nChange at 12 Weeks\n(95% CI)\nChange at FINAL VISIT\n(95% CI)",
+        "(n=67)\n7.06\n0.14\n(–0.03, 0.31)\na\n0.14\n(–0.04, 0.31)",
+        "(n=72)\n6.99\n0.23\n(0.10, 0.36)\n0.27\n(0.11, 0.43)",
+        "(n=66)\n7.02\n0.04\n(–0.08, 0.15)\n0.13\n(–0.02, 0.28)"
+      ],
+      [
+        "FPG (mg/dL)\nBaseline\nChange at 12 Weeks\n(95% CI)\nChange at FINAL VISIT\n(95% CI)",
+        "(n=69)\n127.2\n12.9\n(6.5, 19.4)\n14.0\n(7.0, 21.0)",
+        "(n=72)\n131.0\n9.5\n(4.4, 14.6)\n11.5\n(4.4, 18.6)",
+        "(n=70)\n131.4\n3.7\n(–0.4, 7.8)\n7.6\n(1.0, 14.2)"
+      ],
+      [
+        "Body Weight (lbs)\nBaseline\nChange at 12 Weeks\n(95% CI)\nChange at FINAL VISIT\n(95% CI)",
+        "(n=71)\n210.3\n0.4\n(–0.4, 1.5)\n0.9\n(–0.4, 2.2)",
+        "(n=74)\n202.8\n0.9\n(0.0, 2.0)\n1.1\n(–0.2, 2.4)",
+        "(n=71)\n192.7\n0.7\n(–0.4, 1.8)\n0.9\n(–0.4, 2.0)"
+      ]
+    ]
+  },
+  {
+    "page": 12,
+    "data": [
+      [
+        "",
+        "GLUCOPHAGE XR",
+        null,
+        null,
+        null,
+        null,
+        "Placebo"
+      ],
+      [
+        null,
+        "500 mg\nOnce\nDaily",
+        "1000 mg\nOnce\nDaily",
+        "1500 mg\nOnce\nDaily",
+        "2000 mg\nOnce\nDaily",
+        "1000 mg\nTwice\nDaily",
+        null
+      ],
+      [
+        "Total Cholesterol (mg/dL)\nBaseline\nMean % Change at FINAL VISIT",
+        "(n=120)\n210.3\n1.0%",
+        "(n=113)\n218.1\n1.7%",
+        "(n=110)\n214.6\n0.7%",
+        "(n=126)\n204.4\n–1.6%",
+        "(n=117)\n208.2\n–2.6%",
+        "(n=110)\n208.6\n2.6%"
+      ],
+      [
+        "Total Triglycerides (mg/dL)\nBaseline\nMean % Change at FINAL VISIT",
+        "(n=120)\n220.2\n14.5%",
+        "(n=113)\n211.9\n9.4%",
+        "(n=110)\n198.0\n15.1%",
+        "(n=126)\n194.2\n14.9%",
+        "(n=117)\n179.0\n9.4%",
+        "(n=110)\n211.7\n10.9%"
+      ],
+      [
+        "LDL-Cholesterol (mg/dL)\nBaseline\nMean % Change at FINAL VISIT",
+        "(n=119)\n131.0\n–1.4%",
+        "(n=113)\n134.9\n–1.6%",
+        "(n=109)\n135.8\n–3.5%",
+        "(n=126)\n125.8\n–3.3%",
+        "(n=117)\n131.4\n–5.5%",
+        "(n=107)\n131.9\n3.2%"
+      ],
+      [
+        "HDL-Cholesterol (mg/dL)\nBaseline\nMean % Change at FINAL VISIT",
+        "(n=120)\n40.8\n6.2%",
+        "(n=108)\n41.6\n8.6%",
+        "(n=108)\n40.6\n5.5%",
+        "(n=125)\n40.2\n6.1%",
+        "(n=117)\n42.4\n7.1%",
+        "(n=108)\n39.4\n5.8%"
+      ]
+    ]
+  },
+  {
+    "page": 13,
+    "data": [
+      [
+        "",
+        "GLUCOPHAGE",
+        "GLUCOPHAGE XR",
+        null
+      ],
+      [
+        null,
+        "500 mg\nTwice Daily",
+        "1000 mg\nOnce Daily",
+        "1500 mg\nOnce Daily"
+      ],
+      [
+        "Total Cholesterol (mg/dL)\nBaseline\nMean % Change at FINAL VISIT",
+        "(n=68)\n199.0\n0.1%",
+        "(n=70)\n201.9\n1.3%",
+        "(n=66)\n201.6\n0.1%"
+      ],
+      [
+        "Total Triglycerides (mg/dL)\nBaseline\nMean % Change at FINAL VISIT",
+        "(n=68)\n178.0\n6.3%",
+        "(n=70)\n169.2\n25.3%",
+        "(n=66)\n206.8\n33.4%"
+      ],
+      [
+        "LDL-Cholesterol (mg/dL)\nBaseline\nMean % Change at FINAL VISIT",
+        "(n=68)\n122.1\n−1.3%",
+        "(n=70)\n126.2\n−3.3%",
+        "(n=66)\n115.7\n−3.7%"
+      ],
+      [
+        "HDL-Cholesterol (mg/dL)\nBaseline\nMean % Change at FINAL VISIT",
+        "(n=68)\n41.9\n4.8%",
+        "(n=70)\n41.7\n1.0%",
+        "(n=65)\n44.6\n–2.1%"
+      ]
+    ]
+  },
+  {
+    "page": 13,
+    "data": [
+      [
+        "",
+        "GLUCOPHAGE",
+        "Placebo",
+        "p-Value"
+      ],
+      [
+        "FPG (mg/dL)\nBaseline\nChange at FINAL VISIT",
+        "(n=37)\n162.4\n–42.9",
+        "(n=36)\n192.3\n21.4",
+        "<0.001"
+      ],
+      [
+        "Body Weight (lbs)\nBaseline\nChange at FINAL VISIT",
+        "(n=39)\n205.3\n–3.3",
+        "(n=38)\n189.0\n–2.0",
+        "NS**"
+      ]
+    ]
+  },
+  {
+    "page": 23,
+    "data": [
+      [
+        "Adverse Reaction",
+        "GLUCOPHAGE\nMonotherapy\n(n=141)",
+        "Placebo\n(n=145)"
+      ],
+      [
+        null,
+        "% of Patients",
+        null
+      ],
+      [
+        "Diarrhea",
+        "53.2",
+        "11.7"
+      ],
+      [
+        "Nausea/Vomiting",
+        "25.5",
+        "8.3"
+      ],
+      [
+        "Flatulence",
+        "12.1",
+        "5.5"
+      ],
+      [
+        "Asthenia",
+        "9.2",
+        "5.5"
+      ],
+      [
+        "Indigestion",
+        "7.1",
+        "4.1"
+      ],
+      [
+        "Abdominal Discomfort",
+        "6.4",
+        "4.8"
+      ],
+      [
+        "Headache",
+        "5.7",
+        "4.8"
+      ]
+    ]
+  },
+  {
+    "page": 24,
+    "data": [
+      [
+        "Adverse Reaction",
+        "GLUCOPHAGE XR\n(n=781)",
+        "Placebo\n(n=195)"
+      ],
+      [
+        null,
+        "% of Patients",
+        null
+      ],
+      [
+        "Diarrhea",
+        "9.6",
+        "2.6"
+      ],
+      [
+        "Nausea/Vomiting",
+        "6.5",
+        "1.5"
+      ]
+    ]
+  }
+]

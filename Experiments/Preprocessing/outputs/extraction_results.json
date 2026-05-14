@@ -1,0 +1,132 @@
+[
+  {
+    "pdf": "ada_standards_care_diabetes_6.pdf",
+    "methods": [
+      {
+        "method": "pdfplumber",
+        "pages": 14,
+        "char_count": 79869,
+        "table_count": 9,
+        "error": null
+      },
+      {
+        "method": "pymupdf",
+        "pages": 14,
+        "char_count": 83887,
+        "table_count": null,
+        "error": null
+      },
+      {
+        "method": "langchain",
+        "pages": 14,
+        "char_count": 84336,
+        "table_count": null,
+        "error": null
+      }
+    ]
+  },
+  {
+    "pdf": "ada_standards_care_diabetes_9.pdf",
+    "methods": [
+      {
+        "method": "pdfplumber",
+        "pages": 33,
+        "char_count": 211871,
+        "table_count": 17,
+        "error": null
+      },
+      {
+        "method": "pymupdf",
+        "pages": 33,
+        "char_count": 217870,
+        "table_count": null,
+        "error": null
+      },
+      {
+        "method": "langchain",
+        "pages": 33,
+        "char_count": 223204,
+        "table_count": null,
+        "error": null
+      }
+    ]
+  },
+  {
+    "pdf": "jnc8_guidelines_management_hypertension.pdf",
+    "methods": [
+      {
+        "method": "pdfplumber",
+        "pages": 2,
+        "char_count": 6433,
+        "table_count": 0,
+        "error": null
+      },
+      {
+        "method": "pymupdf",
+        "pages": 2,
+        "char_count": 6505,
+        "table_count": null,
+        "error": null
+      },
+      {
+        "method": "langchain",
+        "pages": 2,
+        "char_count": 6558,
+        "table_count": null,
+        "error": null
+      }
+    ]
+  },
+  {
+    "pdf": "metformin_fda_label.pdf",
+    "methods": [
+      {
+        "method": "pdfplumber",
+        "pages": 35,
+        "char_count": 74097,
+        "table_count": 12,
+        "error": null
+      },
+      {
+        "method": "pymupdf",
+        "pages": 35,
+        "char_count": 81211,
+        "table_count": null,
+        "error": null
+      },
+      {
+        "method": "langchain",
+        "pages": 35,
+        "char_count": 80012,
+        "table_count": null,
+        "error": null
+      }
+    ]
+  },
+  {
+    "pdf": "nutrients-11-00766.pdf",
+    "methods": [
+      {
+        "method": "pdfplumber",
+        "pages": 17,
+        "char_count": 65850,
+        "table_count": 0,
+        "error": null
+      },
+      {
+        "method": "pymupdf",
+        "pages": 17,
+        "char_count": 71132,
+        "table_count": null,
+        "error": null
+      },
+      {
+        "method": "langchain",
+        "pages": 17,
+        "char_count": 73211,
+        "table_count": null,
+        "error": null
+      }
+    ]
+  }
+]
