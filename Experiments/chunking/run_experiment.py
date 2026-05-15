@@ -65,17 +65,21 @@ logger = logging.getLogger("chunking_experiment")
 # ── RAGAS (optional — falls back to lightweight metrics if unavailable) ────────
 try:
     from ragas import evaluate as ragas_evaluate
-    from ragas.metrics import (
+    from ragas.metrics.collections import (     # 0.4.x import path
         faithfulness,
         answer_relevancy,
         context_precision,
         context_recall,
     )
+    from ragas.dataset_schema import EvaluationDataset, SingleTurnSample
+    from ragas.llms import LangchainLLMWrapper
+    from langchain_openai import ChatOpenAI
     _RAGAS_AVAILABLE = True
+    logger.info("RAGAS 0.4.x available — will run full LLM-judge metrics")
 except (ImportError, Exception) as e:
     _RAGAS_AVAILABLE = False
     logger.warning(
-        f"ragas not available or incompatible: {e} — using lightweight proxy metrics."
+        f"ragas not available or incompatible ({e}) — using lightweight proxy metrics."
     )
 
 from strategies import STRATEGIES
@@ -330,16 +334,40 @@ def run_single_experiment(
     dataset = Dataset.from_list(ragas_data)
 
     if _RAGAS_AVAILABLE:
-        logger.info("Running RAGAS on %d questions…", len(ragas_data))
+        logger.info("Running RAGAS LLM-judge on %d questions...", len(ragas_data))
+        # Build EvaluationDataset (ragas 0.4.x schema)
+        samples = [
+            SingleTurnSample(
+                user_input=r["question"],
+                response=r["answer"],
+                retrieved_contexts=r["contexts"],
+                reference=r["ground_truth"],
+            )
+            for r in ragas_data
+        ]
+        eval_dataset = EvaluationDataset(samples=samples)
+
+        # Wrap the same LLM client we use for answering
+        ragas_llm = LangchainLLMWrapper(
+            ChatOpenAI(
+                model=llm_model,
+                api_key=llm_client.api_key,
+                base_url=str(llm_client.base_url) if llm_client.base_url else None,
+                temperature=0,
+            )
+        )
         result = ragas_evaluate(
-            dataset=dataset,
+            dataset=eval_dataset,
             metrics=[faithfulness, answer_relevancy, context_precision, context_recall],
+            llm=ragas_llm,
+            show_progress=True,
         )
         scores = {
             "faithfulness": float(result["faithfulness"]),
             "answer_relevancy": float(result["answer_relevancy"]),
             "context_precision": float(result["context_precision"]),
             "context_recall": float(result["context_recall"]),
+            "metric_source": 1.0,   # 1 = true RAGAS
         }
     else:
         # ── Lightweight proxy metrics (no RAGAS dependency) ───────────────
@@ -374,19 +402,25 @@ def run_single_experiment(
 # Main
 # =============================================================================
 
-def main(strategies_to_run: list[str] | None = None) -> None:
+def main(strategies_to_run: list[str] | None = None, max_questions: int | None = None) -> None:
     llm_client, llm_model, provider, rpm_limit = build_llm_client()
 
     logger.info("Loading embedding model (BAAI/bge-small-en-v1.5, LOCAL)...")
     embed_model = SentenceTransformer("BAAI/bge-small-en-v1.5")
 
-    # Load eval questions
+    # Load eval questions (optionally capped for faster runs)
     eval_dir = _ROOT / "data" / "evaluation"
     eval_questions = load_eval_questions(eval_dir)
-    logger.info("Loaded %d eval questions", len(eval_questions))
+    if max_questions and len(eval_questions) > max_questions:
+        # Sample evenly across documents so all docs are represented
+        import random
+        random.seed(42)
+        eval_questions = random.sample(eval_questions, max_questions)
+    logger.info("Using %d eval questions", len(eval_questions))
 
-    # MLflow setup
-    mlflow.set_tracking_uri(str(_ROOT / "experiments" / "chunking" / "mlruns"))
+    # MLflow setup — use file:// URI so Windows drive letters don't break it
+    mlruns_dir = _ROOT / "experiments" / "chunking" / "mlruns"
+    mlflow.set_tracking_uri(mlruns_dir.as_uri())   # file:///F:/... on Windows
     mlflow.set_experiment(MLFLOW_EXPERIMENT)
 
     strategies_to_run = strategies_to_run or list(STRATEGIES.keys())
@@ -471,7 +505,10 @@ def main(strategies_to_run: list[str] | None = None) -> None:
 
     logger.info("\n=== EXPERIMENT COMPLETE ===")
     logger.info("Results: %s", summary_path)
-    logger.info("MLflow UI: mlflow ui --backend-store-uri experiments/chunking/mlruns")
+    logger.info(
+        "MLflow UI: mlflow ui --backend-store-uri %s",
+        mlruns_dir.as_uri(),
+    )
 
     if all_results:
         best = max(all_results, key=lambda r: r.get("mean_score", 0))
@@ -489,6 +526,13 @@ if __name__ == "__main__":
         default=None,
         help="Run only this strategy (default: all)",
     )
+    parser.add_argument(
+        "--max-questions",
+        type=int,
+        default=None,
+        dest="max_questions",
+        help="Cap the number of eval questions (sampled evenly). Default: use all.",
+    )
     args = parser.parse_args()
     strategies = [args.strategy] if args.strategy else None
-    main(strategies)
+    main(strategies, max_questions=args.max_questions)
