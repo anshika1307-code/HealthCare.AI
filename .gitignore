@@ -17,7 +17,7 @@ env/
 # ── Environment Variables ────────────────────────────────────────────────────
 .env
 
-# ── Data  ────────────────────────────────────────────────────
+# ── Data (managed by DVC) ────────────────────────────────────────────────────
 /data/raw/
 /data/processed/
 
@@ -31,3 +31,17 @@ experiments/**/outputs/
 Thumbs.db
 desktop.ini
 
+# ── ML Tracking ──────────────────────────────────────────────────────────────
+mlruns/
+.mlflow/
+
+# ── Testing / Coverage ───────────────────────────────────────────────────────
+*.log
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ── DVC NOTE: Do NOT ignore these — they belong in git ───────────────────────
+# *.dvc        ← pointer files, commit these
+# .dvc/config  ← remote config, commit this
+# .dvcignore   ← commit this
