@@ -73,3 +73,80 @@ audit. Diabetes Care 2020;43:2153–2160
 
 - not the complete document which i want
 
+## Document 4 (original) - jnc8_guidelines_manage_hypertension_original.pdf
+
+### Observations
+
+- 2 column page format
+- lots of abbreviation like ACEI angiotensin-converting enzyme
+inhibitor
+ARB angiotensin receptor blocker
+BP blood pressure
+CCB calcium channel blocker
+CKD chronic kidney disease
+CVD cardiovascular disease
+ESRD end-stage renal disease
+GFR glomerular filtration rate
+HF heart failure
+Expand & Normalize abbreviations on first occurrence.
+- need to remove header
+- need to remover footer
+- footer has three lines to remove from bottom, first is like - 508 JAMA February 5, 2014 Volume 311, Number 5 jama.com, second is - Copyright © 2014 American Medical Association., third is - Downloaded from jamanetwork.com by Anshika Goel on 05/14/2026
+- page 1 has summary or key pints kind of thing - these are not part of guidelines, can remove them
+- need to maintain the order of the content - as the content is not in order in the document
+- having references like (in Table 1) or (70) like - need to remove
+- Normalize different formats of same word
+- there is table three for grade system for each recommentation, each recommendation has grades and evidence type, we need to keep it as metadata
+e.g. Recommendation 1
+In the general population aged 60 years or older, initiate pharmacologic
+treatment to lowerBPat systolic blood pressure (SBP) of 150
+mmHg or higher or diastolic blood pressure (DBP) of 90mmHg or
+higher and treat to a goal SBP lower than 150mmHg and goal DBP
+lower than 90mmHg.
+Strong Recommendation – Grade A
+- i think in this we should have each recommentation as a chunk, along with its grade and evidence type (metadata)
+-  there are some negative instructions too - very improtant to keep them e.g. (Avoid tight BP control in patients with CKD and.
+CVD) and i think we can flag them too (safety concerns)
+- at 512 page, there is a full flow chart daigram - it feels important, but not sure how to extract it, ask AI if it can extract and make a flow chart text or simply convert it into text format. If not then we can skip it. or some way out.
+- there is a list of ARTICLE INFORMATION and REFERENCES at the last - we can remove them, but need to confirm that they are not imporant.
+
+## Document 5 - nutrients-11-00766.pdf (Reversing Type 2 Diabetes: A Narrative Review of the Evidence)
+
+- lets leave this document for now, as it is not required for prototype.
+
+
+## General Notes from my side
+
+- we can remove hyphenated words which are broken into two lines
+- normalize words cross the documents (same medical term , different formats)
+- while normalizing do not change the meaning or context of the word
+- do not change the abbreviation form while normalizing unless it is required for better search, but we need to expand the abbreviation at least once in the document
+- medical information should preioritize the dose usage, negative instruction like dont use this, side effects, boxed warning - we need to flag them and make sure to give in retrieval.
+
+## Metadata to keep - 
+- page number
+- document id
+- document name
+- section name (like Recommendation 1 in JNC)
+- section number
+- subsection name
+- subsection number
+- grade (like Grade A in JNC)
+- evidence type (like Evidence A in JNC)
+- table number (like Table 1 in ADA)
+- figure number (like Figure 1 in ADA)
+- references (like reference 1 in ADA)
+
+
+## how to handle tables
+- first extract with pdfplumber and convert table into readable sentences with comma separated values
+
+## how to handle graphs and figures
+- need to ask AI about this as 
+
+## how to handle headers and footers
+- need to remove them
+
+## how to handle references
+- need to remove them, keep in metadata only if needed
+
