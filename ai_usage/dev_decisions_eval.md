@@ -20,4 +20,8 @@ Documentation\preprocessing_spec_ai.md
 
 - Conclusion - Current decisions are the best for current Project scope
 
-## 
+## Chunking 
+
+- **Model used**: Claude Sonnet 4.5
+- **Tool used**: Antigravity
+- **Prompt to LLM**: Okay now we need to prepare the chunking stragtegy, prepare a chunking_plan.md , but before that lets do experiment on existing document with different chunking strategies and sizes and check which one is best for our usecase. As i told in decision.md that in experiment we will test 256/512/1024 and pick based on your eval scores(RAGAS) then MLflow to track these scores. For information we already have implemented chuking in the code but still to make sure we are on right track do the experiment then we will decide the existing one is enough or we need to change the strategy for our usecase.

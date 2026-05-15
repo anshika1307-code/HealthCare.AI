@@ -10,6 +10,15 @@ requires-python = ">=3.11"
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]           # PEP 517 src layout — no pip install -e needed
+addopts = "-v --tb=short"
+markers = [
+    "unit: pure logic tests, no I/O",
+    "integration: tests that require running services (Qdrant, etc.)",
+]
+
 [tool.pyright]
 pythonVersion = "3.11"
 venvPath = "."
