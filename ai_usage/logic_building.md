@@ -19,6 +19,7 @@ preprocessing_specs_dev.md
 - **Code Generated**: -
 - **Result**: ai_usage\reports\preprocessing_plan.md
 
+
 ### Feedbacks and improvements
 - **Model used**: Claude Sonnet 4.5
 - **Tool used**: Antigravity
@@ -37,7 +38,7 @@ now answering your current uestions
 4. Keep in metadata (evidence_grade), strip from text body if they are grades only
 5. Flag via metadata (safety_flag: true) + keep text as-is. Retrieval layer will boost safety-flagged chunks
 6.  Both: placeholder in text flow + separate table chunk with same metadata, linked by table_number
-- **Code Generated**: -
+- **Code Generated**: - 3e790fb3ee4e154425d967c4c37eb39d1d6839fd (this commit has the code)
 - **Result**: ai_usage\reports\preprocessing_plan_QA.md
 
 ---
