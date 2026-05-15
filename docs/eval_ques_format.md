@@ -8,6 +8,8 @@
 > look at the structure of documents and try to generate questions that can test the cross-document understanding
 > Also test with difficult to understand questions as well
 
+- **Note:** In this kind of Project, these Q&As will be the ground truth of the entire project, so we should need human intervention to create them (like here - **Human (Medical Expert)**: Creates ~10-12 core questions/answers manually for each doc.  **AI**: Generates ~30-40 additional questions covering edge cases, tables, cross-docs, and difficult scenarios, using the human set as a template. - but for this project i will be doing this using AI  only as i dont have medical background.)
+
 ## Questions — Doc 1: metformin_fda_label.pdf
 
 | # | question | expected_answer_contains | source_doc | section | difficulty |
