@@ -43,5 +43,26 @@ now answering your current uestions
 
 ---
 
-##
+## Retrieval Pipeline
+- We have two approaches for retrieval - DenseRetriever and BM25Retriever, we will use RRF Fusion to combine the results of both and then use CrossEncoderReranker to rerank the results
+
+### Prompt to LLM for Retrieval Pipeline
+- **Model used**: Claude Sonnet 4.5
+- **Tool used**: Antigravity
+- **Prompt to LLM**: 
+decision.md
+ according to my Retrieval strategy decision, lets plan out the implementation retrieval pipeline with planning and setting different config folder (also for each value we should have proper reason) as this is a prototype of how production ready RAG system look like, but still a prototype which will be deployed on free server but we build the complete architecture and engineering as for production project
+
+- **Report**: ai_usage\reports\retrieval_pipeline_plan.md
+
+---
+
+## Embedding & Indexing
+- **Model used**: Claude Sonnet 4.5
+- **Tool used**: Antigravity
+- **Prompt to LLM**: okay plan the implementation of embedding and indexing ,same how we done for retrieval, production grade architecture, prototype grade code - look into decision.md for any predecided decisions
+- **Report**: ai_usage\reports\embedding_indexing_plan.md
+
+
+
 
