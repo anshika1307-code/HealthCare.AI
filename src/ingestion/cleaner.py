@@ -217,10 +217,20 @@ _IN_TABLE_REF = re.compile(r"\(in\s+(?:Table|Figure)\s+[\d\.]+\)", re.IGNORECASE
 _FIG_REF_PARENS = re.compile(r"\(in Fig\.?\s*[\d\.]+\)", re.IGNORECASE)
 _FIG_REF_INLINE = re.compile(r"\bFig\.\s*[\d\.]+", re.IGNORECASE)
 
-# Superscript/subscript footnote letter artifacts: e.g. "Cmaxa" where 'a' is superscript
-# Only strip a single lowercase letter after a word character, before whitespace/punctuation
-# Carefully avoid stripping legitimate suffixes.
-_FOOTNOTE_SUPERSCRIPT = re.compile(r"(?<=[a-zA-Z0-9])([a-z])\b(?=[\s,\.\;\:\)])")
+# Superscript/subscript footnote letter artifacts: e.g. "AUCa" where 'a' is superscript
+# FIX (2026-05-16): original lookbehind [a-zA-Z0-9] matched the last letter of EVERY
+# English word ("reduces"→"reduce", "Metformin"→"Metformi"). Corrected to [A-Z0-9] so
+# only a lowercase letter appended to an UPPERCASE letter or digit is stripped.
+# This catches "AUCa", "Cmaxb", "T½a" while preserving regular word endings.
+_FOOTNOTE_SUPERSCRIPT = re.compile(r"(?<=[A-Z0-9])([a-z])\b(?=[\s,\.\;\:\)])")  # Bug fix
+
+# Protected medical tokens — must survive the superscript remover intact.
+# These end in a lowercase letter after a digit ("HbA1c") or UPPERCASE ("T2DMa")
+# and would otherwise be mangled by the corrected regex.
+_PROTECTED_MEDICAL = re.compile(
+    r"\b(HbA1c|HbA1C|T1DM|T2DM|T1D|T2D|CKD3a|CKD3b|GLP1|GLP\-1)\b",
+    re.IGNORECASE,
+)
 
 # ADA "See related editorial on page N" cross-reference
 _EDITORIAL_REF = re.compile(r"▲?\s*See related editorial on page \d+\.", re.IGNORECASE)
@@ -256,9 +266,23 @@ def remove_inline_noise(text: str, doc_type: str) -> str:
         text = _PRACTICE_GUIDELINES.sub("", text)
 
     # Superscript footnote artifacts — apply cautiously
-    # Skip for now on JNC to avoid mangling abbreviations like "ACEIa"
+    # Skip for JNC to avoid mangling abbreviations.
+    # For FDA/ADA: protect known medical tokens before applying, then restore.
     if doc_type in ("fda", "ada"):
+        # Step 1: stash protected tokens so superscript remover can't touch them
+        _protected: dict[str, str] = {}
+
+        def _protect(m: re.Match) -> str:
+            key = f"__PROT{len(_protected)}__"
+            _protected[key] = m.group(0)
+            return key
+
+        text = _PROTECTED_MEDICAL.sub(_protect, text)
+        # Step 2: strip superscript artefacts
         text = _FOOTNOTE_SUPERSCRIPT.sub("", text)
+        # Step 3: restore protected tokens
+        for key, val in _protected.items():
+            text = text.replace(key, val)
 
     return text
 

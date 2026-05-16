@@ -122,16 +122,40 @@ class TestDetectAbbreviations:
 class TestExpandAbbreviations:
 
     def test_expands_first_occurrence_only(self):
-        # IMPORTANT: lines starting with 3+ uppercase letters match _HEADING_LINE
-        # and are skipped entirely. Abbreviations must appear mid-sentence.
-        abbrev_map = {"CGM": "continuous glucose monitoring"}
+        # After Bug 2 fix: lines starting with abbreviations are no longer
+        # misclassified as headings. Test with realistic medical sentence.
         from ingestion.normalizer import expand_abbreviations
-        text = "The doctor uses CGM for daily tracking.\nThe CGM reading was normal."
+        abbrev_map = {"CGM": "continuous glucose monitoring"}
+        text = "CGM is used to track glucose levels daily.\nThe CGM reading was within range."
         result = expand_abbreviations(text, abbrev_map)
-        # First occurrence (mid-sentence line 1) should be expanded
+        # First occurrence on line 1 (no longer skipped as heading)
         assert "continuous glucose monitoring (CGM)" in result
-        # The expansion must appear exactly once (line 2 CGM is left as-is)
+        # Second occurrence on line 2 is left as-is
         assert result.count("continuous glucose monitoring (CGM)") == 1
+
+    def test_heading_line_regression(self):
+        """Regression test for Bug 2: _HEADING_LINE was matching sentences
+        starting with abbreviations. Fixed by adding $ anchor."""
+        from ingestion.normalizer import _HEADING_LINE
+        import re
+        # These should NOT be classified as headings after the fix
+        prose_lines = [
+            "CGM is used to monitor glucose.",
+            "GFR should be checked before prescribing.",
+            "ACEi therapy reduces blood pressure.",
+        ]
+        # These SHOULD still be classified as headings
+        heading_lines = [
+            "DESCRIPTION",
+            "WARNINGS AND PRECAUTIONS",
+            "INDICATIONS AND USAGE",
+        ]
+        for line in prose_lines:
+            assert not _HEADING_LINE.match(line), \
+                f"Bug 2 regression: prose line misclassified as heading: {line!r}"
+        for line in heading_lines:
+            assert _HEADING_LINE.match(line), \
+                f"True heading no longer detected: {line!r}"
 
     def test_does_not_expand_inside_headings(self):
         abbrev_map = {"BP": "blood pressure"}
@@ -150,8 +174,8 @@ class TestExpandAbbreviations:
         """Expansion format must be: 'full form (ABBR)'."""
         from ingestion.normalizer import expand_abbreviations
         abbrev_map = {"GFR": "glomerular filtration rate"}
-        # Must start with non-all-caps word so _HEADING_LINE doesn't match
-        text = "The doctor checks GFR before prescribing."
+        # After Bug 2 fix, lines starting with abbreviations are no longer skipped
+        text = "GFR should be checked before prescribing metformin."
         result = expand_abbreviations(text, abbrev_map)
         assert "glomerular filtration rate (GFR)" in result
 

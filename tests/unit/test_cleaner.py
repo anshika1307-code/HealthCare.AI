@@ -221,13 +221,21 @@ class TestRemoveInlineNoise:
         assert "doi:" not in result
 
     def test_removes_parenthetical_citations(self):
-        # Use doc_type='jnc': the footnote superscript remover is skipped for JNC,
-        # so we can verify citation removal in isolation without word mangling.
-        text = "Insulin therapy lowered blood pressure (14) and glucose (2-4) in adults."
-        result = remove_inline_noise(text, "jnc")
+        text = "Metformin reduces HbA1c (14) and weight (2-4) in T2DM patients."
+        result = remove_inline_noise(text, "ada")
         assert "(14)" not in result
         assert "(2-4)" not in result
-        assert "Insulin therapy" in result
+        assert "Metformin reduces HbA1c" in result
+
+    def test_superscript_remover_does_not_mangle_words(self):
+        """Regression test for Bug 1: _FOOTNOTE_SUPERSCRIPT was stripping the last
+        letter of every English word. Fixed by changing lookbehind to [A-Z0-9]."""
+        text = "Metformin reduces HbA1c and weight in patients."
+        result = remove_inline_noise(text, "ada")
+        assert "Metformin" in result,   f"'Metformin' mangled: {result!r}"
+        assert "reduces" in result,     f"'reduces' mangled: {result!r}"
+        assert "HbA1c" in result,       f"'HbA1c' mangled: {result!r}"
+        assert "patients" in result,    f"'patients' mangled: {result!r}"
 
     def test_removes_bracket_citations(self):
         text = "Evidence supports use [12] in patients."
@@ -245,20 +253,18 @@ class TestRemoveInlineNoise:
         assert "Key Points for Practice" not in result
 
     def test_preserves_clinical_content(self):
-        """Ensure clinical numbers are not mangled.
-        Use doc_type='jnc' to avoid the superscript remover stripping letters.
-        """
-        text = "BP target is <140 mm Hg for most adults."
-        result = remove_inline_noise(text, "jnc")
-        assert "BP" in result
-        assert "<140" in result
+        """After Bug 1 fix, realistic clinical text must survive intact."""
+        text = "HbA1c target is <7.0% for most adults with type 2 diabetes."
+        result = remove_inline_noise(text, "ada")
+        assert "HbA1c" in result
+        assert "<7.0%" in result
+        assert "adults" in result
 
     def test_removes_see_cross_ref(self):
-        # Use doc_type='jnc' to avoid superscript remover stripping word endings.
-        text = "Not recommended (see Precautions) in patients with renal failure."
-        result = remove_inline_noise(text, "jnc")
+        text = "Contraindicated (see Precautions) in renal impairment."
+        result = remove_inline_noise(text, "fda")
         assert "(see Precautions)" not in result
-        assert "Not recommended" in result
+        assert "Contraindicated" in result
 
 
 # ===========================================================================

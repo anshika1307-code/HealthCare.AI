@@ -82,8 +82,14 @@ _ABBREV_PATTERN_A = re.compile(
 # Pattern B: "ABBR   full form" — JNC abbreviation table lines
 # (Handled separately in cleaner.parse_jnc_abbreviation_list — not repeated here)
 
-# Lines that are headings — do not expand inside these
-_HEADING_LINE = re.compile(r"^(?:[A-Z][A-Z\s]{3,}|\d+\.\d+[a-z]?\s)")
+# Lines that are headings — do not expand inside these.
+# FIX (2026-05-16): original [A-Z][A-Z\s]{3,} matched lines STARTING with 3+
+# uppercase letters, treating "CGM is used...", "GFR should..." as headings and
+# silently skipping abbreviation expansion for those entire lines. Fix: add $ anchor
+# so the all-caps pattern must span the WHOLE line (true FDA headings like "DESCRIPTION"
+# or "WARNINGS AND PRECAUTIONS" are all-caps to end of line; prose starting with an
+# abbreviation is not).
+_HEADING_LINE = re.compile(r"^(?:[A-Z][A-Z\s\-\/]{3,}$|\d+\.\d+[a-z]?\s)")
 
 
 def detect_abbreviations(text: str) -> dict[str, str]:
