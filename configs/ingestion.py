@@ -57,3 +57,40 @@ class IngestionConfig:
 
 
 INGESTION_CONFIG = IngestionConfig()
+
+
+# ---------------------------------------------------------------------------
+# Document Registry — single source of truth for which PDFs get ingested.
+# run_ingestion.py iterates over this list.
+# ---------------------------------------------------------------------------
+
+@dataclass
+class DocumentEntry:
+    doc_id: str
+    # Must match a key in src/ingestion/config.py DOC_REGISTRY.
+    # Used as the deterministic namespace seed for UUID5 chunk IDs.
+
+    pdf_path: str
+    # Path relative to the project root (e.g. data/raw/metformin_fda_label.pdf).
+    # run_ingestion.py resolves this against the repo root at runtime.
+
+
+DOCUMENTS: list[DocumentEntry] = [
+    DocumentEntry(
+        doc_id="metformin_fda_label",
+        pdf_path="data/raw/metformin_fda_label.pdf",
+    ),
+    DocumentEntry(
+        doc_id="ada_standards_care_diabetes_6",
+        pdf_path="data/raw/ada_standards_care_diabetes_6.pdf",
+    ),
+    DocumentEntry(
+        doc_id="ada_standards_care_diabetes_9",
+        pdf_path="data/raw/ada_standards_care_diabetes_9.pdf",
+    ),
+    DocumentEntry(
+        doc_id="jnc8_guidelines_manage_hypertension_original",
+        pdf_path="data/raw/jnc8_guidelines_manage_hypertension_original.pdf",
+    ),
+]
+
