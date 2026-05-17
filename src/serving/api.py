@@ -6,10 +6,10 @@ FastAPI application for the healthcare RAG system.
 Endpoints:
     POST /query   — submit a clinical question, get a sourced answer
     GET  /health  — liveness + Qdrant connectivity check
+    GET  /metrics — latest observability snapshot from Redis
 
-All heavy dependencies (BM25 corpus, cross-encoder, Qdrant client, compiled
-LangGraph) are loaded once inside the lifespan context manager and stored on
-app.state so request handlers can access them without re-initialising.
+PHI POLICY: query text is NEVER logged or stored. Only query_id (UUID) is
+used for log correlation.  See monitoring/logging_config.py.
 
 Environment variables required:
     OPENAI_API_KEY         — for embedder and LLM generation
@@ -18,13 +18,16 @@ Environment variables required:
 Optional:
     QDRANT_API_KEY         — if Qdrant is deployed with an API key
     BM25_CORPUS_PATH       — override default data/cache/bm25_corpus.pkl
+    REDIS_URL              — Redis endpoint for metrics (default: redis://localhost:6379)
 """
 from __future__ import annotations
 
 import logging
 import os
+import time
 from contextlib import asynccontextmanager
 from pathlib import Path
+from uuid import uuid4
 
 # Load .env before any config or openai imports so env vars are available
 try:
@@ -42,6 +45,8 @@ from configs.embedding import EMBEDDING_CONFIG
 from configs.llm import LLM_CONFIG
 from configs.retrieval import RETRIEVAL_CONFIG
 from embedding.openai_embedder import OpenAIEmbedder
+from monitoring.logging_config import configure_json_logging
+from monitoring.metrics import RAGMetrics
 from orchestration.graph import GraphState, build_graph
 from retrieval.bm25_retriever import BM25Retriever
 from retrieval.confidence import ConfidenceScorer
@@ -51,6 +56,7 @@ from retrieval.reranker import CrossEncoderReranker
 from retrieval.rrf_ranker import RRFRanker
 from serving.schemas import QueryRequest, QueryResponse, SourceChunk
 
+configure_json_logging()
 logger = logging.getLogger(__name__)
 
 _DEFAULT_BM25_PATH = Path("data/cache/bm25_corpus.pkl")
@@ -67,6 +73,7 @@ async def lifespan(app: FastAPI):
     qdrant_url = os.getenv("QDRANT_URL", "http://localhost:6333")
     qdrant_api_key = os.getenv("QDRANT_API_KEY")
     bm25_path = Path(os.getenv("BM25_CORPUS_PATH", str(_DEFAULT_BM25_PATH)))
+    redis_url = os.getenv("REDIS_URL", "redis://localhost:6379")
 
     # Qdrant async client (connection pooled internally)
     qdrant_client = AsyncQdrantClient(url=qdrant_url, api_key=qdrant_api_key, check_compatibility=False)
@@ -88,15 +95,20 @@ async def lifespan(app: FastAPI):
     # Compile the LangGraph pipeline once — reused for every request
     graph = build_graph(embedder, pipeline, llm_client, LLM_CONFIG)
 
+    # Observability — graceful: if Redis is down metrics are silently skipped
+    metrics = RAGMetrics(redis_url=redis_url)
+
     # Stash everything on app.state for request handlers
     app.state.graph = graph
     app.state.qdrant_client = qdrant_client
+    app.state.metrics = metrics
 
     logger.info("Healthcare RAG API ready.")
     yield
 
     # Cleanup
     await qdrant_client.close()
+    await metrics.close()
     logger.info("Healthcare RAG API shut down.")
 
 
@@ -141,23 +153,70 @@ async def query(request: QueryRequest) -> QueryResponse:
 
     The pipeline runs: embed → hybrid retrieve → rerank → LLM generate.
     A warning_message is included when retrieval confidence is low.
+
+    PHI: query text is NOT logged. Only the query_id is used for correlation.
     """
-    logger.info("POST /query: %r (filters=%s)", request.query[:80], request.filters)
+    query_id = str(uuid4())
+    t_start = time.perf_counter()
+
+    # Log request metadata — never the query text itself (PHI risk)
+    logger.info(
+        "POST /query received",
+        extra={"query_id": query_id, "has_filters": request.filters is not None},
+    )
 
     initial_state: GraphState = {
         "query": request.query,
         "filters": request.filters,
+        "query_id": query_id,
     }
 
     try:
         final_state: GraphState = await app.state.graph.ainvoke(initial_state)
     except Exception as exc:
-        logger.exception("Graph invocation failed: %s", exc)
+        total_ms = (time.perf_counter() - t_start) * 1000
+        logger.exception(
+            "Graph invocation failed",
+            extra={"query_id": query_id, "total_ms": round(total_ms, 1)},
+        )
+        await app.state.metrics.record_error(query_id=query_id, error_type=type(exc).__name__)
         raise HTTPException(status_code=500, detail="Internal pipeline error") from exc
 
     retrieval_result = final_state.get("retrieval_result")
     if retrieval_result is None:
         raise HTTPException(status_code=500, detail="Retrieval stage produced no result")
+
+    total_ms = (time.perf_counter() - t_start) * 1000
+    embed_ms: float = final_state.get("embed_ms", 0.0)
+    retrieve_ms: float = final_state.get("retrieve_ms", 0.0)
+    generate_ms: float = final_state.get("generate_ms", 0.0)
+
+    logger.info(
+        "POST /query complete",
+        extra={
+            "query_id": query_id,
+            "total_ms": round(total_ms, 1),
+            "embed_ms": round(embed_ms, 1),
+            "retrieve_ms": round(retrieve_ms, 1),
+            "generate_ms": round(generate_ms, 1),
+            "confidence_score": round(retrieval_result.confidence_score, 4),
+            "low_confidence": retrieval_result.low_confidence,
+            "num_sources": len(retrieval_result.chunks),
+        },
+    )
+
+    # Fire-and-forget metrics recording — never blocks the response
+    doc_ids = [c.document_id for c in retrieval_result.chunks]
+    await app.state.metrics.record(
+        query_id=query_id,
+        total_ms=total_ms,
+        embed_ms=embed_ms,
+        retrieve_ms=retrieve_ms,
+        generate_ms=generate_ms,
+        confidence_score=retrieval_result.confidence_score,
+        doc_ids=doc_ids,
+        low_confidence=retrieval_result.low_confidence,
+    )
 
     sources = [
         SourceChunk(

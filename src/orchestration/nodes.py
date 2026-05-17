@@ -11,12 +11,16 @@ Node order:
     embed_query → retrieve → generate
 
 The generate node retries up to 3 times on transient OpenAI errors before
-returning a degraded "service unavailable" answer.
+returning a degraded "service unavailable" answer that still surfaces the
+retrieved sources (stored separately in GraphState).
+
+PHI POLICY: query text is never written to logs — only query_id and metadata.
 """
 from __future__ import annotations
 
 import asyncio
 import logging
+import time
 from functools import partial
 from typing import Any
 
@@ -35,8 +39,8 @@ from retrieval.pipeline import RetrievalPipeline
 logger = logging.getLogger(__name__)
 
 _DEGRADED_ANSWER = (
-    "The system is temporarily unable to generate a response due to a service error. "
-    "Please try again in a few moments."
+    "The system is temporarily unable to generate a full response due to a service error. "
+    "Relevant source documents are included below — please consult them directly."
 )
 
 _LLM_RETRYABLE = (
@@ -55,14 +59,21 @@ def make_embed_node(embedder: Embedder):
 
     async def embed_query(state: dict[str, Any]) -> dict[str, Any]:
         query: str = state["query"]
-        logger.info("embed_query: %r", query[:80])
+        query_id: str = state.get("query_id", "unknown")
+        logger.info("embed_query start", extra={"query_id": query_id})
 
+        t0 = time.perf_counter()
         loop = asyncio.get_event_loop()
-        # embed_batch is synchronous — run in thread pool to avoid blocking the loop
         vectors = await loop.run_in_executor(
             None, partial(embedder.embed_batch, [query])
         )
-        return {"query_vector": vectors[0]}
+        embed_ms = (time.perf_counter() - t0) * 1000
+
+        logger.info(
+            "embed_query done",
+            extra={"query_id": query_id, "embed_ms": round(embed_ms, 1)},
+        )
+        return {"query_vector": vectors[0], "embed_ms": embed_ms}
 
     return embed_query
 
@@ -78,10 +89,28 @@ def make_retrieve_node(pipeline: RetrievalPipeline):
         query: str = state["query"]
         vector: list[float] = state["query_vector"]
         filters: dict[str, Any] | None = state.get("filters")
+        query_id: str = state.get("query_id", "unknown")
 
-        logger.info("retrieve: query=%r, filters=%s", query[:80], filters)
+        logger.info(
+            "retrieve start",
+            extra={"query_id": query_id, "has_filters": filters is not None},
+        )
+
+        t0 = time.perf_counter()
         result = await pipeline.retrieve(query, vector, filters=filters)
-        return {"retrieval_result": result}
+        retrieve_ms = (time.perf_counter() - t0) * 1000
+
+        logger.info(
+            "retrieve done",
+            extra={
+                "query_id": query_id,
+                "retrieve_ms": round(retrieve_ms, 1),
+                "chunks_returned": len(result.chunks),
+                "confidence_score": round(result.confidence_score, 4),
+                "low_confidence": result.low_confidence,
+            },
+        )
+        return {"retrieval_result": result, "retrieve_ms": retrieve_ms}
 
     return retrieve
 
@@ -113,12 +142,16 @@ def make_generate_node(client: openai.AsyncOpenAI, config: LLMConfig | None = No
     async def generate(state: dict[str, Any]) -> dict[str, Any]:
         retrieval_result = state["retrieval_result"]
         query: str = state["query"]
+        query_id: str = state.get("query_id", "unknown")
         context: str = retrieval_result.context_text
 
         logger.info(
-            "generate: confidence=%.4f, low_conf=%s",
-            retrieval_result.confidence_score,
-            retrieval_result.low_confidence,
+            "generate start",
+            extra={
+                "query_id": query_id,
+                "confidence_score": round(retrieval_result.confidence_score, 4),
+                "low_confidence": retrieval_result.low_confidence,
+            },
         )
 
         messages = [
@@ -132,12 +165,22 @@ def make_generate_node(client: openai.AsyncOpenAI, config: LLMConfig | None = No
             },
         ]
 
+        t0 = time.perf_counter()
         try:
             answer = await _call_llm(messages)
+            generate_ms = (time.perf_counter() - t0) * 1000
+            logger.info(
+                "generate done",
+                extra={"query_id": query_id, "generate_ms": round(generate_ms, 1)},
+            )
         except _LLM_RETRYABLE as exc:
-            logger.error("LLM call failed after retries: %s", exc)
+            generate_ms = (time.perf_counter() - t0) * 1000
+            logger.error(
+                "LLM call failed after 3 retries — returning degraded answer",
+                extra={"query_id": query_id, "error_type": type(exc).__name__},
+            )
             answer = _DEGRADED_ANSWER
 
-        return {"answer": answer}
+        return {"answer": answer, "generate_ms": generate_ms}
 
     return generate

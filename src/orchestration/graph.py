@@ -34,9 +34,13 @@ from retrieval.pipeline import RetrievalPipeline
 class GraphState(TypedDict, total=False):
     query: str                          # set by caller
     filters: dict[str, Any] | None     # set by caller (optional)
+    query_id: str                       # set by caller (UUID for log correlation)
     query_vector: list[float]           # set by embed_query node
     retrieval_result: RetrievalResult   # set by retrieve node
     answer: str                         # set by generate node
+    embed_ms: float                     # set by embed_query node (timing)
+    retrieve_ms: float                  # set by retrieve node (timing)
+    generate_ms: float                  # set by generate node (timing)
 
 
 # ---------------------------------------------------------------------------
