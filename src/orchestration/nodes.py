@@ -99,7 +99,7 @@ def make_generate_node(client: openai.AsyncOpenAI, config: LLMConfig | None = No
         retry=retry_if_exception_type(_LLM_RETRYABLE),
         stop=stop_after_attempt(3),
         wait=wait_exponential(multiplier=1, min=1, max=8),
-        reraise=False,
+        reraise=True,
     )
     async def _call_llm(messages: list[dict]) -> str:
         response = await client.chat.completions.create(

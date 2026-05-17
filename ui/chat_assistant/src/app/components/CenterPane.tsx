@@ -1,7 +1,17 @@
 import { useState } from 'react';
-import { Send, AlertTriangle, FileText, Check } from 'lucide-react';
+import { Send, AlertTriangle, FileText, Check, Loader2 } from 'lucide-react';
 import { CitationPill } from './CitationPill';
 import { ErrorState } from './ErrorState';
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
+// Map backend doc_type values to display metadata
+const DOC_TYPE_META: Record<string, { guidelineId: string; guidelineName: string; color: string; bgColor: string }> = {
+  fda: { guidelineId: 'FDA',     guidelineName: 'FDA Metformin Drug Label',                       color: '#1E3A8A', bgColor: '#EFF6FF' },
+  ada: { guidelineId: 'ADA',     guidelineName: 'ADA Standards of Medical Care in Diabetes (2024)', color: '#15803D', bgColor: '#F0FDF4' },
+  jnc: { guidelineId: 'JNC8',   guidelineName: 'JNC 8 Hypertension Management Guidelines',        color: '#C2410C', bgColor: '#FFF7ED' },
+  aha: { guidelineId: 'AHA_ACC', guidelineName: 'AHA/ACC Cardiovascular Risk Guidelines',          color: '#991B1B', bgColor: '#FDF2F2' },
+};
 
 interface Citation {
   guidelineId: 'FDA' | 'ADA' | 'JNC8' | 'AHA_ACC';
@@ -24,189 +34,196 @@ interface CenterPaneProps {
   activeCitation: Citation | null;
 }
 
-export function CenterPane({ onCitationClick, activeCitation }: CenterPaneProps) {
-  const [query, setQuery] = useState('');
-  const [response, setResponse] = useState<ResponseData | null>(null);
-  const [copied, setCopied] = useState(false);
+const EXAMPLE_QUERIES = [
+  'What is the target blood pressure for diabetic patients with hypertension?',
+  'When should metformin be contraindicated or discontinued?',
+  'What are the cardiovascular risk assessment guidelines?',
+  'What is the recommended HbA1c target for non-pregnant adults?',
+];
 
-  const mockResponse: ResponseData = {
-    text: "For adults with diabetes and hypertension, initiate pharmacologic treatment at blood pressure ≥140/90 mmHg with a target BP <140/90 mmHg. However, more recent guidelines suggest target BP should be <130/80 mmHg for improved cardiovascular outcomes. Metformin therapy should be considered as first-line pharmacologic therapy for type 2 diabetes, with monitoring of renal function via eGFR bi-annually.",
-    citations: [
-      {
-        guidelineId: 'JNC8',
-        section: 'Rec 1',
-        guidelineName: 'JNC 8 Hypertension Guidelines',
-        text: 'For adults with diabetes and hypertension, initiate pharmacologic treatment at blood pressure ≥140/90 mmHg with a target BP <140/90 mmHg.',
-        color: '#C2410C',
-        bgColor: '#FFF7ED',
-      },
-      {
-        guidelineId: 'ADA',
-        section: 'Sec. 10.5',
-        guidelineName: 'ADA Standards of Medical Care in Diabetes (2024)',
-        text: 'For adults with diabetes and hypertension, target BP should be <130/80 mmHg to reduce cardiovascular disease risk and slow progression of diabetic kidney disease.',
-        color: '#15803D',
-        bgColor: '#F0FDF4',
-      },
-      {
-        guidelineId: 'FDA',
-        section: 'Warnings',
-        guidelineName: 'FDA Metformin Drug Label',
-        text: 'Assess renal function prior to initiating metformin and periodically thereafter. Metformin is contraindicated in patients with eGFR below 30 mL/min/1.73 m². Monitoring should occur at least annually, or more frequently in patients at increased risk.',
-        color: '#1E3A8A',
-        bgColor: '#EFF6FF',
-      },
-    ],
-    lowConfidence: true,
-    conflictingGuidelines: ['ADA 2024', 'JNC 8'],
+export function CenterPane({ onCitationClick, activeCitation }: CenterPaneProps) {
+  const [query, setQuery]       = useState('');
+  const [response, setResponse] = useState<ResponseData | null>(null);
+  const [loading, setLoading]   = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
+  const [copied, setCopied]     = useState(false);
+
+  const submitQuery = async (q: string) => {
+    if (!q.trim()) return;
+    setLoading(true);
+    setApiError(null);
+    setResponse(null);
+    setCopied(false);
+
+    try {
+      const res = await fetch(`${API_URL}/query`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: q.trim() }),
+      });
+
+      if (!res.ok) {
+        const detail = await res.text();
+        throw new Error(`API ${res.status}: ${detail}`);
+      }
+
+      const data = await res.json();
+      console.log('[API /query response]', data);
+
+      const citations: Citation[] = (data.sources || []).map((s: any) => {
+        const meta = DOC_TYPE_META[s.doc_type] ?? {
+          guidelineId: (s.doc_type || 'UNK').toUpperCase(),
+          guidelineName: s.document_id,
+          color: '#64748B',
+          bgColor: '#F1F5F9',
+        };
+        return {
+          guidelineId: meta.guidelineId as Citation['guidelineId'],
+          section: s.section_name || '',
+          guidelineName: meta.guidelineName,
+          text: s.text || '',
+          color: meta.color,
+          bgColor: meta.bgColor,
+        };
+      });
+
+      setResponse({
+        text: data.answer,
+        citations,
+        lowConfidence: data.low_confidence,
+        conflictingGuidelines: data.low_confidence
+          ? [...new Set(citations.map((c) => c.guidelineId))]
+          : [],
+      });
+    } catch (err) {
+      setApiError(err instanceof Error ? err.message : 'Unknown error');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (query.trim()) {
-      setResponse(mockResponse);
-      setCopied(false);
-    }
+    submitQuery(query);
   };
 
   const copyToEHR = () => {
     if (!response) return;
+    const date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    const sourcesBlock = response.citations
+      .map((c, i) => `[${i + 1}] ${c.guidelineId} § ${c.section} — ${c.guidelineName}\n"${c.text}"`)
+      .join('\n\n');
 
-    const ehrNote = `CLINICAL QUERY RESPONSE
-Date: ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+    const note = `CLINICAL DECISION SUPPORT NOTE
+Date: ${date}
 Query: ${query}
 
-ASSESSMENT:
-For adults with diabetes and hypertension, initiate pharmacologic treatment at blood pressure ≥140/90 mmHg with a target BP <140/90 mmHg [JNC 8 § Rec 1]. However, more recent guidelines suggest target BP should be <130/80 mmHg for improved cardiovascular outcomes [ADA § Sec. 10.5].
-
-Metformin therapy should be considered as first-line pharmacologic therapy for type 2 diabetes, with monitoring of renal function via eGFR bi-annually [FDA § Warnings].
+FINDINGS:
+${response.text}
 
 SUPPORTING EVIDENCE:
+${sourcesBlock}
 
-[1] JNC 8 § Rec 1 - JNC 8 Hypertension Guidelines
-"For adults with diabetes and hypertension, initiate pharmacologic treatment at blood pressure ≥140/90 mmHg with a target BP <140/90 mmHg."
+${response.lowConfidence ? '⚠ LOW CONFIDENCE: Information could not be definitively cross-referenced. Verify with original guideline.\n' : ''}
+Generated by Clinical Guidelines Assistant | Evidence-based decision support`;
 
-[2] ADA § Sec. 10.5 - ADA Standards of Medical Care in Diabetes (2024)
-"For adults with diabetes and hypertension, target BP should be <130/80 mmHg to reduce cardiovascular disease risk and slow progression of diabetic kidney disease."
-
-[3] FDA § Warnings - FDA Metformin Drug Label
-"Assess renal function prior to initiating metformin and periodically thereafter. Metformin is contraindicated in patients with eGFR below 30 mL/min/1.73 m². Monitoring should occur at least annually, or more frequently in patients at increased risk."
-
-CLINICAL NOTE:
-Response synthesized from ${response.citations.length} indexed guideline sources. Low confidence variance detected between ADA 2024 and JNC 8 regarding target blood pressure metrics. Clinical judgement required for patient-specific application.
-
-Generated by Clinical Guidelines Assistant | Evidence-based decision support
-`;
-
-    // Fallback for environments where Clipboard API is blocked
-    try {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(ehrNote).then(() => {
-          setCopied(true);
-          setTimeout(() => setCopied(false), 2000);
-        }).catch(() => {
-          fallbackCopyToClipboard(ehrNote);
-        });
+    const write = () => {
+      if (navigator.clipboard?.writeText) {
+        navigator.clipboard.writeText(note).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2000); }).catch(fallback);
       } else {
-        fallbackCopyToClipboard(ehrNote);
+        fallback();
       }
-    } catch (err) {
-      fallbackCopyToClipboard(ehrNote);
-    }
-  };
-
-  const fallbackCopyToClipboard = (text: string) => {
-    const textArea = document.createElement('textarea');
-    textArea.value = text;
-    textArea.style.position = 'fixed';
-    textArea.style.left = '-999999px';
-    textArea.style.top = '-999999px';
-    document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
-    try {
-      document.execCommand('copy');
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error('Failed to copy text: ', err);
-    }
-    document.body.removeChild(textArea);
+    };
+    const fallback = () => {
+      const ta = document.createElement('textarea');
+      ta.value = note;
+      ta.style.cssText = 'position:fixed;left:-9999px;top:-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); setCopied(true); setTimeout(() => setCopied(false), 2000); } catch {}
+      document.body.removeChild(ta);
+    };
+    write();
   };
 
   return (
     <div className="flex flex-1 flex-col bg-white">
+
+      {/* Low-confidence banner */}
       {response?.lowConfidence && (
         <div className="border-b-2 border-amber-500 bg-amber-50 px-6 py-3">
           <div className="flex items-start gap-3">
-            <AlertTriangle className="h-5 w-5 text-amber-600 mt-0.5" />
+            <AlertTriangle className="mt-0.5 h-5 w-5 text-amber-600" />
             <div>
               <p className="text-sm font-semibold text-amber-900">
                 Low Retrieval Confidence: Conflicting recommendations detected
               </p>
               <p className="mt-1 text-xs text-amber-800">
-                Variance found between [{response.conflictingGuidelines?.join('] and [')}] regarding target blood pressure metrics for this cohort. Review side-by-side comparison in Evidence Vault.
+                Variance found between [{response.conflictingGuidelines?.join('] and [')}] for this query.
+                Review side-by-side in Evidence Vault.
               </p>
             </div>
           </div>
         </div>
       )}
 
+      {/* Main content area */}
       <div className="flex-1 overflow-y-auto p-6">
-        {!response ? (
+
+        {/* Landing state */}
+        {!response && !loading && !apiError && (
           <div className="flex h-full items-center justify-center">
             <div className="max-w-2xl text-center">
               <h1 className="mb-4 text-gray-900">Clinical Guidelines Assistant</h1>
-              <p className="mb-8 text-sm text-gray-600 leading-relaxed">
+              <p className="mb-8 text-sm leading-relaxed text-gray-600">
                 Evidence-based answers from FDA, ADA, JNC 8, and AHA/ACC guidelines.
                 Every response is strictly sourced from indexed clinical documents.
               </p>
               <div className="grid grid-cols-2 gap-3 text-left">
-                <button
-                  onClick={() => {
-                    setQuery('What is the target blood pressure for diabetic patients?');
-                    handleSubmit({ preventDefault: () => {} } as React.FormEvent);
-                  }}
-                  className="rounded-lg border border-gray-200 p-4 text-left hover:bg-gray-50 transition-colors"
-                >
-                  <p className="text-sm text-gray-700">What is the target blood pressure for diabetic patients?</p>
-                </button>
-                <button
-                  onClick={() => setQuery('When should metformin be contraindicated?')}
-                  className="rounded-lg border border-gray-200 p-4 text-left hover:bg-gray-50 transition-colors"
-                >
-                  <p className="text-sm text-gray-700">When should metformin be contraindicated?</p>
-                </button>
-                <button
-                  onClick={() => setQuery('What are the cardiovascular risk assessment guidelines?')}
-                  className="rounded-lg border border-gray-200 p-4 text-left hover:bg-gray-50 transition-colors"
-                >
-                  <p className="text-sm text-gray-700">What are the cardiovascular risk assessment guidelines?</p>
-                </button>
-                <button
-                  onClick={() => setQuery('What is the recommended statin therapy?')}
-                  className="rounded-lg border border-gray-200 p-4 text-left hover:bg-gray-50 transition-colors"
-                >
-                  <p className="text-sm text-gray-700">What is the recommended statin therapy?</p>
-                </button>
+                {EXAMPLE_QUERIES.map((q) => (
+                  <button
+                    key={q}
+                    onClick={() => { setQuery(q); submitQuery(q); }}
+                    className="rounded-lg border border-gray-200 p-4 text-left transition-colors hover:bg-gray-50"
+                  >
+                    <p className="text-sm text-gray-700">{q}</p>
+                  </button>
+                ))}
               </div>
-
               <div className="mt-6">
                 <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-500">Example Error State</p>
-                <ErrorState
-                  type="missing_section"
-                  guideline="ADA 2024"
-                  section="§ 15.3"
-                />
+                <ErrorState type="missing_section" guideline="ADA 2024" section="§ 15.3" />
               </div>
             </div>
           </div>
-        ) : (
+        )}
+
+        {/* Loading state */}
+        {loading && (
+          <div className="flex h-full items-center justify-center">
+            <div className="text-center">
+              <Loader2 className="mx-auto h-8 w-8 animate-spin text-blue-500" />
+              <p className="mt-3 text-sm text-gray-600">Searching guidelines…</p>
+            </div>
+          </div>
+        )}
+
+        {/* API error */}
+        {apiError && !loading && (
+          <div className="mx-auto max-w-2xl">
+            <ErrorState type="api_error" guideline="Backend" section={apiError} />
+          </div>
+        )}
+
+        {/* Response */}
+        {response && !loading && (
           <div className="mx-auto max-w-4xl">
+            {/* Query echo */}
             <div className="mb-4 rounded-lg bg-gray-50 px-4 py-3">
               <p className="text-sm text-gray-700">{query}</p>
             </div>
 
+            {/* Answer card */}
             <div className="rounded-lg border-2 border-gray-200 bg-white p-6">
               <div className="mb-4 flex items-center justify-between">
                 <h3 className="text-xs font-semibold uppercase tracking-wide text-gray-500">
@@ -214,66 +231,41 @@ Generated by Clinical Guidelines Assistant | Evidence-based decision support
                 </h3>
                 <button
                   onClick={copyToEHR}
-                  className="flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-xs text-gray-700 hover:bg-gray-50 transition-colors"
+                  className="flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-xs text-gray-700 transition-colors hover:bg-gray-50"
                 >
                   {copied ? (
-                    <>
-                      <Check className="h-3.5 w-3.5 text-green-600" />
-                      Copied to Clipboard
-                    </>
+                    <><Check className="h-3.5 w-3.5 text-green-600" />Copied to Clipboard</>
                   ) : (
-                    <>
-                      <FileText className="h-3.5 w-3.5" />
-                      Copy for EHR Note
-                    </>
+                    <><FileText className="h-3.5 w-3.5" />Copy for EHR Note</>
                   )}
                 </button>
               </div>
 
-              <div className="space-y-4 text-gray-800 leading-relaxed">
-                <div>
-                  For adults with diabetes and hypertension, initiate pharmacologic treatment at blood pressure ≥140/90 mmHg with a target BP &lt;140/90 mmHg{' '}
-                  <CitationPill
-                    guidelineId="JNC8"
-                    section="Rec 1"
-                    sourceText={response.citations[0].text}
-                    onClick={() => onCitationClick(response.citations[0])}
-                    isActive={activeCitation?.section === 'Rec 1'}
-                  />
-                  . However,{' '}
-                  <span className="opacity-60">
-                    more recent guidelines suggest target BP should be &lt;130/80 mmHg for improved cardiovascular outcomes
-                  </span>{' '}
-                  <span className="inline-flex items-center gap-1 rounded bg-amber-100 px-2 py-0.5 text-xs text-amber-800 border border-amber-300">
-                    ❓ Variance Detected: See Side-by-Side
-                  </span>{' '}
-                  <CitationPill
-                    guidelineId="ADA"
-                    section="Sec. 10.5"
-                    sourceText={response.citations[1].text}
-                    onClick={() => onCitationClick(response.citations[1])}
-                    isActive={activeCitation?.section === 'Sec. 10.5'}
-                  />
-                  .
-                </div>
-
-                <div>
-                  Metformin therapy should be considered as first-line pharmacologic therapy for type 2 diabetes, with monitoring of renal function via eGFR bi-annually{' '}
-                  <CitationPill
-                    guidelineId="FDA"
-                    section="Warnings"
-                    sourceText={response.citations[2].text}
-                    onClick={() => onCitationClick(response.citations[2])}
-                    isActive={activeCitation?.section === 'Warnings'}
-                  />
-                  .
-                </div>
+              {/* Answer text */}
+              <div className="whitespace-pre-wrap text-sm leading-relaxed text-gray-800">
+                {response.text}
               </div>
 
-              <div className="mt-6 flex items-center gap-2 border-t border-gray-100 pt-4">
-                <div className="h-2 w-2 rounded-full bg-green-500" />
+              {/* Inline citation pills */}
+              {response.citations.length > 0 && (
+                <div className="mt-4 flex flex-wrap gap-2 border-t border-gray-100 pt-4">
+                  {response.citations.map((c, i) => (
+                    <CitationPill
+                      key={i}
+                      guidelineId={c.guidelineId}
+                      section={c.section}
+                      sourceText={c.text}
+                      onClick={() => onCitationClick(c)}
+                      isActive={activeCitation?.section === c.section && activeCitation?.guidelineId === c.guidelineId}
+                    />
+                  ))}
+                </div>
+              )}
+
+              <div className="mt-4 flex items-center gap-2 border-t border-gray-100 pt-4">
+                <div className={`h-2 w-2 rounded-full ${response.lowConfidence ? 'bg-amber-500' : 'bg-green-500'}`} />
                 <span className="text-xs text-gray-600">
-                  Response generated from {response.citations.length} verified sources
+                  Response generated from {response.citations.length} verified source{response.citations.length !== 1 ? 's' : ''}
                 </span>
               </div>
             </div>
@@ -281,6 +273,7 @@ Generated by Clinical Guidelines Assistant | Evidence-based decision support
         )}
       </div>
 
+      {/* Query input */}
       <div className="border-t border-gray-200 bg-white p-6">
         <form onSubmit={handleSubmit} className="mx-auto max-w-4xl">
           <div className="flex gap-3">
@@ -288,15 +281,16 @@ Generated by Clinical Guidelines Assistant | Evidence-based decision support
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Ask a clinical question (e.g., 'What is the recommended HbA1c target for diabetic patients?')"
+              placeholder="Ask a clinical question (e.g. 'What is the recommended HbA1c target for diabetic patients?')"
               className="flex-1 rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+              disabled={loading}
             />
             <button
               type="submit"
-              className="flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-3 text-sm text-white hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              disabled={!query.trim()}
+              disabled={!query.trim() || loading}
+              className="flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-3 text-sm text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              <Send className="h-4 w-4" />
+              {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
               Query
             </button>
           </div>

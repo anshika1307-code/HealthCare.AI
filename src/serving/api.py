@@ -163,10 +163,10 @@ async def query(request: QueryRequest) -> QueryResponse:
         SourceChunk(
             chunk_id=chunk.chunk_id,
             document_id=chunk.document_id,
-            doc_type=chunk.payload.get("doc_type", ""),
-            section_name=chunk.section_name,
+            doc_type=chunk.payload.get("doc_type", "") or "",
+            section_name=chunk.section_name or "",
             reranker_score=chunk.reranker_score,
-            text=chunk.text,
+            text=chunk.text or "",
         )
         for chunk in retrieval_result.chunks
     ]

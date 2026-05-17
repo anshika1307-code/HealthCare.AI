@@ -84,14 +84,15 @@ class DenseRetriever:
         qdrant_filter = self._build_filter(filters) if filters else None
 
         try:
-            hits = await self._client.search(
+            response = await self._client.query_points(
                 collection_name=self._cfg.collection_name,
-                query_vector=query_vector,
+                query=query_vector,
                 query_filter=qdrant_filter,
                 limit=k,
                 score_threshold=self._cfg.score_threshold,
                 with_payload=True,
             )
+            hits = response.points
         except Exception as exc:
             logger.error("Qdrant search failed: %s", exc, exc_info=True)
             raise

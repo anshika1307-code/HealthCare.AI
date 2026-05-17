@@ -225,10 +225,16 @@ _FIG_REF_INLINE = re.compile(r"\bFig\.\s*[\d\.]+", re.IGNORECASE)
 _FOOTNOTE_SUPERSCRIPT = re.compile(r"(?<=[A-Z0-9])([a-z])\b(?=[\s,\.\;\:\)])")  # Bug fix
 
 # Protected medical tokens — must survive the superscript remover intact.
-# These end in a lowercase letter after a digit ("HbA1c") or UPPERCASE ("T2DMa")
-# and would otherwise be mangled by the corrected regex.
+# Two categories:
+#  A) Terms ending lowercase-after-digit: HbA1c ('1c'), CKD3a ('3a') — [A-Z0-9] lookbehind
+#     WOULD fire on the digit but we protect them anyway for clarity.
+#  B) Terms ending lowercase-after-lowercase: Cmax ('xb'), Tmax ('xb'), Cmin ('nb')
+#     The [A-Z0-9] lookbehind does NOT fire on these, so the trailing footnote letter
+#     ('b' in 'Cmaxb') would be silently kept. We protect them so the protect-strip-restore
+#     cycle works: 'Cmaxb' → stash 'Cmax' → strip lone 'b' → restore 'Cmax'.
 _PROTECTED_MEDICAL = re.compile(
-    r"\b(HbA1c|HbA1C|T1DM|T2DM|T1D|T2D|CKD3a|CKD3b|GLP1|GLP\-1)\b",
+    r"\b(HbA1c|HbA1C|T1DM|T2DM|T1D|T2D|CKD3a|CKD3b|GLP1|GLP\-1"
+    r"|Cmax|Cmin|Tmax|Tmin|Cavg|Vd|t1\/2)\b",
     re.IGNORECASE,
 )
 
