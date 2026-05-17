@@ -41,6 +41,26 @@ mlruns/
 .coverage
 htmlcov/
 
+# ── Node / Frontend ──────────────────────────────────────────────────────────
+node_modules/
+dist/
+.next/
+.nuxt/
+.output/
+*.local
+
+# Vite
+ui/chat_assistant/dist/
+ui/chat_assistant/.env.local
+ui/chat_assistant/.env.*.local
+
+# pnpm
+pnpm-debug.log*
+
+# package manager lock files (keep pnpm-lock.yaml, ignore others)
+package-lock.json
+yarn.lock
+
 # ── DVC NOTE: Do NOT ignore these — they belong in git ───────────────────────
 # *.dvc        ← pointer files, commit these
 # .dvc/config  ← remote config, commit this
