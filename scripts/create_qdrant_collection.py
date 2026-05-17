@@ -16,10 +16,18 @@ from __future__ import annotations
 
 import argparse
 import logging
+import os
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+_REPO_ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(_REPO_ROOT))
+
+try:
+    from dotenv import load_dotenv
+    load_dotenv(_REPO_ROOT / ".env")
+except ImportError:
+    pass  # fall back to env vars already set in the shell
 
 from qdrant_client import QdrantClient
 from qdrant_client.models import Distance, PayloadSchemaType, VectorParams
@@ -30,7 +38,8 @@ from configs.retrieval import RETRIEVAL_CONFIG
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
 logger = logging.getLogger(__name__)
 
-QDRANT_URL = "http://localhost:6333"
+QDRANT_URL     = os.getenv("QDRANT_URL", "http://localhost:6333")
+QDRANT_API_KEY = os.getenv("QDRANT_API_KEY")
 
 _DISTANCE_MAP = {
     "cosine": Distance.COSINE,
@@ -45,7 +54,7 @@ def create_collection(
     distance: str,
     force_recreate: bool,
 ) -> None:
-    client = QdrantClient(url=QDRANT_URL)
+    client = QdrantClient(url=QDRANT_URL, api_key=QDRANT_API_KEY)
 
     existing = {c.name for c in client.get_collections().collections}
 

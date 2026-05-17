@@ -24,6 +24,7 @@ from __future__ import annotations
 import argparse
 import datetime
 import logging
+import os
 import subprocess
 import sys
 import time
@@ -33,16 +34,22 @@ _REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(_REPO_ROOT))
 sys.path.insert(0, str(_REPO_ROOT / "src"))
 
+try:
+    from dotenv import load_dotenv
+    load_dotenv(_REPO_ROOT / ".env")
+except ImportError:
+    pass  # fall back to env vars already set in the shell
+
 import mlflow
 from qdrant_client import QdrantClient
 
 from configs.embedding import EMBEDDING_CONFIG
 from configs.ingestion import DOCUMENTS
 from configs.retrieval import RETRIEVAL_CONFIG
-from embedding.base import make_indexable
-from embedding.indexer import QdrantIndexer
-from ingestion.config import get_doc_config
-from ingestion.preprocessor import PreprocessingPipeline
+from src.embedding.base import make_indexable
+from src.embedding.indexer import QdrantIndexer
+from src.ingestion.config import get_doc_config
+from src.ingestion.preprocessor import PreprocessingPipeline
 
 logging.basicConfig(
     level=logging.INFO,
@@ -51,15 +58,16 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-QDRANT_URL = "http://localhost:6333"
+QDRANT_URL     = os.getenv("QDRANT_URL", "http://localhost:6333")
+QDRANT_API_KEY = os.getenv("QDRANT_API_KEY")
 
 
 def _build_embedder(provider: str):
     if provider == "openai":
-        from embedding.openai_embedder import OpenAIEmbedder
+        from src.embedding.openai_embedder import OpenAIEmbedder
         return OpenAIEmbedder(EMBEDDING_CONFIG)
     elif provider == "bge":
-        from embedding.bge_embedder import BGEEmbedder
+        from src.embedding.bge_embedder import BGEEmbedder
         return BGEEmbedder(EMBEDDING_CONFIG)
     raise ValueError(f"Unknown provider {provider!r}. Choose 'openai' or 'bge'.")
 
@@ -87,7 +95,7 @@ def run(
     dry_run: bool,
 ) -> None:
     embedder = _build_embedder(provider)
-    client = QdrantClient(url=QDRANT_URL)
+    client = QdrantClient(url=QDRANT_URL, api_key=QDRANT_API_KEY)
     indexer = QdrantIndexer(client, collection_name)
     pipeline = PreprocessingPipeline(max_tokens=512, overlap_tokens=64)
 

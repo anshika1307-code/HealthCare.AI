@@ -14,12 +14,22 @@ from __future__ import annotations
 
 import argparse
 import logging
+import os
 import pickle
 import sys
 from pathlib import Path
 
-# Make src/ importable when run from repo root
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+_REPO_ROOT = Path(__file__).resolve().parents[1]
+
+try:
+    from dotenv import load_dotenv
+    load_dotenv(_REPO_ROOT / ".env")
+except ImportError:
+    pass  # fall back to env vars already set in the shell
+
+# Make both src/ and repo root importable (configs/ lives at repo root, not src/)
+sys.path.insert(0, str(_REPO_ROOT / "src"))
+sys.path.insert(0, str(_REPO_ROOT))
 
 from qdrant_client import QdrantClient
 
@@ -29,12 +39,13 @@ from retrieval.bm25_retriever import BM25Corpus
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
 logger = logging.getLogger(__name__)
 
-QDRANT_URL = "http://localhost:6333"
+QDRANT_URL     = os.getenv("QDRANT_URL", "http://localhost:6333")
+QDRANT_API_KEY = os.getenv("QDRANT_API_KEY")
 DEFAULT_BATCH = 200
 
 
 def build_index(collection_name: str, output_path: Path) -> None:
-    client = QdrantClient(url=QDRANT_URL)
+    client = QdrantClient(url=QDRANT_URL, api_key=QDRANT_API_KEY)
 
     chunk_ids: list[str] = []
     chunk_texts: list[str] = []
