@@ -1,20 +1,18 @@
-import { useState } from 'react';
-import { Send, AlertTriangle, FileText, Check, Loader2 } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { Send, AlertTriangle, FileText, Check, Loader2, ChevronRight } from 'lucide-react';
 import { CitationPill } from './CitationPill';
 import { ErrorState } from './ErrorState';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
-// Map backend doc_type values to display metadata
 const DOC_TYPE_META: Record<string, { guidelineId: string; guidelineName: string; color: string; bgColor: string }> = {
-  fda: { guidelineId: 'FDA',     guidelineName: 'FDA Metformin Drug Label',                       color: '#1E3A8A', bgColor: '#EFF6FF' },
-  ada: { guidelineId: 'ADA',     guidelineName: 'ADA Standards of Medical Care in Diabetes (2024)', color: '#15803D', bgColor: '#F0FDF4' },
-  jnc: { guidelineId: 'JNC8',   guidelineName: 'JNC 8 Hypertension Management Guidelines',        color: '#C2410C', bgColor: '#FFF7ED' },
-  aha: { guidelineId: 'AHA_ACC', guidelineName: 'AHA/ACC Cardiovascular Risk Guidelines',          color: '#991B1B', bgColor: '#FDF2F2' },
+  fda: { guidelineId: 'FDA',  guidelineName: 'FDA Metformin Drug Label',                          color: '#1E3A8A', bgColor: '#EFF6FF' },
+  ada: { guidelineId: 'ADA',  guidelineName: 'ADA Standards of Medical Care in Diabetes (2024)',   color: '#15803D', bgColor: '#F0FDF4' },
+  jnc: { guidelineId: 'JNC8', guidelineName: 'JNC 8 Hypertension Management Guidelines',           color: '#0E7490', bgColor: '#ECFEFF' },
 };
 
 interface Citation {
-  guidelineId: 'FDA' | 'ADA' | 'JNC8' | 'AHA_ACC';
+  guidelineId: string;
   section: string;
   guidelineName: string;
   text: string;
@@ -29,9 +27,15 @@ interface ResponseData {
   conflictingGuidelines?: string[];
 }
 
+interface Exchange {
+  query: string;
+  response: ResponseData;
+}
+
 interface CenterPaneProps {
   onCitationClick: (citation: Citation) => void;
   activeCitation: Citation | null;
+  onCitationsChange?: (citations: Citation[]) => void;
 }
 
 const EXAMPLE_QUERIES = [
@@ -41,25 +45,39 @@ const EXAMPLE_QUERIES = [
   'What is the recommended HbA1c target for non-pregnant adults?',
 ];
 
-export function CenterPane({ onCitationClick, activeCitation }: CenterPaneProps) {
-  const [query, setQuery]       = useState('');
-  const [response, setResponse] = useState<ResponseData | null>(null);
-  const [loading, setLoading]   = useState(false);
-  const [apiError, setApiError] = useState<string | null>(null);
-  const [copied, setCopied]     = useState(false);
+const QUICK_CHIPS = [
+  { label: 'Target BP (diabetic)',      query: EXAMPLE_QUERIES[0] },
+  { label: 'Metformin contraindications', query: EXAMPLE_QUERIES[1] },
+  { label: 'CVD risk guidelines',       query: EXAMPLE_QUERIES[2] },
+  { label: 'HbA1c target',             query: EXAMPLE_QUERIES[3] },
+];
+
+export function CenterPane({ onCitationClick, activeCitation, onCitationsChange }: CenterPaneProps) {
+  const [query, setQuery]             = useState('');
+  const [exchanges, setExchanges]     = useState<Exchange[]>([]);
+  const [loading, setLoading]         = useState(false);
+  const [pendingQuery, setPendingQuery] = useState<string | null>(null);
+  const [apiError, setApiError]       = useState<string | null>(null);
+  const [copiedIdx, setCopiedIdx]     = useState<number | null>(null);
+  const bottomRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [exchanges, loading]);
 
   const submitQuery = async (q: string) => {
     if (!q.trim()) return;
+    const trimmed = q.trim();
     setLoading(true);
     setApiError(null);
-    setResponse(null);
-    setCopied(false);
+    setQuery('');
+    setPendingQuery(trimmed);
 
     try {
       const res = await fetch(`${API_URL}/query`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query: q.trim() }),
+        body: JSON.stringify({ query: trimmed }),
       });
 
       if (!res.ok) {
@@ -73,32 +91,36 @@ export function CenterPane({ onCitationClick, activeCitation }: CenterPaneProps)
       const citations: Citation[] = (data.sources || []).map((s: any) => {
         const meta = DOC_TYPE_META[s.doc_type] ?? {
           guidelineId: (s.doc_type || 'UNK').toUpperCase(),
-          guidelineName: s.document_id,
+          guidelineName: s.document_id || 'Unknown',
           color: '#64748B',
           bgColor: '#F1F5F9',
         };
         return {
-          guidelineId: meta.guidelineId as Citation['guidelineId'],
-          section: s.section_name || '',
+          guidelineId: meta.guidelineId,
+          section:     s.section_name || '',
           guidelineName: meta.guidelineName,
-          text: s.text || '',
-          color: meta.color,
-          bgColor: meta.bgColor,
+          text:        s.text || '',
+          color:       meta.color,
+          bgColor:     meta.bgColor,
         };
       });
 
-      setResponse({
+      const newResponse: ResponseData = {
         text: data.answer,
         citations,
         lowConfidence: data.low_confidence,
         conflictingGuidelines: data.low_confidence
           ? [...new Set(citations.map((c) => c.guidelineId))]
           : [],
-      });
+      };
+
+      setExchanges((prev) => [...prev, { query: trimmed, response: newResponse }]);
+      onCitationsChange?.(citations);
     } catch (err) {
       setApiError(err instanceof Error ? err.message : 'Unknown error');
     } finally {
       setLoading(false);
+      setPendingQuery(null);
     }
   };
 
@@ -107,195 +129,279 @@ export function CenterPane({ onCitationClick, activeCitation }: CenterPaneProps)
     submitQuery(query);
   };
 
-  const copyToEHR = () => {
-    if (!response) return;
+  const copyToEHR = (exchange: Exchange, idx: number) => {
+    const { query: q, response } = exchange;
     const date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-    const sourcesBlock = response.citations
-      .map((c, i) => `[${i + 1}] ${c.guidelineId} § ${c.section} — ${c.guidelineName}\n"${c.text}"`)
-      .join('\n\n');
 
-    const note = `CLINICAL DECISION SUPPORT NOTE
-Date: ${date}
-Query: ${query}
+    const evidenceBlock = response.citations.length > 0
+      ? response.citations
+          .map((c, i) => {
+            const snippet = c.text.length > 300 ? c.text.slice(0, 300) + '...' : c.text;
+            return `[${i + 1}] ${c.guidelineId} § ${c.section} — ${c.guidelineName}\n    "${snippet}"`;
+          })
+          .join('\n\n')
+      : 'No cited sources.';
 
-FINDINGS:
-${response.text}
+    const confidenceNote = response.lowConfidence
+      ? '⚠ LOW CONFIDENCE: Information could not be definitively cross-referenced. Verify with original guideline source before clinical use.'
+      : 'HIGH — Information cross-referenced across active guidelines.';
 
-SUPPORTING EVIDENCE:
-${sourcesBlock}
+    const note = [
+      'CLINICAL DECISION SUPPORT NOTE',
+      `Date: ${date}`,
+      '',
+      '────────────────────────────────────────────────────',
+      'SUBJECTIVE / PROVIDER QUERY',
+      '────────────────────────────────────────────────────',
+      q,
+      '',
+      '────────────────────────────────────────────────────',
+      'OBJECTIVE / EVIDENCE-BASED FINDINGS',
+      '────────────────────────────────────────────────────',
+      response.text,
+      '',
+      `────────────────────────────────────────────────────`,
+      `SUPPORTING REFERENCES (${response.citations.length} source${response.citations.length !== 1 ? 's' : ''})`,
+      '────────────────────────────────────────────────────',
+      evidenceBlock,
+      '',
+      '────────────────────────────────────────────────────',
+      'ASSESSMENT',
+      '────────────────────────────────────────────────────',
+      `Confidence: ${confidenceNote}`,
+      '',
+      '────────────────────────────────────────────────────',
+      'DISCLAIMER',
+      '────────────────────────────────────────────────────',
+      'Generated by Clinical Guidelines Assistant. Intended as decision support only — does not replace clinical judgment.',
+      'Verify all recommendations with current source guidelines before patient application.',
+      `Generated: ${date}`,
+    ].join('\n');
 
-${response.lowConfidence ? '⚠ LOW CONFIDENCE: Information could not be definitively cross-referenced. Verify with original guideline.\n' : ''}
-Generated by Clinical Guidelines Assistant | Evidence-based decision support`;
-
-    const write = () => {
-      if (navigator.clipboard?.writeText) {
-        navigator.clipboard.writeText(note).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2000); }).catch(fallback);
-      } else {
-        fallback();
-      }
-    };
     const fallback = () => {
       const ta = document.createElement('textarea');
       ta.value = note;
       ta.style.cssText = 'position:fixed;left:-9999px;top:-9999px';
       document.body.appendChild(ta);
       ta.select();
-      try { document.execCommand('copy'); setCopied(true); setTimeout(() => setCopied(false), 2000); } catch {}
+      try { document.execCommand('copy'); } catch {}
       document.body.removeChild(ta);
     };
-    write();
+
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(note).catch(fallback);
+    } else {
+      fallback();
+    }
+    setCopiedIdx(idx);
+    setTimeout(() => setCopiedIdx(null), 2000);
   };
 
-  return (
-    <div className="flex flex-1 flex-col bg-white">
+  const hasExchanges = exchanges.length > 0;
+  const latestLowConf = hasExchanges && exchanges[exchanges.length - 1].response.lowConfidence;
 
-      {/* Low-confidence banner */}
-      {response?.lowConfidence && (
-        <div className="border-b-2 border-amber-500 bg-amber-50 px-6 py-3">
-          <div className="flex items-start gap-3">
-            <AlertTriangle className="mt-0.5 h-5 w-5 text-amber-600" />
+  return (
+    <div className="flex min-w-0 flex-1 flex-col overflow-hidden bg-white">
+
+      {/* Low-confidence banner — only appears when latest response has low confidence */}
+      {latestLowConf && (
+        <div className="flex-shrink-0 border-b-2 border-amber-400 bg-amber-50 px-6 py-2.5">
+          <div className="flex items-start gap-2.5">
+            <AlertTriangle className="mt-0.5 h-4 w-4 flex-shrink-0 text-amber-600" />
             <div>
-              <p className="text-sm font-semibold text-amber-900">
-                Low Retrieval Confidence: Conflicting recommendations detected
+              <p className="text-xs font-semibold text-amber-900">
+                Low Retrieval Confidence — Conflicting recommendations detected
               </p>
-              <p className="mt-1 text-xs text-amber-800">
-                Variance found between [{response.conflictingGuidelines?.join('] and [')}] for this query.
-                Review side-by-side in Evidence Vault.
+              <p className="mt-0.5 text-xs text-amber-700">
+                Variance between [{exchanges[exchanges.length - 1].response.conflictingGuidelines?.join('] and [')}].
+                Review source text in the Evidence Vault.
               </p>
             </div>
           </div>
         </div>
       )}
 
-      {/* Main content area */}
-      <div className="flex-1 overflow-y-auto p-6">
+      {/* Scrollable content area */}
+      <div className="flex-1 overflow-y-auto">
 
         {/* Landing state */}
-        {!response && !loading && !apiError && (
-          <div className="flex h-full items-center justify-center">
-            <div className="max-w-2xl text-center">
-              <h1 className="mb-4 text-gray-900">Clinical Guidelines Assistant</h1>
-              <p className="mb-8 text-sm leading-relaxed text-gray-600">
-                Evidence-based answers from FDA, ADA, JNC 8, and AHA/ACC guidelines.
-                Every response is strictly sourced from indexed clinical documents.
+        {!hasExchanges && !loading && !apiError && (
+          <div className="flex h-full items-center justify-center px-6">
+            <div className="w-full max-w-2xl text-center">
+              <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1">
+                <div className="h-1.5 w-1.5 rounded-full bg-blue-600" />
+                <span className="text-[10px] font-semibold uppercase tracking-widest text-blue-600">
+                  Evidence-based · FDA · ADA · JNC 8
+                </span>
+              </div>
+              <h1 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900">
+                Clinical Guidelines Assistant
+              </h1>
+              <p className="mb-8 text-sm leading-relaxed text-gray-500">
+                Sourced answers from indexed clinical guidelines. Every response is strictly traceable
+                to a verified source document.
               </p>
               <div className="grid grid-cols-2 gap-3 text-left">
                 {EXAMPLE_QUERIES.map((q) => (
                   <button
                     key={q}
-                    onClick={() => { setQuery(q); submitQuery(q); }}
-                    className="rounded-lg border border-gray-200 p-4 text-left transition-colors hover:bg-gray-50"
+                    onClick={() => submitQuery(q)}
+                    className="group rounded-xl border border-gray-200 bg-white p-4 text-left transition-all hover:border-blue-300 hover:bg-blue-50 hover:shadow-sm"
                   >
-                    <p className="text-sm text-gray-700">{q}</p>
+                    <div className="mb-1.5 flex items-center gap-1">
+                      <ChevronRight className="h-3 w-3 text-gray-300 transition-colors group-hover:text-blue-500" />
+                      <span className="text-[9px] font-semibold uppercase tracking-widest text-gray-400 transition-colors group-hover:text-blue-500">
+                        Sample query
+                      </span>
+                    </div>
+                    <p className="text-xs leading-relaxed text-gray-700">{q}</p>
                   </button>
                 ))}
               </div>
-              <div className="mt-6">
-                <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-500">Example Error State</p>
-                <ErrorState type="missing_section" guideline="ADA 2024" section="§ 15.3" />
-              </div>
             </div>
           </div>
         )}
 
-        {/* Loading state */}
-        {loading && (
-          <div className="flex h-full items-center justify-center">
-            <div className="text-center">
-              <Loader2 className="mx-auto h-8 w-8 animate-spin text-blue-500" />
-              <p className="mt-3 text-sm text-gray-600">Searching guidelines…</p>
-            </div>
-          </div>
-        )}
+        {/* Conversation thread */}
+        {(hasExchanges || loading || apiError) && (
+          <div className="mx-auto w-full max-w-3xl space-y-6 px-6 py-6">
 
-        {/* API error */}
-        {apiError && !loading && (
-          <div className="mx-auto max-w-2xl">
-            <ErrorState type="api_error" guideline="Backend" section={apiError} />
-          </div>
-        )}
+            {exchanges.map((exchange, idx) => (
+              <div key={idx} className="space-y-3">
 
-        {/* Response */}
-        {response && !loading && (
-          <div className="mx-auto max-w-4xl">
-            {/* Query echo */}
-            <div className="mb-4 rounded-lg bg-gray-50 px-4 py-3">
-              <p className="text-sm text-gray-700">{query}</p>
-            </div>
-
-            {/* Answer card */}
-            <div className="rounded-lg border-2 border-gray-200 bg-white p-6">
-              <div className="mb-4 flex items-center justify-between">
-                <h3 className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-                  Synthesized Response
-                </h3>
-                <button
-                  onClick={copyToEHR}
-                  className="flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-xs text-gray-700 transition-colors hover:bg-gray-50"
-                >
-                  {copied ? (
-                    <><Check className="h-3.5 w-3.5 text-green-600" />Copied to Clipboard</>
-                  ) : (
-                    <><FileText className="h-3.5 w-3.5" />Copy for EHR Note</>
-                  )}
-                </button>
-              </div>
-
-              {/* Answer text */}
-              <div className="whitespace-pre-wrap text-sm leading-relaxed text-gray-800">
-                {response.text}
-              </div>
-
-              {/* Inline citation pills */}
-              {response.citations.length > 0 && (
-                <div className="mt-4 flex flex-wrap gap-2 border-t border-gray-100 pt-4">
-                  {response.citations.map((c, i) => (
-                    <CitationPill
-                      key={i}
-                      guidelineId={c.guidelineId}
-                      section={c.section}
-                      sourceText={c.text}
-                      onClick={() => onCitationClick(c)}
-                      isActive={activeCitation?.section === c.section && activeCitation?.guidelineId === c.guidelineId}
-                    />
-                  ))}
+                {/* User query */}
+                <div className="flex justify-end">
+                  <div className="max-w-xl rounded-2xl rounded-tr-sm bg-blue-600 px-4 py-2.5 shadow-sm">
+                    <p className="text-sm leading-relaxed text-white">{exchange.query}</p>
+                  </div>
                 </div>
-              )}
 
-              <div className="mt-4 flex items-center gap-2 border-t border-gray-100 pt-4">
-                <div className={`h-2 w-2 rounded-full ${response.lowConfidence ? 'bg-amber-500' : 'bg-green-500'}`} />
-                <span className="text-xs text-gray-600">
-                  Response generated from {response.citations.length} verified source{response.citations.length !== 1 ? 's' : ''}
-                </span>
+                {/* Response card */}
+                <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
+
+                  {/* Card header */}
+                  <div className="flex items-center justify-between border-b border-gray-100 px-5 py-3">
+                    <div className="flex items-center gap-2">
+                      <div
+                        className={`h-2 w-2 rounded-full ${exchange.response.lowConfidence ? 'bg-amber-400' : 'bg-green-500'}`}
+                      />
+                      <span className="text-[9px] font-bold uppercase tracking-widest text-gray-400">
+                        Synthesized Response
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="text-[10px] text-gray-400">
+                        {exchange.response.citations.length} source{exchange.response.citations.length !== 1 ? 's' : ''}
+                      </span>
+                      <button
+                        onClick={() => copyToEHR(exchange, idx)}
+                        className="flex items-center gap-1.5 rounded-md border border-gray-200 bg-white px-2.5 py-1 text-[10px] font-medium text-gray-600 transition-all hover:border-gray-300 hover:bg-gray-50 active:bg-gray-100"
+                      >
+                        {copiedIdx === idx ? (
+                          <><Check className="h-3 w-3 text-green-600" /><span className="text-green-700">Copied</span></>
+                        ) : (
+                          <><FileText className="h-3 w-3" />Copy for EHR</>
+                        )}
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Answer text */}
+                  <div className="px-5 py-4">
+                    <p className="whitespace-pre-wrap text-sm leading-relaxed text-gray-800">
+                      {exchange.response.text}
+                    </p>
+                  </div>
+
+                  {/* Citation pills */}
+                  {exchange.response.citations.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 border-t border-gray-100 px-5 py-3">
+                      {exchange.response.citations.map((c, i) => (
+                        <CitationPill
+                          key={i}
+                          guidelineId={c.guidelineId}
+                          section={c.section}
+                          sourceText={c.text}
+                          onClick={() => onCitationClick(c)}
+                          isActive={
+                            activeCitation?.section === c.section &&
+                            activeCitation?.guidelineId === c.guidelineId
+                          }
+                        />
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
+            ))}
+
+            {/* In-flight: show pending query + loading card */}
+            {loading && (
+              <div className="space-y-3">
+                {pendingQuery && (
+                  <div className="flex justify-end">
+                    <div className="max-w-xl rounded-2xl rounded-tr-sm bg-blue-600 px-4 py-2.5 shadow-sm">
+                      <p className="text-sm leading-relaxed text-white">{pendingQuery}</p>
+                    </div>
+                  </div>
+                )}
+                <div className="flex items-center gap-3 rounded-xl border border-gray-200 bg-white px-5 py-4 shadow-sm">
+                  <Loader2 className="h-4 w-4 flex-shrink-0 animate-spin text-blue-500" />
+                  <span className="text-sm text-gray-500">Searching clinical guidelines…</span>
+                </div>
+              </div>
+            )}
+
+            {/* API error */}
+            {apiError && !loading && (
+              <ErrorState type="api_error" section={apiError} />
+            )}
+
+            <div ref={bottomRef} />
           </div>
         )}
       </div>
 
-      {/* Query input */}
-      <div className="border-t border-gray-200 bg-white p-6">
-        <form onSubmit={handleSubmit} className="mx-auto max-w-4xl">
-          <div className="flex gap-3">
+      {/* Input area */}
+      <div className="flex-shrink-0 border-t border-gray-200 bg-white px-6 pb-5 pt-4">
+
+        {/* Quick chips — visible after first exchange */}
+        {hasExchanges && (
+          <div className="mx-auto mb-3 flex max-w-3xl gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {QUICK_CHIPS.map(({ label, query: q }) => (
+              <button
+                key={label}
+                onClick={() => submitQuery(q)}
+                disabled={loading}
+                className="flex-shrink-0 rounded-full border border-gray-200 bg-white px-3 py-1 text-[11px] text-gray-600 transition-colors hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 disabled:opacity-40"
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="mx-auto max-w-3xl">
+          <div className="flex gap-2">
             <input
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Ask a clinical question (e.g. 'What is the recommended HbA1c target for diabetic patients?')"
-              className="flex-1 rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+              placeholder="Ask a clinical question…"
+              className="flex-1 rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 text-sm text-gray-800 placeholder-gray-400 transition-colors focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20"
               disabled={loading}
             />
             <button
               type="submit"
               disabled={!query.trim() || loading}
-              className="flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-3 text-sm text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-medium text-white shadow-sm transition-colors hover:bg-blue-700 active:bg-blue-800 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
-              Query
+              <span>Query</span>
             </button>
           </div>
-          <p className="mt-2 text-xs text-gray-500">
-            Answers sourced exclusively from FDA, ADA, JNC 8, and AHA/ACC indexed guidelines
+          <p className="mt-2 text-center text-[10px] text-gray-400">
+            Answers sourced exclusively from FDA, ADA, and JNC 8 indexed guidelines
           </p>
         </form>
       </div>

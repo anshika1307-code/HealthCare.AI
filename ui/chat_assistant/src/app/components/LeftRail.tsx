@@ -16,56 +16,60 @@ interface LeftRailProps {
 
 export function LeftRail({ guidelines }: LeftRailProps) {
   return (
-    <div className="w-72 border-r border-gray-200 bg-gray-50 p-6">
-      <div className="mb-6">
-        <h2 className="mb-1 text-gray-900">Active Guidelines</h2>
-        <p className="text-sm text-gray-600">Source frameworks for evidence retrieval</p>
+    <div className="flex w-64 flex-shrink-0 flex-col border-r border-gray-200 bg-gray-50">
+      <div className="flex-shrink-0 border-b border-gray-200 px-5 py-5">
+        <h2 className="text-sm font-semibold text-gray-900">Active Guidelines</h2>
+        <p className="mt-0.5 text-xs text-gray-500">Indexed source frameworks</p>
       </div>
 
-      <div className="space-y-3">
-        {guidelines.map((guideline) => (
-          <div
-            key={guideline.id}
-            className="rounded-lg border-2 bg-white p-4 transition-all hover:shadow-sm"
-            style={{ borderColor: guideline.borderColor }}
-          >
-            <div className="flex items-start gap-3">
-              <div
-                className="rounded p-1.5"
-                style={{ backgroundColor: guideline.bgColor }}
-              >
-                <FileText className="h-4 w-4" style={{ color: guideline.color }} />
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center gap-2">
+      <div className="flex-1 overflow-y-auto px-4 py-4">
+        <div className="space-y-2.5">
+          {guidelines.map((guideline) => (
+            <div
+              key={guideline.id}
+              className="rounded-lg border bg-white p-3.5 transition-shadow hover:shadow-sm"
+              style={{ borderColor: guideline.borderColor }}
+            >
+              <div className="flex items-start gap-3">
+                <div
+                  className="mt-0.5 flex-shrink-0 rounded p-1.5"
+                  style={{ backgroundColor: guideline.bgColor }}
+                >
+                  <FileText className="h-3.5 w-3.5" style={{ color: guideline.color }} />
+                </div>
+                <div className="min-w-0 flex-1">
                   <span
-                    className="rounded px-2 py-0.5 text-xs font-bold uppercase tracking-wide"
-                    style={{
-                      backgroundColor: guideline.bgColor,
-                      color: guideline.color
-                    }}
+                    className="rounded px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-widest"
+                    style={{ backgroundColor: guideline.bgColor, color: guideline.color }}
                   >
                     {guideline.id}
                   </span>
-                </div>
-                <p className="mt-1 text-xs text-gray-700 leading-tight">{guideline.fullName}</p>
-                <div className="mt-2 flex items-center gap-1.5">
-                  <div className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: guideline.color }} />
-                  <span className="text-xs text-gray-600">
-                    {guideline.sectionsUsed} {guideline.sectionsUsed === 1 ? 'section' : 'sections'} cited
-                  </span>
+                  <p className="mt-1.5 text-[11px] leading-snug text-gray-600">{guideline.fullName}</p>
+                  <div className="mt-2 flex items-center gap-1.5">
+                    <div
+                      className="h-1.5 w-1.5 flex-shrink-0 rounded-full"
+                      style={{ backgroundColor: guideline.sectionsUsed > 0 ? guideline.color : '#D1D5DB' }}
+                    />
+                    <span className="text-[10px] text-gray-500">
+                      {guideline.sectionsUsed > 0
+                        ? `${guideline.sectionsUsed} ${guideline.sectionsUsed === 1 ? 'section' : 'sections'} cited`
+                        : 'Available'}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
-      <div className="mt-8 rounded-lg bg-gray-100 p-4">
-        <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-700">Scope Limitation</h3>
-        <p className="text-xs text-gray-600 leading-relaxed">
-          Answers are strictly sourced from indexed guidelines. System does not use internet search or general knowledge.
-        </p>
+      <div className="flex-shrink-0 border-t border-gray-200 px-4 py-4">
+        <div className="rounded-lg bg-gray-100 p-3">
+          <p className="text-[10px] font-semibold uppercase tracking-wide text-gray-500">Scope Limitation</p>
+          <p className="mt-1.5 text-[10px] leading-relaxed text-gray-500">
+            Answers are strictly sourced from indexed guidelines. No internet search or general knowledge is used.
+          </p>
+        </div>
       </div>
     </div>
   );
