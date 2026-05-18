@@ -1,0 +1,48 @@
+# Virtual environments
+.venv/
+.venv-1/
+venv/
+
+# Git
+.git/
+.github/
+
+# UI (deployed separately or not at all on Railway)
+ui/
+
+# Raw data — large PDFs managed by DVC, not needed at runtime
+data/raw/
+data/processed/
+
+# Experiment artifacts
+mlruns/
+experiments/
+mlflow.db
+eval_report*.json
+
+# Dev / editor
+.vscode/
+.idea/
+.claude/
+
+# Python build artifacts
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# Tests
+tests/
+
+# Docs
+docs/
+ai_usage/
+
+# Secrets — never bake into image
+.env
+*.local
+
+# Temp
+temp.txt
+scripts/

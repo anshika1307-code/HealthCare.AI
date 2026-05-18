@@ -29,3 +29,30 @@ reportMissingImports = true
 
 [[tool.pyright.extraPaths]]
 path = "src"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src"]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes (unused imports, undefined names)
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "UP",  # pyupgrade
+]
+ignore = [
+    "E501",  # line too long — ruff format handles this
+    "B008",  # do not perform function calls in default args (FastAPI pattern)
+    "B904",  # raise from inside except (noisy in existing code)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["F401", "F811"]  # allow unused imports in test files
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"

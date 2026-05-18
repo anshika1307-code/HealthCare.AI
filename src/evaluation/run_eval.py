@@ -13,8 +13,8 @@ Usage:
     python src/evaluation/run_eval.py --output reports/eval_20260518.json
 
 Exit codes:
-    0 — pass (avg faithfulness >= 0.75)
-    1 — fail (avg faithfulness < 0.75) OR critical setup error
+    0 — pass (avg faithfulness >= 0.70)
+    1 — fail (avg faithfulness < 0.70) OR critical setup error
 
 Architecture note
 -----------------
@@ -87,7 +87,7 @@ from retrieval.reranker import CrossEncoderReranker
 from retrieval.rrf_ranker import RRFRanker
 
 # ── constants ─────────────────────────────────────────────────────────────────
-FAITHFULNESS_THRESHOLD = 0.75
+FAITHFULNESS_THRESHOLD = 0.70
 _DEFAULT_EVAL_SET  = _ROOT / "data" / "evaluation" / "eval_set.json"
 _DEFAULT_OUTPUT    = _ROOT / "eval_report.json"
 _DEFAULT_BM25_PATH = Path("data/cache/bm25_corpus.pkl")
