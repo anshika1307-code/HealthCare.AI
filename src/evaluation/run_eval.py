@@ -109,8 +109,8 @@ for _noisy in ("httpx", "httpcore", "openai", "ragas", "langchain", "sentence_tr
 
 
 async def _build_pipeline():
-    qdrant_url = os.getenv("QDRANT_URL", "http://localhost:6333")
-    qdrant_api_key = os.getenv("QDRANT_API_KEY")
+    qdrant_url = os.getenv("QDRANT_URL", "http://localhost:6333").strip()
+    qdrant_api_key = (os.getenv("QDRANT_API_KEY") or "").strip() or None
     bm25_path = Path(os.getenv("BM25_CORPUS_PATH", str(_DEFAULT_BM25_PATH)))
 
     qdrant = AsyncQdrantClient(url=qdrant_url, api_key=qdrant_api_key, check_compatibility=False)
