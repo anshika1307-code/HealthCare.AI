@@ -1,9 +1,9 @@
-# Healthcare_AI - Project reuirement and context
+# Healthcare_AI - Project requirement and context
 
 ## what this system is -
 
 System that lets clinicians, pharmacists, and care coordinators ask natural-language questions against a corpus of authoritative clinical documents — FDA drug labels, ADA diabetes guidelines, and JNC hypertension guidelines — and receive grounded, sourced answers.
-[Currently building a prototype but in a way how production ready project should be made]
+[Currently building a prototype, but in a way how production ready project should be made]
 ---
 
 
@@ -11,8 +11,8 @@ System that lets clinicians, pharmacists, and care coordinators ask natural-lang
 
 - **Type:** Pdfs, Documents (initially for prototype)
 - **Place:** within the server database
-- **uantity:** 3 (initially for prototype)
-- **Static or Continous change:** Continous as healthcare data keep evolving
+- **Quantity:** 3 (initially for prototype)
+- **Static or Continuous change:** Continuous as healthcare data keep evolving
 - **Documents used in prototype:**  the metformin FDA prescribing label, the ADA Standards of Care in Diabetes 2023 (Sections 6 and 9), and the JNC 8 hypertension management guidelines.
 
 ---
@@ -72,9 +72,9 @@ Build an AI assistant that:
 - hallucinate dose
 
 ## Observability Requirements (Production)
-- per uery metrics - llm time, retrieval time, latency
-- Dashboard - for faithfullness trend, uery volume, latency graph, error rate
+- per query metrics - llm time, retrieval time, latency
+- Dashboard - for faithfulness trend, query volume, latency graph, error rate
 - Alerts - errors increasing, latency increasing, faithfulness decreasing over time
 - Drift detection - As this is a sector where data source will be evolving over time so if in comparison with new documents batch, there is a major drift.
-- CI evalution gate - every code push run a curtain set of predefined uestions and answer will be compared to expecting answers, if fails (>threshold) then it blocks the deploy.
-- logs- structure JSON logs without patient context(original uery)
+- CI evalution gate - every code push run a curtain set of predefined questions and answer will be compared to expecting answers, if fails (>threshold) then it blocks the deploy.
+- logs- structure JSON logs without patient context(original query)

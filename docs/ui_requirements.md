@@ -1,5 +1,5 @@
 # Healthcare.AI UI Specification
-> Information for AI Tool to understand the ui reuirements, user base, ideas, researches, layout and design needed for this project
+> Information for AI Tool to understand the ui requirements, user base, ideas, researches, layout and design needed for this project
 > Then make a not very complex but medical-grade AI UI with this information and references help 
 
 ## Target COnsumer Specific
