@@ -1,0 +1,322 @@
+[
+  {
+    "id": "fda_01",
+    "question": "What is the eGFR threshold below which metformin is absolutely contraindicated?",
+    "ground_truth": "eGFR less than 30 mL/min/1.73 m2",
+    "source_doc": "metformin_fda_label.pdf",
+    "section": "contraindications",
+    "difficulty": "easy"
+  },
+  {
+    "id": "fda_02",
+    "question": "The label says initiation of metformin is \"not recommended\" in a specific eGFR range — what is that range?",
+    "ground_truth": "eGFR between 30 and 45 mL/min/1.73 m2",
+    "source_doc": "metformin_fda_label.pdf",
+    "section": "warnings_and_precautions",
+    "difficulty": "medium"
+  },
+  {
+    "id": "fda_03",
+    "question": "A patient on metformin is scheduled for a CT scan with iodinated contrast and has an eGFR of 50 — what should happen to the metformin?",
+    "ground_truth": "discontinue at the time of or prior to the procedure",
+    "source_doc": "metformin_fda_label.pdf",
+    "section": "dosage_and_administration",
+    "difficulty": "medium"
+  },
+  {
+    "id": "fda_04",
+    "question": "After stopping metformin for a contrast imaging procedure, when can it be restarted and what must be confirmed first?",
+    "ground_truth": "re-evaluate eGFR 48 hours after the imaging procedure, restart if renal function is stable",
+    "source_doc": "metformin_fda_label.pdf",
+    "section": "warnings_and_precautions",
+    "difficulty": "medium"
+  },
+  {
+    "id": "fda_05",
+    "question": "How often should vitamin B12 levels be monitored in patients taking metformin, and how often should hematological parameters be checked?",
+    "ground_truth": "vitamin B12 at 2 to 3 year intervals, hematological parameters annually",
+    "source_doc": "metformin_fda_label.pdf",
+    "section": "warnings_and_precautions",
+    "difficulty": "hard"
+  },
+  {
+    "id": "fda_06",
+    "question": "Does metformin alone cause hypoglycemia under normal use conditions?",
+    "ground_truth": "hypoglycemia does not occur with metformin alone under usual circumstances",
+    "source_doc": "metformin_fda_label.pdf",
+    "section": "warnings_and_precautions",
+    "difficulty": "hard"
+  },
+  {
+    "id": "fda_07",
+    "question": "What are the three absolute contraindications listed for metformin?",
+    "ground_truth": "severe renal impairment eGFR below 30, hypersensitivity to metformin, acute or chronic metabolic acidosis including diabetic ketoacidosis",
+    "source_doc": "metformin_fda_label.pdf",
+    "section": "contraindications",
+    "difficulty": "easy"
+  },
+  {
+    "id": "fda_08",
+    "question": "The label identifies carbonic anhydrase inhibitors as a drug interaction concern for metformin — what specific risk do they increase and what action is recommended?",
+    "ground_truth": "increase risk of lactic acidosis, consider more frequent monitoring",
+    "source_doc": "metformin_fda_label.pdf",
+    "section": "drug_interactions",
+    "difficulty": "hard"
+  },
+  {
+    "id": "fda_09",
+    "question": "What lab value threshold in mmol/L is used to characterize metformin-associated lactic acidosis in postmarketing cases?",
+    "ground_truth": "elevated blood lactate concentrations greater than 5 mmol/L",
+    "source_doc": "metformin_fda_label.pdf",
+    "section": "warnings_and_precautions",
+    "difficulty": "hard"
+  },
+  {
+    "id": "fda_10",
+    "question": "For an elderly patient on metformin, does the label recommend titrating to the maximum dose?",
+    "ground_truth": "titration to the maximum dose is generally not recommended in elderly debilitated or malnourished patients",
+    "source_doc": "metformin_fda_label.pdf",
+    "section": "dosage_and_administration",
+    "difficulty": "medium"
+  },
+  {
+    "id": "ada6_01",
+    "question": "What is the A1C goal recommended for most nonpregnant adults with diabetes?",
+    "ground_truth": "less than 7% or 53 mmol/mol",
+    "source_doc": "ada_standards_care_diabetes_section6.pdf",
+    "section": "a1c_targets",
+    "difficulty": "easy"
+  },
+  {
+    "id": "ada6_02",
+    "question": "What TIR percentage corresponds approximately to an A1C of 7%?",
+    "ground_truth": "TIR greater than 70% aligns with A1C of approximately 7%",
+    "source_doc": "ada_standards_care_diabetes_section6.pdf",
+    "section": "cgm_targets",
+    "difficulty": "medium"
+  },
+  {
+    "id": "ada6_03",
+    "question": "What is the target for time below range on a CGM for most nonpregnant adults?",
+    "ground_truth": "time below range less than 4%",
+    "source_doc": "ada_standards_care_diabetes_section6.pdf",
+    "section": "cgm_targets",
+    "difficulty": "hard"
+  },
+  {
+    "id": "ada6_04",
+    "question": "What less stringent A1C threshold does the ADA recommend as acceptable for patients with limited life expectancy or where treatment harms outweigh benefits?",
+    "ground_truth": "less than 8% or 64 mmol/mol",
+    "source_doc": "ada_standards_care_diabetes_section6.pdf",
+    "section": "individualized_targets",
+    "difficulty": "medium"
+  },
+  {
+    "id": "ada6_05",
+    "question": "What is the A1C target for pregnant individuals with diabetes, and what relaxed target is allowed if that cannot be achieved without significant hypoglycemia?",
+    "ground_truth": "less than 6%, can be relaxed to less than 7% if not achievable without significant hypoglycemia",
+    "source_doc": "ada_standards_care_diabetes_section6.pdf",
+    "section": "individualized_targets",
+    "difficulty": "hard"
+  },
+  {
+    "id": "ada6_06",
+    "question": "What minimum CGM wear percentage is required over a 10 to 14 day period for TIR to be a valid assessment of glycemic status?",
+    "ground_truth": "CGM wear of 70% or higher",
+    "source_doc": "ada_standards_care_diabetes_section6.pdf",
+    "section": "cgm_targets",
+    "difficulty": "hard"
+  },
+  {
+    "id": "ada6_07",
+    "question": "Does the ADA 2023 section 6 consider severe hypoglycemia a marker for cardiovascular risk?",
+    "ground_truth": "severe hypoglycemia is a potent marker of cardiovascular risk",
+    "source_doc": "ada_standards_care_diabetes_section6.pdf",
+    "section": "hypoglycemia_risk",
+    "difficulty": "medium"
+  },
+  {
+    "id": "ada6_08",
+    "question": "What does GMI stand for and what is it used as an alternative or supplement to?",
+    "ground_truth": "glucose management indicator, used as supplement to or alternative for A1C",
+    "source_doc": "ada_standards_care_diabetes_section6.pdf",
+    "section": "glycemic_assessment_methods",
+    "difficulty": "medium"
+  },
+  {
+    "id": "ada6_09",
+    "question": "The ADA guidelines say a lower A1C than 7% may be appropriate in some patients — what two conditions must be met for this to be recommended?",
+    "ground_truth": "can be achieved safely without significant hypoglycemia or other adverse effects of treatment",
+    "source_doc": "ada_standards_care_diabetes_section6.pdf",
+    "section": "individualized_targets",
+    "difficulty": "hard"
+  },
+  {
+    "id": "ada6_10",
+    "question": "What is the very low threshold for time below range below 54 mg/dL that CGM targets aim to keep under?",
+    "ground_truth": "less than 1%",
+    "source_doc": "ada_standards_care_diabetes_section6.pdf",
+    "section": "cgm_targets",
+    "difficulty": "hard"
+  },
+  {
+    "id": "ada9_01",
+    "question": "For a T2D patient with established ASCVD, is GLP-1 RA or SGLT2 inhibitor recommended independent of A1C level or only after A1C target is missed?",
+    "ground_truth": "recommended independent of A1C",
+    "source_doc": "ada_standards_care_diabetes_section9.pdf",
+    "section": "cvd_ckd_drug_selection",
+    "difficulty": "medium"
+  },
+  {
+    "id": "ada9_02",
+    "question": "When a T2D patient with ASCVD is already at their A1C goal on other medications, does ADA section 9 still recommend switching to SGLT2i or GLP-1 RA?",
+    "ground_truth": "yes, individuals already achieving glycemic goals may benefit from switching to reduce ASCVD HF CKD risk",
+    "source_doc": "ada_standards_care_diabetes_section9.pdf",
+    "section": "cvd_ckd_drug_selection",
+    "difficulty": "hard"
+  },
+  {
+    "id": "ada9_03",
+    "question": "What does the ADA section 9 say should happen to metformin when insulin is being intensified — should it be stopped or continued?",
+    "ground_truth": "metformin should be maintained unless adverse effects or contraindications are present",
+    "source_doc": "ada_standards_care_diabetes_section9.pdf",
+    "section": "insulin_intensification",
+    "difficulty": "medium"
+  },
+  {
+    "id": "ada9_04",
+    "question": "When should initial combination therapy be considered according to ADA 2023 section 9 — what A1C threshold above an individual's goal triggers this?",
+    "ground_truth": "A1C levels 1.5 to 2.0 percent above individualized goal",
+    "source_doc": "ada_standards_care_diabetes_section9.pdf",
+    "section": "combination_therapy_rationale",
+    "difficulty": "hard"
+  },
+  {
+    "id": "ada9_05",
+    "question": "The ADA section 9 identifies a trade-off with stepwise therapy vs combination — what is the stated advantage of stepwise addition over initial combination?",
+    "ground_truth": "provides clear assessment of positive and negative effects of new drugs and reduces potential side effects and expense",
+    "source_doc": "ada_standards_care_diabetes_section9.pdf",
+    "section": "combination_therapy_rationale",
+    "difficulty": "hard"
+  },
+  {
+    "id": "ada9_06",
+    "question": "Which two drug classes should be continued and which two should be weaned when intensifying insulin therapy according to ADA 2023 section 9?",
+    "ground_truth": "maintain SGLT2 inhibitors and GLP-1 RAs, wean sulfonylureas and DPP-4 inhibitors",
+    "source_doc": "ada_standards_care_diabetes_section9.pdf",
+    "section": "insulin_intensification",
+    "difficulty": "hard"
+  },
+  {
+    "id": "ada9_07",
+    "question": "For a T2D patient with heart failure but no ASCVD, does ADA section 9 recommend SGLT2i or GLP-1 RA?",
+    "ground_truth": "SGLT2 inhibitor and/or GLP-1 RA with demonstrated cardiovascular benefit",
+    "source_doc": "ada_standards_care_diabetes_section9.pdf",
+    "section": "cvd_ckd_drug_selection",
+    "difficulty": "medium"
+  },
+  {
+    "id": "ada9_08",
+    "question": "Does the ADA 2023 section 9 recommend GLP-1 RAs as preferred over insulin for patients needing more glucose lowering than oral agents can provide?",
+    "ground_truth": "GLP-1 RAs are preferred to insulin when possible",
+    "source_doc": "ada_standards_care_diabetes_section9.pdf",
+    "section": "drug_class_profiles",
+    "difficulty": "medium"
+  },
+  {
+    "id": "ada9_09",
+    "question": "What does 'independent of metformin use' mean in the ADA section 9 recommendation for SGLT2i/GLP-1 RA in ASCVD patients?",
+    "ground_truth": "the recommendation applies whether or not the patient is already on metformin, with or without metformin",
+    "source_doc": "ada_standards_care_diabetes_section9.pdf",
+    "section": "cvd_ckd_drug_selection",
+    "difficulty": "hard"
+  },
+  {
+    "id": "ada9_10",
+    "question": "Does ADA section 9 say medication regimen should be re-evaluated and at what time interval?",
+    "ground_truth": "re-evaluated at regular intervals every 3 to 6 months",
+    "source_doc": "ada_standards_care_diabetes_section9.pdf",
+    "section": "combination_therapy_rationale",
+    "difficulty": "easy"
+  },
+  {
+    "id": "jnc_01",
+    "question": "At what blood pressure reading should pharmacologic treatment be initiated in a 65-year-old patient without diabetes or CKD, according to JNC 8?",
+    "ground_truth": "systolic 150 mm Hg or higher or diastolic 90 mm Hg or higher",
+    "source_doc": "jnc8_guidelines_management_hypertension_original.pdf",
+    "section": "recommendation_1",
+    "difficulty": "easy"
+  },
+  {
+    "id": "jnc_02",
+    "question": "A 65-year-old patient with no DM or CKD is on antihypertensive therapy — what is their BP target according to JNC 8?",
+    "ground_truth": "less than 150/90 mm Hg",
+    "source_doc": "jnc8_guidelines_management_hypertension_original.pdf",
+    "section": "recommendation_1",
+    "difficulty": "easy"
+  },
+  {
+    "id": "jnc_03",
+    "question": "A 45-year-old patient with no comorbidities has BP of 145/88 — does JNC 8 recommend initiating pharmacologic treatment?",
+    "ground_truth": "yes, initiation threshold for adults younger than 60 is SBP 140 or DBP 90",
+    "source_doc": "jnc8_guidelines_management_hypertension_original.pdf",
+    "section": "recommendation_2",
+    "difficulty": "medium"
+  },
+  {
+    "id": "jnc_04",
+    "question": "For a patient with CKD aged 72, what is the blood pressure target according to JNC 8 — same as general elderly or different?",
+    "ground_truth": "target less than 140/90, not the less stringent less than 150/90 used for general elderly without CKD",
+    "source_doc": "jnc8_guidelines_management_hypertension_original.pdf",
+    "section": "recommendation_3",
+    "difficulty": "hard"
+  },
+  {
+    "id": "jnc_05",
+    "question": "JNC 8 explicitly says there is no evidence for a lower BP target in CKD patients — does it still recommend less than 140/90 for them despite lack of evidence for benefit below that?",
+    "ground_truth": "yes, target is less than 140/90 for CKD patients regardless of age",
+    "source_doc": "jnc8_guidelines_management_hypertension_original.pdf",
+    "section": "recommendation_3",
+    "difficulty": "hard"
+  },
+  {
+    "id": "jnc_06",
+    "question": "A Black patient with hypertension and no CKD presents for first-line treatment — which drug classes does JNC 8 recommend and which does it explicitly exclude as less effective monotherapy?",
+    "ground_truth": "thiazide-type diuretics or calcium channel blockers; ACE inhibitors and ARBs are less effective as monotherapy in Black patients",
+    "source_doc": "jnc8_guidelines_management_hypertension_original.pdf",
+    "section": "pharmacologic_treatment_black",
+    "difficulty": "medium"
+  },
+  {
+    "id": "jnc_07",
+    "question": "JNC 8 prohibits combining two specific drug classes — which combination is explicitly not recommended?",
+    "ground_truth": "do not combine ACE inhibitor with ARB",
+    "source_doc": "jnc8_guidelines_management_hypertension_original.pdf",
+    "section": "acei_arb_combination_prohibition",
+    "difficulty": "easy"
+  },
+  {
+    "id": "jnc_08",
+    "question": "If a patient's BP target is not reached after starting antihypertensive therapy, what is the JNC 8 recommended time window and action?",
+    "ground_truth": "if target not reached within one month, increase dose of initial medication or add a second medication",
+    "source_doc": "jnc8_guidelines_management_hypertension_original.pdf",
+    "section": "titration_protocol",
+    "difficulty": "medium"
+  },
+  {
+    "id": "jnc_09",
+    "question": "A Black patient with CKD and hypertension is being treated — does the race-based first-line recommendation (thiazide/CCB only) still apply, or does CKD change the drug selection?",
+    "ground_truth": "CKD overrides race-based recommendation; ACEI or ARB required for CKD patients regardless of race",
+    "source_doc": "jnc8_guidelines_management_hypertension_original.pdf",
+    "section": "ckd_treatment",
+    "difficulty": "hard"
+  },
+  {
+    "id": "jnc_10",
+    "question": "JNC 8 lists exactly four drug classes as acceptable for first-line and later-line treatment — what are they?",
+    "ground_truth": "thiazide-type diuretics, calcium channel blockers, ACE inhibitors, angiotensin receptor blockers",
+    "source_doc": "jnc8_guidelines_management_hypertension_original.pdf",
+    "section": "pharmacologic_treatment_nonblack",
+    "difficulty": "easy"
+  }
+]
