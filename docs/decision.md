@@ -87,8 +87,7 @@
 ## Evaluation system - RAG
 
 - Use - RAGAS
-- Against a set of uestion prepared by me against expected answers - reading the document (covering edge cases and failing cases)
-- Also with ai generated set of uestion by analysing the documents
+- Against a set of uestion and expected answers prepared with specification given - (covering edge cases and failing cases)
 - Faithfulness (did the answer come from the context?), Answer Relevancy (did it answer the question?), Context Precision, Context Recall.
 
 
@@ -107,7 +106,7 @@
 - Python for backend
 - Simple UI - AI generated
 - Redis - store metrics for dashboard (not using the existing metrics tools, to get better understanding)
-- Streamlit - dashboard + chat interface
+- Streamlit - dashboard + chat interface -> change to React and tailwindcss
 - Docker + docker-compose
 - CI/CD for ML (GitHub Actions) - demostrating how to handle production system deployment.
 
