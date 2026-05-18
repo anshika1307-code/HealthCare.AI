@@ -1,13 +1,13 @@
 import { useNavigate } from 'react-router';
 import * as Dialog from '@radix-ui/react-dialog';
-import { MessageCircle, Clock, Lock, X } from 'lucide-react';
+import { MessageCircle, Clock, Lock, X, AlertTriangle } from 'lucide-react';
 
 interface AccessModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  guestDisabled?: boolean;
 }
 
-// Minimal inline Google "G" icon SVG
 function GoogleIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 48 48" aria-hidden="true">
@@ -22,7 +22,7 @@ function GoogleIcon() {
   );
 }
 
-export default function AccessModal({ open, onOpenChange }: AccessModalProps) {
+export default function AccessModal({ open, onOpenChange, guestDisabled = false }: AccessModalProps) {
   const navigate = useNavigate();
 
   const handleGoogleSignIn = () => {
@@ -30,6 +30,7 @@ export default function AccessModal({ open, onOpenChange }: AccessModalProps) {
   };
 
   const handleGuestAccess = () => {
+    if (guestDisabled) return;
     onOpenChange(false);
     navigate('/chat');
   };
@@ -37,18 +38,15 @@ export default function AccessModal({ open, onOpenChange }: AccessModalProps) {
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        {/* Overlay */}
         <Dialog.Overlay
           className="fixed inset-0 z-40 bg-black/40"
           style={{ backdropFilter: 'blur(2px)' }}
         />
 
-        {/* Content */}
         <Dialog.Content
           className="fixed left-1/2 top-1/2 z-50 w-full max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-xl border bg-white p-6 shadow-lg"
           style={{ borderColor: '#E5E7EB' }}
         >
-          {/* Close button */}
           <Dialog.Close asChild>
             <button
               className="absolute right-3 top-3 rounded p-1 transition-colors hover:bg-gray-100"
@@ -58,12 +56,10 @@ export default function AccessModal({ open, onOpenChange }: AccessModalProps) {
             </button>
           </Dialog.Close>
 
-          {/* Title */}
           <Dialog.Title className="mb-1 text-base font-semibold text-gray-900">
             Access ClinicalRAG
           </Dialog.Title>
 
-          {/* Subtitle */}
           <Dialog.Description className="mb-5 text-xs leading-relaxed text-gray-500">
             Sign in for 25 queries/day and saved history, or try as a guest with 5 queries.
           </Dialog.Description>
@@ -85,14 +81,28 @@ export default function AccessModal({ open, onOpenChange }: AccessModalProps) {
             <div className="flex-1 border-t" style={{ borderColor: '#E5E7EB' }} />
           </div>
 
-          {/* Guest button */}
-          <button
-            onClick={handleGuestAccess}
-            className="mb-4 w-full rounded-lg border px-4 py-2.5 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-50"
-            style={{ borderColor: '#D1D5DB' }}
-          >
-            Continue as guest
-          </button>
+          {/* Guest button — disabled when limit reached */}
+          {guestDisabled ? (
+            <div
+              className="mb-4 w-full rounded-lg border px-4 py-2.5 text-center"
+              style={{ backgroundColor: '#FEF9F0', borderColor: '#FAC775' }}
+            >
+              <div className="flex items-center justify-center gap-1.5">
+                <AlertTriangle className="h-3.5 w-3.5 text-amber-600" />
+                <span className="text-xs font-medium text-amber-800">
+                  Guest limit reached — sign in for 25/day
+                </span>
+              </div>
+            </div>
+          ) : (
+            <button
+              onClick={handleGuestAccess}
+              className="mb-4 w-full rounded-lg border px-4 py-2.5 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-50"
+              style={{ borderColor: '#D1D5DB' }}
+            >
+              Continue as guest
+            </button>
+          )}
 
           {/* Guest limits card */}
           <div

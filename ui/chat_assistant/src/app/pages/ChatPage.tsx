@@ -5,6 +5,7 @@ import { CenterPane } from '../components/CenterPane';
 import { RightRail } from '../components/RightRail';
 import EngineeringTab from '../components/EngineeringTab';
 import MetricsTab from '../components/MetricsTab';
+import AccessModal from '../components/AccessModal';
 import { RAGAS_METRICS, SYSTEM_STATS } from '../config';
 
 interface Citation {
@@ -45,6 +46,7 @@ const GUIDELINES_BASE = [
 
 type ActiveTab = 'query' | 'engineering' | 'metrics';
 
+const GUEST_LIMIT = 5;
 const PRIMARY_BLUE = '#185FA5';
 const GREEN = '#3B6D11';
 const GREEN_BG = '#EAF3DE';
@@ -56,6 +58,8 @@ export default function ChatPage() {
   const [citationCounts, setCitationCounts] = useState<Record<string, number>>({
     FDA: 0, ADA: 0, JNC8: 0,
   });
+  const [queryCount, setQueryCount] = useState(0);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const handleCitationsChange = (citations: Citation[]) => {
     const counts: Record<string, number> = { FDA: 0, ADA: 0, JNC8: 0 };
@@ -71,6 +75,8 @@ export default function ChatPage() {
     sectionsUsed: citationCounts[g.id] ?? 0,
   }));
 
+  const queriesRemaining = GUEST_LIMIT - queryCount;
+
   const tabs: { id: ActiveTab; label: string }[] = [
     { id: 'query', label: 'Query' },
     { id: 'engineering', label: 'Engineering' },
@@ -84,7 +90,6 @@ export default function ChatPage() {
         className="flex flex-shrink-0 items-center justify-between border-b px-4"
         style={{ height: 48, borderColor: '#E5E7EB' }}
       >
-        {/* Left: logo */}
         <div className="flex items-center gap-2">
           <Dna className="h-4 w-4" style={{ color: PRIMARY_BLUE }} />
           <span className="text-sm font-bold" style={{ color: '#1A1A1A' }}>
@@ -92,7 +97,6 @@ export default function ChatPage() {
           </span>
         </div>
 
-        {/* Right: live metrics */}
         <div className="flex items-center gap-3 text-xs">
           <div className="flex items-center gap-1">
             <Activity className="h-3 w-3" style={{ color: GREEN }} />
@@ -118,18 +122,16 @@ export default function ChatPage() {
         </div>
       </nav>
 
-      {/* Body: left rail + main area */}
+      {/* Body */}
       <div className="flex flex-1 overflow-hidden">
         <LeftRail guidelines={guidelines} />
 
-        {/* Main area */}
         <div className="flex flex-1 flex-col overflow-hidden">
           {/* Tab bar */}
           <div
             className="flex flex-shrink-0 items-center justify-between border-b px-4"
             style={{ borderColor: '#E5E7EB', height: 40 }}
           >
-            {/* Left: tab buttons */}
             <div className="flex items-center gap-1">
               {tabs.map((tab) => (
                 <button
@@ -147,14 +149,20 @@ export default function ChatPage() {
               ))}
             </div>
 
-            {/* Right: guest info */}
             <div className="flex items-center gap-2">
               <span className="text-[11px]" style={{ color: '#888' }}>
-                Guest · 5 queries available
+                Guest ·{' '}
+                <span
+                  style={{ color: queriesRemaining <= 1 ? '#854F0B' : '#555' }}
+                  className="font-medium"
+                >
+                  {queriesRemaining} of {GUEST_LIMIT} remaining
+                </span>
               </span>
               <button
                 className="rounded border px-2 py-0.5 text-[11px] font-medium transition-colors hover:bg-gray-50"
                 style={{ borderColor: '#D1D5DB', color: '#555' }}
+                onClick={() => setModalOpen(true)}
               >
                 Sign in
               </button>
@@ -164,17 +172,25 @@ export default function ChatPage() {
           {/* Tab content */}
           <div className="flex flex-1 overflow-hidden">
             {activeTab === 'query' && (
-              <div className="flex flex-1 overflow-hidden">
+              /* relative so RightRail overlay positions against this container */
+              <div className="relative flex flex-1 overflow-hidden">
                 <CenterPane
                   onCitationClick={setSelectedCitation}
                   activeCitation={selectedCitation}
                   onCitationsChange={handleCitationsChange}
+                  queriesRemaining={queriesRemaining}
+                  queriesDisabled={queryCount >= GUEST_LIMIT}
+                  onQueryComplete={() => setQueryCount((c) => c + 1)}
+                  onSignInClick={() => setModalOpen(true)}
                 />
+                {/* Overlay — does not squeeze CenterPane */}
                 {selectedCitation && (
-                  <RightRail
-                    selectedCitation={selectedCitation}
-                    onClose={() => setSelectedCitation(null)}
-                  />
+                  <div className="absolute bottom-0 right-0 top-0 z-10 w-96 shadow-xl">
+                    <RightRail
+                      selectedCitation={selectedCitation}
+                      onClose={() => setSelectedCitation(null)}
+                    />
+                  </div>
                 )}
               </div>
             )}
@@ -191,6 +207,12 @@ export default function ChatPage() {
           </div>
         </div>
       </div>
+
+      <AccessModal
+        open={modalOpen}
+        onOpenChange={setModalOpen}
+        guestDisabled={queryCount >= GUEST_LIMIT}
+      />
     </div>
   );
 }
