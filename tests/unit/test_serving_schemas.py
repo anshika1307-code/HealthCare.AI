@@ -7,6 +7,7 @@ Covers validation, defaults, rejection of invalid input, and round-trip
 JSON serialisation for all three models: QueryRequest, SourceChunk,
 QueryResponse.
 """
+
 import sys
 from pathlib import Path
 
@@ -24,8 +25,8 @@ from serving.schemas import QueryRequest, QueryResponse, SourceChunk
 # QueryRequest
 # ===========================================================================
 
-class TestQueryRequest:
 
+class TestQueryRequest:
     def test_valid_minimal(self):
         req = QueryRequest(query="What is metformin?")
         assert req.query == "What is metformin?"
@@ -74,8 +75,8 @@ class TestQueryRequest:
 # SourceChunk
 # ===========================================================================
 
-class TestSourceChunk:
 
+class TestSourceChunk:
     def _minimal(self, **kw):
         defaults = dict(
             chunk_id="abc-123",
@@ -148,8 +149,8 @@ class TestSourceChunk:
 # QueryResponse
 # ===========================================================================
 
-class TestQueryResponse:
 
+class TestQueryResponse:
     def _chunk(self, idx: int = 0) -> SourceChunk:
         return SourceChunk(
             chunk_id=f"id-{idx}",
@@ -170,15 +171,11 @@ class TestQueryResponse:
         assert resp.low_confidence is False
 
     def test_warning_message_defaults_empty(self):
-        resp = QueryResponse(
-            answer="a", sources=[], confidence_score=0.5, low_confidence=False
-        )
+        resp = QueryResponse(answer="a", sources=[], confidence_score=0.5, low_confidence=False)
         assert resp.warning_message == ""
 
     def test_filters_applied_defaults_empty_dict(self):
-        resp = QueryResponse(
-            answer="a", sources=[], confidence_score=0.5, low_confidence=False
-        )
+        resp = QueryResponse(answer="a", sources=[], confidence_score=0.5, low_confidence=False)
         assert resp.filters_applied == {}
 
     def test_sources_list_of_chunks(self):

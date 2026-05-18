@@ -22,6 +22,7 @@ Environment:
     QDRANT_URL       — default http://localhost:6333
     QDRANT_API_KEY   — optional
 """
+
 from __future__ import annotations
 
 import argparse
@@ -40,6 +41,7 @@ for _p in (_SRC, _REPO_ROOT):
 
 try:
     from dotenv import load_dotenv
+
     load_dotenv(_REPO_ROOT / ".env")
 except ImportError:
     pass
@@ -103,7 +105,9 @@ def _ensure_collection(client: QdrantClient, collection_name: str, force_recreat
         ("safety_flag", PayloadSchemaType.BOOL),
         ("is_table", PayloadSchemaType.BOOL),
     ]:
-        client.create_payload_index(collection_name=collection_name, field_name=field, field_schema=schema)
+        client.create_payload_index(
+            collection_name=collection_name, field_name=field, field_schema=schema
+        )
     logger.info("Collection %r ready.", collection_name)
 
 
@@ -195,6 +199,7 @@ def run(docs_dir: Path, collection_name: str, bm25_output: Path, force_recreate:
             continue
 
         from ingestion.config import get_doc_config
+
         doc_type = get_doc_config(doc_id)["doc_type"]
         for chunk in chunks:
             chunk.metadata["doc_type"] = doc_type

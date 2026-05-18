@@ -22,6 +22,7 @@ never need to worry about score scale differences between dense (cosine
 similarity) and BM25 (TF-IDF variant) — they are incomparable raw, but
 their ranks are directly fusable.
 """
+
 from __future__ import annotations
 
 import logging
@@ -37,17 +38,19 @@ logger = logging.getLogger(__name__)
 # Unified result type (output of RRF, input to reranker)
 # ---------------------------------------------------------------------------
 
+
 @dataclass
 class FusedResult:
     """A chunk after RRF fusion, ready for reranking."""
+
     chunk_id: str
     rrf_score: float
     text: str = ""
     payload: dict[str, Any] = field(default_factory=dict)
 
     # Source attribution — useful for debugging and RAGAS eval
-    dense_rank: int | None = None    # 1-based rank in dense list (None if absent)
-    bm25_rank: int | None = None     # 1-based rank in BM25 list (None if absent)
+    dense_rank: int | None = None  # 1-based rank in dense list (None if absent)
+    bm25_rank: int | None = None  # 1-based rank in BM25 list (None if absent)
     dense_score: float | None = None
     bm25_score: float | None = None
 
@@ -55,6 +58,7 @@ class FusedResult:
 # ---------------------------------------------------------------------------
 # RRF Ranker
 # ---------------------------------------------------------------------------
+
 
 class RRFRanker:
     """
@@ -70,8 +74,8 @@ class RRFRanker:
 
     def fuse(
         self,
-        dense_results: list,   # list[DenseResult]
-        bm25_results: list,    # list[BM25Result]
+        dense_results: list,  # list[DenseResult]
+        bm25_results: list,  # list[BM25Result]
     ) -> list[FusedResult]:
         """
         Fuse dense and BM25 ranked lists via RRF.
@@ -121,16 +125,18 @@ class RRFRanker:
                 if not payload:
                     payload = bm25_payload
 
-            fused.append(FusedResult(
-                chunk_id=chunk_id,
-                rrf_score=rrf_score,
-                text=text,
-                payload=payload,
-                dense_rank=d_rank,
-                bm25_rank=b_rank,
-                dense_score=d_score,
-                bm25_score=b_score,
-            ))
+            fused.append(
+                FusedResult(
+                    chunk_id=chunk_id,
+                    rrf_score=rrf_score,
+                    text=text,
+                    payload=payload,
+                    dense_rank=d_rank,
+                    bm25_rank=b_rank,
+                    dense_score=d_score,
+                    bm25_score=b_score,
+                )
+            )
 
         # Sort by RRF score descending, return top pool_size
         fused.sort(key=lambda x: x.rrf_score, reverse=True)
@@ -138,6 +144,9 @@ class RRFRanker:
 
         logger.debug(
             "RRF fusion: %d dense + %d bm25 → %d unique → top %d",
-            len(dense_results), len(bm25_results), len(fused), len(top),
+            len(dense_results),
+            len(bm25_results),
+            len(fused),
+            len(top),
         )
         return top

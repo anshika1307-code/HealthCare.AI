@@ -27,6 +27,7 @@ POST /query    — happy path shape, filters forwarded, long query OK
                — multi-source response
                — answer is empty string
 """
+
 import sys
 from contextlib import asynccontextmanager
 from pathlib import Path
@@ -42,6 +43,7 @@ for p in (_ROOT / "src", _ROOT):
 
 try:
     from dotenv import load_dotenv
+
     load_dotenv(_ROOT / ".env")
 except ImportError:
     pass
@@ -55,6 +57,7 @@ from serving.api import app
 # No-op lifespan — replaces the real one in every test
 # ---------------------------------------------------------------------------
 
+
 @asynccontextmanager
 async def _noop_lifespan(application):
     """Prevents model loading and Qdrant connection during tests."""
@@ -64,6 +67,7 @@ async def _noop_lifespan(application):
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
 
 def _ranked(chunk_id: str = "c1", score: float = 0.9) -> RankedResult:
     return RankedResult(
@@ -95,15 +99,17 @@ def _make_graph(answer: str = "Clinical answer.", retrieval_result=None, raise_e
     if raise_exc:
         graph.ainvoke = AsyncMock(side_effect=raise_exc)
     else:
-        graph.ainvoke = AsyncMock(return_value={
-            "query": "test query",
-            "query_vector": [0.1, 0.2],
-            "retrieval_result": rr,
-            "answer": answer,
-            "embed_ms": 10.0,
-            "retrieve_ms": 150.0,
-            "generate_ms": 200.0,
-        })
+        graph.ainvoke = AsyncMock(
+            return_value={
+                "query": "test query",
+                "query_vector": [0.1, 0.2],
+                "retrieval_result": rr,
+                "answer": answer,
+                "embed_ms": 10.0,
+                "retrieve_ms": 150.0,
+                "generate_ms": 200.0,
+            }
+        )
     return graph
 
 
@@ -128,6 +134,7 @@ def _make_metrics():
 # Fixtures
 # ---------------------------------------------------------------------------
 
+
 @pytest.fixture
 def client():
     """
@@ -148,8 +155,8 @@ def client():
 # GET /health
 # ===========================================================================
 
-class TestHealth:
 
+class TestHealth:
     def test_returns_200_when_reachable(self, client):
         assert client.get("/health").status_code == 200
 
@@ -172,8 +179,8 @@ class TestHealth:
 # POST /query — happy path
 # ===========================================================================
 
-class TestQueryHappyPath:
 
+class TestQueryHappyPath:
     def test_returns_200(self, client):
         assert client.post("/query", json={"query": "HbA1c target?"}).status_code == 200
 
@@ -185,17 +192,29 @@ class TestQueryHappyPath:
 
     def test_source_has_all_required_fields(self, client):
         src = client.post("/query", json={"query": "q"}).json()["sources"][0]
-        for field in ("chunk_id", "document_id", "reranker_score", "doc_type", "section_name", "text"):
+        for field in (
+            "chunk_id",
+            "document_id",
+            "reranker_score",
+            "doc_type",
+            "section_name",
+            "text",
+        ):
             assert field in src
 
     def test_source_doc_type_populated(self, client):
         assert client.post("/query", json={"query": "q"}).json()["sources"][0]["doc_type"] == "ada"
 
     def test_source_section_name_populated(self, client):
-        assert client.post("/query", json={"query": "q"}).json()["sources"][0]["section_name"] == "§9.1"
+        assert (
+            client.post("/query", json={"query": "q"}).json()["sources"][0]["section_name"]
+            == "§9.1"
+        )
 
     def test_source_text_populated(self, client):
-        assert "Metformin" in client.post("/query", json={"query": "q"}).json()["sources"][0]["text"]
+        assert (
+            "Metformin" in client.post("/query", json={"query": "q"}).json()["sources"][0]["text"]
+        )
 
     def test_confidence_score_is_float(self, client):
         body = client.post("/query", json={"query": "q"}).json()
@@ -235,8 +254,8 @@ class TestQueryHappyPath:
 # POST /query — low-confidence
 # ===========================================================================
 
-class TestQueryLowConfidence:
 
+class TestQueryLowConfidence:
     def test_low_confidence_flag_true(self, client):
         rr = _retrieval_result(score=0.25, low=True)
         app.state.graph = _make_graph(answer="Uncertain.", retrieval_result=rr)
@@ -257,8 +276,8 @@ class TestQueryLowConfidence:
 # POST /query — None field coercion (regression guard)
 # ===========================================================================
 
-class TestQueryNoneCoercion:
 
+class TestQueryNoneCoercion:
     def test_none_section_name_coerced_to_empty_string(self, client):
         ranked = _ranked()
         ranked.payload["section_name"] = None  # simulate missing/null section from Qdrant
@@ -270,7 +289,9 @@ class TestQueryNoneCoercion:
 
     def test_none_text_coerced_to_empty_string(self, client):
         ranked = RankedResult(
-            chunk_id="c1", reranker_score=0.9, text=None,  # type: ignore[arg-type]
+            chunk_id="c1",
+            reranker_score=0.9,
+            text=None,  # type: ignore[arg-type]
             payload={"document_id": "fda", "doc_type": "fda", "safety_flag": False},
         )
         rr = RetrievalResult(query="q", chunks=[ranked], confidence_score=0.9, low_confidence=False)
@@ -293,8 +314,8 @@ class TestQueryNoneCoercion:
 # POST /query — validation errors (422)
 # ===========================================================================
 
-class TestQueryValidation:
 
+class TestQueryValidation:
     def test_empty_query_returns_422(self, client):
         assert client.post("/query", json={"query": ""}).status_code == 422
 
@@ -308,7 +329,9 @@ class TestQueryValidation:
         assert client.post("/query", json={"query": "x" * 2000}).status_code == 200
 
     def test_non_json_body_returns_422(self, client):
-        resp = client.post("/query", content=b"not json", headers={"Content-Type": "application/json"})
+        resp = client.post(
+            "/query", content=b"not json", headers={"Content-Type": "application/json"}
+        )
         assert resp.status_code == 422
 
 
@@ -316,8 +339,8 @@ class TestQueryValidation:
 # POST /query — error paths (500)
 # ===========================================================================
 
-class TestQueryErrors:
 
+class TestQueryErrors:
     def test_graph_exception_returns_500(self, client):
         app.state.graph = _make_graph(raise_exc=RuntimeError("pipeline exploded"))
         assert client.post("/query", json={"query": "q"}).status_code == 500
@@ -345,8 +368,8 @@ class TestQueryErrors:
 # POST /query — edge cases
 # ===========================================================================
 
-class TestQueryEdgeCases:
 
+class TestQueryEdgeCases:
     def test_empty_sources_list_returns_200(self, client):
         rr = RetrievalResult(query="q", chunks=[], confidence_score=0.5, low_confidence=False)
         app.state.graph = _make_graph(retrieval_result=rr)
@@ -366,10 +389,14 @@ class TestQueryEdgeCases:
 
     def test_empty_answer_string_returned(self, client):
         graph = MagicMock()
-        graph.ainvoke = AsyncMock(return_value={
-            "query": "q", "query_vector": [0.1],
-            "retrieval_result": _retrieval_result(), "answer": "",
-        })
+        graph.ainvoke = AsyncMock(
+            return_value={
+                "query": "q",
+                "query_vector": [0.1],
+                "retrieval_result": _retrieval_result(),
+                "answer": "",
+            }
+        )
         app.state.graph = graph
         body = client.post("/query", json={"query": "q"}).json()
         assert body["answer"] == ""

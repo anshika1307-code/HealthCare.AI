@@ -20,6 +20,7 @@ from embedding.indexer import QdrantIndexer
 # Helpers
 # ---------------------------------------------------------------------------
 
+
 def _chunk(
     chunk_id: str = "test-uuid-0",
     text: str = "Metformin 500 mg twice daily.",
@@ -27,20 +28,20 @@ def _chunk(
 ) -> IndexableChunk:
     """Build an IndexableChunk with fully-populated metadata for testing."""
     meta = {
-        "document_id":             "metformin_fda_label",
-        "document_name":           "Metformin FDA Label",
-        "doc_type":                "fda",
-        "page_number":             2,
-        "section_name":            "DOSAGE AND ADMINISTRATION",
-        "section_number":          None,
-        "is_table":                False,
-        "table_number":            None,
-        "evidence_grade":          None,
-        "recommendation_number":   None,
+        "document_id": "metformin_fda_label",
+        "document_name": "Metformin FDA Label",
+        "doc_type": "fda",
+        "page_number": 2,
+        "section_name": "DOSAGE AND ADMINISTRATION",
+        "section_number": None,
+        "is_table": False,
+        "table_number": None,
+        "evidence_grade": None,
+        "recommendation_number": None,
         "recommendation_strength": None,
-        "safety_flag":             False,
-        "chunk_index":             0,
-        "char_count":              29,
+        "safety_flag": False,
+        "chunk_index": 0,
+        "char_count": 29,
     }
     meta.update(meta_overrides)
     return IndexableChunk(chunk_id=chunk_id, text=text, metadata=meta)
@@ -66,15 +67,26 @@ def indexer(mock_client) -> QdrantIndexer:
 # _build_payload
 # ===========================================================================
 
+
 class TestBuildPayload:
     """Verify the 15-field Qdrant point payload is constructed correctly."""
 
     EXPECTED_KEYS = {
-        "text", "document_id", "document_name", "doc_type",
-        "page_number", "section_name", "section_number",
-        "is_table", "table_number", "evidence_grade",
-        "recommendation_strength", "recommendation_number",
-        "safety_flag", "chunk_index", "char_count",
+        "text",
+        "document_id",
+        "document_name",
+        "doc_type",
+        "page_number",
+        "section_name",
+        "section_number",
+        "is_table",
+        "table_number",
+        "evidence_grade",
+        "recommendation_strength",
+        "recommendation_number",
+        "safety_flag",
+        "chunk_index",
+        "char_count",
     }
 
     def test_all_required_keys_present(self, indexer):
@@ -155,8 +167,8 @@ class TestBuildPayload:
 # upsert
 # ===========================================================================
 
-class TestUpsert:
 
+class TestUpsert:
     # --- Edge cases ---
 
     def test_empty_input_returns_zero_and_no_failures(self, indexer, mock_client):

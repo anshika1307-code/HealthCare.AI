@@ -28,7 +28,6 @@ VALID_DOC_TYPES = {"fda", "ada", "jnc"}
 
 
 class TestDocRegistry:
-
     def test_all_expected_doc_ids_present(self):
         for doc_id in EXPECTED_DOC_IDS:
             assert doc_id in DOC_REGISTRY, f"Missing doc_id: {doc_id}"
@@ -40,8 +39,9 @@ class TestDocRegistry:
 
     def test_doc_types_are_valid(self):
         for doc_id, cfg in DOC_REGISTRY.items():
-            assert cfg["doc_type"] in VALID_DOC_TYPES, \
+            assert cfg["doc_type"] in VALID_DOC_TYPES, (
                 f"Invalid doc_type '{cfg['doc_type']}' for {doc_id}"
+            )
 
     def test_n_cols_is_positive_integer(self):
         for doc_id, cfg in DOC_REGISTRY.items():
@@ -50,13 +50,15 @@ class TestDocRegistry:
 
     def test_skip_first_page_is_bool(self):
         for doc_id, cfg in DOC_REGISTRY.items():
-            assert isinstance(cfg["skip_first_page"], bool), \
+            assert isinstance(cfg["skip_first_page"], bool), (
                 f"{doc_id}: skip_first_page must be bool"
+            )
 
     def test_strip_footer_bbox_is_bool(self):
         for doc_id, cfg in DOC_REGISTRY.items():
-            assert isinstance(cfg["strip_footer_bbox"], bool), \
+            assert isinstance(cfg["strip_footer_bbox"], bool), (
                 f"{doc_id}: strip_footer_bbox must be bool"
+            )
 
     def test_display_name_is_non_empty_string(self):
         for doc_id, cfg in DOC_REGISTRY.items():
@@ -88,8 +90,8 @@ class TestDocRegistry:
 # get_doc_config
 # ===========================================================================
 
-class TestGetDocConfig:
 
+class TestGetDocConfig:
     def test_returns_correct_config_for_known_id(self):
         cfg = get_doc_config("metformin_fda_label")
         assert cfg["doc_type"] == "fda"

@@ -5,6 +5,7 @@ Embedding model configuration.
 Keeping this separate from retrieval.py so the embedding model can be
 swapped (e.g. text-embedding-3-small → BGE) without touching retrieval logic.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -50,4 +51,3 @@ class EmbeddingConfig:
 
 
 EMBEDDING_CONFIG = EmbeddingConfig()
-

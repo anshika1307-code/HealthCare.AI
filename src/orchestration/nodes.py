@@ -16,6 +16,7 @@ retrieved sources (stored separately in GraphState).
 
 PHI POLICY: query text is never written to logs — only query_id and metadata.
 """
+
 from __future__ import annotations
 
 import asyncio
@@ -54,6 +55,7 @@ _LLM_RETRYABLE = (
 # Node 1: embed_query
 # ---------------------------------------------------------------------------
 
+
 def make_embed_node(embedder: Embedder):
     """Return an async LangGraph node that embeds the user query."""
 
@@ -64,9 +66,7 @@ def make_embed_node(embedder: Embedder):
 
         t0 = time.perf_counter()
         loop = asyncio.get_event_loop()
-        vectors = await loop.run_in_executor(
-            None, partial(embedder.embed_batch, [query])
-        )
+        vectors = await loop.run_in_executor(None, partial(embedder.embed_batch, [query]))
         embed_ms = (time.perf_counter() - t0) * 1000
 
         logger.info(
@@ -81,6 +81,7 @@ def make_embed_node(embedder: Embedder):
 # ---------------------------------------------------------------------------
 # Node 2: retrieve
 # ---------------------------------------------------------------------------
+
 
 def make_retrieve_node(pipeline: RetrievalPipeline):
     """Return an async LangGraph node that runs the hybrid retrieval pipeline."""
@@ -118,6 +119,7 @@ def make_retrieve_node(pipeline: RetrievalPipeline):
 # ---------------------------------------------------------------------------
 # Node 3: generate
 # ---------------------------------------------------------------------------
+
 
 def make_generate_node(client: openai.AsyncOpenAI, config: LLMConfig | None = None):
     """Return an async LangGraph node that calls the LLM with retrieved context."""
@@ -158,10 +160,7 @@ def make_generate_node(client: openai.AsyncOpenAI, config: LLMConfig | None = No
             {"role": "system", "content": cfg.system_prompt},
             {
                 "role": "user",
-                "content": (
-                    f"Context:\n{context}\n\n"
-                    f"Question: {query}"
-                ),
+                "content": (f"Context:\n{context}\n\nQuestion: {query}"),
             },
         ]
 

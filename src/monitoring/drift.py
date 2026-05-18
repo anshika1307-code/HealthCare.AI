@@ -13,6 +13,7 @@ the baseline and drift_score is 0.0.
 
 Graceful degradation: if Redis or numpy are unavailable, returns 0.0 and logs a warning.
 """
+
 from __future__ import annotations
 
 import logging
@@ -27,6 +28,7 @@ _DTYPE = np.float64
 
 try:
     import redis.asyncio as aioredis
+
     _REDIS_AVAILABLE = True
 except ImportError:  # pragma: no cover
     _REDIS_AVAILABLE = False
@@ -79,7 +81,8 @@ class DriftDetector:
         if baseline.shape != new_centroid.shape:
             logger.warning(
                 "DriftDetector: centroid dimension mismatch (baseline=%d, new=%d) — resetting baseline",
-                baseline.shape[0], new_centroid.shape[0],
+                baseline.shape[0],
+                new_centroid.shape[0],
             )
             await self._store_centroid(new_centroid)
             return 0.0
@@ -90,7 +93,8 @@ class DriftDetector:
             logger.warning(
                 "Embedding drift detected: drift_score=%.4f > threshold=%.2f — "
                 "consider re-evaluating retrieval quality",
-                drift_score, _THRESHOLD,
+                drift_score,
+                _THRESHOLD,
             )
         else:
             logger.info("Embedding drift check: drift_score=%.4f (ok)", drift_score)

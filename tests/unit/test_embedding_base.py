@@ -29,6 +29,7 @@ from ingestion.chunker import Chunk
 # Shared helpers
 # ---------------------------------------------------------------------------
 
+
 def _chunk(text: str = "Sample text.", **meta_overrides) -> Chunk:
     """Build a minimal Chunk with sensible defaults."""
     meta = {
@@ -54,6 +55,7 @@ def _chunk(text: str = "Sample text.", **meta_overrides) -> Chunk:
 # ===========================================================================
 # make_chunk_id
 # ===========================================================================
+
 
 class TestMakeChunkId:
     """UUID5-based deterministic ID generator."""
@@ -90,6 +92,7 @@ class TestMakeChunkId:
 # ===========================================================================
 # IndexableChunk
 # ===========================================================================
+
 
 class TestIndexableChunk:
     """Property accessors and metadata fallback behaviour."""
@@ -131,6 +134,7 @@ class TestIndexableChunk:
 # ===========================================================================
 # make_indexable
 # ===========================================================================
+
 
 class TestMakeIndexable:
     """Conversion of raw Chunk list into IndexableChunk list."""
@@ -184,6 +188,7 @@ class TestMakeIndexable:
 # ===========================================================================
 # Embedder Protocol
 # ===========================================================================
+
 
 class TestEmbedderProtocol:
     """Structural isinstance checks — no ABC inheritance required."""

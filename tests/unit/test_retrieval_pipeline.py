@@ -28,6 +28,7 @@ from retrieval.rrf_ranker import FusedResult, RRFRanker
 # Helpers
 # ---------------------------------------------------------------------------
 
+
 def _dense(chunk_id: str, text: str = "dense text") -> DenseResult:
     return DenseResult(chunk_id=chunk_id, score=0.9, payload={"text": text}, text=text)
 
@@ -42,7 +43,9 @@ def _fused(chunk_id: str, text: str = "fused text") -> FusedResult:
 
 def _ranked(chunk_id: str = "id", score: float = 0.8) -> RankedResult:
     return RankedResult(
-        chunk_id=chunk_id, reranker_score=score, text="text",
+        chunk_id=chunk_id,
+        reranker_score=score,
+        text="text",
         payload={"document_id": "fda", "section_name": "SEC", "safety_flag": False},
     )
 
@@ -103,8 +106,8 @@ def pipeline(mock_dense, mock_bm25, mock_reranker, mock_rrf, mock_confidence):
 # RetrievalPipeline.retrieve
 # ===========================================================================
 
-class TestRetrieve:
 
+class TestRetrieve:
     @pytest.mark.asyncio
     async def test_returns_retrieval_result(self, pipeline):
         result = await pipeline.retrieve("test query", [0.1, 0.2])
@@ -142,8 +145,8 @@ class TestRetrieve:
         await pipeline.retrieve("query", [0.1])
         mock_reranker.rerank.assert_called_once()
         args = mock_reranker.rerank.call_args[0]
-        assert args[0] == "query"        # query text passed through
-        assert args[1] == fused_pool     # fused pool passed to reranker
+        assert args[0] == "query"  # query text passed through
+        assert args[1] == fused_pool  # fused pool passed to reranker
 
     @pytest.mark.asyncio
     async def test_confidence_scorer_called_with_ranked_results(
@@ -171,9 +174,7 @@ class TestRetrieve:
         assert kwargs.get("filter_doc_id") == "jnc8"
 
     @pytest.mark.asyncio
-    async def test_get_by_ids_called_for_missing_texts(
-        self, pipeline, mock_dense, mock_rrf
-    ):
+    async def test_get_by_ids_called_for_missing_texts(self, pipeline, mock_dense, mock_rrf):
         """Fused chunks with empty text must trigger a Qdrant batch fetch."""
         mock_rrf.fuse.return_value = [
             FusedResult(chunk_id="needs-text", rrf_score=0.5, text=""),

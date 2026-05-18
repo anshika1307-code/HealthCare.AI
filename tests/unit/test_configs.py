@@ -6,6 +6,7 @@ Unit tests for configs/embedding.py, configs/llm.py, configs/retrieval.py.
 Verifies default values, dataclass override, singleton identity, and that
 composite config (RetrievalConfig) correctly nests sub-configs.
 """
+
 import sys
 from pathlib import Path
 
@@ -34,8 +35,8 @@ from configs.retrieval import (
 # EmbeddingConfig
 # ===========================================================================
 
-class TestEmbeddingConfig:
 
+class TestEmbeddingConfig:
     def test_default_model(self):
         assert EmbeddingConfig().model_name == "text-embedding-3-small"
 
@@ -75,6 +76,7 @@ class TestEmbeddingConfig:
 
     def test_singleton_identity(self):
         from configs.embedding import EMBEDDING_CONFIG as cfg2
+
         assert EMBEDDING_CONFIG is cfg2
 
     def test_singleton_defaults(self):
@@ -91,8 +93,8 @@ class TestEmbeddingConfig:
 # LLMConfig
 # ===========================================================================
 
-class TestLLMConfig:
 
+class TestLLMConfig:
     def test_default_provider(self):
         assert LLMConfig().provider == "openai"
 
@@ -132,6 +134,7 @@ class TestLLMConfig:
 
     def test_singleton_identity(self):
         from configs.llm import LLM_CONFIG as cfg2
+
         assert LLM_CONFIG is cfg2
 
     def test_singleton_is_correct_model(self):
@@ -142,8 +145,8 @@ class TestLLMConfig:
 # DenseConfig
 # ===========================================================================
 
-class TestDenseConfig:
 
+class TestDenseConfig:
     def test_default_collection(self):
         assert DenseConfig().collection_name == "healthcare_chunks"
 
@@ -176,8 +179,8 @@ class TestDenseConfig:
 # BM25Config
 # ===========================================================================
 
-class TestBM25Config:
 
+class TestBM25Config:
     def test_default_top_k(self):
         assert BM25Config().top_k == 20
 
@@ -201,8 +204,8 @@ class TestBM25Config:
 # RRFConfig
 # ===========================================================================
 
-class TestRRFConfig:
 
+class TestRRFConfig:
     def test_default_k(self):
         assert RRFConfig().k == 60
 
@@ -222,8 +225,8 @@ class TestRRFConfig:
 # RerankerConfig
 # ===========================================================================
 
-class TestRerankerConfig:
 
+class TestRerankerConfig:
     def test_default_model(self):
         assert "cross-encoder" in RerankerConfig().model_name
 
@@ -247,8 +250,8 @@ class TestRerankerConfig:
 # ConfidenceConfig
 # ===========================================================================
 
-class TestConfidenceConfig:
 
+class TestConfidenceConfig:
     def test_default_threshold(self):
         assert ConfidenceConfig().low_confidence_threshold == pytest.approx(0.40)
 
@@ -270,8 +273,8 @@ class TestConfidenceConfig:
 # RetrievalConfig (composite)
 # ===========================================================================
 
-class TestRetrievalConfig:
 
+class TestRetrievalConfig:
     def test_has_dense(self):
         assert isinstance(RetrievalConfig().dense, DenseConfig)
 
@@ -295,6 +298,7 @@ class TestRetrievalConfig:
 
     def test_singleton_identity(self):
         from configs.retrieval import RETRIEVAL_CONFIG as cfg2
+
         assert RETRIEVAL_CONFIG is cfg2
 
     def test_singleton_top_k(self):

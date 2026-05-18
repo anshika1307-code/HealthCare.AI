@@ -12,6 +12,7 @@ Design notes:
   The pipeline.py wraps this in asyncio.run_in_executor to stay non-blocking.
 - Scores are sigmoid-normalised to [0, 1] when normalize_scores=True.
 """
+
 from __future__ import annotations
 
 import asyncio
@@ -36,11 +37,13 @@ _EXECUTOR = ThreadPoolExecutor(max_workers=1, thread_name_prefix="reranker")
 # Result type
 # ---------------------------------------------------------------------------
 
+
 @dataclass
 class RankedResult:
     """A reranked chunk, ready for the LLM context window."""
+
     chunk_id: str
-    reranker_score: float       # cross-encoder score (sigmoid-normalised if enabled)
+    reranker_score: float  # cross-encoder score (sigmoid-normalised if enabled)
     text: str
     payload: dict[str, Any] = field(default_factory=dict)
 
@@ -65,6 +68,7 @@ class RankedResult:
 # ---------------------------------------------------------------------------
 # Reranker
 # ---------------------------------------------------------------------------
+
 
 class CrossEncoderReranker:
     """
@@ -144,7 +148,8 @@ class CrossEncoderReranker:
 
         logger.debug(
             "Reranker: %d candidates → top %d. Top score=%.4f",
-            len(candidates), len(results),
+            len(candidates),
+            len(results),
             results[0].reranker_score if results else 0.0,
         )
         return results
@@ -165,11 +170,12 @@ class CrossEncoderReranker:
             batch = pairs[i : i + batch_size]
             raw = self._model.predict(
                 batch,
-                apply_softmax=False,           # we handle normalisation ourselves
+                apply_softmax=False,  # we handle normalisation ourselves
                 show_progress_bar=False,
             )
             if self._cfg.normalize_scores:
                 import math
+
                 batch_scores = [1.0 / (1.0 + math.exp(-s)) for s in raw]
             else:
                 batch_scores = list(raw)

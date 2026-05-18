@@ -25,8 +25,8 @@ from ingestion.extractor import ExtractedTable
 # _clean_cell
 # ===========================================================================
 
-class TestCleanCell:
 
+class TestCleanCell:
     def test_strips_whitespace(self):
         assert _clean_cell("  value  ") == "value"
 
@@ -47,8 +47,8 @@ class TestCleanCell:
 # table_rows_to_nl
 # ===========================================================================
 
-class TestTableRowsToNL:
 
+class TestTableRowsToNL:
     SAMPLE_ROWS = [
         ["Drug Class", "Initial Dose", "Max Dose"],
         ["Metformin", "500 mg", "2550 mg"],
@@ -58,7 +58,8 @@ class TestTableRowsToNL:
 
     def test_returns_table_chunk(self):
         chunk = table_rows_to_nl(
-            self.SAMPLE_ROWS, table_number=1,
+            self.SAMPLE_ROWS,
+            table_number=1,
             section_name="Diabetes Medications",
             page_number=5,
             document_id="metformin_fda_label",
@@ -68,7 +69,8 @@ class TestTableRowsToNL:
 
     def test_text_not_empty(self):
         chunk = table_rows_to_nl(
-            self.SAMPLE_ROWS, table_number=1,
+            self.SAMPLE_ROWS,
+            table_number=1,
             section_name="Diabetes Medications",
             page_number=5,
             document_id="test",
@@ -78,7 +80,8 @@ class TestTableRowsToNL:
 
     def test_table_label_in_text(self):
         chunk = table_rows_to_nl(
-            self.SAMPLE_ROWS, table_number=3,
+            self.SAMPLE_ROWS,
+            table_number=3,
             section_name="Drug Dosing",
             page_number=5,
             document_id="test",
@@ -89,7 +92,8 @@ class TestTableRowsToNL:
 
     def test_nl_format_for_rows(self):
         chunk = table_rows_to_nl(
-            self.SAMPLE_ROWS, table_number=1,
+            self.SAMPLE_ROWS,
+            table_number=1,
             section_name="",
             page_number=1,
             document_id="test",
@@ -102,7 +106,8 @@ class TestTableRowsToNL:
 
     def test_metadata_is_table_true(self):
         chunk = table_rows_to_nl(
-            self.SAMPLE_ROWS, table_number=1,
+            self.SAMPLE_ROWS,
+            table_number=1,
             section_name="Section",
             page_number=2,
             document_id="test",
@@ -112,7 +117,8 @@ class TestTableRowsToNL:
 
     def test_metadata_document_id(self):
         chunk = table_rows_to_nl(
-            self.SAMPLE_ROWS, table_number=1,
+            self.SAMPLE_ROWS,
+            table_number=1,
             section_name="",
             page_number=1,
             document_id="my_doc",
@@ -122,7 +128,8 @@ class TestTableRowsToNL:
 
     def test_metadata_page_number(self):
         chunk = table_rows_to_nl(
-            self.SAMPLE_ROWS, table_number=1,
+            self.SAMPLE_ROWS,
+            table_number=1,
             section_name="",
             page_number=7,
             document_id="test",
@@ -133,7 +140,8 @@ class TestTableRowsToNL:
     def test_single_row_table_returns_empty_chunk(self):
         """Tables with only a header row (< 2 rows) should return an empty TableChunk."""
         chunk = table_rows_to_nl(
-            [["Header1", "Header2"]], table_number=1,
+            [["Header1", "Header2"]],
+            table_number=1,
             section_name="",
             page_number=1,
             document_id="test",
@@ -144,7 +152,8 @@ class TestTableRowsToNL:
     def test_no_valid_headers_returns_empty_chunk(self):
         """All-blank header row → empty chunk."""
         chunk = table_rows_to_nl(
-            [["", ""], ["val1", "val2"]], table_number=1,
+            [["", ""], ["val1", "val2"]],
+            table_number=1,
             section_name="",
             page_number=1,
             document_id="test",
@@ -156,11 +165,12 @@ class TestTableRowsToNL:
         """Data rows where all cells are empty should be skipped silently."""
         rows = [
             ["Drug", "Dose"],
-            ["", ""],         # fully empty data row
+            ["", ""],  # fully empty data row
             ["Metformin", "500 mg"],
         ]
         chunk = table_rows_to_nl(
-            rows, table_number=1,
+            rows,
+            table_number=1,
             section_name="",
             page_number=1,
             document_id="test",
@@ -173,7 +183,8 @@ class TestTableRowsToNL:
     def test_section_name_omitted_when_empty(self):
         """When section_name is empty, label should just be 'Table N' without dash."""
         chunk = table_rows_to_nl(
-            self.SAMPLE_ROWS, table_number=2,
+            self.SAMPLE_ROWS,
+            table_number=2,
             section_name="",
             page_number=1,
             document_id="test",
@@ -184,7 +195,8 @@ class TestTableRowsToNL:
 
     def test_safety_flag_default_false(self):
         chunk = table_rows_to_nl(
-            self.SAMPLE_ROWS, table_number=1,
+            self.SAMPLE_ROWS,
+            table_number=1,
             section_name="General",
             page_number=1,
             document_id="test",
@@ -197,8 +209,8 @@ class TestTableRowsToNL:
 # convert_all_tables
 # ===========================================================================
 
-class TestConvertAllTables:
 
+class TestConvertAllTables:
     def _make_table(self, page_number: int, table_index: int = 0):
         return ExtractedTable(
             page_number=page_number,
@@ -212,16 +224,12 @@ class TestConvertAllTables:
 
     def test_converts_all_tables(self):
         tables = [self._make_table(1), self._make_table(3)]
-        chunks = convert_all_tables(
-            tables, document_id="ada_sec6", document_name="ADA Section 6"
-        )
+        chunks = convert_all_tables(tables, document_id="ada_sec6", document_name="ADA Section 6")
         assert len(chunks) == 2
 
     def test_returns_list_of_table_chunks(self):
         tables = [self._make_table(2)]
-        chunks = convert_all_tables(
-            tables, document_id="test", document_name="Test"
-        )
+        chunks = convert_all_tables(tables, document_id="test", document_name="Test")
         assert isinstance(chunks, list)
         assert all(isinstance(c, TableChunk) for c in chunks)
 
@@ -231,22 +239,22 @@ class TestConvertAllTables:
 
     def test_table_numbers_sequential(self):
         tables = [self._make_table(1), self._make_table(2), self._make_table(3)]
-        chunks = convert_all_tables(
-            tables, document_id="test", document_name="Test"
-        )
+        chunks = convert_all_tables(tables, document_id="test", document_name="Test")
         for i, chunk in enumerate(chunks, start=1):
             assert f"Table {i}" in chunk.text
 
     def test_empty_chunk_not_included(self):
         """Tables that produce no text (e.g. header-only) must be excluded."""
         header_only_table = ExtractedTable(
-            page_number=1, table_index=0,
+            page_number=1,
+            table_index=0,
             rows=[["Col1", "Col2"]],  # Only header, no data rows
         )
         full_table = self._make_table(2)
         chunks = convert_all_tables(
             [header_only_table, full_table],
-            document_id="test", document_name="Test",
+            document_id="test",
+            document_name="Test",
         )
         # Only the non-empty table should appear
         assert len(chunks) == 1
@@ -256,8 +264,8 @@ class TestConvertAllTables:
 # build_table_placeholder
 # ===========================================================================
 
-class TestBuildTablePlaceholder:
 
+class TestBuildTablePlaceholder:
     def test_format_with_section(self):
         result = build_table_placeholder(3, "Drug Dosing Guide")
         assert result == "[See Table 3: Drug Dosing Guide]"

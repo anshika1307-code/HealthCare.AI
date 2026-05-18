@@ -11,6 +11,7 @@ Design notes:
 - Returns (chunk_id, score) pairs aligned with DenseRetriever's output so the
   RRF ranker can consume both lists with the same interface.
 """
+
 from __future__ import annotations
 
 import logging
@@ -29,12 +30,14 @@ logger = logging.getLogger(__name__)
 # Result type (mirrors DenseResult interface for RRF)
 # ---------------------------------------------------------------------------
 
+
 @dataclass
 class BM25Result:
     """A single hit returned by the BM25 retriever."""
-    chunk_id: str       # matches the chunk_id stored in the BM25 corpus index
-    score: float        # raw BM25 score (not normalised — RRF only needs rank)
-    text: str = ""      # chunk text (stored in corpus for reranker use)
+
+    chunk_id: str  # matches the chunk_id stored in the BM25 corpus index
+    score: float  # raw BM25 score (not normalised — RRF only needs rank)
+    text: str = ""  # chunk text (stored in corpus for reranker use)
     payload: dict[str, Any] = None  # type: ignore[assignment]
 
     def __post_init__(self) -> None:
@@ -46,18 +49,21 @@ class BM25Result:
 # Corpus index (stored in pickle by build_bm25_index.py)
 # ---------------------------------------------------------------------------
 
+
 @dataclass
 class BM25Corpus:
     """The serialisable data structure saved by the index builder."""
-    chunk_ids: list[str]         # chunk_ids[i] corresponds to tokenised_corpus[i]
+
+    chunk_ids: list[str]  # chunk_ids[i] corresponds to tokenised_corpus[i]
     tokenised_corpus: list[list[str]]
-    chunk_texts: list[str]       # raw text for reranker (parallel with chunk_ids)
-    chunk_payloads: list[dict]   # full metadata per chunk (parallel with chunk_ids)
+    chunk_texts: list[str]  # raw text for reranker (parallel with chunk_ids)
+    chunk_payloads: list[dict]  # full metadata per chunk (parallel with chunk_ids)
 
 
 # ---------------------------------------------------------------------------
 # Retriever
 # ---------------------------------------------------------------------------
+
 
 class BM25Retriever:
     """
@@ -78,7 +84,9 @@ class BM25Retriever:
         )
         logger.info(
             "BM25Retriever initialised: %d chunks, k1=%.2f, b=%.2f",
-            len(corpus.chunk_ids), self._cfg.k1, self._cfg.b,
+            len(corpus.chunk_ids),
+            self._cfg.k1,
+            self._cfg.b,
         )
 
     # ------------------------------------------------------------------

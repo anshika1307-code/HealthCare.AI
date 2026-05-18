@@ -25,6 +25,7 @@ logger = logging.getLogger(__name__)
 # Data container for a converted table chunk
 # ---------------------------------------------------------------------------
 
+
 @dataclass
 class TableChunk:
     text: str
@@ -34,6 +35,7 @@ class TableChunk:
 # ---------------------------------------------------------------------------
 # Table → Natural Language converter
 # ---------------------------------------------------------------------------
+
 
 def _clean_cell(cell: str | None) -> str:
     """Strip whitespace and newlines from a cell value."""
@@ -65,7 +67,9 @@ def table_rows_to_nl(
         First row is treated as the header row.
     """
     if len(rows) < 2:
-        logger.warning("Table %d on page %d has fewer than 2 rows — skipping", table_number, page_number)
+        logger.warning(
+            "Table %d on page %d has fewer than 2 rows — skipping", table_number, page_number
+        )
         return TableChunk(text="", metadata={})
 
     headers = [_clean_cell(h) for h in rows[0]]
@@ -73,7 +77,9 @@ def table_rows_to_nl(
     valid_col_idxs = [i for i, h in enumerate(headers) if h]
 
     if not valid_col_idxs:
-        logger.warning("Table %d on page %d has no valid headers — skipping", table_number, page_number)
+        logger.warning(
+            "Table %d on page %d has no valid headers — skipping", table_number, page_number
+        )
         return TableChunk(text="", metadata={})
 
     sentences: list[str] = []
@@ -121,6 +127,7 @@ def table_rows_to_nl(
 # Convert all tables for a document
 # ---------------------------------------------------------------------------
 
+
 def convert_all_tables(
     tables: list[ExtractedTable],
     document_id: str,
@@ -152,7 +159,9 @@ def convert_all_tables(
             chunks.append(chunk)
             logger.debug(
                 "Converted table %d (page %d): %d chars",
-                i, tbl.page_number, len(chunk.text),
+                i,
+                tbl.page_number,
+                len(chunk.text),
             )
 
     logger.info("Converted %d/%d tables for doc '%s'", len(chunks), len(tables), document_id)
@@ -162,6 +171,7 @@ def convert_all_tables(
 # ---------------------------------------------------------------------------
 # Placeholder injection into text flow
 # ---------------------------------------------------------------------------
+
 
 def build_table_placeholder(table_number: int, section_name: str) -> str:
     label = f"Table {table_number}"

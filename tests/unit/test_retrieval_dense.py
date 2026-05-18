@@ -22,6 +22,7 @@ from src.retrieval.dense_retriever import DenseResult, DenseRetriever
 # Helpers
 # ---------------------------------------------------------------------------
 
+
 def _cfg(**overrides) -> DenseConfig:
     base = dict(
         collection_name="healthcare_chunks",
@@ -68,10 +69,10 @@ def retriever(mock_client) -> DenseRetriever:
 # DenseResult
 # ===========================================================================
 
-class TestDenseResult:
 
+class TestDenseResult:
     def test_text_populated_from_payload_when_empty(self):
-        """__post_init__ copies payload['text'] into .text when text=''. """
+        """__post_init__ copies payload['text'] into .text when text=''."""
         result = DenseResult(
             chunk_id="id",
             score=0.8,
@@ -98,8 +99,8 @@ class TestDenseResult:
 # DenseRetriever._build_filter
 # ===========================================================================
 
-class TestBuildFilter:
 
+class TestBuildFilter:
     def test_string_condition_creates_field_condition(self, retriever):
         f = retriever._build_filter({"document_id": "jnc8"})
         assert f is not None
@@ -135,8 +136,8 @@ class TestBuildFilter:
 # DenseRetriever.search
 # ===========================================================================
 
-class TestSearch:
 
+class TestSearch:
     @pytest.mark.asyncio
     async def test_returns_empty_list_when_no_hits(self, retriever, mock_client):
         mock_client.query_points.return_value = _mock_qp_response([])
@@ -198,8 +199,8 @@ class TestSearch:
 # DenseRetriever.get_by_ids
 # ===========================================================================
 
-class TestGetByIds:
 
+class TestGetByIds:
     @pytest.mark.asyncio
     async def test_empty_ids_returns_empty_list(self, retriever, mock_client):
         result = await retriever.get_by_ids([])

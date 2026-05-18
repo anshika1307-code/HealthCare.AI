@@ -21,6 +21,7 @@ from retrieval.reranker import RankedResult
 # Helpers
 # ---------------------------------------------------------------------------
 
+
 def _cfg(**overrides) -> ConfidenceConfig:
     base = dict(
         low_confidence_threshold=0.40,
@@ -56,8 +57,8 @@ def _ranked(
 # RetrievalResult.context_text
 # ===========================================================================
 
-class TestContextText:
 
+class TestContextText:
     def test_single_chunk_produces_labelled_block(self):
         result = RetrievalResult(
             query="q",
@@ -89,13 +90,11 @@ class TestContextText:
             query="q", chunks=[chunk], confidence_score=0.8, low_confidence=False
         )
         ctx = result.context_text
-        assert "—" not in ctx       # no dash when section is absent
+        assert "—" not in ctx  # no dash when section is absent
         assert "jnc8" in ctx
 
     def test_empty_chunks_returns_empty_string(self):
-        result = RetrievalResult(
-            query="q", chunks=[], confidence_score=0.0, low_confidence=True
-        )
+        result = RetrievalResult(query="q", chunks=[], confidence_score=0.0, low_confidence=True)
         assert result.context_text == ""
 
     def test_chunks_separated_by_double_newline(self):
@@ -112,8 +111,8 @@ class TestContextText:
 # RetrievalResult.has_safety_content
 # ===========================================================================
 
-class TestHasSafetyContent:
 
+class TestHasSafetyContent:
     def test_true_when_any_chunk_is_safety_flagged(self):
         result = RetrievalResult(
             query="q",
@@ -133,9 +132,7 @@ class TestHasSafetyContent:
         assert result.has_safety_content is False
 
     def test_false_for_empty_chunk_list(self):
-        result = RetrievalResult(
-            query="q", chunks=[], confidence_score=0.0, low_confidence=True
-        )
+        result = RetrievalResult(query="q", chunks=[], confidence_score=0.0, low_confidence=True)
         assert result.has_safety_content is False
 
 
@@ -143,8 +140,8 @@ class TestHasSafetyContent:
 # ConfidenceScorer.score
 # ===========================================================================
 
-class TestConfidenceScorer:
 
+class TestConfidenceScorer:
     def test_empty_chunks_returns_low_confidence(self):
         scorer = ConfidenceScorer(_cfg(low_confidence_threshold=0.4))
         result = scorer.score("query", [])
@@ -173,10 +170,12 @@ class TestConfidenceScorer:
         assert result.low_confidence is True
 
     def test_low_confidence_attaches_warning_message(self):
-        scorer = ConfidenceScorer(_cfg(
-            low_confidence_threshold=0.40,
-            warning_message="⚠️ Low confidence.",
-        ))
+        scorer = ConfidenceScorer(
+            _cfg(
+                low_confidence_threshold=0.40,
+                warning_message="⚠️ Low confidence.",
+            )
+        )
         result = scorer.score("query", [_ranked(score=0.20)])
         assert result.warning_message == "⚠️ Low confidence."
 

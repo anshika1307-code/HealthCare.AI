@@ -10,6 +10,7 @@ Design notes:
 - AuthenticationError is NOT retried — wrong API key won't fix itself.
 - Reads OPENAI_API_KEY from environment (never hardcode keys).
 """
+
 from __future__ import annotations
 
 import logging
@@ -60,8 +61,10 @@ class OpenAIEmbedder:
         )
         logger.info(
             "OpenAIEmbedder ready: model=%s dim=%d batch=%d normalize=%s",
-            self._cfg.model_name, self._cfg.dimensions,
-            self._cfg.batch_size, self._cfg.normalize,
+            self._cfg.model_name,
+            self._cfg.dimensions,
+            self._cfg.batch_size,
+            self._cfg.normalize,
         )
 
     # ------------------------------------------------------------------
@@ -129,6 +132,7 @@ class OpenAIEmbedder:
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
 
 def _l2_normalize(vector: list[float]) -> list[float]:
     """L2-normalise a vector to unit length."""

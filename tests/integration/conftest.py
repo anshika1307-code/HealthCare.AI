@@ -6,6 +6,7 @@ Shared fixtures for integration tests.
 Adds src/ and repo root to sys.path so all imports work when pytest is
 invoked from the repo root.
 """
+
 import sys
 from pathlib import Path
 

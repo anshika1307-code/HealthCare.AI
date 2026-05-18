@@ -3,6 +3,7 @@ configs/ingestion.py
 --------------------
 Configuration for the PDF ingestion and preprocessing pipeline.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -64,6 +65,7 @@ INGESTION_CONFIG = IngestionConfig()
 # run_ingestion.py iterates over this list.
 # ---------------------------------------------------------------------------
 
+
 @dataclass
 class DocumentEntry:
     doc_id: str
@@ -93,4 +95,3 @@ DOCUMENTS: list[DocumentEntry] = [
         pdf_path="data/raw/jnc8_guidelines_manage_hypertension_original.pdf",
     ),
 ]
-

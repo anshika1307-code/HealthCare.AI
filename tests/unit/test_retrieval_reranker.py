@@ -26,6 +26,7 @@ from retrieval.reranker import CrossEncoderReranker, RankedResult
 # Helpers
 # ---------------------------------------------------------------------------
 
+
 def _cfg(**overrides) -> RerankerConfig:
     base = dict(
         model_name="cross-encoder/ms-marco-MiniLM-L-6-v2",
@@ -49,7 +50,7 @@ def reranker() -> CrossEncoderReranker:
     """CrossEncoderReranker with the CrossEncoder model fully mocked."""
     with patch("retrieval.reranker.CrossEncoder") as mock_ce_cls:
         mock_model = MagicMock()
-        mock_model.predict.return_value = [0.0]   # default: one raw score
+        mock_model.predict.return_value = [0.0]  # default: one raw score
         mock_ce_cls.return_value = mock_model
         r = CrossEncoderReranker(config=_cfg())
     return r
@@ -59,25 +60,31 @@ def reranker() -> CrossEncoderReranker:
 # RankedResult
 # ===========================================================================
 
-class TestRankedResult:
 
+class TestRankedResult:
     def test_document_id_from_payload(self):
         r = RankedResult(
-            chunk_id="id", reranker_score=0.8, text="t",
+            chunk_id="id",
+            reranker_score=0.8,
+            text="t",
             payload={"document_id": "jnc8"},
         )
         assert r.document_id == "jnc8"
 
     def test_section_name_from_payload(self):
         r = RankedResult(
-            chunk_id="id", reranker_score=0.8, text="t",
+            chunk_id="id",
+            reranker_score=0.8,
+            text="t",
             payload={"section_name": "Recommendation 1"},
         )
         assert r.section_name == "Recommendation 1"
 
     def test_safety_flag_true_from_payload(self):
         r = RankedResult(
-            chunk_id="id", reranker_score=0.8, text="t",
+            chunk_id="id",
+            reranker_score=0.8,
+            text="t",
             payload={"safety_flag": True},
         )
         assert r.safety_flag is True
@@ -99,8 +106,8 @@ class TestRankedResult:
 # CrossEncoderReranker._predict_sync
 # ===========================================================================
 
-class TestPredictSync:
 
+class TestPredictSync:
     def test_sigmoid_applied_when_normalize_true(self, reranker):
         """sigmoid(0.0) = 0.5; the output should be exactly 0.5."""
         reranker._model.predict.return_value = [0.0]
@@ -147,8 +154,8 @@ class TestPredictSync:
 # CrossEncoderReranker.rerank
 # ===========================================================================
 
-class TestRerank:
 
+class TestRerank:
     @pytest.mark.asyncio
     async def test_empty_candidates_returns_empty_list(self, reranker):
         result = await reranker.rerank("query", [])

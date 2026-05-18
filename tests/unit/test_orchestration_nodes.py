@@ -13,6 +13,7 @@ make_retrieve_node — calls pipeline.retrieve, propagates filters, returns resu
 make_generate_node — calls LLM, builds correct messages, handles retry, returns
                      degraded answer after exhausted retries
 """
+
 import asyncio
 import sys
 from pathlib import Path
@@ -29,7 +30,12 @@ for p in (_SRC, _ROOT):
         sys.path.insert(0, str(p))
 
 from configs.llm import LLMConfig
-from orchestration.nodes import _DEGRADED_ANSWER, make_embed_node, make_generate_node, make_retrieve_node
+from orchestration.nodes import (
+    _DEGRADED_ANSWER,
+    make_embed_node,
+    make_generate_node,
+    make_retrieve_node,
+)
 from retrieval.confidence import RetrievalResult
 from retrieval.reranker import RankedResult
 
@@ -37,6 +43,7 @@ from retrieval.reranker import RankedResult
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
 
 def _ranked(chunk_id: str = "c1", score: float = 0.9) -> RankedResult:
     return RankedResult(
@@ -75,8 +82,8 @@ def _make_llm_response(content: str) -> MagicMock:
 # make_embed_node
 # ===========================================================================
 
-class TestEmbedNode:
 
+class TestEmbedNode:
     @pytest.fixture
     def embedder(self):
         m = MagicMock()
@@ -127,8 +134,8 @@ class TestEmbedNode:
 # make_retrieve_node
 # ===========================================================================
 
-class TestRetrieveNode:
 
+class TestRetrieveNode:
     @pytest.fixture
     def pipeline(self):
         m = MagicMock()
@@ -187,8 +194,8 @@ class TestRetrieveNode:
 # make_generate_node
 # ===========================================================================
 
-class TestGenerateNode:
 
+class TestGenerateNode:
     @pytest.fixture
     def llm_client(self):
         client = MagicMock()
@@ -310,9 +317,7 @@ class TestGenerateNode:
     @pytest.mark.asyncio
     async def test_api_timeout_returns_degraded_answer(self, llm_client, cfg, state):
         req = _fake_request()
-        llm_client.chat.completions.create.side_effect = openai.APITimeoutError(
-            request=req
-        )
+        llm_client.chat.completions.create.side_effect = openai.APITimeoutError(request=req)
         node = make_generate_node(llm_client, cfg)
         result = await node(state)
         assert result["answer"] == _DEGRADED_ANSWER
@@ -320,9 +325,7 @@ class TestGenerateNode:
     @pytest.mark.asyncio
     async def test_api_connection_error_returns_degraded_answer(self, llm_client, cfg, state):
         req = _fake_request()
-        llm_client.chat.completions.create.side_effect = openai.APIConnectionError(
-            request=req
-        )
+        llm_client.chat.completions.create.side_effect = openai.APIConnectionError(request=req)
         node = make_generate_node(llm_client, cfg)
         result = await node(state)
         assert result["answer"] == _DEGRADED_ANSWER

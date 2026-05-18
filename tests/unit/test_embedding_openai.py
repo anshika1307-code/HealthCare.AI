@@ -26,6 +26,7 @@ from embedding.openai_embedder import OpenAIEmbedder, _l2_normalize, _RETRYABLE
 # Helpers
 # ---------------------------------------------------------------------------
 
+
 def _cfg(**overrides) -> EmbeddingConfig:
     """EmbeddingConfig with small dimensions and batch_size for fast tests."""
     base = dict(
@@ -63,6 +64,7 @@ def embedder(monkeypatch):
 # _l2_normalize
 # ===========================================================================
 
+
 class TestL2Normalize:
     """Helper function that normalises a vector to unit length."""
 
@@ -72,7 +74,7 @@ class TestL2Normalize:
         assert abs(result[1] - 0.0) < 1e-9
 
     def test_result_has_unit_length(self):
-        result = _l2_normalize([3.0, 4.0])       # norm = 5
+        result = _l2_normalize([3.0, 4.0])  # norm = 5
         norm = math.sqrt(sum(x * x for x in result))
         assert abs(norm - 1.0) < 1e-9
 
@@ -101,8 +103,8 @@ class TestL2Normalize:
 # __init__
 # ===========================================================================
 
-class TestOpenAIEmbedderInit:
 
+class TestOpenAIEmbedderInit:
     def test_raises_when_api_key_missing(self, monkeypatch):
         monkeypatch.delenv("OPENAI_API_KEY", raising=False)
         with pytest.raises(EnvironmentError, match="OPENAI_API_KEY"):
@@ -127,10 +129,10 @@ class TestOpenAIEmbedderInit:
 # Properties
 # ===========================================================================
 
-class TestProperties:
 
+class TestProperties:
     def test_dimensions(self, embedder):
-        assert embedder.dimensions == 4     # set in _cfg()
+        assert embedder.dimensions == 4  # set in _cfg()
 
     def test_model_name(self, embedder):
         assert embedder.model_name == "text-embedding-3-small"
@@ -140,8 +142,8 @@ class TestProperties:
 # embed_batch
 # ===========================================================================
 
-class TestEmbedBatch:
 
+class TestEmbedBatch:
     def test_empty_input_returns_empty_list(self, embedder):
         assert embedder.embed_batch([]) == []
         embedder._client.embeddings.create.assert_not_called()
@@ -197,6 +199,7 @@ class TestEmbedBatch:
 # ===========================================================================
 # Retry configuration
 # ===========================================================================
+
 
 class TestRetryConfiguration:
     """

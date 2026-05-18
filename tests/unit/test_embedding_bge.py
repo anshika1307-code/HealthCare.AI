@@ -30,6 +30,7 @@ from embedding.bge_embedder import (
 # Helpers
 # ---------------------------------------------------------------------------
 
+
 def _cfg(**overrides) -> EmbeddingConfig:
     base = dict(
         model_name=_BGE_MODEL_ID,
@@ -77,8 +78,8 @@ def embedder():
 # __init__
 # ===========================================================================
 
-class TestBGEEmbedderInit:
 
+class TestBGEEmbedderInit:
     def test_raises_import_error_when_library_missing(self):
         """
         When sentence-transformers is not installed, BGEEmbedder must raise
@@ -103,8 +104,8 @@ class TestBGEEmbedderInit:
 # Properties
 # ===========================================================================
 
-class TestBGEEmbedderProperties:
 
+class TestBGEEmbedderProperties:
     def test_dimensions_is_always_768(self, embedder):
         """BGE-base-en-v1.5 output is always 768-dim regardless of config."""
         assert embedder.dimensions == 768
@@ -117,8 +118,8 @@ class TestBGEEmbedderProperties:
 # embed_batch
 # ===========================================================================
 
-class TestBGEEmbedderEmbedBatch:
 
+class TestBGEEmbedderEmbedBatch:
     def test_empty_input_returns_empty_list(self, embedder):
         assert embedder.embed_batch([]) == []
         embedder._model.encode.assert_not_called()

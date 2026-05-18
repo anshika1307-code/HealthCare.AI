@@ -26,8 +26,8 @@ from ingestion.normalizer import (
 # Stage 9 — Term Normalization
 # ===========================================================================
 
-class TestNormalizeTerms:
 
+class TestNormalizeTerms:
     def test_hba1c_variants_unified(self):
         cases = [
             "hemoglobin A1c",
@@ -82,8 +82,8 @@ class TestNormalizeTerms:
 # Stage 10 — Abbreviation Detection
 # ===========================================================================
 
-class TestDetectAbbreviations:
 
+class TestDetectAbbreviations:
     def test_detects_pattern_a_abbreviation(self):
         text = "continuous glucose monitoring (CGM) is recommended."
         abbrev_map = detect_abbreviations(text)
@@ -107,10 +107,7 @@ class TestDetectAbbreviations:
 
     def test_first_occurrence_wins(self):
         """When an abbreviation is defined twice, the first definition is kept."""
-        text = (
-            "blood pressure (BP) management. "
-            "Elevated blood pressure reading (BP) noted."
-        )
+        text = "blood pressure (BP) management. Elevated blood pressure reading (BP) noted."
         abbrev_map = detect_abbreviations(text)
         assert abbrev_map["BP"] == "blood pressure"
 
@@ -119,12 +116,13 @@ class TestDetectAbbreviations:
 # Stage 10 — Abbreviation Expansion
 # ===========================================================================
 
-class TestExpandAbbreviations:
 
+class TestExpandAbbreviations:
     def test_expands_first_occurrence_only(self):
         # After Bug 2 fix: lines starting with abbreviations are no longer
         # misclassified as headings. Test with realistic medical sentence.
         from ingestion.normalizer import expand_abbreviations
+
         abbrev_map = {"CGM": "continuous glucose monitoring"}
         text = "CGM is used to track glucose levels daily.\nThe CGM reading was within range."
         result = expand_abbreviations(text, abbrev_map)
@@ -138,6 +136,7 @@ class TestExpandAbbreviations:
         starting with abbreviations. Fixed by adding $ anchor."""
         from ingestion.normalizer import _HEADING_LINE
         import re
+
         # These should NOT be classified as headings after the fix
         prose_lines = [
             "CGM is used to monitor glucose.",
@@ -151,11 +150,11 @@ class TestExpandAbbreviations:
             "INDICATIONS AND USAGE",
         ]
         for line in prose_lines:
-            assert not _HEADING_LINE.match(line), \
+            assert not _HEADING_LINE.match(line), (
                 f"Bug 2 regression: prose line misclassified as heading: {line!r}"
+            )
         for line in heading_lines:
-            assert _HEADING_LINE.match(line), \
-                f"True heading no longer detected: {line!r}"
+            assert _HEADING_LINE.match(line), f"True heading no longer detected: {line!r}"
 
     def test_does_not_expand_inside_headings(self):
         abbrev_map = {"BP": "blood pressure"}
@@ -173,6 +172,7 @@ class TestExpandAbbreviations:
     def test_expansion_format(self):
         """Expansion format must be: 'full form (ABBR)'."""
         from ingestion.normalizer import expand_abbreviations
+
         abbrev_map = {"GFR": "glomerular filtration rate"}
         # After Bug 2 fix, lines starting with abbreviations are no longer skipped
         text = "GFR should be checked before prescribing metformin."
@@ -184,8 +184,8 @@ class TestExpandAbbreviations:
 # build_abbreviation_map
 # ===========================================================================
 
-class TestBuildAbbreviationMap:
 
+class TestBuildAbbreviationMap:
     def test_seed_map_overrides_auto_detected(self):
         """Seed map entries take priority over auto-detected ones."""
         text = "blood glucose monitoring (BGM) is key."
@@ -212,8 +212,8 @@ class TestBuildAbbreviationMap:
 # Master normalize_and_expand
 # ===========================================================================
 
-class TestNormalizeAndExpand:
 
+class TestNormalizeAndExpand:
     def test_returns_tuple(self):
         result = normalize_and_expand("HbA1c is a marker of glycaemic control.")
         assert isinstance(result, tuple)

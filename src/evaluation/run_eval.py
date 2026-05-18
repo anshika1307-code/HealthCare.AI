@@ -32,6 +32,7 @@ Environment:
     Requires OPENAI_API_KEY and a running Qdrant instance.
     Optional: QDRANT_URL (default http://localhost:6333), BM25_CORPUS_PATH.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -48,13 +49,14 @@ from pathlib import Path
 
 # ── path setup ───────────────────────────────────────────────────────────────
 _ROOT = Path(__file__).resolve().parents[2]
-_SRC  = _ROOT / "src"
+_SRC = _ROOT / "src"
 for _p in (_SRC, _ROOT):
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 
 try:
     from dotenv import load_dotenv
+
     load_dotenv(_ROOT / ".env")
 except ImportError:
     pass
@@ -90,8 +92,8 @@ from retrieval.rrf_ranker import RRFRanker
 
 # ── constants ─────────────────────────────────────────────────────────────────
 FAITHFULNESS_THRESHOLD = 0.70
-_DEFAULT_EVAL_SET  = _ROOT / "data" / "evaluation" / "eval_set.json"
-_DEFAULT_OUTPUT    = _ROOT / "eval_report.json"
+_DEFAULT_EVAL_SET = _ROOT / "data" / "evaluation" / "eval_set.json"
+_DEFAULT_OUTPUT = _ROOT / "eval_report.json"
 _DEFAULT_BM25_PATH = Path("data/cache/bm25_corpus.pkl")
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s  %(message)s")
@@ -105,21 +107,22 @@ for _noisy in ("httpx", "httpcore", "openai", "ragas", "langchain", "sentence_tr
 # PHASE 1 — async pipeline
 # ─────────────────────────────────────────────────────────────────────────────
 
-async def _build_pipeline():
-    qdrant_url     = os.getenv("QDRANT_URL", "http://localhost:6333")
-    qdrant_api_key = os.getenv("QDRANT_API_KEY")
-    bm25_path      = Path(os.getenv("BM25_CORPUS_PATH", str(_DEFAULT_BM25_PATH)))
 
-    qdrant     = AsyncQdrantClient(url=qdrant_url, api_key=qdrant_api_key, check_compatibility=False)
-    dense      = DenseRetriever(qdrant, config=RETRIEVAL_CONFIG.dense)
-    bm25       = BM25Retriever.from_cache(bm25_path, config=RETRIEVAL_CONFIG.bm25)
-    reranker   = CrossEncoderReranker(config=RETRIEVAL_CONFIG.reranker)
-    rrf        = RRFRanker(config=RETRIEVAL_CONFIG.rrf)
+async def _build_pipeline():
+    qdrant_url = os.getenv("QDRANT_URL", "http://localhost:6333")
+    qdrant_api_key = os.getenv("QDRANT_API_KEY")
+    bm25_path = Path(os.getenv("BM25_CORPUS_PATH", str(_DEFAULT_BM25_PATH)))
+
+    qdrant = AsyncQdrantClient(url=qdrant_url, api_key=qdrant_api_key, check_compatibility=False)
+    dense = DenseRetriever(qdrant, config=RETRIEVAL_CONFIG.dense)
+    bm25 = BM25Retriever.from_cache(bm25_path, config=RETRIEVAL_CONFIG.bm25)
+    reranker = CrossEncoderReranker(config=RETRIEVAL_CONFIG.reranker)
+    rrf = RRFRanker(config=RETRIEVAL_CONFIG.rrf)
     confidence = ConfidenceScorer(config=RETRIEVAL_CONFIG.confidence)
-    pipeline   = RetrievalPipeline(dense, bm25, reranker, rrf, confidence)
-    embedder   = OpenAIEmbedder(EMBEDDING_CONFIG)
+    pipeline = RetrievalPipeline(dense, bm25, reranker, rrf, confidence)
+    embedder = OpenAIEmbedder(EMBEDDING_CONFIG)
     llm_client = openai.AsyncOpenAI()
-    graph      = build_graph(embedder, pipeline, llm_client, LLM_CONFIG)
+    graph = build_graph(embedder, pipeline, llm_client, LLM_CONFIG)
     return graph, qdrant
 
 
@@ -128,44 +131,44 @@ async def _run_question(graph, item: dict) -> dict:
     try:
         state = await graph.ainvoke({"query": item["question"], "query_id": item["id"]})
         latency_ms = (time.perf_counter() - t0) * 1000
-        rr       = state.get("retrieval_result")
-        answer   = state.get("answer", "")
+        rr = state.get("retrieval_result")
+        answer = state.get("answer", "")
         contexts = [c.text for c in rr.chunks] if rr else []
-        conf     = rr.confidence_score if rr else 0.0
-        low_conf = rr.low_confidence   if rr else True
-        sources  = [c.document_id      for c in rr.chunks] if rr else []
+        conf = rr.confidence_score if rr else 0.0
+        low_conf = rr.low_confidence if rr else True
+        sources = [c.document_id for c in rr.chunks] if rr else []
         return {
-            "id":               item["id"],
-            "question":         item["question"],
-            "ground_truth":     item["ground_truth"],
-            "section":          item.get("section", ""),
-            "difficulty":       item.get("difficulty", ""),
-            "source_doc":       item.get("source_doc", ""),
-            "answer":           answer,
-            "contexts":         contexts,
+            "id": item["id"],
+            "question": item["question"],
+            "ground_truth": item["ground_truth"],
+            "section": item.get("section", ""),
+            "difficulty": item.get("difficulty", ""),
+            "source_doc": item.get("source_doc", ""),
+            "answer": answer,
+            "contexts": contexts,
             "confidence_score": conf,
-            "low_confidence":   low_conf,
-            "sources":          sources,
-            "latency_ms":       round(latency_ms, 1),
-            "error":            None,
+            "low_confidence": low_conf,
+            "sources": sources,
+            "latency_ms": round(latency_ms, 1),
+            "error": None,
         }
     except Exception as exc:  # noqa: BLE001
         latency_ms = (time.perf_counter() - t0) * 1000
         logger.warning("Question %s failed: %s", item["id"], exc)
         return {
-            "id":               item["id"],
-            "question":         item["question"],
-            "ground_truth":     item["ground_truth"],
-            "section":          item.get("section", ""),
-            "difficulty":       item.get("difficulty", ""),
-            "source_doc":       item.get("source_doc", ""),
-            "answer":           "",
-            "contexts":         [],
+            "id": item["id"],
+            "question": item["question"],
+            "ground_truth": item["ground_truth"],
+            "section": item.get("section", ""),
+            "difficulty": item.get("difficulty", ""),
+            "source_doc": item.get("source_doc", ""),
+            "answer": "",
+            "contexts": [],
             "confidence_score": 0.0,
-            "low_confidence":   True,
-            "sources":          [],
-            "latency_ms":       round(latency_ms, 1),
-            "error":            str(exc),
+            "low_confidence": True,
+            "sources": [],
+            "latency_ms": round(latency_ms, 1),
+            "error": str(exc),
         }
 
 
@@ -184,12 +187,16 @@ async def _pipeline_phase(eval_set: list[dict]) -> tuple[list[dict], float]:
         for idx, item in enumerate(eval_set, start=1):
             logger.info(
                 "[%d/%d] %s — %s",
-                idx, len(eval_set), item["id"], item["question"][:70],
+                idx,
+                len(eval_set),
+                item["id"],
+                item["question"][:70],
             )
             row = await _run_question(graph, item)
             rows.append(row)
             status = (
-                f"error: {row['error']}" if row["error"]
+                f"error: {row['error']}"
+                if row["error"]
                 else f"conf={row['confidence_score']:.2f} ctx={len(row['contexts'])}"
             )
             logger.info("       → %s", status)
@@ -201,7 +208,9 @@ async def _pipeline_phase(eval_set: list[dict]) -> tuple[list[dict], float]:
     elapsed = time.perf_counter() - t0
     logger.info(
         "Pipeline phase done: %d questions in %.1fs (avg %.1f s/q)",
-        len(rows), elapsed, elapsed / max(len(rows), 1),
+        len(rows),
+        elapsed,
+        elapsed / max(len(rows), 1),
     )
     return rows, elapsed
 
@@ -211,13 +220,14 @@ async def _pipeline_phase(eval_set: list[dict]) -> tuple[list[dict], float]:
 # Called AFTER asyncio.run() finishes so RAGAS gets a fresh event loop.
 # ─────────────────────────────────────────────────────────────────────────────
 
+
 def _ragas_score(rows: list[dict]) -> tuple[dict[str, float], list[dict]]:
     """
     Build an EvaluationDataset from collected rows, run RAGAS evaluate(), and
     return (averages_dict, per_question_scores).
     Rows with empty contexts get 0.0 for all metrics.
     """
-    scoreable  = [r for r in rows if r["contexts"]]
+    scoreable = [r for r in rows if r["contexts"]]
     unscorable = [r for r in rows if not r["contexts"]]
 
     if unscorable:
@@ -246,7 +256,7 @@ def _ragas_score(rows: list[dict]) -> tuple[dict[str, float], list[dict]]:
             ContextPrecision(),
             ContextRecall(),
         ]
-        eval_llm        = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+        eval_llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
         eval_embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
 
         logger.info("Running RAGAS evaluation on %d questions …", len(scoreable))
@@ -268,22 +278,26 @@ def _ragas_score(rows: list[dict]) -> tuple[dict[str, float], list[dict]]:
 
         for i, row in enumerate(scoreable):
             q = scores_df.iloc[i]
-            per_question.append({
-                **_row_meta(row),
-                "faithfulness":      _safe_float(q.get("faithfulness")),
-                "answer_relevancy":  _safe_float(q.get("answer_relevancy")),
-                "context_precision": _safe_float(q.get("context_precision")),
-                "context_recall":    _safe_float(q.get("context_recall")),
-            })
+            per_question.append(
+                {
+                    **_row_meta(row),
+                    "faithfulness": _safe_float(q.get("faithfulness")),
+                    "answer_relevancy": _safe_float(q.get("answer_relevancy")),
+                    "context_precision": _safe_float(q.get("context_precision")),
+                    "context_recall": _safe_float(q.get("context_recall")),
+                }
+            )
 
     for row in unscorable:
-        per_question.append({
-            **_row_meta(row),
-            "faithfulness":      0.0,
-            "answer_relevancy":  0.0,
-            "context_precision": 0.0,
-            "context_recall":    0.0,
-        })
+        per_question.append(
+            {
+                **_row_meta(row),
+                "faithfulness": 0.0,
+                "answer_relevancy": 0.0,
+                "context_precision": 0.0,
+                "context_recall": 0.0,
+            }
+        )
 
     # Restore original question order
     id_order = {r["id"]: i for i, r in enumerate(rows)}
@@ -300,9 +314,20 @@ def _ragas_score(rows: list[dict]) -> tuple[dict[str, float], list[dict]]:
 def _row_meta(row: dict) -> dict:
     return {
         k: row[k]
-        for k in ("id", "question", "ground_truth", "section", "difficulty",
-                  "source_doc", "answer", "confidence_score", "low_confidence",
-                  "sources", "latency_ms", "error")
+        for k in (
+            "id",
+            "question",
+            "ground_truth",
+            "section",
+            "difficulty",
+            "source_doc",
+            "answer",
+            "confidence_score",
+            "low_confidence",
+            "sources",
+            "latency_ms",
+            "error",
+        )
     }
 
 
@@ -319,6 +344,7 @@ def _safe_float(val) -> float:
 # ─────────────────────────────────────────────────────────────────────────────
 # Orchestration
 # ─────────────────────────────────────────────────────────────────────────────
+
 
 def _print_summary(averages: dict, per_question: list[dict]) -> None:
     print("\n" + "─" * 60)
@@ -341,6 +367,7 @@ def _print_summary(averages: dict, per_question: list[dict]) -> None:
 def _ragas_version() -> str:
     try:
         import ragas
+
         return getattr(ragas, "__version__", "unknown")
     except ImportError:
         return "unknown"
@@ -351,19 +378,27 @@ def main() -> None:
         description="Run RAGAS evaluation against the Healthcare RAG pipeline."
     )
     parser.add_argument(
-        "--eval-set", type=Path, default=_DEFAULT_EVAL_SET,
+        "--eval-set",
+        type=Path,
+        default=_DEFAULT_EVAL_SET,
         help=f"Path to eval_set.json (default: {_DEFAULT_EVAL_SET})",
     )
     parser.add_argument(
-        "--output", type=Path, default=_DEFAULT_OUTPUT,
+        "--output",
+        type=Path,
+        default=_DEFAULT_OUTPUT,
         help=f"Output path for eval_report.json (default: {_DEFAULT_OUTPUT})",
     )
     parser.add_argument(
-        "--rows-cache", type=Path, default=None,
+        "--rows-cache",
+        type=Path,
+        default=None,
         help="Save pipeline rows to this file after Phase 1 (auto: <output>.rows.json)",
     )
     parser.add_argument(
-        "--from-cache", type=Path, default=None,
+        "--from-cache",
+        type=Path,
+        default=None,
         metavar="ROWS_FILE",
         help="Skip Phase 1 — load pipeline rows from a previous cache file and go straight to RAGAS scoring.",
     )
@@ -382,7 +417,8 @@ def main() -> None:
         pipeline_s: float = cached.get("pipeline_time_s", 0.0)
         logger.info(
             "Loaded %d cached rows from %s (skipping pipeline)",
-            len(rows), args.from_cache,
+            len(rows),
+            args.from_cache,
         )
     else:
         # ── Normal mode: run pipeline then cache rows ─────────────────────────
@@ -403,11 +439,17 @@ def main() -> None:
         # Save rows so RAGAS phase can be retried without re-running the pipeline
         rows_cache_path.parent.mkdir(parents=True, exist_ok=True)
         rows_cache_path.write_text(
-            json.dumps({"pipeline_time_s": round(pipeline_s, 1), "rows": rows},
-                       indent=2, ensure_ascii=False),
+            json.dumps(
+                {"pipeline_time_s": round(pipeline_s, 1), "rows": rows},
+                indent=2,
+                ensure_ascii=False,
+            ),
             encoding="utf-8",
         )
-        logger.info("Pipeline rows cached → %s  (use --from-cache to skip pipeline next time)", rows_cache_path)
+        logger.info(
+            "Pipeline rows cached → %s  (use --from-cache to skip pipeline next time)",
+            rows_cache_path,
+        )
 
     # ── Phase 2: RAGAS scoring (synchronous; fresh event loop) ───────────────
     averages, per_question = _ragas_score(rows)
@@ -415,15 +457,15 @@ def main() -> None:
     # ── Write report ──────────────────────────────────────────────────────────
     report = {
         "metadata": {
-            "timestamp":       datetime.now(UTC).isoformat(),
-            "eval_set":        str(args.eval_set if not args.from_cache else args.from_cache),
-            "num_questions":   len(rows),
-            "errors":          sum(1 for r in rows if r["error"]),
-            "ragas_version":   _ragas_version(),
+            "timestamp": datetime.now(UTC).isoformat(),
+            "eval_set": str(args.eval_set if not args.from_cache else args.from_cache),
+            "num_questions": len(rows),
+            "errors": sum(1 for r in rows if r["error"]),
+            "ragas_version": _ragas_version(),
             "pipeline_time_s": round(pipeline_s, 1),
         },
         "thresholds": {"faithfulness": FAITHFULNESS_THRESHOLD},
-        "averages":   averages,
+        "averages": averages,
         "per_question": per_question,
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
@@ -437,13 +479,15 @@ def main() -> None:
     if avg_faithfulness < FAITHFULNESS_THRESHOLD:
         logger.error(
             "FAIL: avg_faithfulness=%.4f < threshold=%.2f — deploy blocked",
-            avg_faithfulness, FAITHFULNESS_THRESHOLD,
+            avg_faithfulness,
+            FAITHFULNESS_THRESHOLD,
         )
         sys.exit(1)
 
     logger.info(
         "PASS: avg_faithfulness=%.4f >= threshold=%.2f",
-        avg_faithfulness, FAITHFULNESS_THRESHOLD,
+        avg_faithfulness,
+        FAITHFULNESS_THRESHOLD,
     )
 
 

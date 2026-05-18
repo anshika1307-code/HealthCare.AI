@@ -20,6 +20,7 @@ Optional:
     BM25_CORPUS_PATH       — override default data/cache/bm25_corpus.pkl
     REDIS_URL              — Redis endpoint for metrics (default: redis://localhost:6379)
 """
+
 from __future__ import annotations
 
 import logging
@@ -32,6 +33,7 @@ from uuid import uuid4
 # Load .env before any config or openai imports so env vars are available
 try:
     from dotenv import load_dotenv
+
     load_dotenv(Path(__file__).resolve().parents[2] / ".env")
 except ImportError:
     pass
@@ -77,6 +79,7 @@ _MAX_QUERY_TOKENS = 500
 # Application lifespan — initialise all heavy components once
 # ---------------------------------------------------------------------------
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("Starting up Healthcare RAG API …")
@@ -87,7 +90,9 @@ async def lifespan(app: FastAPI):
     redis_url = os.getenv("REDIS_URL", "redis://localhost:6379")
 
     # Qdrant async client (connection pooled internally)
-    qdrant_client = AsyncQdrantClient(url=qdrant_url, api_key=qdrant_api_key, check_compatibility=False)
+    qdrant_client = AsyncQdrantClient(
+        url=qdrant_url, api_key=qdrant_api_key, check_compatibility=False
+    )
 
     # Retrieval components
     dense = DenseRetriever(qdrant_client, config=RETRIEVAL_CONFIG.dense)
@@ -148,6 +153,7 @@ app.add_middleware(
 # ---------------------------------------------------------------------------
 # Routes
 # ---------------------------------------------------------------------------
+
 
 @app.get("/health")
 async def health():

@@ -31,8 +31,8 @@ from ingestion.chunker import (
 # Heading Pattern Tests
 # ===========================================================================
 
-class TestHeadingPatterns:
 
+class TestHeadingPatterns:
     def test_fda_heading_matches_all_caps(self):
         assert _FDA_HEADING.match("WARNINGS AND PRECAUTIONS")
         assert _FDA_HEADING.match("DESCRIPTION")
@@ -76,8 +76,8 @@ class TestHeadingPatterns:
 # Stage 12 — JNC Recommendation Block Extractor
 # ===========================================================================
 
-class TestExtractJNCRecommendationBlocks:
 
+class TestExtractJNCRecommendationBlocks:
     JNC_SAMPLE = (
         "Introduction text.\n\n"
         "Recommendation 1\n"
@@ -124,8 +124,8 @@ class TestExtractJNCRecommendationBlocks:
 # Stage 13 — ADA Evidence Grade Extractor
 # ===========================================================================
 
-class TestExtractADAEvidenceGrades:
 
+class TestExtractADAEvidenceGrades:
     def test_finds_trailing_grade_letters(self):
         text = "6.1 HbA1c target should be individualized. A\n6.2 Avoid hypoglycaemia. B\n"
         cleaned, annotations = extract_ada_evidence_grades(text)
@@ -150,25 +150,31 @@ class TestExtractADAEvidenceGrades:
 # Stage 17 — Safety Flag Scanner
 # ===========================================================================
 
-class TestIsSafetyChunk:
 
-    @pytest.mark.parametrize("text", [
-        "BOXED WARNING: Lactic acidosis is a rare but serious complication.",
-        "CONTRAINDICATIONS: Do not use in patients with severe renal impairment.",
-        "WARNINGS: Avoid in patients with liver disease.",
-        "Adverse reactions include nausea, vomiting, and diarrhea.",
-        "Do not administer to patients with acute heart failure.",
-        "Metformin should not be used in eGFR < 30.",
-        "Side effects include lactic acidosis.",
-    ])
+class TestIsSafetyChunk:
+    @pytest.mark.parametrize(
+        "text",
+        [
+            "BOXED WARNING: Lactic acidosis is a rare but serious complication.",
+            "CONTRAINDICATIONS: Do not use in patients with severe renal impairment.",
+            "WARNINGS: Avoid in patients with liver disease.",
+            "Adverse reactions include nausea, vomiting, and diarrhea.",
+            "Do not administer to patients with acute heart failure.",
+            "Metformin should not be used in eGFR < 30.",
+            "Side effects include lactic acidosis.",
+        ],
+    )
     def test_detects_safety_content(self, text):
         assert is_safety_chunk(text) is True
 
-    @pytest.mark.parametrize("text", [
-        "Metformin reduces HbA1c by approximately 1.5% in T2DM.",
-        "The recommended starting dose is 500 mg twice daily.",
-        "Blood pressure targets should be individualized.",
-    ])
+    @pytest.mark.parametrize(
+        "text",
+        [
+            "Metformin reduces HbA1c by approximately 1.5% in T2DM.",
+            "The recommended starting dose is 500 mg twice daily.",
+            "Blood pressure targets should be individualized.",
+        ],
+    )
     def test_no_false_positives_on_safe_content(self, text):
         assert is_safety_chunk(text) is False
 
@@ -177,8 +183,8 @@ class TestIsSafetyChunk:
 # Stage 18 — Whitespace Normalizer
 # ===========================================================================
 
-class TestNormalizeWhitespace:
 
+class TestNormalizeWhitespace:
     def test_collapses_multiple_spaces(self):
         assert normalize_whitespace("Too   many   spaces") == "Too many spaces"
 
@@ -198,8 +204,8 @@ class TestNormalizeWhitespace:
 # Chunker — FDA doc type
 # ===========================================================================
 
-class TestChunkerFDA:
 
+class TestChunkerFDA:
     def make_chunker(self, max_tokens=512, overlap=64):
         return Chunker(
             doc_id="metformin_fda_label",
@@ -258,9 +264,14 @@ class TestChunkerFDA:
         chunker = self.make_chunker()
         chunks = chunker.chunk(self.FDA_TEXT)
         required_keys = {
-            "document_id", "document_name", "page_number",
-            "section_name", "is_table", "safety_flag",
-            "chunk_index", "char_count",
+            "document_id",
+            "document_name",
+            "page_number",
+            "section_name",
+            "is_table",
+            "safety_flag",
+            "chunk_index",
+            "char_count",
         }
         for c in chunks:
             assert required_keys.issubset(c.metadata.keys())
@@ -286,8 +297,8 @@ class TestChunkerFDA:
 # Chunker — JNC doc type
 # ===========================================================================
 
-class TestChunkerJNC:
 
+class TestChunkerJNC:
     JNC_TEXT = (
         "Treatment Goals\n"
         "Introduce lifestyle modification before pharmacologic therapy.\n\n"
@@ -309,10 +320,7 @@ class TestChunkerJNC:
     def test_recommendation_block_becomes_hard_chunk(self):
         chunker = self.make_chunker()
         chunks = chunker.chunk(self.JNC_TEXT)
-        rec_chunks = [
-            c for c in chunks
-            if c.metadata.get("recommendation_number") is not None
-        ]
+        rec_chunks = [c for c in chunks if c.metadata.get("recommendation_number") is not None]
         assert len(rec_chunks) >= 1
 
     def test_recommendation_metadata_populated(self):
@@ -338,8 +346,8 @@ class TestChunkerJNC:
 # Chunker — ADA doc type
 # ===========================================================================
 
-class TestChunkerADA:
 
+class TestChunkerADA:
     ADA_TEXT = (
         "6.1 HbA1c targets should be individualized based on patient factors. A\n"
         "Factors include age, duration of diabetes, and comorbidities.\n\n"
@@ -375,8 +383,9 @@ class TestChunkerADA:
         for c in chunks:
             # Text should not end with a lone grade letter
             stripped = c.text.rstrip()
-            assert not (len(stripped) > 1 and stripped[-1] in "ABCDE" and stripped[-2] == " "), \
+            assert not (len(stripped) > 1 and stripped[-1] in "ABCDE" and stripped[-2] == " "), (
                 f"Trailing grade letter in chunk: {stripped[-20:]!r}"
+            )
 
     def test_chunk_section_numbers(self):
         chunker = self.make_chunker()
@@ -391,8 +400,8 @@ class TestChunkerADA:
 # Chunker — Edge Cases
 # ===========================================================================
 
-class TestChunkerEdgeCases:
 
+class TestChunkerEdgeCases:
     def make_chunker(self, doc_type="fda"):
         return Chunker(
             doc_id="test_doc",

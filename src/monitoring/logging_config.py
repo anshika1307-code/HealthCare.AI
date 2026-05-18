@@ -10,6 +10,7 @@ Usage:
     from monitoring.logging_config import configure_json_logging
     configure_json_logging()   # call once at app startup
 """
+
 from __future__ import annotations
 
 import json
@@ -18,12 +19,32 @@ import time
 from typing import Any
 
 # Standard LogRecord attributes that should not be emitted as extra JSON fields
-_STDLIB_ATTRS: frozenset[str] = frozenset({
-    "name", "msg", "args", "created", "filename", "funcName", "levelname",
-    "levelno", "lineno", "module", "msecs", "message", "pathname", "process",
-    "processName", "relativeCreated", "stack_info", "thread", "threadName",
-    "exc_info", "exc_text", "taskName",
-})
+_STDLIB_ATTRS: frozenset[str] = frozenset(
+    {
+        "name",
+        "msg",
+        "args",
+        "created",
+        "filename",
+        "funcName",
+        "levelname",
+        "levelno",
+        "lineno",
+        "module",
+        "msecs",
+        "message",
+        "pathname",
+        "process",
+        "processName",
+        "relativeCreated",
+        "stack_info",
+        "thread",
+        "threadName",
+        "exc_info",
+        "exc_text",
+        "taskName",
+    }
+)
 
 
 class JsonFormatter(logging.Formatter):

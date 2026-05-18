@@ -5,6 +5,7 @@ Pydantic request/response models for the FastAPI /query endpoint.
 
 Keeps all wire-format concerns out of the orchestration layer.
 """
+
 from __future__ import annotations
 
 from typing import Any

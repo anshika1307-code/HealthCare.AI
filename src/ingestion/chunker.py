@@ -25,6 +25,7 @@ logger = logging.getLogger(__name__)
 # ---------------------------------------------------------------------------
 try:
     import tiktoken
+
     _ENC = tiktoken.get_encoding("cl100k_base")
 
     def _count_tokens(text: str) -> int:
@@ -54,7 +55,9 @@ try:
         return chunks
 
 except ImportError:
-    logger.warning("tiktoken not installed — falling back to whitespace word count for token estimation")
+    logger.warning(
+        "tiktoken not installed — falling back to whitespace word count for token estimation"
+    )
 
     def _count_tokens(text: str) -> int:  # type: ignore[misc]
         return len(text.split())
@@ -81,6 +84,7 @@ except ImportError:
 # ===========================================================================
 # Chunk dataclass
 # ===========================================================================
+
 
 @dataclass
 class Chunk:
@@ -137,7 +141,7 @@ def extract_jnc_recommendation_blocks(text: str) -> list[dict]:
         start_pos = m_start.start()
 
         # Look for the grade line within the next 2000 chars
-        search_window = text[m_start.end(): m_start.end() + 2000]
+        search_window = text[m_start.end() : m_start.end() + 2000]
         m_grade = _JNC_GRADE_LINE.search(search_window)
 
         if m_grade:
@@ -155,14 +159,16 @@ def extract_jnc_recommendation_blocks(text: str) -> list[dict]:
             strength = None
             grade = None
 
-        blocks.append({
-            "start": start_pos,
-            "end": end_pos,
-            "rec_number": rec_num,
-            "recommendation_strength": strength,
-            "evidence_grade": grade,
-            "body_text": body_text,
-        })
+        blocks.append(
+            {
+                "start": start_pos,
+                "end": end_pos,
+                "rec_number": rec_num,
+                "recommendation_strength": strength,
+                "evidence_grade": grade,
+                "body_text": body_text,
+            }
+        )
 
     return blocks
 
@@ -218,6 +224,7 @@ def is_safety_chunk(text: str) -> bool:
 # Whitespace normaliser (Stage 18)
 # ===========================================================================
 
+
 def normalize_whitespace(text: str) -> str:
     text = re.sub(r" {2,}", " ", text)
     text = re.sub(r"\n{3,}", "\n\n", text)
@@ -227,6 +234,7 @@ def normalize_whitespace(text: str) -> str:
 # ===========================================================================
 # Main Chunker
 # ===========================================================================
+
 
 class Chunker:
     """
@@ -279,13 +287,15 @@ class Chunker:
                 if not body:
                     continue
                 meta = self._base_meta(page_number)
-                meta.update({
-                    "recommendation_number": block["rec_number"],
-                    "recommendation_strength": block["recommendation_strength"],
-                    "evidence_grade": block["evidence_grade"],
-                    "safety_flag": is_safety_chunk(body),
-                    "section_name": f"Recommendation {block['rec_number']}",
-                })
+                meta.update(
+                    {
+                        "recommendation_number": block["rec_number"],
+                        "recommendation_strength": block["recommendation_strength"],
+                        "evidence_grade": block["evidence_grade"],
+                        "safety_flag": is_safety_chunk(body),
+                        "section_name": f"Recommendation {block['rec_number']}",
+                    }
+                )
                 chunks.append(Chunk(text=body, metadata=meta))
                 covered_ranges.append((block["start"], block["end"]))
 
@@ -338,7 +348,9 @@ class Chunker:
             "char_count": 0,
         }
 
-    def _make_chunk(self, text: str, page_number: int, section_name: str | None = None, **extra) -> Chunk:
+    def _make_chunk(
+        self, text: str, page_number: int, section_name: str | None = None, **extra
+    ) -> Chunk:
         text = normalize_whitespace(text)
         if not text:
             return None  # type: ignore[return-value]
@@ -348,7 +360,9 @@ class Chunker:
         meta.update(extra)
         return Chunk(text=text, metadata=meta)
 
-    def _token_budget_split(self, text: str, page_number: int, section_name: str | None) -> list[Chunk]:
+    def _token_budget_split(
+        self, text: str, page_number: int, section_name: str | None
+    ) -> list[Chunk]:
         """Split a text block into ≤max_tokens chunks at sentence boundaries."""
         sub_texts = _token_split(text, self.max_tokens)
         result: list[Chunk] = []
@@ -358,7 +372,9 @@ class Chunker:
                 result.append(c)
         return result
 
-    def _split_generic(self, text: str, page_number: int, skipped_content: list[str]) -> list[Chunk]:
+    def _split_generic(
+        self, text: str, page_number: int, skipped_content: list[str]
+    ) -> list[Chunk]:
         """
         Split text using soft heading boundaries (FDA ALL-CAPS / JNC Title-Case),
         with token-budget fallback for long sections.

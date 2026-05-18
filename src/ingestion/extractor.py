@@ -26,9 +26,10 @@ logger = logging.getLogger(__name__)
 # Data containers
 # ---------------------------------------------------------------------------
 
+
 @dataclass
 class PageText:
-    page_number: int          # 1-indexed
+    page_number: int  # 1-indexed
     text: str
     skipped: bool = False
     skip_reason: str = ""
@@ -36,8 +37,8 @@ class PageText:
 
 @dataclass
 class ExtractedTable:
-    page_number: int          # 1-indexed
-    table_index: int          # order found on page
+    page_number: int  # 1-indexed
+    table_index: int  # order found on page
     rows: list[list[str | None]]
 
 
@@ -51,6 +52,7 @@ class ExtractionResult:
 # ---------------------------------------------------------------------------
 # Column sorting helpers
 # ---------------------------------------------------------------------------
+
 
 def _bucket(x0: float, page_width: float, n_cols: int) -> int:
     """Map an x-coordinate to a column bucket (0-indexed)."""
@@ -79,9 +81,7 @@ def _sort_blocks_column_aware(
         y0 = block["bbox"][1]
         col = _bucket(x0, page_width, n_cols)
         block_text = "".join(
-            span["text"]
-            for line in block.get("lines", [])
-            for span in line.get("spans", [])
+            span["text"] for line in block.get("lines", []) for span in line.get("spans", [])
         )
         columns[col].append((y0, block_text))
 
@@ -100,6 +100,7 @@ def _sort_blocks_column_aware(
 # Footer/header bbox filter (JNC — strip bottom 8% of page)
 # ---------------------------------------------------------------------------
 
+
 def _filter_footer_blocks(
     blocks: list[dict[str, Any]],
     page_height: float,
@@ -112,6 +113,7 @@ def _filter_footer_blocks(
 # ---------------------------------------------------------------------------
 # Main extractor
 # ---------------------------------------------------------------------------
+
 
 class PDFExtractor:
     """
@@ -158,7 +160,9 @@ class PDFExtractor:
 
         logger.info(
             "Extracted %d pages, %d tables from '%s'",
-            len(result.page_texts), len(result.tables), pdf_path.name,
+            len(result.page_texts),
+            len(result.tables),
+            pdf_path.name,
         )
         return result
 
@@ -176,7 +180,14 @@ class PDFExtractor:
                 # Skip first page if configured (ADA + JNC)
                 if self.skip_first_page and page_idx == 0:
                     logger.debug("Skipping page 1 of '%s' (configured skip)", self.doc_id)
-                    page_texts.append(PageText(page_number=page_num, text="", skipped=True, skip_reason="first_page_skip"))
+                    page_texts.append(
+                        PageText(
+                            page_number=page_num,
+                            text="",
+                            skipped=True,
+                            skip_reason="first_page_skip",
+                        )
+                    )
                     continue
 
                 if self.n_cols > 1:
@@ -198,12 +209,18 @@ class PDFExtractor:
                     if len(text.strip()) < 50:
                         logger.info(
                             "Page %d of '%s' is near-empty (%d chars) — likely figure/flowchart, skipping",
-                            page_num, self.doc_id, len(text.strip()),
+                            page_num,
+                            self.doc_id,
+                            len(text.strip()),
                         )
-                        page_texts.append(PageText(
-                            page_number=page_num, text="", skipped=True,
-                            skip_reason="near_empty_likely_figure",
-                        ))
+                        page_texts.append(
+                            PageText(
+                                page_number=page_num,
+                                text="",
+                                skipped=True,
+                                skip_reason="near_empty_likely_figure",
+                            )
+                        )
                         continue
 
                 page_texts.append(PageText(page_number=page_num, text=text))
@@ -237,10 +254,12 @@ class PDFExtractor:
                         # Header-only table — skip
                         continue
 
-                    extracted.append(ExtractedTable(
-                        page_number=page_idx + 1,
-                        table_index=tbl_idx,
-                        rows=clean_rows,
-                    ))
+                    extracted.append(
+                        ExtractedTable(
+                            page_number=page_idx + 1,
+                            table_index=tbl_idx,
+                            rows=clean_rows,
+                        )
+                    )
 
         return extracted

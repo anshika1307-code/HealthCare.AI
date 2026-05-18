@@ -55,8 +55,5 @@ DOC_REGISTRY: dict[str, dict] = {
 
 def get_doc_config(doc_id: str) -> dict:
     if doc_id not in DOC_REGISTRY:
-        raise ValueError(
-            f"Unknown doc_id '{doc_id}'. "
-            f"Valid ids: {list(DOC_REGISTRY.keys())}"
-        )
+        raise ValueError(f"Unknown doc_id '{doc_id}'. Valid ids: {list(DOC_REGISTRY.keys())}")
     return DOC_REGISTRY[doc_id]

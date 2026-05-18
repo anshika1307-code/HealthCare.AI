@@ -12,6 +12,7 @@ Usage:
     python src/evaluation/check_confidence.py
     python src/evaluation/check_confidence.py --threshold 0.40
 """
+
 from __future__ import annotations
 
 import argparse
@@ -23,13 +24,14 @@ from pathlib import Path
 
 # ── path setup ────────────────────────────────────────────────────────────────
 _ROOT = Path(__file__).resolve().parents[2]
-_SRC  = _ROOT / "src"
+_SRC = _ROOT / "src"
 for _p in (_SRC, _ROOT):
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 
 try:
     from dotenv import load_dotenv
+
     load_dotenv(_ROOT / ".env")
 except ImportError:
     pass
@@ -38,8 +40,15 @@ import logging
 
 logging.basicConfig(level=logging.WARNING, format="%(levelname)s  %(message)s")
 # Silence all noisy loggers — we only want our own table output
-for _noisy in ("httpx", "httpcore", "openai", "sentence_transformers",
-               "retrieval", "orchestration", "embedding"):
+for _noisy in (
+    "httpx",
+    "httpcore",
+    "openai",
+    "sentence_transformers",
+    "retrieval",
+    "orchestration",
+    "embedding",
+):
     logging.getLogger(_noisy).setLevel(logging.ERROR)
 
 import openai
@@ -117,20 +126,20 @@ PROBE_QUESTIONS = [
 
 
 async def _build_pipeline():
-    qdrant_url     = os.getenv("QDRANT_URL", "http://localhost:6333")
+    qdrant_url = os.getenv("QDRANT_URL", "http://localhost:6333")
     qdrant_api_key = os.getenv("QDRANT_API_KEY")
-    bm25_path      = Path(os.getenv("BM25_CORPUS_PATH", "data/cache/bm25_corpus.pkl"))
+    bm25_path = Path(os.getenv("BM25_CORPUS_PATH", "data/cache/bm25_corpus.pkl"))
 
-    qdrant     = AsyncQdrantClient(url=qdrant_url, api_key=qdrant_api_key, check_compatibility=False)
-    dense      = DenseRetriever(qdrant, config=RETRIEVAL_CONFIG.dense)
-    bm25       = BM25Retriever.from_cache(bm25_path, config=RETRIEVAL_CONFIG.bm25)
-    reranker   = CrossEncoderReranker(config=RETRIEVAL_CONFIG.reranker)
-    rrf        = RRFRanker(config=RETRIEVAL_CONFIG.rrf)
+    qdrant = AsyncQdrantClient(url=qdrant_url, api_key=qdrant_api_key, check_compatibility=False)
+    dense = DenseRetriever(qdrant, config=RETRIEVAL_CONFIG.dense)
+    bm25 = BM25Retriever.from_cache(bm25_path, config=RETRIEVAL_CONFIG.bm25)
+    reranker = CrossEncoderReranker(config=RETRIEVAL_CONFIG.reranker)
+    rrf = RRFRanker(config=RETRIEVAL_CONFIG.rrf)
     confidence = ConfidenceScorer(config=RETRIEVAL_CONFIG.confidence)
-    pipeline   = RetrievalPipeline(dense, bm25, reranker, rrf, confidence)
-    embedder   = OpenAIEmbedder(EMBEDDING_CONFIG)
+    pipeline = RetrievalPipeline(dense, bm25, reranker, rrf, confidence)
+    embedder = OpenAIEmbedder(EMBEDDING_CONFIG)
     llm_client = openai.AsyncOpenAI()
-    graph      = build_graph(embedder, pipeline, llm_client, LLM_CONFIG)
+    graph = build_graph(embedder, pipeline, llm_client, LLM_CONFIG)
     return graph, qdrant
 
 
@@ -142,22 +151,26 @@ async def _probe(threshold: float) -> list[dict]:
     try:
         for item in PROBE_QUESTIONS:
             t0 = time.perf_counter()
-            state = await graph.ainvoke({
-                "query":    item["question"],
-                "query_id": item["id"],
-            })
+            state = await graph.ainvoke(
+                {
+                    "query": item["question"],
+                    "query_id": item["id"],
+                }
+            )
             elapsed_ms = (time.perf_counter() - t0) * 1000
 
-            rr   = state.get("retrieval_result")
+            rr = state.get("retrieval_result")
             conf = rr.confidence_score if rr else 0.0
-            low  = rr.low_confidence   if rr else True
+            low = rr.low_confidence if rr else True
 
-            results.append({
-                **item,
-                "new_conf":   conf,
-                "low_conf":   low,
-                "elapsed_ms": round(elapsed_ms),
-            })
+            results.append(
+                {
+                    **item,
+                    "new_conf": conf,
+                    "low_conf": low,
+                    "elapsed_ms": round(elapsed_ms),
+                }
+            )
     finally:
         await qdrant.close()
 
@@ -167,9 +180,9 @@ async def _probe(threshold: float) -> list[dict]:
 def _print_table(results: list[dict], threshold: float) -> None:
     PASS = "\033[92m✓\033[0m"  # green
     FAIL = "\033[91m✗\033[0m"  # red
-    UP   = "\033[92m▲\033[0m"
+    UP = "\033[92m▲\033[0m"
     DOWN = "\033[91m▼\033[0m"
-    EQ   = "\033[93m─\033[0m"
+    EQ = "\033[93m─\033[0m"
 
     print("\n" + "─" * 78)
     print(f"  CONFIDENCE PROBE  (threshold = {threshold:.2f})")
@@ -179,9 +192,9 @@ def _print_table(results: list[dict], threshold: float) -> None:
 
     passed = 0
     for r in results:
-        delta  = r["new_conf"] - r["prev_conf"]
+        delta = r["new_conf"] - r["prev_conf"]
         status = PASS if not r["low_conf"] else FAIL
-        trend  = UP if delta > 0.01 else (DOWN if delta < -0.01 else EQ)
+        trend = UP if delta > 0.01 else (DOWN if delta < -0.01 else EQ)
         if not r["low_conf"]:
             passed += 1
         print(
@@ -200,7 +213,8 @@ def main() -> None:
         description="Confidence probe for the 9 previously low-confidence questions."
     )
     parser.add_argument(
-        "--threshold", type=float,
+        "--threshold",
+        type=float,
         default=RETRIEVAL_CONFIG.confidence.low_confidence_threshold,
         help=f"Confidence threshold (default: {RETRIEVAL_CONFIG.confidence.low_confidence_threshold})",
     )

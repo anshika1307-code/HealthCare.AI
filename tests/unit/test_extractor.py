@@ -36,8 +36,8 @@ from ingestion.extractor import (
 # _bucket — column bucket mapping
 # ===========================================================================
 
-class TestBucket:
 
+class TestBucket:
     def test_single_column_always_zero(self):
         assert _bucket(0.0, 600.0, 1) == 0
         assert _bucket(599.0, 600.0, 1) == 0
@@ -51,7 +51,7 @@ class TestBucket:
         assert _bucket(599.0, 600.0, 2) == 1
 
     def test_three_column_buckets(self):
-        assert _bucket(0.0, 600.0, 3) == 0    # left
+        assert _bucket(0.0, 600.0, 3) == 0  # left
         assert _bucket(200.0, 600.0, 3) == 1  # centre
         assert _bucket(400.0, 600.0, 3) == 2  # right
 
@@ -64,8 +64,8 @@ class TestBucket:
 # _sort_blocks_column_aware
 # ===========================================================================
 
-class TestSortBlocksColumnAware:
 
+class TestSortBlocksColumnAware:
     def _make_block(self, x0, y0, text, block_type=0):
         return {
             "type": block_type,
@@ -106,14 +106,14 @@ class TestSortBlocksColumnAware:
 # _filter_footer_blocks
 # ===========================================================================
 
-class TestFilterFooterBlocks:
 
+class TestFilterFooterBlocks:
     def test_removes_bottom_8_percent(self):
         """Blocks with y0 > 0.92 * page_height should be removed."""
         page_height = 800.0
         blocks = [
-            {"bbox": [0, 100, 100, 120]},   # top of page — keep
-            {"bbox": [0, 740, 100, 760]},   # y0=740, 740/800=0.925 > 0.92 — remove
+            {"bbox": [0, 100, 100, 120]},  # top of page — keep
+            {"bbox": [0, 740, 100, 760]},  # y0=740, 740/800=0.925 > 0.92 — remove
         ]
         result = _filter_footer_blocks(blocks, page_height)
         assert len(result) == 1
@@ -140,8 +140,8 @@ class TestFilterFooterBlocks:
 # Dataclass Shape Tests
 # ===========================================================================
 
-class TestDataclasses:
 
+class TestDataclasses:
     def test_page_text_defaults(self):
         pt = PageText(page_number=1, text="content")
         assert pt.skipped is False
@@ -163,8 +163,8 @@ class TestDataclasses:
 # PDFExtractor — config propagation
 # ===========================================================================
 
-class TestPDFExtractorInit:
 
+class TestPDFExtractorInit:
     def test_stores_config(self):
         extractor = PDFExtractor(
             doc_id="metformin_fda_label",
@@ -187,6 +187,7 @@ class TestPDFExtractorInit:
 # ===========================================================================
 # PDFExtractor.extract — mocked PDF tests
 # ===========================================================================
+
 
 class TestPDFExtractorExtract:
     """
@@ -258,7 +259,9 @@ class TestPDFExtractorExtract:
         mock_plumber_pdf.__enter__.return_value = MagicMock(pages=[MagicMock()])
         mock_plumber_pdf.__exit__.return_value = False
         mock_plumber.open.return_value = mock_plumber_pdf
-        mock_plumber.open.return_value.__enter__.return_value.pages[0].extract_tables.return_value = []
+        mock_plumber.open.return_value.__enter__.return_value.pages[
+            0
+        ].extract_tables.return_value = []
 
         extractor = PDFExtractor(doc_id="test_doc", n_cols=1)
         result = extractor.extract(pdf_path)

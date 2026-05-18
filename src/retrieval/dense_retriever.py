@@ -10,6 +10,7 @@ Design notes:
 - Returns raw ScoredPoint objects so the RRF ranker can extract (id, score, payload)
   without re-fetching from Qdrant.
 """
+
 from __future__ import annotations
 
 import logging
@@ -27,13 +28,15 @@ logger = logging.getLogger(__name__)
 # Result type
 # ---------------------------------------------------------------------------
 
+
 @dataclass
 class DenseResult:
     """A single hit returned by the dense retriever."""
-    chunk_id: str                    # Qdrant point ID (str uuid)
-    score: float                     # cosine similarity in [−1, 1] (normalised → [0,1])
-    payload: dict[str, Any]          # full chunk metadata stored in Qdrant
-    text: str = ""                   # chunk text — populated from payload["text"]
+
+    chunk_id: str  # Qdrant point ID (str uuid)
+    score: float  # cosine similarity in [−1, 1] (normalised → [0,1])
+    payload: dict[str, Any]  # full chunk metadata stored in Qdrant
+    text: str = ""  # chunk text — populated from payload["text"]
 
     def __post_init__(self) -> None:
         if not self.text and "text" in self.payload:
@@ -43,6 +46,7 @@ class DenseResult:
 # ---------------------------------------------------------------------------
 # Retriever
 # ---------------------------------------------------------------------------
+
 
 class DenseRetriever:
     """
@@ -121,9 +125,7 @@ class DenseRetriever:
 
         for key, value in filters.items():
             if key not in allowed:
-                logger.warning(
-                    "Dense filter key %r not in allowed filter_fields — skipping.", key
-                )
+                logger.warning("Dense filter key %r not in allowed filter_fields — skipping.", key)
                 continue
 
             if isinstance(value, bool):

@@ -25,6 +25,7 @@ Graceful degradation
 If Redis is unreachable, every method logs a warning and returns silently.
 The main request pipeline is never interrupted by observability failures.
 """
+
 from __future__ import annotations
 
 import logging
@@ -32,6 +33,7 @@ import time
 
 try:
     import redis.asyncio as aioredis
+
     _REDIS_AVAILABLE = True
 except ImportError:  # pragma: no cover
     _REDIS_AVAILABLE = False
@@ -84,11 +86,11 @@ class RAGMetrics:
         ts = time.time()
         try:
             pipe = self._client.pipeline(transaction=False)
-            _zadd(pipe, "metrics:latency",       ts, f"{query_id}|{total_ms:.1f}")
-            _zadd(pipe, "metrics:embed_time",    ts, f"{query_id}|{embed_ms:.1f}")
+            _zadd(pipe, "metrics:latency", ts, f"{query_id}|{total_ms:.1f}")
+            _zadd(pipe, "metrics:embed_time", ts, f"{query_id}|{embed_ms:.1f}")
             _zadd(pipe, "metrics:retrieve_time", ts, f"{query_id}|{retrieve_ms:.1f}")
             _zadd(pipe, "metrics:generate_time", ts, f"{query_id}|{generate_ms:.1f}")
-            _zadd(pipe, "metrics:confidence",    ts, f"{query_id}|{confidence_score:.4f}")
+            _zadd(pipe, "metrics:confidence", ts, f"{query_id}|{confidence_score:.4f}")
             pipe.incr("metrics:query_count")
             if low_confidence:
                 pipe.incr("metrics:low_conf_count")

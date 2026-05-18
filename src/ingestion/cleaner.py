@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 # ---------------------------------------------------------------------------
 # Type alias
 # ---------------------------------------------------------------------------
-AbbrevMap = dict[str, str]   # {"CGM": "continuous glucose monitoring", ...}
+AbbrevMap = dict[str, str]  # {"CGM": "continuous glucose monitoring", ...}
 
 
 # ===========================================================================
@@ -103,7 +103,9 @@ _ADA_DOWNLOAD = re.compile(
     r"Downloaded from http://diabetesjournals\.org/\S+\s*by guest on \d{2} \w+ \d{4}",
     re.IGNORECASE,
 )
-_ADA_COPYRIGHT = re.compile(r"©\s*20\d{2}\s+by the American Diabetes Association[^\n]*", re.IGNORECASE)
+_ADA_COPYRIGHT = re.compile(
+    r"©\s*20\d{2}\s+by the American Diabetes Association[^\n]*", re.IGNORECASE
+)
 
 # --- JNC ---
 _JNC_HEADER = re.compile(
@@ -175,7 +177,9 @@ def remove_reference_section(text: str, doc_type: str) -> str:
     for pattern in _SENTINEL_PATTERNS.get(doc_type, []):
         m = pattern.search(text)
         if m:
-            logger.debug("Reference sentinel '%s' found at char %d", pattern.pattern[:40], m.start())
+            logger.debug(
+                "Reference sentinel '%s' found at char %d", pattern.pattern[:40], m.start()
+            )
             text = text[: m.start()].rstrip()
             break  # first sentinel wins
     return text
@@ -207,9 +211,9 @@ _URL = re.compile(r"https?://\S+", re.IGNORECASE)
 _DOI = re.compile(r"\bdoi:\s*\S+", re.IGNORECASE)
 
 # Inline citations
-_CITATION_PARENS = re.compile(r"\(\d{1,3}\)")           # (70)
-_CITATION_RANGE = re.compile(r"\(\d+[–\-]\d+\)")        # (2–4), (24–29)
-_CITATION_BRACKETS = re.compile(r"\[\d{1,3}\]")         # [12]
+_CITATION_PARENS = re.compile(r"\(\d{1,3}\)")  # (70)
+_CITATION_RANGE = re.compile(r"\(\d+[–\-]\d+\)")  # (2–4), (24–29)
+_CITATION_BRACKETS = re.compile(r"\[\d{1,3}\]")  # [12]
 _SEE_CROSS_REF = re.compile(r"\(see\s+[^)]+\)", re.IGNORECASE)  # (see Precautions)
 _IN_TABLE_REF = re.compile(r"\(in\s+(?:Table|Figure)\s+[\d\.]+\)", re.IGNORECASE)
 
@@ -360,6 +364,7 @@ def rejoin_broken_lines(text: str) -> str:
 # ===========================================================================
 # Master clean function
 # ===========================================================================
+
 
 def clean(text: str, doc_type: str) -> tuple[str, AbbrevMap]:
     """

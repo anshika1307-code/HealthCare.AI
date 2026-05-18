@@ -14,6 +14,7 @@ Stage order:
 This module is imported by the LangGraph retrieve_node in orchestration/graph.py.
 It is NOT responsible for embedding the query — the caller passes the vector.
 """
+
 from __future__ import annotations
 
 import logging
@@ -90,7 +91,8 @@ class RetrievalPipeline:
 
         logger.debug(
             "Dense: %d hits | BM25: %d hits",
-            len(dense_results), len(bm25_results),
+            len(dense_results),
+            len(bm25_results),
         )
 
         # ----------------------------------------------------------
@@ -128,6 +130,8 @@ class RetrievalPipeline:
 
         logger.info(
             "Pipeline complete: %d chunks, confidence=%.4f, low_conf=%s",
-            len(result.chunks), result.confidence_score, result.low_confidence,
+            len(result.chunks),
+            result.confidence_score,
+            result.low_confidence,
         )
         return result

@@ -24,6 +24,7 @@ from retrieval.bm25_retriever import BM25Corpus, BM25Result, BM25Retriever
 # Shared fixtures
 # ---------------------------------------------------------------------------
 
+
 @pytest.fixture
 def corpus() -> BM25Corpus:
     """Minimal BM25Corpus covering three doc types for filter tests."""
@@ -41,8 +42,8 @@ def corpus() -> BM25Corpus:
         ],
         chunk_payloads=[
             {"document_id": "metformin_fda_label", "doc_type": "fda"},
-            {"document_id": "ada_s6",              "doc_type": "ada"},
-            {"document_id": "jnc8",                "doc_type": "jnc"},
+            {"document_id": "ada_s6", "doc_type": "ada"},
+            {"document_id": "jnc8", "doc_type": "jnc"},
         ],
     )
 
@@ -61,8 +62,8 @@ def retriever(corpus, cfg) -> BM25Retriever:
 # BM25Result
 # ===========================================================================
 
-class TestBM25Result:
 
+class TestBM25Result:
     def test_payload_defaults_to_empty_dict_when_none(self):
         result = BM25Result(chunk_id="id", score=1.0)
         assert result.payload == {}
@@ -80,8 +81,8 @@ class TestBM25Result:
 # BM25Retriever.from_cache
 # ===========================================================================
 
-class TestFromCache:
 
+class TestFromCache:
     def test_raises_file_not_found_when_cache_missing(self, tmp_path):
         with pytest.raises(FileNotFoundError, match="BM25 corpus cache not found"):
             BM25Retriever.from_cache(tmp_path / "nonexistent.pkl")
@@ -102,8 +103,8 @@ class TestFromCache:
 # BM25Retriever._tokenise
 # ===========================================================================
 
-class TestTokenise:
 
+class TestTokenise:
     def test_lowercases_input(self, retriever):
         tokens = retriever._tokenise("HbA1c METFORMIN Diabetes")
         assert tokens == ["hba1c", "metformin", "diabetes"]
@@ -126,8 +127,8 @@ class TestTokenise:
 # BM25Retriever.search — normal cases
 # ===========================================================================
 
-class TestSearch:
 
+class TestSearch:
     def test_returns_bm25result_objects(self, retriever):
         results = retriever.search("metformin renal")
         assert all(isinstance(r, BM25Result) for r in results)

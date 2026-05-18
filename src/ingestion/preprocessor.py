@@ -164,9 +164,7 @@ class PreprocessingPipeline:
 
         # Wrap TableChunks as Chunks for a unified interface
         table_chunks: list[Chunk] = [
-            Chunk(text=tc.text, metadata=tc.metadata)
-            for tc in raw_table_chunks
-            if tc.text
+            Chunk(text=tc.text, metadata=tc.metadata) for tc in raw_table_chunks if tc.text
         ]
 
         # ----------------------------------------------------------------
@@ -183,7 +181,9 @@ class PreprocessingPipeline:
 
         logger.info(
             "=== Done: %d text chunks + %d table chunks = %d total ===",
-            len(text_chunks), len(table_chunks), len(all_chunks),
+            len(text_chunks),
+            len(table_chunks),
+            len(all_chunks),
         )
         return all_chunks
 
@@ -212,5 +212,7 @@ if __name__ == "__main__":
     for i, chunk in enumerate(chunks[:5]):
         print(f"--- Chunk {i} ---")
         print(f"Text ({len(chunk.text)} chars): {chunk.text[:200]}...")
-        print(f"Metadata: {json.dumps({k: v for k, v in chunk.metadata.items() if k != 'abbrev_map_size'}, indent=2)}")
+        print(
+            f"Metadata: {json.dumps({k: v for k, v in chunk.metadata.items() if k != 'abbrev_map_size'}, indent=2)}"
+        )
         print()

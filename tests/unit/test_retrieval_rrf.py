@@ -22,6 +22,7 @@ from retrieval.rrf_ranker import FusedResult, RRFRanker
 # Helpers
 # ---------------------------------------------------------------------------
 
+
 def _cfg(k: int = 60, pool_size: int = 40, dw: float = 1.0, bw: float = 1.0) -> RRFConfig:
     return RRFConfig(k=k, dense_weight=dw, bm25_weight=bw, fusion_pool_size=pool_size)
 
@@ -38,8 +39,8 @@ def _bm25(chunk_id: str, score: float = 10.0, text: str = "text") -> BM25Result:
 # FusedResult
 # ===========================================================================
 
-class TestFusedResult:
 
+class TestFusedResult:
     def test_payload_defaults_to_empty_dict(self):
         fr = FusedResult(chunk_id="id", rrf_score=0.5)
         assert fr.payload == {}
@@ -55,6 +56,7 @@ class TestFusedResult:
 # ===========================================================================
 # RRFRanker.fuse — score formula
 # ===========================================================================
+
 
 class TestRRFScoreFormula:
     """Verify the RRF score matches the reference formula: w / (k + rank)."""
@@ -80,9 +82,7 @@ class TestRRFScoreFormula:
     def test_higher_rank_chunk_scores_higher(self):
         """Rank 1 should score higher than rank 2 (same retriever)."""
         ranker = RRFRanker(_cfg(k=60))
-        result = ranker.fuse(
-            [_dense("rank-1"), _dense("rank-2")], []
-        )
+        result = ranker.fuse([_dense("rank-1"), _dense("rank-2")], [])
         rank1 = next(r for r in result if r.chunk_id == "rank-1")
         rank2 = next(r for r in result if r.chunk_id == "rank-2")
         assert rank1.rrf_score > rank2.rrf_score
@@ -98,8 +98,8 @@ class TestRRFScoreFormula:
 # RRFRanker.fuse — ordering and pool
 # ===========================================================================
 
-class TestFuseOrdering:
 
+class TestFuseOrdering:
     def test_results_sorted_by_rrf_score_descending(self):
         ranker = RRFRanker(_cfg())
         dense = [_dense("d1"), _dense("d2"), _dense("d3")]
@@ -137,8 +137,8 @@ class TestFuseOrdering:
 # RRFRanker.fuse — empty inputs
 # ===========================================================================
 
-class TestFuseEmptyInputs:
 
+class TestFuseEmptyInputs:
     def test_both_empty_returns_empty_list(self):
         ranker = RRFRanker(_cfg())
         assert ranker.fuse([], []) == []
@@ -160,8 +160,8 @@ class TestFuseEmptyInputs:
 # RRFRanker.fuse — source attribution
 # ===========================================================================
 
-class TestSourceAttribution:
 
+class TestSourceAttribution:
     def test_dense_rank_populated_for_dense_hits(self):
         ranker = RRFRanker(_cfg())
         result = ranker.fuse([_dense("id")], [])

@@ -8,6 +8,7 @@ can understand WHY a number was chosen, not just what it is.
 Design principle: change a number here → whole pipeline adapts.
 Never hardcode retrieval parameters inside src/.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass, field
@@ -15,6 +16,7 @@ from dataclasses import dataclass, field
 # ---------------------------------------------------------------------------
 # Dense (Qdrant) config
 # ---------------------------------------------------------------------------
+
 
 @dataclass
 class DenseConfig:
@@ -38,11 +40,13 @@ class DenseConfig:
     # Pre-filtering via Qdrant payload filter shrinks the ANN search space
     # and raises precision without hurting recall on a 4-doc corpus.
 
-    filter_fields: list[str] = field(default_factory=lambda: [
-        "document_id",  # per-source grounding
-        "doc_type",     # route fda / ada / jnc queries to right subset
-        "safety_flag",  # boost safety-flagged chunks when query contains risk terms
-    ])
+    filter_fields: list[str] = field(
+        default_factory=lambda: [
+            "document_id",  # per-source grounding
+            "doc_type",  # route fda / ada / jnc queries to right subset
+            "safety_flag",  # boost safety-flagged chunks when query contains risk terms
+        ]
+    )
 
     score_threshold: float | None = None
     # None = no score gate at dense-search time; let RRF + reranker gate quality.
@@ -52,6 +56,7 @@ class DenseConfig:
 # ---------------------------------------------------------------------------
 # BM25 config
 # ---------------------------------------------------------------------------
+
 
 @dataclass
 class BM25Config:
@@ -86,6 +91,7 @@ class BM25Config:
 # Reciprocal Rank Fusion config
 # ---------------------------------------------------------------------------
 
+
 @dataclass
 class RRFConfig:
     k: int = 30
@@ -111,6 +117,7 @@ class RRFConfig:
 # ---------------------------------------------------------------------------
 # Cross-encoder reranker config
 # ---------------------------------------------------------------------------
+
 
 @dataclass
 class RerankerConfig:
@@ -142,6 +149,7 @@ class RerankerConfig:
 # Confidence scoring config
 # ---------------------------------------------------------------------------
 
+
 @dataclass
 class ConfidenceConfig:
     low_confidence_threshold: float = 0.40
@@ -170,6 +178,7 @@ class ConfidenceConfig:
 # ---------------------------------------------------------------------------
 # Root config object
 # ---------------------------------------------------------------------------
+
 
 @dataclass
 class RetrievalConfig:

@@ -15,6 +15,7 @@ End-to-end ainvoke — state flows START → embed → retrieve → generate →
                    — filters propagate through state
                    — custom LLMConfig is respected
 """
+
 import sys
 from pathlib import Path
 from unittest.mock import AsyncMock, MagicMock
@@ -36,6 +37,7 @@ from retrieval.reranker import RankedResult
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
 
 def _ranked() -> RankedResult:
     return RankedResult(
@@ -85,8 +87,8 @@ def _make_llm_client(answer: str = "Clinical answer."):
 # build_graph — structural checks
 # ===========================================================================
 
-class TestBuildGraph:
 
+class TestBuildGraph:
     def test_returns_compiled_graph(self):
         graph = build_graph(_make_embedder(), _make_pipeline(), _make_llm_client())
         # LangGraph compiled graphs expose ainvoke
@@ -106,8 +108,8 @@ class TestBuildGraph:
 # GraphState TypedDict
 # ===========================================================================
 
-class TestGraphState:
 
+class TestGraphState:
     def test_can_create_with_query_only(self):
         state: GraphState = {"query": "test"}
         assert state["query"] == "test"
@@ -132,8 +134,8 @@ class TestGraphState:
 # End-to-end ainvoke (mocked dependencies)
 # ===========================================================================
 
-class TestGraphInvoke:
 
+class TestGraphInvoke:
     @pytest.mark.asyncio
     async def test_returns_answer(self):
         graph = build_graph(
@@ -153,9 +155,7 @@ class TestGraphInvoke:
 
     @pytest.mark.asyncio
     async def test_result_contains_query_vector(self):
-        graph = build_graph(
-            _make_embedder([0.5, 0.6]), _make_pipeline(), _make_llm_client()
-        )
+        graph = build_graph(_make_embedder([0.5, 0.6]), _make_pipeline(), _make_llm_client())
         result = await graph.ainvoke({"query": "q"})
         assert result["query_vector"] == [0.5, 0.6]
 

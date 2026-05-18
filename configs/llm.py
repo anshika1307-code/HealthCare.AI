@@ -6,6 +6,7 @@ Keeping LLM config separate from retrieval config so the generator can be
 swapped independently (e.g. gpt-4o-mini → Groq Llama) without any changes
 to retrieval logic.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass

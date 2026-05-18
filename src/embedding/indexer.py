@@ -9,6 +9,7 @@ overwrites existing vectors cleanly instead of creating duplicates.
 Text is stored in payload["text"] so the reranker can fetch full chunk
 text via get_by_ids() without a second embed call.
 """
+
 from __future__ import annotations
 
 import logging
@@ -85,17 +86,17 @@ class QdrantIndexer:
                 success_count += len(points)
                 logger.debug(
                     "Upserted batch of %d points (total: %d)",
-                    len(points), success_count,
+                    len(points),
+                    success_count,
                 )
             except Exception as exc:
-                logger.error(
-                    "Upsert failed for batch starting at index %d: %s", i, exc
-                )
+                logger.error("Upsert failed for batch starting at index %d: %s", i, exc)
                 failed_ids.extend(c.chunk_id for c in batch_chunks)
 
         logger.info(
             "Upsert complete: %d succeeded, %d failed",
-            success_count, len(failed_ids),
+            success_count,
+            len(failed_ids),
         )
         return success_count, failed_ids
 
@@ -104,19 +105,19 @@ class QdrantIndexer:
         """Map IndexableChunk fields to the Qdrant point payload schema."""
         meta = chunk.metadata
         return {
-            "text":                    chunk.text,
-            "document_id":             meta.get("document_id", ""),
-            "document_name":           meta.get("document_name", ""),
-            "doc_type":                meta.get("doc_type", chunk.doc_type),
-            "page_number":             meta.get("page_number"),
-            "section_name":            meta.get("section_name"),
-            "section_number":          meta.get("section_number"),
-            "is_table":                bool(meta.get("is_table", False)),
-            "table_number":            meta.get("table_number"),
-            "evidence_grade":          meta.get("evidence_grade"),
+            "text": chunk.text,
+            "document_id": meta.get("document_id", ""),
+            "document_name": meta.get("document_name", ""),
+            "doc_type": meta.get("doc_type", chunk.doc_type),
+            "page_number": meta.get("page_number"),
+            "section_name": meta.get("section_name"),
+            "section_number": meta.get("section_number"),
+            "is_table": bool(meta.get("is_table", False)),
+            "table_number": meta.get("table_number"),
+            "evidence_grade": meta.get("evidence_grade"),
             "recommendation_strength": meta.get("recommendation_strength"),
-            "recommendation_number":   meta.get("recommendation_number"),
-            "safety_flag":             bool(meta.get("safety_flag", False)),
-            "chunk_index":             meta.get("chunk_index", 0),
-            "char_count":              meta.get("char_count", len(chunk.text)),
+            "recommendation_number": meta.get("recommendation_number"),
+            "safety_flag": bool(meta.get("safety_flag", False)),
+            "chunk_index": meta.get("chunk_index", 0),
+            "char_count": meta.get("char_count", len(chunk.text)),
         }

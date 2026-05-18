@@ -13,6 +13,7 @@ Design rationale (from decision.md):
   against the query, suggesting retrieval quality is low.
 - Threshold (0.40) is conservative and will be tuned post-RAGAS evaluation.
 """
+
 from __future__ import annotations
 
 import logging
@@ -30,17 +31,19 @@ logger = logging.getLogger(__name__)
 # Result type — final output of the retrieval pipeline
 # ---------------------------------------------------------------------------
 
+
 @dataclass
 class RetrievalResult:
     """
     The structured output returned by the retrieval pipeline to the LLM node.
     Contains the top-ranked chunks plus a confidence assessment.
     """
+
     query: str
-    chunks: list[RankedResult]           # top-n chunks for LLM context, ranked
-    confidence_score: float              # top-1 reranker score [0, 1]
-    low_confidence: bool                 # True if score < threshold
-    warning_message: str = ""           # populated when low_confidence=True
+    chunks: list[RankedResult]  # top-n chunks for LLM context, ranked
+    confidence_score: float  # top-1 reranker score [0, 1]
+    low_confidence: bool  # True if score < threshold
+    warning_message: str = ""  # populated when low_confidence=True
     filters_applied: dict[str, Any] = field(default_factory=dict)
 
     @property
@@ -66,6 +69,7 @@ class RetrievalResult:
 # ---------------------------------------------------------------------------
 # Confidence Scorer
 # ---------------------------------------------------------------------------
+
 
 class ConfidenceScorer:
     """
@@ -119,7 +123,9 @@ class ConfidenceScorer:
             warning = self._cfg.warning_message
             logger.info(
                 "Low confidence retrieval (score=%.4f < threshold=%.2f) for query: %r",
-                top_score, self._cfg.low_confidence_threshold, query[:80],
+                top_score,
+                self._cfg.low_confidence_threshold,
+                query[:80],
             )
 
         if ranked_chunks[0].safety_flag:

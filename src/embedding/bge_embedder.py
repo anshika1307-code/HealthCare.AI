@@ -17,6 +17,7 @@ IMPORTANT: Changing from OpenAI (1536-dim) to BGE (768-dim) requires:
   2. Re-run scripts/create_qdrant_collection.py --force-recreate
   3. Re-run scripts/run_ingestion.py (full re-embed)
 """
+
 from __future__ import annotations
 
 import logging

@@ -33,10 +33,13 @@ _NORMALIZATION_MAP: list[tuple[re.Pattern, str]] = [
     # Vitamin B12 variants
     (re.compile(r"[Vv]itamin\s+B\s*[-]?\s*12\b"), "Vitamin B12"),
     # HbA1c variants
-    (re.compile(
-        r"\b(HbA\s*1\s*c|hemoglobin\s+A1c|glycated\s+hemoglobin|glycosylated\s+hemoglobin)\b",
-        re.IGNORECASE,
-    ), "HbA1c"),
+    (
+        re.compile(
+            r"\b(HbA\s*1\s*c|hemoglobin\s+A1c|glycated\s+hemoglobin|glycosylated\s+hemoglobin)\b",
+            re.IGNORECASE,
+        ),
+        "HbA1c",
+    ),
     # Blood pressure (casing/hyphen only — do not expand to include "(BP)" here,
     # that is handled by abbreviation expansion for first-occurrence)
     (re.compile(r"\bblood[-\s]pressure\b", re.IGNORECASE), "blood pressure"),
@@ -75,9 +78,7 @@ def normalize_terms(text: str) -> str:
 # Pattern A: "full form (ABBR)" — most common in clinical docs
 # Captures: group(1) = full form (1+ words, may contain hyphens)
 #           group(2) = abbreviation (2-6 uppercase letters/digits)
-_ABBREV_PATTERN_A = re.compile(
-    r"([A-Za-z][a-z\s\-]{2,40})\s+\(([A-Z][A-Z0-9]{1,5})\)"
-)
+_ABBREV_PATTERN_A = re.compile(r"([A-Za-z][a-z\s\-]{2,40})\s+\(([A-Z][A-Z0-9]{1,5})\)")
 
 # Pattern B: "ABBR   full form" — JNC abbreviation table lines
 # (Handled separately in cleaner.parse_jnc_abbreviation_list — not repeated here)

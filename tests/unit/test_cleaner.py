@@ -31,6 +31,7 @@ from ingestion.cleaner import (
 # Stage 1 — JNC Abbreviation List Parser
 # ===========================================================================
 
+
 class TestParseJNCAbbrList:
     def test_parses_standard_block(self):
         text = (
@@ -72,8 +73,8 @@ class TestParseJNCAbbrList:
 # Stage 2 — Header / Footer Remover
 # ===========================================================================
 
-class TestRemoveHeadersFooters:
 
+class TestRemoveHeadersFooters:
     # ── FDA ──────────────────────────────────────────────────────────────────
 
     def test_fda_removes_label_disclaimer(self):
@@ -149,8 +150,8 @@ class TestRemoveHeadersFooters:
 # Stage 4 — Reference Section Remover
 # ===========================================================================
 
-class TestRemoveReferenceSection:
 
+class TestRemoveReferenceSection:
     def test_ada_truncates_at_references(self):
         text = "Clinical content.\n\nReferences\n\n1. Smith et al. 2023."
         result = remove_reference_section(text, "ada")
@@ -185,8 +186,8 @@ class TestRemoveReferenceSection:
 # Stage 5 — Guideline Metadata Remover
 # ===========================================================================
 
-class TestRemoveGuidelineMetadata:
 
+class TestRemoveGuidelineMetadata:
     def test_jnc_strips_guideline_source_block(self):
         text = "JNC content.\n\nGuideline source: AHA/ACC\nDate: 2014"
         result = remove_guideline_metadata(text, "jnc")
@@ -208,8 +209,8 @@ class TestRemoveGuidelineMetadata:
 # Stage 6 — Inline Noise Remover
 # ===========================================================================
 
-class TestRemoveInlineNoise:
 
+class TestRemoveInlineNoise:
     def test_removes_urls(self):
         text = "See https://www.example.com/path for more info."
         result = remove_inline_noise(text, "fda")
@@ -232,10 +233,10 @@ class TestRemoveInlineNoise:
         letter of every English word. Fixed by changing lookbehind to [A-Z0-9]."""
         text = "Metformin reduces HbA1c and weight in patients."
         result = remove_inline_noise(text, "ada")
-        assert "Metformin" in result,   f"'Metformin' mangled: {result!r}"
-        assert "reduces" in result,     f"'reduces' mangled: {result!r}"
-        assert "HbA1c" in result,       f"'HbA1c' mangled: {result!r}"
-        assert "patients" in result,    f"'patients' mangled: {result!r}"
+        assert "Metformin" in result, f"'Metformin' mangled: {result!r}"
+        assert "reduces" in result, f"'reduces' mangled: {result!r}"
+        assert "HbA1c" in result, f"'HbA1c' mangled: {result!r}"
+        assert "patients" in result, f"'patients' mangled: {result!r}"
 
     def test_removes_bracket_citations(self):
         text = "Evidence supports use [12] in patients."
@@ -271,8 +272,8 @@ class TestRemoveInlineNoise:
 # Stage 7 — Hyphen Line Joiner
 # ===========================================================================
 
-class TestJoinHyphenatedLines:
 
+class TestJoinHyphenatedLines:
     def test_joins_soft_hyphen(self):
         text = "anti\u00ad\nhypertensive therapy is recommended."
         result = join_hyphenated_lines(text)
@@ -301,8 +302,8 @@ class TestJoinHyphenatedLines:
 # Stage 8 — Line Rejoiner
 # ===========================================================================
 
-class TestRejoinBrokenLines:
 
+class TestRejoinBrokenLines:
     def test_rejoins_wrapped_prose(self):
         text = "The patient should take metformin\nwith meals to reduce GI side effects."
         result = rejoin_broken_lines(text)
@@ -334,8 +335,8 @@ class TestRejoinBrokenLines:
 # Master clean() integration
 # ===========================================================================
 
-class TestCleanMaster:
 
+class TestCleanMaster:
     def test_jnc_full_pipeline(self):
         """End-to-end: JNC doc gets abbreviation parse + headers + refs cleaned."""
         text = (

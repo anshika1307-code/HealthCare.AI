@@ -32,6 +32,7 @@ from ingestion.extractor import ExtractionResult, PageText, ExtractedTable
 # Fixtures
 # ---------------------------------------------------------------------------
 
+
 @pytest.fixture
 def pipeline():
     return PreprocessingPipeline(max_tokens=512, overlap_tokens=64)
@@ -39,21 +40,20 @@ def pipeline():
 
 def _make_extraction_result(doc_id: str, page_texts_text: list[str], include_table: bool = False):
     """Build a mock ExtractionResult to substitute for PDFExtractor.extract()."""
-    page_texts = [
-        PageText(page_number=i + 1, text=text)
-        for i, text in enumerate(page_texts_text)
-    ]
+    page_texts = [PageText(page_number=i + 1, text=text) for i, text in enumerate(page_texts_text)]
     tables = []
     if include_table:
-        tables.append(ExtractedTable(
-            page_number=1,
-            table_index=0,
-            rows=[
-                ["Drug", "Initial Dose", "Max Dose"],
-                ["Metformin", "500 mg", "2550 mg"],
-                ["Glipizide", "5 mg", "40 mg"],
-            ],
-        ))
+        tables.append(
+            ExtractedTable(
+                page_number=1,
+                table_index=0,
+                rows=[
+                    ["Drug", "Initial Dose", "Max Dose"],
+                    ["Metformin", "500 mg", "2550 mg"],
+                    ["Glipizide", "5 mg", "40 mg"],
+                ],
+            )
+        )
     return ExtractionResult(doc_id=doc_id, page_texts=page_texts, tables=tables)
 
 
@@ -61,8 +61,8 @@ def _make_extraction_result(doc_id: str, page_texts_text: list[str], include_tab
 # Tests
 # ---------------------------------------------------------------------------
 
-class TestPreprocessingPipelineInit:
 
+class TestPreprocessingPipelineInit:
     def test_stores_max_tokens(self):
         pipeline = PreprocessingPipeline(max_tokens=256, overlap_tokens=32)
         assert pipeline.max_tokens == 256
@@ -78,7 +78,6 @@ class TestPreprocessingPipelineInit:
 
 
 class TestPreprocessingPipelineRun:
-
     FDA_PAGE_TEXT = [
         "DESCRIPTION\n"
         "Metformin hydrochloride is an oral antihyperglycemic drug used in the "
@@ -172,8 +171,13 @@ class TestPreprocessingPipelineRun:
         )
 
         required_keys = {
-            "document_id", "document_name", "chunk_index", "char_count",
-            "safety_flag", "is_table", "abbrev_map_size",
+            "document_id",
+            "document_name",
+            "chunk_index",
+            "char_count",
+            "safety_flag",
+            "is_table",
+            "abbrev_map_size",
         }
         chunks = pipeline.run("metformin_fda_label", pdf_path)
         for c in chunks:
@@ -204,7 +208,9 @@ class TestPreprocessingPipelineRun:
 
         # Mix a near-empty page (skipped) with real content
         page_texts = [
-            PageText(page_number=1, text="DESCRIPTION\nMetformin is a biguanide drug used in T2DM."),
+            PageText(
+                page_number=1, text="DESCRIPTION\nMetformin is a biguanide drug used in T2DM."
+            ),
             PageText(page_number=2, text="", skipped=True, skip_reason="near_empty_likely_figure"),
         ]
         extraction = ExtractionResult(

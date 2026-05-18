@@ -8,6 +8,7 @@ Contains:
   - IndexableChunk: Chunk augmented with a deterministic UUID5 id
   - ChunkIDGenerator: UUID5-based stable ID generation for idempotent upserts
 """
+
 from __future__ import annotations
 
 import uuid
@@ -45,6 +46,7 @@ def make_chunk_id(doc_id: str, chunk_index: int) -> str:
 # IndexableChunk — Chunk + deterministic ID
 # ---------------------------------------------------------------------------
 
+
 @dataclass
 class IndexableChunk:
     """
@@ -54,8 +56,9 @@ class IndexableChunk:
     and attaches a pre-computed chunk_id so the embedder and indexer don't
     need to know about ID generation.
     """
-    chunk_id: str          # UUID5 — stable across re-ingestion runs
-    text: str              # cleaned + normalised chunk text (what gets embedded)
+
+    chunk_id: str  # UUID5 — stable across re-ingestion runs
+    text: str  # cleaned + normalised chunk text (what gets embedded)
     metadata: dict[str, Any]  # full metadata dict from chunker
 
     @property
@@ -94,6 +97,7 @@ def make_indexable(chunks: list, doc_id: str) -> list[IndexableChunk]:
 # ---------------------------------------------------------------------------
 # Embedder Protocol — structural typing for provider swap
 # ---------------------------------------------------------------------------
+
 
 @runtime_checkable
 class Embedder(Protocol):
