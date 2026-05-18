@@ -19,7 +19,8 @@ import logging
 from dataclasses import dataclass, field
 from typing import Any
 
-from configs.retrieval import ConfidenceConfig, RETRIEVAL_CONFIG
+from configs.retrieval import RETRIEVAL_CONFIG, ConfidenceConfig
+
 from retrieval.reranker import RankedResult
 
 logger = logging.getLogger(__name__)

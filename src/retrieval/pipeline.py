@@ -19,11 +19,11 @@ from __future__ import annotations
 import logging
 from typing import Any
 
-from retrieval.dense_retriever import DenseRetriever
 from retrieval.bm25_retriever import BM25Retriever
-from retrieval.rrf_ranker import RRFRanker, FusedResult
-from retrieval.reranker import CrossEncoderReranker
 from retrieval.confidence import ConfidenceScorer, RetrievalResult
+from retrieval.dense_retriever import DenseRetriever
+from retrieval.reranker import CrossEncoderReranker
+from retrieval.rrf_ranker import FusedResult, RRFRanker
 
 logger = logging.getLogger(__name__)
 
@@ -80,7 +80,6 @@ class RetrievalPipeline:
         # ----------------------------------------------------------
         # Stage 1 + 2: Dense and BM25 run concurrently
         # ----------------------------------------------------------
-        import asyncio
         dense_coro = self._dense.search(query_vector, filters=filters)
         # BM25 is synchronous but fast (in-memory) — run in the event loop directly
         bm25_results = self._bm25.search(

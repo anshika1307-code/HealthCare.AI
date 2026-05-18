@@ -20,9 +20,9 @@ from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
 from typing import Any
 
+from configs.retrieval import RETRIEVAL_CONFIG, RerankerConfig
 from sentence_transformers import CrossEncoder
 
-from configs.retrieval import RerankerConfig, RETRIEVAL_CONFIG
 from retrieval.rrf_ranker import FusedResult
 
 logger = logging.getLogger(__name__)

@@ -109,14 +109,14 @@ class DriftDetector:
         if self._client is not None:
             await self._client.aclose()
 
-    async def _store_centroid(self, centroid: "np.ndarray") -> None:
+    async def _store_centroid(self, centroid: np.ndarray) -> None:
         try:
             await self._client.set(_BASELINE_KEY, centroid.astype(_DTYPE).tobytes())
         except Exception as exc:  # noqa: BLE001
             logger.warning("DriftDetector: failed to store centroid — %s", exc)
 
 
-def _cosine_similarity(a: "np.ndarray", b: "np.ndarray") -> float:
+def _cosine_similarity(a: np.ndarray, b: np.ndarray) -> float:
     """Cosine similarity in [−1, 1].  Both vectors must be same shape."""
     norm_a = np.linalg.norm(a)
     norm_b = np.linalg.norm(b)

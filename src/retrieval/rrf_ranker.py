@@ -28,7 +28,7 @@ import logging
 from dataclasses import dataclass, field
 from typing import Any
 
-from configs.retrieval import RRFConfig, RETRIEVAL_CONFIG
+from configs.retrieval import RETRIEVAL_CONFIG, RRFConfig
 
 logger = logging.getLogger(__name__)
 

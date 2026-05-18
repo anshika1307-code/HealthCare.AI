@@ -381,7 +381,6 @@ class TestChunkerADA:
     def test_chunk_section_numbers(self):
         chunker = self.make_chunker()
         chunks = chunker.chunk(self.ADA_TEXT)
-        section_nums = [c.metadata.get("section_number") for c in chunks]
         # section_number is set from ADA rec number detection
         # Some chunks should have a section label from the "6.1", "6.2" lines
         all_text = " ".join(c.text for c in chunks)

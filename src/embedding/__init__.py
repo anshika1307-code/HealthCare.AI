@@ -14,9 +14,9 @@ BGEEmbedder     - Local BGE-base-en-v1.5 provider
 QdrantIndexer   - Idempotent batch upsert to Qdrant
 """
 from .base import Embedder, IndexableChunk, make_chunk_id, make_indexable
-from .openai_embedder import OpenAIEmbedder
 from .bge_embedder import BGEEmbedder
 from .indexer import QdrantIndexer
+from .openai_embedder import OpenAIEmbedder
 
 __all__ = [
     "Embedder",

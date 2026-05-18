@@ -17,15 +17,14 @@ import math
 import os
 
 import openai
+from configs.embedding import EMBEDDING_CONFIG, EmbeddingConfig
 from tenacity import (
+    before_sleep_log,
     retry,
     retry_if_exception_type,
     stop_after_attempt,
     wait_exponential,
-    before_sleep_log,
 )
-
-from configs.embedding import EmbeddingConfig, EMBEDDING_CONFIG
 
 logger = logging.getLogger(__name__)
 
@@ -51,7 +50,7 @@ class OpenAIEmbedder:
         self._cfg = config or EMBEDDING_CONFIG
         api_key = os.getenv("OPENAI_API_KEY")
         if not api_key:
-            raise EnvironmentError(
+            raise OSError(
                 "OPENAI_API_KEY environment variable is not set. "
                 "Set it in your .env file or shell before running ingestion."
             )

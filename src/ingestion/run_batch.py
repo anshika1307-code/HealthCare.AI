@@ -44,11 +44,11 @@ try:
 except ImportError:
     pass
 
+from configs.embedding import EMBEDDING_CONFIG
+from configs.retrieval import RETRIEVAL_CONFIG
 from qdrant_client import QdrantClient
 from qdrant_client.models import Distance, PayloadSchemaType, VectorParams
 
-from configs.embedding import EMBEDDING_CONFIG
-from configs.retrieval import RETRIEVAL_CONFIG
 from embedding.base import make_indexable
 from embedding.indexer import QdrantIndexer
 from embedding.openai_embedder import OpenAIEmbedder

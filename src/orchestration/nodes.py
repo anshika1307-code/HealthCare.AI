@@ -25,6 +25,7 @@ from functools import partial
 from typing import Any
 
 import openai
+from configs.llm import LLM_CONFIG, LLMConfig
 from tenacity import (
     retry,
     retry_if_exception_type,
@@ -32,7 +33,6 @@ from tenacity import (
     wait_exponential,
 )
 
-from configs.llm import LLMConfig, LLM_CONFIG
 from embedding.base import Embedder
 from retrieval.pipeline import RetrievalPipeline
 

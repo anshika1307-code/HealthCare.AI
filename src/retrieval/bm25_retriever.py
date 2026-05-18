@@ -19,9 +19,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from configs.retrieval import RETRIEVAL_CONFIG, BM25Config
 from rank_bm25 import BM25Okapi
-
-from configs.retrieval import BM25Config, RETRIEVAL_CONFIG
 
 logger = logging.getLogger(__name__)
 
@@ -91,7 +90,7 @@ class BM25Retriever:
         cls,
         cache_path: str | Path | None = None,
         config: BM25Config | None = None,
-    ) -> "BM25Retriever":
+    ) -> BM25Retriever:
         """Load a pre-built BM25Corpus from disk and return a ready retriever."""
         cfg = config or RETRIEVAL_CONFIG.bm25
         path = Path(cache_path or cfg.corpus_cache_path)

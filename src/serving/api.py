@@ -38,6 +38,9 @@ except ImportError:
 
 import openai
 import tiktoken
+from configs.embedding import EMBEDDING_CONFIG
+from configs.llm import LLM_CONFIG
+from configs.retrieval import RETRIEVAL_CONFIG
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from qdrant_client import AsyncQdrantClient
@@ -45,9 +48,6 @@ from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
 
-from configs.embedding import EMBEDDING_CONFIG
-from configs.llm import LLM_CONFIG
-from configs.retrieval import RETRIEVAL_CONFIG
 from embedding.openai_embedder import OpenAIEmbedder
 from monitoring.logging_config import configure_json_logging
 from monitoring.metrics import RAGMetrics

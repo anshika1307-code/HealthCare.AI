@@ -20,7 +20,6 @@ from __future__ import annotations
 import logging
 import sys
 from pathlib import Path
-from typing import Union
 
 # Ensure `src` is on sys.path when this module is run as a script (CLI mode).
 # When imported as `ingestion.preprocessor`, this block has no effect.
@@ -28,12 +27,12 @@ _SRC_ROOT = Path(__file__).resolve().parents[2]  # Healthcare_AI/src
 if str(_SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(_SRC_ROOT))
 
+from ingestion.chunker import Chunk, Chunker
+from ingestion.cleaner import clean
 from ingestion.config import get_doc_config
 from ingestion.extractor import PDFExtractor
-from ingestion.cleaner import clean
 from ingestion.normalizer import normalize_and_expand
-from ingestion.table_converter import convert_all_tables, TableChunk
-from ingestion.chunker import Chunk, Chunker
+from ingestion.table_converter import TableChunk, convert_all_tables
 
 logger = logging.getLogger(__name__)
 
@@ -64,7 +63,7 @@ class PreprocessingPipeline:
     def run(
         self,
         doc_id: str,
-        pdf_path: Union[str, Path],
+        pdf_path: str | Path,
     ) -> list[Chunk]:
         """
         Process a single PDF and return a flat list of Chunk objects
@@ -194,8 +193,8 @@ class PreprocessingPipeline:
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    import sys
     import json
+    import sys
 
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
 

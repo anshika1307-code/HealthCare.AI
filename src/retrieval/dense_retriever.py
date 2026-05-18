@@ -13,13 +13,12 @@ Design notes:
 from __future__ import annotations
 
 import logging
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any
 
+from configs.retrieval import RETRIEVAL_CONFIG, DenseConfig
 from qdrant_client import AsyncQdrantClient
 from qdrant_client.http import models as qmodels
-
-from configs.retrieval import DenseConfig, RETRIEVAL_CONFIG
 
 logger = logging.getLogger(__name__)
 

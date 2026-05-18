@@ -18,14 +18,13 @@ from __future__ import annotations
 from typing import Any, TypedDict
 
 import openai
+from configs.llm import LLMConfig
 from langgraph.graph import END, START, StateGraph
 
-from configs.llm import LLMConfig
 from embedding.base import Embedder
 from orchestration.nodes import make_embed_node, make_generate_node, make_retrieve_node
 from retrieval.confidence import RetrievalResult
 from retrieval.pipeline import RetrievalPipeline
-
 
 # ---------------------------------------------------------------------------
 # State schema — every key is Optional so nodes can safely read partial state

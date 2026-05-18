@@ -20,9 +20,8 @@ IMPORTANT: Changing from OpenAI (1536-dim) to BGE (768-dim) requires:
 from __future__ import annotations
 
 import logging
-import math
 
-from configs.embedding import EmbeddingConfig, EMBEDDING_CONFIG
+from configs.embedding import EMBEDDING_CONFIG, EmbeddingConfig
 
 logger = logging.getLogger(__name__)
 

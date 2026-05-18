@@ -29,7 +29,6 @@ from __future__ import annotations
 
 import logging
 import time
-from typing import Optional
 
 try:
     import redis.asyncio as aioredis
@@ -63,7 +62,7 @@ class RAGMetrics:
     def __init__(self, redis_url: str = "redis://localhost:6379") -> None:
         if not _REDIS_AVAILABLE:  # pragma: no cover
             logger.warning("redis package not installed — metrics disabled")
-            self._client: Optional[aioredis.Redis] = None  # type: ignore[assignment]
+            self._client: aioredis.Redis | None = None  # type: ignore[assignment]
             return
         self._client = aioredis.from_url(redis_url, decode_responses=True)
 
@@ -115,7 +114,7 @@ class RAGMetrics:
             await self._client.aclose()
 
 
-def _zadd(pipe: "aioredis.client.Pipeline", key: str, score: float, value: str) -> None:  # type: ignore[name-defined]
+def _zadd(pipe: aioredis.client.Pipeline, key: str, score: float, value: str) -> None:  # type: ignore[name-defined]
     """Add to sorted set and trim to MAX_ENTRIES to bound Redis memory."""
     pipe.zadd(key, {value: score})
     # Keep only the most recent MAX_ENTRIES records

@@ -43,7 +43,7 @@ import os
 import sys
 import time
 import warnings
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 # ── path setup ───────────────────────────────────────────────────────────────
@@ -66,17 +66,19 @@ from qdrant_client import AsyncQdrantClient
 
 with warnings.catch_warnings():
     warnings.simplefilter("ignore")
-    from ragas import evaluate as ragas_evaluate, EvaluationDataset, SingleTurnSample
+    from ragas import EvaluationDataset, SingleTurnSample
+    from ragas import evaluate as ragas_evaluate
     from ragas.dataset_schema import EvaluationResult as RagasEvaluationResult
-    from ragas.metrics._faithfulness import Faithfulness
     from ragas.metrics._answer_relevance import AnswerRelevancy
     from ragas.metrics._context_precision import ContextPrecision
     from ragas.metrics._context_recall import ContextRecall
+    from ragas.metrics._faithfulness import Faithfulness
 
 # ── project imports ───────────────────────────────────────────────────────────
 from configs.embedding import EMBEDDING_CONFIG
 from configs.llm import LLM_CONFIG
 from configs.retrieval import RETRIEVAL_CONFIG
+
 from embedding.openai_embedder import OpenAIEmbedder
 from orchestration.graph import build_graph
 from retrieval.bm25_retriever import BM25Retriever
@@ -413,7 +415,7 @@ def main() -> None:
     # ── Write report ──────────────────────────────────────────────────────────
     report = {
         "metadata": {
-            "timestamp":       datetime.now(timezone.utc).isoformat(),
+            "timestamp":       datetime.now(UTC).isoformat(),
             "eval_set":        str(args.eval_set if not args.from_cache else args.from_cache),
             "num_questions":   len(rows),
             "errors":          sum(1 for r in rows if r["error"]),
