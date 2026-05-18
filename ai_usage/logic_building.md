@@ -63,6 +63,11 @@ decision.md
 - **Prompt to LLM**: okay plan the implementation of embedding and indexing ,same how we done for retrieval, production grade architecture, prototype grade code - look into decision.md for any predecided decisions
 - **Report**: ai_usage\reports\embedding_indexing_plan.md
 
+## RAG Matrics and Drift Detection
+- **Tool used**: Cluade Code
+- **Prompt to LLM**: Eval Runner: 'Build src/evaluation/run_eval.py. Load eval_set.json (fetch uestions from data\evaluation\eval_ques_claude.md )(list of {question, ground_truth, section, difficulty}). For each question: call the RAG pipeline, get answer + retrieved_context. Score with ragas: faithfulness, answer_relevancy, context_precision, context_recall. Output: eval_report.json with per-question scores + averages. Exit code 1 if avg_faithfulness < 0.75.
 
 
-
+## CI Pipeline
+- **Tool used**: Cluade Code
+- **Prompt to LLM**: GitHub Action: 'Build ci/eval.yml GitHub Actions workflow. Trigger: on push to any branch. Steps: (1) checkout, (2) pip install -r requirements.txt, (3) docker-compose up -d qdrant redis, (4) python src/ingestion/run_batch.py --docs tests/fixtures/, (5) python src/evaluation/run_eval.py, (6) on failure: post eval_report.json as PR comment
