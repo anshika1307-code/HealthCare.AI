@@ -65,15 +65,15 @@ logger = logging.getLogger("chunking_experiment")
 # ── RAGAS (optional — falls back to lightweight metrics if unavailable) ────────
 try:
     from ragas import evaluate as ragas_evaluate
-    from ragas.metrics.collections import (     # 0.4.x import path
-        faithfulness,
-        answer_relevancy,
-        context_precision,
-        context_recall,
+    from ragas.metrics import (
+        _Faithfulness as RagasFaithfulness,
+        _ResponseRelevancy as RagasAnswerRelevancy,
+        _LLMContextPrecisionWithReference as RagasContextPrecision,
+        _LLMContextRecall as RagasContextRecall,
     )
     from ragas.dataset_schema import EvaluationDataset, SingleTurnSample
-    from ragas.llms import LangchainLLMWrapper
-    from langchain_openai import ChatOpenAI
+    from ragas.llms import llm_factory
+    from ragas.embeddings import embedding_factory
     _RAGAS_AVAILABLE = True
     logger.info("RAGAS 0.4.x available — will run full LLM-judge metrics")
 except (ImportError, Exception) as e:
@@ -305,31 +305,40 @@ def run_single_experiment(
     retriever = InMemoryRetriever(embed_model)
     retriever.index(all_chunks)
 
-    # Prepare RAGAS dataset
-    ragas_data: list[dict] = []
+    # Checkpoint: reuse saved answers if they exist (avoids re-running LLM calls)
+    out_file = RESULTS_DIR / f"{strategy_name}_{token_size}_ragas_data.json"
+    if out_file.exists():
+        logger.info("Checkpoint found — loading saved answers from %s", out_file.name)
+        with open(out_file, encoding="utf-8") as f:
+            ragas_data = json.load(f)
+    else:
+        ragas_data: list[dict] = []
+        for eq in eval_questions:
+            question = eq["question"]
+            expected = eq.get("expected_answer_contains", "")
 
-    for eq in eval_questions:
-        question = eq["question"]
-        source = eq.get("source_doc", "")
-        expected = eq.get("expected_answer_contains", "")
+            contexts = retriever.retrieve(question, top_k=TOP_K)
+            if not contexts:
+                continue
 
-        contexts = retriever.retrieve(question, top_k=TOP_K)
-        if not contexts:
-            continue
+            answer = generate_answer(llm_client, question, contexts, llm_model)
+            time.sleep(_sleep)   # respect rate limit
 
-        answer = generate_answer(llm_client, question, contexts, llm_model)
-        time.sleep(_sleep)   # respect rate limit
+            ragas_data.append({
+                "question": question,
+                "answer": answer,
+                "contexts": contexts,
+                "ground_truth": expected,
+            })
 
-        ragas_data.append({
-            "question": question,
-            "answer": answer,
-            "contexts": contexts,
-            "ground_truth": expected,
-        })
+        if not ragas_data:
+            logger.warning("No RAGAS data produced for %s/%d", strategy_name, token_size)
+            return {}
 
-    if not ragas_data:
-        logger.warning("No RAGAS data produced for %s/%d", strategy_name, token_size)
-        return {}
+        # Save immediately so a RAGAS crash doesn't lose the LLM calls
+        with open(out_file, "w", encoding="utf-8") as f:
+            json.dump(ragas_data, f, indent=2, ensure_ascii=False)
+        logger.info("Answers saved to %s", out_file.name)
 
     dataset = Dataset.from_list(ragas_data)
 
@@ -347,27 +356,25 @@ def run_single_experiment(
         ]
         eval_dataset = EvaluationDataset(samples=samples)
 
-        # Wrap the same LLM client we use for answering
-        ragas_llm = LangchainLLMWrapper(
-            ChatOpenAI(
-                model=llm_model,
-                api_key=llm_client.api_key,
-                base_url=str(llm_client.base_url) if llm_client.base_url else None,
-                temperature=0,
-            )
-        )
+        # LLM via Groq (free), embeddings via OpenAI text-embedding-3-small (~$0.001 total)
+        ragas_llm = llm_factory(llm_model, client=llm_client)
+        ragas_emb = embedding_factory("text-embedding-3-small")
         result = ragas_evaluate(
             dataset=eval_dataset,
-            metrics=[faithfulness, answer_relevancy, context_precision, context_recall],
-            llm=ragas_llm,
+            metrics=[
+                RagasFaithfulness(llm=ragas_llm),
+                RagasAnswerRelevancy(llm=ragas_llm, embeddings=ragas_emb),
+                RagasContextPrecision(llm=ragas_llm),
+                RagasContextRecall(llm=ragas_llm),
+            ],
             show_progress=True,
         )
         scores = {
-            "faithfulness": float(result["faithfulness"]),
-            "answer_relevancy": float(result["answer_relevancy"]),
-            "context_precision": float(result["context_precision"]),
-            "context_recall": float(result["context_recall"]),
-            "metric_source": 1.0,   # 1 = true RAGAS
+            "faithfulness": float(np.nanmean(result["faithfulness"])),
+            "answer_relevancy": float(np.nanmean(result["answer_relevancy"])),
+            "context_precision": float(np.nanmean(result["llm_context_precision_with_reference"])),
+            "context_recall": float(np.nanmean(result["context_recall"])),
+            "metric_source": 1.0,
         }
     else:
         # ── Lightweight proxy metrics (no RAGAS dependency) ───────────────
@@ -389,11 +396,6 @@ def run_single_experiment(
         scores["context_precision"], scores["context_recall"],
         scores["mean_score"],
     )
-
-    # Save raw RAGAS data for inspection
-    out_file = RESULTS_DIR / f"{strategy_name}_{token_size}_ragas_data.json"
-    with open(out_file, "w", encoding="utf-8") as f:
-        json.dump(ragas_data, f, indent=2, ensure_ascii=False)
 
     return scores
 

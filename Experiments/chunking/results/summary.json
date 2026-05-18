@@ -1,1 +1,44 @@
-[]
+[
+  {
+    "strategy": "boundary_aware",
+    "token_size": 256,
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.8951381346631737,
+    "context_precision": 0.6694444444158796,
+    "context_recall": 1.0,
+    "metric_source": 1.0,
+    "mean_score": 0.9129165158158106,
+    "total_chunks": 501,
+    "mean_chunk_words": 129.42315369261476,
+    "median_chunk_words": 121.0,
+    "std_chunk_words": 126.33485501496025
+  },
+  {
+    "strategy": "boundary_aware",
+    "token_size": 512,
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.8701438672298796,
+    "context_precision": 0.7916666666020833,
+    "context_recall": 1.0,
+    "metric_source": 1.0,
+    "mean_score": 0.9323621067663925,
+    "total_chunks": 279,
+    "mean_chunk_words": 232.40501792114696,
+    "median_chunk_words": 233.0,
+    "std_chunk_words": 171.0939421363374
+  },
+  {
+    "strategy": "boundary_aware",
+    "token_size": 1024,
+    "faithfulness": 0.875,
+    "answer_relevancy": 0.49999982178805374,
+    "context_precision": 0.84999999997,
+    "context_recall": 1.0,
+    "metric_source": 1.0,
+    "mean_score": 0.8449999643516108,
+    "total_chunks": 171,
+    "mean_chunk_words": 379.187134502924,
+    "median_chunk_words": 433.0,
+    "std_chunk_words": 271.59879694347995
+  }
+]
