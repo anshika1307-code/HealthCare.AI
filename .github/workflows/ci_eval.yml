@@ -88,7 +88,8 @@ jobs:
       - name: Wait for services to be healthy
         run: |
           for i in {1..20}; do
-            curl -sf http://localhost:6333/healthz && redis-cli ping && break
+            curl -sf http://localhost:6333/healthz && \
+            docker exec healthcare_redis redis-cli ping | grep -q PONG && break
             echo "Waiting for services… ($i/20)"
             sleep 3
           done
