@@ -46,6 +46,9 @@ interface CenterPaneProps {
   onSignInClick: () => void;
 }
 
+const MAX_CHARS = 2000;
+const WARN_CHARS = 1500;
+
 const EXAMPLE_QUERIES = [
   'What is the target blood pressure for diabetic patients with hypertension?',
   'When should metformin be contraindicated or discontinued?',
@@ -150,7 +153,7 @@ export function CenterPane({
     setOpenTraces((prev) => ({ ...prev, [idx]: !prev[idx] }));
 
   const submitQuery = async (q: string) => {
-    if (!q.trim() || queriesDisabled) return;
+    if (!q.trim() || queriesDisabled || q.length > MAX_CHARS) return;
     const trimmed = q.trim();
     setLoading(true);
     setApiError(null);
@@ -564,23 +567,45 @@ export function CenterPane({
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder={queriesDisabled ? 'Sign in to ask more questions…' : 'Ask a clinical question…'}
-              className="flex-1 rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 text-sm text-gray-800 placeholder-gray-400 transition-colors focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 disabled:cursor-not-allowed disabled:opacity-60"
+              className="flex-1 rounded-xl border bg-gray-50 px-4 py-3 text-sm text-gray-800 placeholder-gray-400 transition-colors focus:bg-white focus:outline-none focus:ring-2 disabled:cursor-not-allowed disabled:opacity-60"
+              style={{
+                borderColor: query.length > MAX_CHARS ? '#DC2626' : query.length > WARN_CHARS ? '#D97706' : '#D1D5DB',
+                '--tw-ring-color': query.length > MAX_CHARS ? 'rgba(220,38,38,0.2)' : 'rgba(59,130,246,0.2)',
+              } as React.CSSProperties}
               disabled={loading || queriesDisabled}
             />
             <button
               type="submit"
-              disabled={!query.trim() || loading || queriesDisabled}
+              disabled={!query.trim() || loading || queriesDisabled || query.length > MAX_CHARS}
               className="flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-medium text-white shadow-sm transition-colors hover:bg-blue-700 active:bg-blue-800 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
               <span>Query</span>
             </button>
           </div>
-          {!queriesDisabled && (
-            <p className="mt-2 text-center text-[10px] text-gray-400">
-              Answers sourced exclusively from FDA, ADA, and JNC 8 indexed guidelines
-            </p>
-          )}
+
+          {/* Character counter — only shown when user is typing */}
+          <div className="mt-1.5 flex items-center justify-between px-1">
+            {!queriesDisabled && (
+              <p className="text-[10px] text-gray-400">
+                Answers sourced exclusively from FDA, ADA, and JNC 8 indexed guidelines
+              </p>
+            )}
+            {query.length > 0 && (
+              <p
+                className="ml-auto text-[10px] tabular-nums"
+                style={{
+                  color: query.length > MAX_CHARS ? '#DC2626' : query.length > WARN_CHARS ? '#D97706' : '#9CA3AF',
+                }}
+              >
+                {query.length > MAX_CHARS
+                  ? `Too long — ${query.length}/${MAX_CHARS} chars (limit ~500 tokens)`
+                  : query.length > WARN_CHARS
+                  ? `${query.length}/${MAX_CHARS} chars — approaching limit`
+                  : `${query.length}/${MAX_CHARS}`}
+              </p>
+            )}
+          </div>
         </form>
       </div>
     </div>

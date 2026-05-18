@@ -37,9 +37,13 @@ except ImportError:
     pass
 
 import openai
-from fastapi import FastAPI, HTTPException
+import tiktoken
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from qdrant_client import AsyncQdrantClient
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
+from slowapi.util import get_remote_address
 
 from configs.embedding import EMBEDDING_CONFIG
 from configs.llm import LLM_CONFIG
@@ -60,6 +64,13 @@ configure_json_logging()
 logger = logging.getLogger(__name__)
 
 _DEFAULT_BM25_PATH = Path("data/cache/bm25_corpus.pkl")
+
+# Rate limiter — keyed by client IP
+_limiter = Limiter(key_func=get_remote_address)
+
+# Token counter — cl100k_base matches gpt-4o-mini and text-embedding-3-small
+_tokenizer = tiktoken.get_encoding("cl100k_base")
+_MAX_QUERY_TOKENS = 500
 
 
 # ---------------------------------------------------------------------------
@@ -123,6 +134,9 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+app.state.limiter = _limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -147,27 +161,46 @@ async def health():
 
 
 @app.post("/query", response_model=QueryResponse)
-async def query(request: QueryRequest) -> QueryResponse:
+@_limiter.limit("20/minute")
+async def query(request: Request, body: QueryRequest) -> QueryResponse:
     """
     Submit a clinical question and receive a sourced answer.
 
     The pipeline runs: embed → hybrid retrieve → rerank → LLM generate.
     A warning_message is included when retrieval confidence is low.
 
+    Rate limit: 20 requests/minute per IP.
+    Token limit: 500 tokens per query (≈ 2 000 chars).
+
     PHI: query text is NOT logged. Only the query_id is used for correlation.
     """
+    # Token-count guard — protects against LLM API cost exhaustion
+    token_count = len(_tokenizer.encode(body.query))
+    if token_count > _MAX_QUERY_TOKENS:
+        raise HTTPException(
+            status_code=422,
+            detail=(
+                f"Query too long: {token_count} tokens "
+                f"(limit {_MAX_QUERY_TOKENS}). Please shorten your question."
+            ),
+        )
+
     query_id = str(uuid4())
     t_start = time.perf_counter()
 
     # Log request metadata — never the query text itself (PHI risk)
     logger.info(
         "POST /query received",
-        extra={"query_id": query_id, "has_filters": request.filters is not None},
+        extra={
+            "query_id": query_id,
+            "has_filters": body.filters is not None,
+            "token_count": token_count,
+        },
     )
 
     initial_state: GraphState = {
-        "query": request.query,
-        "filters": request.filters,
+        "query": body.query,
+        "filters": body.filters,
         "query_id": query_id,
     }
 

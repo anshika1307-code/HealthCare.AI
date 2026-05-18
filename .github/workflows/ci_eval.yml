@@ -107,6 +107,8 @@ jobs:
 
 
   # ── 4. RAG Evaluation (faithfulness gate) ─────────────────────────────────
+  # Uses qdrant.cloud directly — no local Qdrant needed, no re-ingestion.
+  # Requires GitHub secrets: OPENAI_API_KEY, QDRANT_URL, QDRANT_API_KEY.
   eval:
     name: RAG Evaluation
     needs: integration-tests
@@ -122,43 +124,17 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Start Qdrant + Redis
-        run: docker compose -f docker/docker-compose.yml up -d qdrant redis
+      - name: Start Redis only (metrics sink)
+        run: docker compose -f docker/docker-compose.yml up -d redis
 
-      - name: Wait for Qdrant
-        run: |
-          for i in {1..20}; do
-            curl -sf http://localhost:6333/healthz && break
-            echo "Waiting for Qdrant… ($i/20)"
-            sleep 3
-          done
-
-      # Pull fixture PDFs via DVC if a remote is configured, otherwise skip
-      # ingestion and rely on QDRANT_URL (cloud) for eval.
-      # To enable: add DVC_REMOTE_URL secret and configure your DVC remote.
-      - name: Pull fixture data (DVC)
-        if: ${{ env.DVC_REMOTE_URL != '' }}
-        run: |
-          pip install dvc
-          dvc pull data/raw/ --run-cache || true
-        env:
-          DVC_REMOTE_URL: ${{ secrets.DVC_REMOTE_URL }}
-
-      - name: Ingest fixture PDFs into local Qdrant
-        if: ${{ hashFiles('tests/fixtures/*.pdf') != '' }}
-        run: python src/ingestion/run_batch.py --docs tests/fixtures/ --force-recreate
-        env:
-          PYTHONPATH: src
-          QDRANT_URL: http://localhost:6333
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-
-      - name: Run RAGAS evaluation
+      - name: Run RAGAS evaluation against qdrant.cloud
         run: python src/evaluation/run_eval.py
         env:
           PYTHONPATH: src
-          QDRANT_URL: http://localhost:6333
-          REDIS_URL: redis://localhost:6379
+          QDRANT_URL: ${{ secrets.QDRANT_URL }}
+          QDRANT_API_KEY: ${{ secrets.QDRANT_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          REDIS_URL: redis://localhost:6379
           BM25_CORPUS_PATH: data/cache/bm25_corpus.pkl
 
       - name: Upload eval report artifact
@@ -199,9 +175,9 @@ jobs:
               body,
             });
 
-      - name: Stop services
+      - name: Stop Redis
         if: always()
-        run: docker compose -f docker/docker-compose.yml down
+        run: docker compose -f docker/docker-compose.yml down redis
 
 
   # ── 5. Deploy to Railway (main branch only, after eval passes) ─────────────
