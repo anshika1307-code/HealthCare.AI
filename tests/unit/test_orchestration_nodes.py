@@ -104,10 +104,12 @@ class TestEmbedNode:
         assert result["query_vector"] == [0.1]
 
     @pytest.mark.asyncio
-    async def test_only_sets_query_vector_key(self, embedder):
+    async def test_sets_query_vector_and_embed_ms(self, embedder):
         node = make_embed_node(embedder)
         result = await node({"query": "q"})
-        assert list(result.keys()) == ["query_vector"]
+        assert "query_vector" in result
+        assert "embed_ms" in result
+        assert isinstance(result["embed_ms"], float)
 
     @pytest.mark.asyncio
     async def test_different_embedders_produce_different_nodes(self):
@@ -166,10 +168,12 @@ class TestRetrieveNode:
         assert kwargs.get("filters") is None
 
     @pytest.mark.asyncio
-    async def test_only_sets_retrieval_result_key(self, pipeline):
+    async def test_sets_retrieval_result_and_retrieve_ms(self, pipeline):
         node = make_retrieve_node(pipeline)
         result = await node({"query": "q", "query_vector": [0.1]})
-        assert list(result.keys()) == ["retrieval_result"]
+        assert "retrieval_result" in result
+        assert "retrieve_ms" in result
+        assert isinstance(result["retrieve_ms"], float)
 
     @pytest.mark.asyncio
     async def test_pipeline_error_propagates(self, pipeline):
@@ -337,7 +341,9 @@ class TestGenerateNode:
         assert "answer" in result
 
     @pytest.mark.asyncio
-    async def test_only_sets_answer_key(self, llm_client, cfg, state):
+    async def test_sets_answer_and_generate_ms(self, llm_client, cfg, state):
         node = make_generate_node(llm_client, cfg)
         result = await node(state)
-        assert list(result.keys()) == ["answer"]
+        assert "answer" in result
+        assert "generate_ms" in result
+        assert isinstance(result["generate_ms"], float)

@@ -15,7 +15,7 @@ import pytest
 from unittest.mock import AsyncMock, MagicMock
 
 from configs.retrieval import DenseConfig
-from retrieval.dense_retriever import DenseResult, DenseRetriever
+from src.retrieval.dense_retriever import DenseResult, DenseRetriever
 
 
 # ---------------------------------------------------------------------------
@@ -44,10 +44,17 @@ def _mock_hit(chunk_id: str = "id-0", score: float = 0.9, payload: dict = None) 
     return hit
 
 
+def _mock_qp_response(hits: list) -> MagicMock:
+    """Wrap a list of hits in the query_points response shape (.points)."""
+    resp = MagicMock()
+    resp.points = hits
+    return resp
+
+
 @pytest.fixture
 def mock_client() -> MagicMock:
     client = MagicMock()
-    client.search = AsyncMock(return_value=[])
+    client.query_points = AsyncMock(return_value=_mock_qp_response([]))
     client.retrieve = AsyncMock(return_value=[])
     return client
 
@@ -132,62 +139,57 @@ class TestSearch:
 
     @pytest.mark.asyncio
     async def test_returns_empty_list_when_no_hits(self, retriever, mock_client):
-        mock_client.search.return_value = []
+        mock_client.query_points.return_value = _mock_qp_response([])
         results = await retriever.search([0.1, 0.2, 0.3])
         assert results == []
 
     @pytest.mark.asyncio
     async def test_maps_hits_to_dense_results(self, retriever, mock_client):
-        mock_client.search.return_value = [_mock_hit("id-1", 0.85)]
+        mock_client.query_points.return_value = _mock_qp_response([_mock_hit("id-1", 0.85)])
         results = await retriever.search([0.1])
         assert len(results) == 1
         assert isinstance(results[0], DenseResult)
 
     @pytest.mark.asyncio
     async def test_chunk_id_and_score_preserved(self, retriever, mock_client):
-        mock_client.search.return_value = [_mock_hit("chunk-abc", 0.75)]
+        mock_client.query_points.return_value = _mock_qp_response([_mock_hit("chunk-abc", 0.75)])
         results = await retriever.search([0.1])
         assert results[0].chunk_id == "chunk-abc"
         assert results[0].score == pytest.approx(0.75)
 
     @pytest.mark.asyncio
     async def test_passes_collection_name_to_client(self, retriever, mock_client):
-        mock_client.search.return_value = []
         await retriever.search([0.1])
-        _, kwargs = mock_client.search.call_args
+        _, kwargs = mock_client.query_points.call_args
         assert kwargs["collection_name"] == "healthcare_chunks"
 
     @pytest.mark.asyncio
     async def test_passes_top_k_to_client(self, retriever, mock_client):
-        mock_client.search.return_value = []
         await retriever.search([0.1], top_k=10)
-        _, kwargs = mock_client.search.call_args
+        _, kwargs = mock_client.query_points.call_args
         assert kwargs["limit"] == 10
 
     @pytest.mark.asyncio
     async def test_passes_config_top_k_by_default(self, retriever, mock_client):
-        mock_client.search.return_value = []
         await retriever.search([0.1])
-        _, kwargs = mock_client.search.call_args
+        _, kwargs = mock_client.query_points.call_args
         assert kwargs["limit"] == 5
 
     @pytest.mark.asyncio
     async def test_passes_filter_when_provided(self, retriever, mock_client):
-        mock_client.search.return_value = []
         await retriever.search([0.1], filters={"document_id": "jnc8"})
-        _, kwargs = mock_client.search.call_args
+        _, kwargs = mock_client.query_points.call_args
         assert kwargs["query_filter"] is not None
 
     @pytest.mark.asyncio
     async def test_no_filter_when_none_passed(self, retriever, mock_client):
-        mock_client.search.return_value = []
         await retriever.search([0.1], filters=None)
-        _, kwargs = mock_client.search.call_args
+        _, kwargs = mock_client.query_points.call_args
         assert kwargs["query_filter"] is None
 
     @pytest.mark.asyncio
     async def test_propagates_qdrant_exception(self, retriever, mock_client):
-        mock_client.search.side_effect = RuntimeError("Qdrant down")
+        mock_client.query_points.side_effect = RuntimeError("Qdrant down")
         with pytest.raises(RuntimeError, match="Qdrant down"):
             await retriever.search([0.1])
 

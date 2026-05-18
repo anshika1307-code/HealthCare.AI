@@ -100,6 +100,9 @@ def _make_graph(answer: str = "Clinical answer.", retrieval_result=None, raise_e
             "query_vector": [0.1, 0.2],
             "retrieval_result": rr,
             "answer": answer,
+            "embed_ms": 10.0,
+            "retrieve_ms": 150.0,
+            "generate_ms": 200.0,
         })
     return graph
 
@@ -111,6 +114,14 @@ def _make_qdrant(reachable: bool = True):
     else:
         client.get_collections = AsyncMock(side_effect=Exception("connection refused"))
     return client
+
+
+def _make_metrics():
+    m = MagicMock()
+    m.record = AsyncMock()
+    m.record_error = AsyncMock()
+    m.close = AsyncMock()
+    return m
 
 
 # ---------------------------------------------------------------------------
@@ -127,6 +138,7 @@ def client():
     app.router.lifespan_context = _noop_lifespan
     app.state.graph = _make_graph()
     app.state.qdrant_client = _make_qdrant(reachable=True)
+    app.state.metrics = _make_metrics()
     with TestClient(app, raise_server_exceptions=False) as c:
         yield c
     app.router.lifespan_context = original_lifespan
