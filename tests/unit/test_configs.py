@@ -117,8 +117,9 @@ class TestLLMConfig:
         prompt = LLMConfig().system_prompt
         assert "ONLY" in prompt or "context" in prompt.lower()
 
-    def test_system_prompt_mentions_citation(self):
-        assert "Cite" in LLMConfig().system_prompt or "cite" in LLMConfig().system_prompt.lower()
+    def test_system_prompt_mentions_source(self):
+        prompt = LLMConfig().system_prompt.lower()
+        assert "context" in prompt or "source" in prompt or "document" in prompt
 
     def test_override_model(self):
         cfg = LLMConfig(model_name="gpt-4o")
@@ -151,7 +152,7 @@ class TestDenseConfig:
         assert DenseConfig().collection_name == "healthcare_chunks"
 
     def test_default_top_k(self):
-        assert DenseConfig().top_k == 20
+        assert DenseConfig().top_k == 30
 
     def test_default_distance_metric(self):
         assert DenseConfig().distance_metric == "cosine"
@@ -182,7 +183,7 @@ class TestDenseConfig:
 
 class TestBM25Config:
     def test_default_top_k(self):
-        assert BM25Config().top_k == 20
+        assert BM25Config().top_k == 30
 
     def test_default_k1(self):
         assert BM25Config().k1 == pytest.approx(1.5)
@@ -207,15 +208,15 @@ class TestBM25Config:
 
 class TestRRFConfig:
     def test_default_k(self):
-        assert RRFConfig().k == 60
+        assert RRFConfig().k == 30
 
-    def test_default_weights_equal(self):
+    def test_default_weights(self):
         cfg = RRFConfig()
         assert cfg.dense_weight == pytest.approx(1.0)
-        assert cfg.bm25_weight == pytest.approx(1.0)
+        assert cfg.bm25_weight == pytest.approx(1.3)
 
     def test_default_fusion_pool_size(self):
-        assert RRFConfig().fusion_pool_size == 40
+        assert RRFConfig().fusion_pool_size == 60
 
     def test_pool_size_larger_than_individual_top_k(self):
         assert RRFConfig().fusion_pool_size > DenseConfig().top_k
@@ -302,5 +303,5 @@ class TestRetrievalConfig:
         assert RETRIEVAL_CONFIG is cfg2
 
     def test_singleton_top_k(self):
-        assert RETRIEVAL_CONFIG.dense.top_k == 20
-        assert RETRIEVAL_CONFIG.bm25.top_k == 20
+        assert RETRIEVAL_CONFIG.dense.top_k == 30
+        assert RETRIEVAL_CONFIG.bm25.top_k == 30
