@@ -12,7 +12,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
-
 # ---------------------------------------------------------------------------
 # Dense (Qdrant) config
 # ---------------------------------------------------------------------------
@@ -23,10 +22,11 @@ class DenseConfig:
     # Single collection per prototype. In production: namespace by corpus version
     # (e.g. "healthcare_chunks_v2") so re-ingestion doesn't break live traffic.
 
-    top_k: int = 20
-    # Fetch 20 dense candidates before RRF. Cormack & Clarke 2009 show RRF is
-    # stable with 20–60 candidates per retriever. 20 is conservative for a
-    # 4-document corpus (≈ 400 chunks total).
+    top_k: int = 30
+    # Fetch 30 dense candidates before RRF. Increased from 20 post-RAGAS eval:
+    # 9/40 questions had low reranker confidence, indicating relevant chunks
+    # were not reaching the fusion pool. 30 improves recall without meaningfully
+    # increasing RRF or reranker cost on a 4-document corpus (≈ 400 chunks).
 
     distance_metric: str = "cosine"
     # text-embedding-3-small produces unit-normalised vectors → cosine ≡ dot
@@ -55,9 +55,10 @@ class DenseConfig:
 
 @dataclass
 class BM25Config:
-    top_k: int = 20
+    top_k: int = 30
     # Mirror dense top_k so RRF fusion receives symmetric-size lists from both
     # retrievers. Asymmetric lists bias RRF toward the larger list.
+    # Increased from 20 alongside dense top_k post-RAGAS eval.
 
     k1: float = 1.5
     # Term-frequency saturation. Standard Elasticsearch default. Well-validated
@@ -87,22 +88,24 @@ class BM25Config:
 
 @dataclass
 class RRFConfig:
-    k: int = 60
-    # Canonical RRF smoothing constant from Cormack & Clarke 2009.
-    # Empirically robust across IR benchmarks. Google's hybrid search uses k=60.
-    # Lower k (e.g. 10) amplifies top-rank differences; higher k (e.g. 120)
-    # smooths ranks more. 60 is the safe default until RAGAS eval guides tuning.
+    k: int = 30
+    # RRF smoothing constant. Lowered from 60 post-RAGAS eval: k=60 overly
+    # smooths rank differences, making it hard for a genuinely top-ranked chunk
+    # to separate from the pack. k=30 amplifies rank signal while still being
+    # robust — well within the validated 10–60 range from Cormack & Clarke 2009.
 
     dense_weight: float = 1.0
-    bm25_weight: float = 1.0
-    # Equal weights. Medical documents are acronym-heavy (BP, CGM, GFR), making
-    # BM25 genuinely competitive with dense search for exact-term matching.
-    # Post-RAGAS: if context_recall is low → increase dense_weight.
-    #             if context_precision is low → increase bm25_weight.
+    bm25_weight: float = 1.3
+    # Slight BM25 boost post-RAGAS eval: 9 low-confidence queries include
+    # medical acronyms (GMI, SGLT2, ACE, ARB, GLP-1) that BM25 matches exactly
+    # while the dense model (text-embedding-3-small, general purpose) may
+    # under-weight. 1.3 is conservative — revert to 1.0 if precision drops.
 
-    fusion_pool_size: int = 40
-    # Top-40 from the fused list fed to the cross-encoder reranker.
-    # More signal than top-20 without the O(n²) cross-encoder cost of all 80.
+    fusion_pool_size: int = 60
+    # Top-60 from the fused list fed to the cross-encoder reranker.
+    # Increased from 40 post-RAGAS eval to give the reranker more candidates
+    # when the correct chunk ranks 30–50 in the fused list. With top_k=30 from
+    # each retriever, max unique candidates = 60; pool_size=60 passes them all.
 
 
 # ---------------------------------------------------------------------------
