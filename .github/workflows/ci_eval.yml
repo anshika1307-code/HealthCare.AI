@@ -61,7 +61,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: pytest (unit)
-        run: pytest -m unit --tb=short -q
+        run: pytest tests/unit/ --tb=short -q
         env:
           PYTHONPATH: src
 
@@ -94,7 +94,7 @@ jobs:
           done
 
       - name: pytest (integration)
-        run: pytest -m integration --tb=short -q
+        run: pytest tests/integration/ --tb=short -q
         env:
           PYTHONPATH: src
           QDRANT_URL: http://localhost:6333
