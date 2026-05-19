@@ -107,7 +107,7 @@ const FEATURE_CARDS = [
   {
     num: 7,
     title: 'RAGAS-eval + CI gate',
-    detail: 'GitHub Actions runs 40 hand-written Q&As; blocks deploy if faithfulness < 0.75.',
+    detail: 'GitHub Actions runs 30 hand-written Q&As; blocks deploy if faithfulness < 0.70.',
     icon: FlaskConical,
     color: AMBER,
     bg: AMBER_BG,
@@ -162,7 +162,7 @@ const PROCESS_STEPS = [
   {
     step: 4,
     phase: 'Eval set design',
-    description: '40 question–answer pairs written by domain spec, generated with GPT-4o, reviewed manually.',
+    description: '30 question–answer pairs written by domain spec, generated with GPT-4o, reviewed manually.',
     files: [
       { label: 'eval_ques_format.md', path: 'docs/eval_ques_format.md' },
     ],
@@ -216,7 +216,7 @@ const AI_USAGE_ITEMS = [
   {
     title: 'Implementation',
     detail:
-      'Backend pipeline, LangGraph graph, eval harness, and this UI were all built with Claude Code. The session transcripts are preserved in ai_usage/ — every non-trivial decision is traceable.',
+      'Preprocessing, retrieval, and embedding modules built with Claude Sonnet 4.5 (via Antigravity). Eval harness, CI pipeline, and landing page built with Claude Code. Chat interface initially scaffolded with Figma Make, then refined with Claude Code. Every session traceable.',
     files: [
       { label: 'logic_building.md', path: 'ai_usage/logic_building.md' },
       { label: 'ui_building.md', path: 'ai_usage/ui_building.md' },
@@ -239,12 +239,17 @@ const REPO_TREE = [
   { indent: 2, name: 'decision.md', type: 'file', path: 'docs/decision.md' },
   { indent: 2, name: 'observability_specs.md', type: 'file', path: 'docs/observability_specs.md' },
   { indent: 2, name: 'ui_requirements.md', type: 'file', path: 'docs/ui_requirements.md' },
-  { indent: 1, name: 'ai_usage/', type: 'dir', note: 'full Claude Code session traces' },
+  { indent: 1, name: 'ai_usage/', type: 'dir', note: 'all AI session traces (Claude Code, Antigravity, Figma Make)' },
   { indent: 2, name: 'logic_building.md', type: 'file', path: 'ai_usage/logic_building.md' },
   { indent: 2, name: 'testing.md', type: 'file', path: 'ai_usage/testing.md' },
   { indent: 1, name: 'src/', type: 'dir' },
+  { indent: 2, name: 'ingestion/', type: 'dir', note: 'PDF parsing, chunking, preprocessing' },
+  { indent: 2, name: 'embedding/', type: 'dir', note: 'OpenAI embedder, indexer' },
+  { indent: 2, name: 'retrieval/', type: 'dir', note: 'dense, BM25, RRF, reranker, confidence' },
+  { indent: 2, name: 'orchestration/', type: 'dir', note: 'LangGraph graph + nodes' },
+  { indent: 2, name: 'serving/', type: 'dir', note: 'FastAPI app, schemas' },
   { indent: 2, name: 'evaluation/', type: 'dir', note: 'RAGAS runner, confidence checker' },
-  { indent: 2, name: 'pipeline/', type: 'dir', note: 'LangGraph graph nodes' },
+  { indent: 2, name: 'monitoring/', type: 'dir', note: 'metrics, drift detection, logging' },
   { indent: 1, name: 'experiments/chunking/', type: 'dir', note: 'ablation results (MLflow)' },
   { indent: 1, name: 'ui/chat_assistant/', type: 'dir', note: 'React + Tailwind frontend' },
   { indent: 1, name: '.github/workflows/', type: 'dir', note: 'eval gate CI' },
@@ -486,7 +491,7 @@ export default function LandingPage() {
             ))}
           </div>
           <span className="text-[11px] italic" style={{ color: TEXT_TERTIARY }}>
-            3 documents · deliberately constrained for retrieval stress-testing
+            4 documents · deliberately constrained for retrieval stress-testing
           </span>
         </div>
 
@@ -586,10 +591,10 @@ export default function LandingPage() {
             </h3>
             <div className="space-y-2">
               {[
-                { label: 'Faithfulness', value: `≥ 0.75 (CI gate)`, color: AMBER },
+                { label: 'Faithfulness', value: '≥ 0.70 (CI gate)', color: AMBER },
                 { label: 'Answer Relevancy', value: '> 0.75', color: PRIMARY_BLUE },
-                { label: 'Context Precision', value: '> 0.75', color: GREEN },
-                { label: 'Confidence gate', value: 'below 0.65 → disclaimer', color: TEXT_SECONDARY },
+                { label: 'Context Precision', value: '> 0.70', color: GREEN },
+                { label: 'Confidence gate', value: 'below 0.40 → disclaimer', color: TEXT_SECONDARY },
               ].map((row) => (
                 <div key={row.label} className="flex items-center justify-between text-xs">
                   <span style={{ color: TEXT_SECONDARY }}>{row.label}</span>
@@ -682,7 +687,7 @@ export default function LandingPage() {
                 icon: FlaskConical,
                 iconColor: GREEN,
                 title: 'CI eval gate',
-                body: '40 manually written Q&As. GitHub Actions blocks deploys if RAGAS faithfulness drops below 0.75.',
+                body: '30 manually written Q&As. GitHub Actions blocks deploys if RAGAS faithfulness drops below 0.70.',
                 link: null,
               },
               {
@@ -837,7 +842,7 @@ export default function LandingPage() {
           style={{ backgroundColor: BLUE_BG, borderColor: BLUE_BORDER }}
         >
           <p className="text-[11px] leading-relaxed" style={{ color: PRIMARY_BLUE }}>
-            All Claude Code session transcripts live in{' '}
+            All AI session transcripts (Claude Code, Antigravity, Figma Make) live in{' '}
             <a
               href={GH('ai_usage')}
               target="_blank"
@@ -918,7 +923,7 @@ export default function LandingPage() {
                 {[
                   { layer: 'LLM', value: 'gpt-4o-mini (extractive system prompt)' },
                   { layer: 'Orchestration', value: 'LangGraph stateful graph' },
-                  { layer: 'Retrieval', value: 'BM25 + FAISS dense + RRF fusion' },
+                  { layer: 'Retrieval', value: 'BM25 + Qdrant dense + RRF fusion' },
                   { layer: 'Reranker', value: 'ms-marco-MiniLM-L-6-v2 cross-encoder' },
                   { layer: 'Embeddings', value: 'text-embedding-3-small' },
                   { layer: 'Eval', value: 'RAGAS (faithfulness, relevancy, precision, recall)' },

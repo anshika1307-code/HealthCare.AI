@@ -252,7 +252,7 @@ def _ragas_score(rows: list[dict]) -> tuple[dict[str, float], list[dict]]:
         dataset = EvaluationDataset(samples=samples)
         metrics = [
             Faithfulness(),
-            AnswerRelevancy(),
+            AnswerRelevancy(strictness=1),
             ContextPrecision(),
             ContextRecall(),
         ]

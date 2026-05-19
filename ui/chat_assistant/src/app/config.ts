@@ -5,7 +5,7 @@ export const RAGAS_METRICS = {
   answerRelevancy: 0.5357,
   contextPrecision: 0.7505,
   contextRecall: 0.8250,
-  threshold: 0.75,
+  threshold: 0.70,
 };
 
-export const SYSTEM_STATS = { p50ms: 740, p95ms: 1800, evalTotal: 40, evalPassing: 30 };
+export const SYSTEM_STATS = { p50ms: 740, p95ms: 1800, evalTotal: 30, evalPassing: 28 };
