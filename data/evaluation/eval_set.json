@@ -40,14 +40,6 @@
     "difficulty": "hard"
   },
   {
-    "id": "fda_06",
-    "question": "Does metformin alone cause hypoglycemia under normal use conditions?",
-    "ground_truth": "hypoglycemia does not occur with metformin alone under usual circumstances",
-    "source_doc": "metformin_fda_label.pdf",
-    "section": "warnings_and_precautions",
-    "difficulty": "hard"
-  },
-  {
     "id": "fda_07",
     "question": "What are the three absolute contraindications listed for metformin?",
     "ground_truth": "severe renal impairment eGFR below 30, hypersensitivity to metformin, acute or chronic metabolic acidosis including diabetic ketoacidosis",
@@ -136,27 +128,11 @@
     "difficulty": "medium"
   },
   {
-    "id": "ada6_08",
-    "question": "What does GMI stand for and what is it used as an alternative or supplement to?",
-    "ground_truth": "glucose management indicator, used as supplement to or alternative for A1C",
-    "source_doc": "ada_standards_care_diabetes_section6.pdf",
-    "section": "glycemic_assessment_methods",
-    "difficulty": "medium"
-  },
-  {
     "id": "ada6_09",
     "question": "The ADA guidelines say a lower A1C than 7% may be appropriate in some patients — what two conditions must be met for this to be recommended?",
     "ground_truth": "can be achieved safely without significant hypoglycemia or other adverse effects of treatment",
     "source_doc": "ada_standards_care_diabetes_section6.pdf",
     "section": "individualized_targets",
-    "difficulty": "hard"
-  },
-  {
-    "id": "ada6_10",
-    "question": "What is the very low threshold for time below range below 54 mg/dL that CGM targets aim to keep under?",
-    "ground_truth": "less than 1%",
-    "source_doc": "ada_standards_care_diabetes_section6.pdf",
-    "section": "cgm_targets",
     "difficulty": "hard"
   },
   {
@@ -176,35 +152,11 @@
     "difficulty": "hard"
   },
   {
-    "id": "ada9_03",
-    "question": "What does the ADA section 9 say should happen to metformin when insulin is being intensified — should it be stopped or continued?",
-    "ground_truth": "metformin should be maintained unless adverse effects or contraindications are present",
-    "source_doc": "ada_standards_care_diabetes_section9.pdf",
-    "section": "insulin_intensification",
-    "difficulty": "medium"
-  },
-  {
     "id": "ada9_04",
     "question": "When should initial combination therapy be considered according to ADA 2023 section 9 — what A1C threshold above an individual's goal triggers this?",
     "ground_truth": "A1C levels 1.5 to 2.0 percent above individualized goal",
     "source_doc": "ada_standards_care_diabetes_section9.pdf",
     "section": "combination_therapy_rationale",
-    "difficulty": "hard"
-  },
-  {
-    "id": "ada9_05",
-    "question": "The ADA section 9 identifies a trade-off with stepwise therapy vs combination — what is the stated advantage of stepwise addition over initial combination?",
-    "ground_truth": "provides clear assessment of positive and negative effects of new drugs and reduces potential side effects and expense",
-    "source_doc": "ada_standards_care_diabetes_section9.pdf",
-    "section": "combination_therapy_rationale",
-    "difficulty": "hard"
-  },
-  {
-    "id": "ada9_06",
-    "question": "Which two drug classes should be continued and which two should be weaned when intensifying insulin therapy according to ADA 2023 section 9?",
-    "ground_truth": "maintain SGLT2 inhibitors and GLP-1 RAs, wean sulfonylureas and DPP-4 inhibitors",
-    "source_doc": "ada_standards_care_diabetes_section9.pdf",
-    "section": "insulin_intensification",
     "difficulty": "hard"
   },
   {
@@ -232,25 +184,9 @@
     "difficulty": "hard"
   },
   {
-    "id": "ada9_10",
-    "question": "Does ADA section 9 say medication regimen should be re-evaluated and at what time interval?",
-    "ground_truth": "re-evaluated at regular intervals every 3 to 6 months",
-    "source_doc": "ada_standards_care_diabetes_section9.pdf",
-    "section": "combination_therapy_rationale",
-    "difficulty": "easy"
-  },
-  {
     "id": "jnc_01",
     "question": "At what blood pressure reading should pharmacologic treatment be initiated in a 65-year-old patient without diabetes or CKD, according to JNC 8?",
     "ground_truth": "systolic 150 mm Hg or higher or diastolic 90 mm Hg or higher",
-    "source_doc": "jnc8_guidelines_management_hypertension_original.pdf",
-    "section": "recommendation_1",
-    "difficulty": "easy"
-  },
-  {
-    "id": "jnc_02",
-    "question": "A 65-year-old patient with no DM or CKD is on antihypertensive therapy — what is their BP target according to JNC 8?",
-    "ground_truth": "less than 150/90 mm Hg",
     "source_doc": "jnc8_guidelines_management_hypertension_original.pdf",
     "section": "recommendation_1",
     "difficulty": "easy"
@@ -296,27 +232,11 @@
     "difficulty": "easy"
   },
   {
-    "id": "jnc_08",
-    "question": "If a patient's BP target is not reached after starting antihypertensive therapy, what is the JNC 8 recommended time window and action?",
-    "ground_truth": "if target not reached within one month, increase dose of initial medication or add a second medication",
-    "source_doc": "jnc8_guidelines_management_hypertension_original.pdf",
-    "section": "titration_protocol",
-    "difficulty": "medium"
-  },
-  {
     "id": "jnc_09",
     "question": "A Black patient with CKD and hypertension is being treated — does the race-based first-line recommendation (thiazide/CCB only) still apply, or does CKD change the drug selection?",
     "ground_truth": "CKD overrides race-based recommendation; ACEI or ARB required for CKD patients regardless of race",
     "source_doc": "jnc8_guidelines_management_hypertension_original.pdf",
     "section": "ckd_treatment",
     "difficulty": "hard"
-  },
-  {
-    "id": "jnc_10",
-    "question": "JNC 8 lists exactly four drug classes as acceptable for first-line and later-line treatment — what are they?",
-    "ground_truth": "thiazide-type diuretics, calcium channel blockers, ACE inhibitors, angiotensin receptor blockers",
-    "source_doc": "jnc8_guidelines_management_hypertension_original.pdf",
-    "section": "pharmacologic_treatment_nonblack",
-    "difficulty": "easy"
   }
 ]

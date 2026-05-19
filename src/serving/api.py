@@ -155,6 +155,40 @@ app.add_middleware(
 # ---------------------------------------------------------------------------
 
 
+@app.get("/metrics")
+async def metrics_snapshot():
+    """Latest observability snapshot: per-query counters + CI eval scores."""
+    client = app.state.metrics._client
+    if client is None:
+        raise HTTPException(status_code=503, detail="Redis not available")
+    try:
+        query_count, low_conf_count, error_count = await client.mget(
+            "metrics:query_count", "metrics:low_conf_count", "metrics:error_count"
+        )
+
+        latency_entries = await client.zrange("metrics:latency", -200, -1)
+        latencies = [float(e.split("|")[1]) for e in latency_entries if "|" in e]
+
+        conf_entries = await client.zrange("metrics:confidence", -200, -1)
+        conf_scores = [float(e.split("|")[1]) for e in conf_entries if "|" in e]
+
+        eval_data = await client.hgetall("eval:latest")
+
+        return {
+            "query_count": int(query_count or 0),
+            "low_confidence_count": int(low_conf_count or 0),
+            "error_count": int(error_count or 0),
+            "avg_latency_ms": round(sum(latencies) / len(latencies), 1) if latencies else None,
+            "avg_confidence": round(sum(conf_scores) / len(conf_scores), 4) if conf_scores else None,
+            "eval": {k: float(v) if k != "timestamp" else v for k, v in eval_data.items()}
+            if eval_data
+            else None,
+        }
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("metrics fetch failed: %s", exc)
+        raise HTTPException(status_code=503, detail="Redis unavailable") from exc
+
+
 @app.get("/health")
 async def health():
     """Liveness + Qdrant connectivity check."""

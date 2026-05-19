@@ -107,13 +107,14 @@ jobs:
         run: docker compose -f docker/docker-compose.yml down
 
 
-  # ── 4. RAG Evaluation (faithfulness gate) ─────────────────────────────────
-  # Uses qdrant.cloud directly — no local Qdrant needed, no re-ingestion.
-  # Requires GitHub secrets: OPENAI_API_KEY, QDRANT_URL, QDRANT_API_KEY.
-  eval:
-    name: RAG Evaluation
+  # ── 4a. Eval — Pipeline phase (40 RAG queries → rows cache) ──────────────
+  # Runs the 40 questions through embed → retrieve → generate and saves rows.
+  # Uploaded as an artifact so the RAGAS phase can be re-run without re-querying.
+  eval-pipeline:
+    name: Eval — Pipeline (30 queries)
     needs: integration-tests
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
 
@@ -125,36 +126,195 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements-eval.txt
 
-      - name: Start Redis only (metrics sink)
-        run: docker compose -f docker/docker-compose.yml up -d redis
-
-      - name: Verify OpenAI connectivity
+      - name: Pre-flight checks (fail fast before any LLM calls)
         run: |
-          curl -sf --max-time 10 \
-            -H "Authorization: Bearer ${{ secrets.OPENAI_API_KEY }}" \
-            https://api.openai.com/v1/models \
-            -o /dev/null \
-            && echo "OpenAI reachable" \
-            || { echo "ERROR: Cannot reach api.openai.com — check OPENAI_API_KEY secret and network"; exit 1; }
+          python - <<'PYEOF'
+          import json, os, sys, urllib.request, urllib.error
+          from pathlib import Path
 
-      - name: Run RAGAS evaluation against qdrant.cloud
-        run: python src/evaluation/run_eval.py
+          ok = True
+
+          def check(label, passed, detail=""):
+              global ok
+              if passed:
+                  print(f"  ✓ {label}" + (f" — {detail}" if detail else ""))
+              else:
+                  print(f"  ✗ {label}" + (f" — {detail}" if detail else ""), file=sys.stderr)
+                  ok = False
+
+          print("=== Pre-flight ===")
+
+          # 1. Secrets present (non-empty after strip)
+          oai_key  = os.getenv("OPENAI_API_KEY",  "").strip()
+          qd_url   = os.getenv("QDRANT_URL",       "").strip()
+          qd_key   = os.getenv("QDRANT_API_KEY",   "").strip()
+          check("OPENAI_API_KEY set",  bool(oai_key))
+          check("QDRANT_URL set",      bool(qd_url),  qd_url or "empty")
+          check("QDRANT_API_KEY set",  bool(qd_key))
+
+          # 2. BM25 corpus file present
+          bm25 = Path(os.getenv("BM25_CORPUS_PATH", "data/cache/bm25_corpus.pkl"))
+          check("BM25 corpus exists", bm25.exists(),
+                f"{bm25} ({bm25.stat().st_size:,} B)" if bm25.exists() else str(bm25))
+
+          # 3. Eval set valid JSON with expected questions
+          eval_path = Path("data/evaluation/eval_set.json")
+          if eval_path.exists():
+              try:
+                  qs = json.loads(eval_path.read_text())
+                  check("Eval set parseable", True, f"{len(qs)} questions")
+                  required = {"id", "question", "ground_truth"}
+                  bad = [q.get("id","?") for q in qs if not required.issubset(q)]
+                  check("All questions have required fields", not bad,
+                        f"missing fields in: {bad}" if bad else "")
+              except Exception as e:
+                  check("Eval set parseable", False, str(e))
+          else:
+              check("Eval set exists", False, str(eval_path))
+
+          # 4. OpenAI API reachable
+          if oai_key:
+              req = urllib.request.Request(
+                  "https://api.openai.com/v1/models",
+                  headers={"Authorization": f"Bearer {oai_key}"},
+              )
+              try:
+                  with urllib.request.urlopen(req, timeout=15) as r:
+                      check("OpenAI API reachable", True, f"HTTP {r.status}")
+              except urllib.error.HTTPError as e:
+                  check("OpenAI API reachable", False, f"HTTP {e.code} — invalid key?")
+              except Exception as e:
+                  check("OpenAI API reachable", False, str(e))
+
+          # 5. Qdrant cloud reachable
+          if qd_url:
+              headers = {"api-key": qd_key} if qd_key else {}
+              req = urllib.request.Request(f"{qd_url}/healthz", headers=headers)
+              try:
+                  with urllib.request.urlopen(req, timeout=15) as r:
+                      check("Qdrant reachable", True, f"HTTP {r.status}")
+              except urllib.error.HTTPError as e:
+                  check("Qdrant reachable", False, f"HTTP {e.code} — wrong key or URL?")
+              except Exception as e:
+                  check("Qdrant reachable", False, str(e))
+
+          # 6. Redis (optional — only used to push eval scores at the end)
+          #    Warn if missing/unreachable but do NOT block eval.
+          redis_url = os.getenv("REDIS_URL", "").strip()
+          if not redis_url:
+              print("  ⚠ REDIS_URL not set — eval scores will NOT be pushed to Redis (metrics endpoint will have no eval data)")
+          else:
+              try:
+                  import redis as redis_lib
+                  r = redis_lib.from_url(redis_url, socket_connect_timeout=10)
+                  r.ping()
+                  print(f"  ✓ Redis reachable — PONG")
+                  r.close()
+              except Exception as e:
+                  print(f"  ⚠ Redis unreachable — eval scores will not be pushed: {e}")
+
+          print("==================")
+          if not ok:
+              print("\nPre-flight FAILED — fix the above before retrying.", file=sys.stderr)
+              sys.exit(1)
+          print("All checks passed.\n")
+          PYEOF
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          QDRANT_URL: ${{ secrets.QDRANT_URL }}
+          QDRANT_API_KEY: ${{ secrets.QDRANT_API_KEY }}
+          REDIS_URL: ${{ secrets.REDIS_URL }}
+          BM25_CORPUS_PATH: data/cache/bm25_corpus.pkl
+
+      - name: Run pipeline phase only (saves rows, skips RAGAS)
+        run: |
+          python src/evaluation/run_eval.py \
+            --rows-cache eval_report.rows.json \
+            --output /tmp/eval_report_unused.json \
+            2>&1 | head -200 || true
+          # Exit 0 here — RAGAS gate is checked in the next job
+          # We only need to confirm rows were written
+          test -f eval_report.rows.json
         env:
           PYTHONPATH: src
           QDRANT_URL: ${{ secrets.QDRANT_URL }}
           QDRANT_API_KEY: ${{ secrets.QDRANT_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          REDIS_URL: redis://localhost:6379
           BM25_CORPUS_PATH: data/cache/bm25_corpus.pkl
+
+      - name: Upload rows cache artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: eval-rows-${{ github.sha }}
+          path: eval_report.rows.json
+          retention-days: 3
+
+
+  # ── 4b. Eval — RAGAS scoring phase (faithfulness gate) ────────────────────
+  # Downloads the cached rows and runs RAGAS scoring only — no Qdrant needed.
+  # Re-run this job alone if RAGAS times out without re-running the 40 queries.
+  eval-ragas:
+    name: Eval — RAGAS scoring (faithfulness gate)
+    needs: eval-pipeline
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements-eval.txt
+
+      - name: Download pipeline rows cache
+        uses: actions/download-artifact@v4
+        with:
+          name: eval-rows-${{ github.sha }}
+
+      - name: Run RAGAS scoring from cache (no Qdrant calls)
+        run: |
+          python src/evaluation/run_eval.py \
+            --from-cache eval_report.rows.json \
+            --output eval_report.json
+        env:
+          PYTHONPATH: src
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+      - name: Push eval scores to Redis
+        if: always()
+        run: |
+          python - <<'EOF'
+          import json, os, sys
+          try:
+              import redis
+              report = json.load(open("eval_report.json"))
+              r = redis.from_url(os.environ["REDIS_URL"])
+              r.hset("eval:latest", mapping={
+                  "faithfulness":      str(report["averages"]["faithfulness"]),
+                  "answer_relevancy":  str(report["averages"]["answer_relevancy"]),
+                  "context_precision": str(report["averages"]["context_precision"]),
+                  "context_recall":    str(report["averages"]["context_recall"]),
+                  "num_questions":     str(report["metadata"]["num_questions"]),
+                  "errors":            str(report["metadata"]["errors"]),
+                  "timestamp":         report["metadata"]["timestamp"],
+              })
+              print("Eval scores pushed to Redis.")
+          except Exception as e:
+              print(f"WARNING: could not push eval scores to Redis: {e}", file=sys.stderr)
+          EOF
+        env:
+          REDIS_URL: ${{ secrets.REDIS_URL }}
 
       - name: Upload eval report artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: eval-report-${{ github.sha }}
-          path: |
-            eval_report.json
-            eval_report.rows.json
+          path: eval_report.json
+          retention-days: 7
 
       - name: Post eval report as PR comment on failure
         if: failure() && github.event_name == 'pull_request'
@@ -185,15 +345,11 @@ jobs:
               body,
             });
 
-      - name: Stop Redis
-        if: always()
-        run: docker compose -f docker/docker-compose.yml down redis
-
 
   # ── 5. Deploy to Railway (main branch only, after eval passes) ─────────────
   deploy:
     name: Deploy to Railway
-    needs: eval
+    needs: eval-ragas
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     environment: production
