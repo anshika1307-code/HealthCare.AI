@@ -221,11 +221,14 @@ async def _pipeline_phase(eval_set: list[dict]) -> tuple[list[dict], float]:
 # ─────────────────────────────────────────────────────────────────────────────
 
 
-def _ragas_score(rows: list[dict]) -> tuple[dict[str, float], list[dict]]:
+def _ragas_score(rows: list[dict], ci_mode: bool = False) -> tuple[dict[str, float], list[dict]]:
     """
     Build an EvaluationDataset from collected rows, run RAGAS evaluate(), and
     return (averages_dict, per_question_scores).
     Rows with empty contexts get 0.0 for all metrics.
+
+    ci_mode=True runs only Faithfulness (the CI gate metric) — 30 jobs instead of 120.
+    Full 4-metric evaluation is used for local runs.
     """
     scoreable = [r for r in rows if r["contexts"]]
     unscorable = [r for r in rows if not r["contexts"]]
@@ -250,12 +253,16 @@ def _ragas_score(rows: list[dict]) -> tuple[dict[str, float], list[dict]]:
             for r in scoreable
         ]
         dataset = EvaluationDataset(samples=samples)
-        metrics = [
-            Faithfulness(),
-            AnswerRelevancy(strictness=1),
-            ContextPrecision(),
-            ContextRecall(),
-        ]
+        if ci_mode:
+            metrics = [Faithfulness()]
+            logger.info("CI mode: running Faithfulness only (gate metric)")
+        else:
+            metrics = [
+                Faithfulness(),
+                AnswerRelevancy(strictness=1),
+                ContextPrecision(),
+                ContextRecall(),
+            ]
         eval_llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
         eval_embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
 
@@ -410,6 +417,12 @@ def main() -> None:
         metavar="ROWS_FILE",
         help="Skip Phase 1 — load pipeline rows from a previous cache file and go straight to RAGAS scoring.",
     )
+    parser.add_argument(
+        "--ci",
+        action="store_true",
+        default=False,
+        help="CI mode: run Faithfulness only (the gate metric). Skips the 3 slower metrics to stay within CI time budget.",
+    )
     args = parser.parse_args()
 
     # Derive default cache path alongside the output file
@@ -460,7 +473,7 @@ def main() -> None:
         )
 
     # ── Phase 2: RAGAS scoring (synchronous; fresh event loop) ───────────────
-    averages, per_question = _ragas_score(rows)
+    averages, per_question = _ragas_score(rows, ci_mode=args.ci)
 
     # ── Write report ──────────────────────────────────────────────────────────
     report = {

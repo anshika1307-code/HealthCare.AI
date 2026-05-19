@@ -282,7 +282,8 @@ jobs:
         run: |
           python src/evaluation/run_eval.py \
             --from-cache eval_report.rows.json \
-            --output eval_report.json
+            --output eval_report.json \
+            --ci
         env:
           PYTHONPATH: src
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
