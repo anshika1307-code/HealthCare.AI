@@ -179,7 +179,9 @@ async def metrics_snapshot():
             "low_confidence_count": int(low_conf_count or 0),
             "error_count": int(error_count or 0),
             "avg_latency_ms": round(sum(latencies) / len(latencies), 1) if latencies else None,
-            "avg_confidence": round(sum(conf_scores) / len(conf_scores), 4) if conf_scores else None,
+            "avg_confidence": round(sum(conf_scores) / len(conf_scores), 4)
+            if conf_scores
+            else None,
             "eval": {k: float(v) if k != "timestamp" else v for k, v in eval_data.items()}
             if eval_data
             else None,
