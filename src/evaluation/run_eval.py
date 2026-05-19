@@ -260,10 +260,10 @@ def _ragas_score(rows: list[dict]) -> tuple[dict[str, float], list[dict]]:
         eval_embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
 
         run_cfg = RunConfig(
-            timeout=120,      # seconds per LLM call
+            timeout=120,  # seconds per LLM call
             max_retries=3,
             max_wait=60,
-            max_workers=2,    # limit concurrency — prevents mass-timeout on OpenAI rate limits
+            max_workers=2,  # limit concurrency — prevents mass-timeout on OpenAI rate limits
         )
 
         logger.info("Running RAGAS evaluation on %d questions …", len(scoreable))
