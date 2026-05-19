@@ -68,7 +68,7 @@ from qdrant_client import AsyncQdrantClient
 
 with warnings.catch_warnings():
     warnings.simplefilter("ignore")
-    from ragas import EvaluationDataset, SingleTurnSample
+    from ragas import EvaluationDataset, RunConfig, SingleTurnSample
     from ragas import evaluate as ragas_evaluate
     from ragas.dataset_schema import EvaluationResult as RagasEvaluationResult
     from ragas.metrics._answer_relevance import AnswerRelevancy
@@ -259,6 +259,13 @@ def _ragas_score(rows: list[dict]) -> tuple[dict[str, float], list[dict]]:
         eval_llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
         eval_embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
 
+        run_cfg = RunConfig(
+            timeout=120,      # seconds per LLM call
+            max_retries=3,
+            max_wait=60,
+            max_workers=2,    # limit concurrency — prevents mass-timeout on OpenAI rate limits
+        )
+
         logger.info("Running RAGAS evaluation on %d questions …", len(scoreable))
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
@@ -267,6 +274,7 @@ def _ragas_score(rows: list[dict]) -> tuple[dict[str, float], list[dict]]:
                 metrics=metrics,
                 llm=eval_llm,
                 embeddings=eval_embeddings,
+                run_config=run_cfg,
                 show_progress=True,
             )
         # evaluate() returns EvaluationResult | Executor depending on return_executor flag
