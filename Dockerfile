@@ -22,6 +22,6 @@ COPY data/cache/ ./data/cache/
 
 ENV PYTHONPATH=/app/src:/app
 
-EXPOSE 8000
+EXPOSE 8080
 
-CMD uvicorn serving.api:app --host 0.0.0.0 --port ${PORT:-8000} --workers 1
+CMD uvicorn serving.api:app --host 0.0.0.0 --port ${PORT:-8080} --workers 1
