@@ -158,7 +158,7 @@ class TestDenseConfig:
         assert DenseConfig().collection_name == "healthcare_chunks"
 
     def test_default_top_k(self):
-        assert DenseConfig().top_k == 30
+        assert DenseConfig().top_k == 20
 
     def test_default_distance_metric(self):
         assert DenseConfig().distance_metric == "cosine"
@@ -189,7 +189,7 @@ class TestDenseConfig:
 
 class TestBM25Config:
     def test_default_top_k(self):
-        assert BM25Config().top_k == 30
+        assert BM25Config().top_k == 20
 
     def test_default_k1(self):
         assert BM25Config().k1 == pytest.approx(1.5)
@@ -222,10 +222,10 @@ class TestRRFConfig:
         assert cfg.bm25_weight == pytest.approx(1.3)
 
     def test_default_fusion_pool_size(self):
-        assert RRFConfig().fusion_pool_size == 40
+        assert RRFConfig().fusion_pool_size == 20
 
-    def test_pool_size_larger_than_individual_top_k(self):
-        assert RRFConfig().fusion_pool_size > DenseConfig().top_k
+    def test_pool_size_equals_individual_top_k(self):
+        assert RRFConfig().fusion_pool_size == DenseConfig().top_k
 
 
 # ===========================================================================
@@ -241,7 +241,7 @@ class TestRerankerConfig:
         assert RerankerConfig().top_n == 3
 
     def test_default_batch_size(self):
-        assert RerankerConfig().batch_size == 32
+        assert RerankerConfig().batch_size == 8
 
     def test_default_device(self):
         assert RerankerConfig().device == "cpu"
@@ -309,5 +309,5 @@ class TestRetrievalConfig:
         assert RETRIEVAL_CONFIG is cfg2
 
     def test_singleton_top_k(self):
-        assert RETRIEVAL_CONFIG.dense.top_k == 30
-        assert RETRIEVAL_CONFIG.bm25.top_k == 30
+        assert RETRIEVAL_CONFIG.dense.top_k == 20
+        assert RETRIEVAL_CONFIG.bm25.top_k == 20

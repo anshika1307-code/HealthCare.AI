@@ -1,8 +1,13 @@
 -r requirements.txt
 
 # ── Evaluation ────────────────────────────────────────────────────────────────
-ragas>=0.1.0
+ragas==0.4.3
 datasets>=2.19.0
+
+# ragas 0.4.x unconditionally imports langchain_community.chat_models.vertexai,
+# which was removed in langchain-community 0.3.0. Pin below 0.3.0 so CI doesn't
+# pull a version where that module no longer exists.
+langchain-community>=0.2.0,<0.3.0
 
 # ── Experiment tracking ───────────────────────────────────────────────────────
 mlflow>=2.12.0

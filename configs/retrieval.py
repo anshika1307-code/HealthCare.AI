@@ -24,11 +24,10 @@ class DenseConfig:
     # Single collection per prototype. In production: namespace by corpus version
     # (e.g. "healthcare_chunks_v2") so re-ingestion doesn't break live traffic.
 
-    top_k: int = 30
-    # Fetch 30 dense candidates before RRF. Increased from 20 post-RAGAS eval:
-    # 9/40 questions had low reranker confidence, indicating relevant chunks
-    # were not reaching the fusion pool. 30 improves recall without meaningfully
-    # increasing RRF or reranker cost on a 4-document corpus (≈ 400 chunks).
+    top_k: int = 20
+    # Fetch 20 dense candidates before RRF. Was 30 post-RAGAS eval; reduced back
+    # to 20 after Railway OOM kills: the larger pool pushed reranker RAM over the
+    # 512MB container limit. 20 still covers the relevant chunks on a 4-doc corpus.
 
     distance_metric: str = "cosine"
     # text-embedding-3-small produces unit-normalised vectors → cosine ≡ dot
@@ -62,10 +61,10 @@ class DenseConfig:
 
 @dataclass
 class BM25Config:
-    top_k: int = 30
+    top_k: int = 20
     # Mirror dense top_k so RRF fusion receives symmetric-size lists from both
     # retrievers. Asymmetric lists bias RRF toward the larger list.
-    # Increased from 20 alongside dense top_k post-RAGAS eval.
+    # Reduced to 20 alongside dense top_k to fix Railway OOM kill.
 
     k1: float = 1.5
     # Term-frequency saturation. Standard Elasticsearch default. Well-validated
@@ -109,12 +108,12 @@ class RRFConfig:
     # while the dense model (text-embedding-3-small, general purpose) may
     # under-weight. 1.3 is conservative — revert to 1.0 if precision drops.
 
-    fusion_pool_size: int = 40
-    # Top-40 from the fused list fed to the cross-encoder reranker.
-    # Reduced from 60 for latency: 40 pairs fit in a single batch_size=32 + 8
-    # (still 2 passes but significantly fewer pairs). The marginal chunks at
-    # rank 41-60 rarely contain the correct answer — they scored low in both
-    # dense and BM25 before fusion. Revert to 60 if recall drops.
+    fusion_pool_size: int = 20
+    # Top-20 from the fused list fed to the cross-encoder reranker.
+    # Reduced from 40 to fix Railway OOM kill: 40 pairs × 512-token max length
+    # caused RAM spike that killed the process. 20 pairs fit safely within the
+    # 512MB container limit. The marginal chunks at rank 21-40 rarely contain
+    # the correct answer on a 4-doc corpus — they scored low in both retrievers.
 
 
 # ---------------------------------------------------------------------------
@@ -124,11 +123,13 @@ class RRFConfig:
 
 @dataclass
 class RerankerConfig:
-    model_name: str = "cross-encoder/ms-marco-MiniLM-L-6-v2"
-    # Smallest MS-MARCO cross-encoder with solid reranking performance on
-    # biomedical text. MiniLM-L-6 = 22M params → ~100ms CPU latency for
-    # 40 (query, chunk) pairs. BGE reranker is higher quality but 3× larger —
-    # unacceptable on a free-tier server (512MB RAM budget).
+    model_name: str = "cross-encoder/ms-marco-MiniLM-L-2-v2"
+    # MiniLM-L-2: 2-layer cross-encoder, ~6M params, ~24MB weights.
+    # Chosen over L-6 (22M params, ~88MB) to fit Railway free tier (512MB RAM):
+    # L-6 + activations pushed total RAM to ~380MB, causing OOM kills mid-request.
+    # L-2 brings total RAM to ~220MB, leaving safe headroom.
+    # MS-MARCO MRR@10: L-2=32.0 vs L-6=34.7 — ~5% lower, acceptable on a
+    # 4-document corpus where top candidates are rarely ambiguous.
 
     top_n: int = 3
     # Reduced from 5 for latency: 3 × 512-token chunks ≈ 1,536 tokens fed to
@@ -136,9 +137,11 @@ class RerankerConfig:
     # The top-3 reranked chunks carry the vast majority of signal on a
     # 4-document corpus; chunks 4-5 are usually redundant sections.
 
-    batch_size: int = 32
-    # Cross-encoder batch size. 32 pairs × (query + 512-token chunk) fits in
-    # ~256MB RAM on free server. Reduce to 16 if OOM errors occur at startup.
+    batch_size: int = 8
+    # Cross-encoder batch size. Reduced from 32 to 8 to fix Railway OOM kill:
+    # 32 pairs × (query + 512 tokens) allocated tensors that spiked RAM over the
+    # 512MB container limit mid-request. 8 pairs process the same 20-pair pool
+    # in 3 passes with a much smaller per-pass tensor footprint.
 
     device: str = "cpu"
     # Free-tier servers (Render, Railway) have no GPU. MiniLM-L-6 CPU inference

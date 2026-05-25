@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import {
-  Dna,
   Github,
   FileText,
   Activity,
@@ -21,6 +20,17 @@ import {
 } from 'lucide-react';
 import AccessModal from '../components/AccessModal';
 import { GITHUB_URL, RAGAS_METRICS, SYSTEM_STATS } from '../config';
+
+function HealthcareAILogo({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <rect x="6" y="1" width="4" height="14" rx="2" fill="#185FA5" />
+      <rect x="1" y="6" width="14" height="4" rx="2" fill="#185FA5" />
+      <circle cx="8" cy="8" r="2.2" fill="white" />
+      <circle cx="8" cy="8" r="1.2" fill="#185FA5" />
+    </svg>
+  );
+}
 
 const PRIMARY_BLUE = '#185FA5';
 const BLUE_BG = '#E6F1FB';
@@ -283,9 +293,9 @@ export default function LandingPage() {
       >
         {/* Logo */}
         <div className="flex items-center gap-2">
-          <Dna className="h-4 w-4" style={{ color: PRIMARY_BLUE }} />
+          <HealthcareAILogo size={16} />
           <span className="text-sm font-bold" style={{ color: TEXT_PRIMARY }}>
-            ClinicalRAG
+            HealthCare.AI
           </span>
           <span className="text-xs" style={{ color: TEXT_TERTIARY }}>
             by Anshika Goel
