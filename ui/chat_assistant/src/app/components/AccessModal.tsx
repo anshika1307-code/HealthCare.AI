@@ -1,11 +1,22 @@
+import { useState } from 'react';
+import { useGoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router';
 import * as Dialog from '@radix-ui/react-dialog';
-import { MessageCircle, Clock, Lock, X, AlertTriangle } from 'lucide-react';
+import { MessageCircle, Clock, Lock, X, AlertTriangle, Loader2 } from 'lucide-react';
+
+export interface GoogleUser {
+  id: string;       // Google sub — stable unique identifier for localStorage key
+  name: string;
+  email: string;
+  picture: string;
+  token: string;
+}
 
 interface AccessModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   guestDisabled?: boolean;
+  onSignIn?: (user: GoogleUser) => void;
 }
 
 function GoogleIcon() {
@@ -22,12 +33,49 @@ function GoogleIcon() {
   );
 }
 
-export default function AccessModal({ open, onOpenChange, guestDisabled = false }: AccessModalProps) {
+export default function AccessModal({
+  open,
+  onOpenChange,
+  guestDisabled = false,
+  onSignIn,
+}: AccessModalProps) {
   const navigate = useNavigate();
+  const [signingIn, setSigningIn] = useState(false);
+  const [signInError, setSignInError] = useState<string | null>(null);
 
-  const handleGoogleSignIn = () => {
-    alert('Google sign-in coming soon.');
-  };
+  const login = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      setSigningIn(true);
+      setSignInError(null);
+      try {
+        const res = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+          headers: { Authorization: `Bearer ${tokenResponse.access_token}` },
+        });
+        if (!res.ok) throw new Error('Could not fetch profile');
+        const info = await res.json();
+        const user: GoogleUser = {
+          id: info.sub || '',
+          token: tokenResponse.access_token,
+          name: info.name || info.email || 'User',
+          email: info.email || '',
+          picture: info.picture || '',
+        };
+        localStorage.setItem('clinicalrag_user', JSON.stringify(user));
+        onSignIn?.(user);
+        onOpenChange(false);
+        navigate('/chat');
+      } catch {
+        setSignInError('Sign-in failed. Please try again.');
+      } finally {
+        setSigningIn(false);
+      }
+    },
+    onError: () => {
+      setSignInError('Sign-in failed. Please try again.');
+      setSigningIn(false);
+    },
+    scope: 'openid email profile',
+  });
 
   const handleGuestAccess = () => {
     if (guestDisabled) return;
@@ -66,13 +114,22 @@ export default function AccessModal({ open, onOpenChange, guestDisabled = false 
 
           {/* Google sign-in button */}
           <button
-            onClick={handleGoogleSignIn}
-            className="mb-3 flex w-full items-center justify-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
+            onClick={() => { setSignInError(null); login(); }}
+            disabled={signingIn}
+            className="mb-3 flex w-full items-center justify-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 disabled:opacity-60 disabled:cursor-not-allowed"
             style={{ borderColor: '#D1D5DB' }}
           >
-            <GoogleIcon />
-            Continue with Google
+            {signingIn ? (
+              <Loader2 className="h-4 w-4 animate-spin text-gray-500" />
+            ) : (
+              <GoogleIcon />
+            )}
+            {signingIn ? 'Signing in…' : 'Continue with Google'}
           </button>
+
+          {signInError && (
+            <p className="mb-3 text-center text-xs text-red-600">{signInError}</p>
+          )}
 
           {/* Divider */}
           <div className="mb-3 flex items-center gap-2">

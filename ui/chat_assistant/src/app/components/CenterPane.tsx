@@ -34,6 +34,8 @@ interface Exchange {
   totalMs: number;
   retrievalMs: number;
   llmMs: number;
+  timestamp: number;           // unix ms — used for 24h TTL eviction
+  suggestedQueries?: string[]; // follow-up suggestions from backend
 }
 
 interface CenterPaneProps {
@@ -42,12 +44,38 @@ interface CenterPaneProps {
   onCitationsChange?: (citations: Citation[]) => void;
   queriesRemaining: number;
   queriesDisabled: boolean;
+  isAuthenticated?: boolean;
+  userToken?: string;
+  userId?: string;   // Google sub — used as localStorage key for 24h history
   onQueryComplete: () => void;
   onSignInClick: () => void;
 }
 
 const MAX_CHARS = 2000;
 const WARN_CHARS = 1500;
+const HISTORY_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
+
+function historyKey(userId: string) {
+  return `clinicalrag_history_${userId}`;
+}
+
+function loadHistory(userId: string): Exchange[] {
+  try {
+    const raw = localStorage.getItem(historyKey(userId));
+    if (!raw) return [];
+    const parsed: Exchange[] = JSON.parse(raw);
+    const now = Date.now();
+    return parsed.filter((e) => now - e.timestamp < HISTORY_TTL_MS);
+  } catch {
+    return [];
+  }
+}
+
+function saveHistory(userId: string, exchanges: Exchange[]) {
+  try {
+    localStorage.setItem(historyKey(userId), JSON.stringify(exchanges));
+  } catch {}
+}
 
 const EXAMPLE_QUERIES = [
   'What is the target blood pressure for diabetic patients with hypertension?',
@@ -133,6 +161,9 @@ export function CenterPane({
   onCitationsChange,
   queriesRemaining,
   queriesDisabled,
+  isAuthenticated = false,
+  userToken,
+  userId,
   onQueryComplete,
   onSignInClick,
 }: CenterPaneProps) {
@@ -144,6 +175,19 @@ export function CenterPane({
   const [copiedIdx, setCopiedIdx]       = useState<number | null>(null);
   const [openTraces, setOpenTraces]     = useState<Record<number, boolean>>({});
   const bottomRef = useRef<HTMLDivElement>(null);
+
+  // Load 24h history when user signs in
+  useEffect(() => {
+    if (!userId) return;
+    const stored = loadHistory(userId);
+    if (stored.length > 0) setExchanges(stored);
+  }, [userId]);
+
+  // Persist history whenever exchanges change (logged-in users only)
+  useEffect(() => {
+    if (!userId || exchanges.length === 0) return;
+    saveHistory(userId, exchanges);
+  }, [userId, exchanges]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -165,7 +209,10 @@ export function CenterPane({
     try {
       const res = await fetch(`${API_URL}/query`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...(userToken ? { Authorization: `Bearer ${userToken}` } : {}),
+        },
         body: JSON.stringify({ query: trimmed }),
       });
 
@@ -210,7 +257,18 @@ export function CenterPane({
         confidence,
       };
 
-      setExchanges((prev) => [...prev, { query: trimmed, response: newResponse, totalMs, retrievalMs, llmMs }]);
+      setExchanges((prev) => [
+        ...prev,
+        {
+          query: trimmed,
+          response: newResponse,
+          totalMs,
+          retrievalMs,
+          llmMs,
+          timestamp: Date.now(),
+          suggestedQueries: data.suggested_queries ?? [],
+        },
+      ]);
       onCitationsChange?.(citations);
       onQueryComplete();
     } catch (err) {
@@ -524,21 +582,27 @@ export function CenterPane({
       {/* Input area */}
       <div className="flex-shrink-0 border-t border-gray-200 bg-white px-6 pb-5 pt-4">
 
-        {/* Quick chips */}
-        {hasExchanges && !queriesDisabled && (
-          <div className="mx-auto mb-3 flex max-w-3xl gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {QUICK_CHIPS.map(({ label, query: q }) => (
-              <button
-                key={label}
-                onClick={() => submitQuery(q)}
-                disabled={loading}
-                className="flex-shrink-0 rounded-full border border-gray-200 bg-white px-3 py-1 text-[11px] text-gray-600 transition-colors hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 disabled:opacity-40"
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-        )}
+        {/* Quick chips — dynamic suggestions from last answer, fallback to static */}
+        {hasExchanges && !queriesDisabled && (() => {
+          const lastSuggestions = exchanges[exchanges.length - 1].suggestedQueries;
+          const chips = lastSuggestions && lastSuggestions.length > 0
+            ? lastSuggestions.map((q) => ({ label: q, query: q }))
+            : QUICK_CHIPS;
+          return (
+            <div className="mx-auto mb-3 flex max-w-3xl gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              {chips.map(({ label, query: q }) => (
+                <button
+                  key={label}
+                  onClick={() => submitQuery(q)}
+                  disabled={loading}
+                  className="flex-shrink-0 rounded-full border border-gray-200 bg-white px-3 py-1 text-[11px] text-gray-600 transition-colors hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 disabled:opacity-40"
+                >
+                  {label.length > 50 ? label.slice(0, 47) + '…' : label}
+                </button>
+              ))}
+            </div>
+          );
+        })()}
 
         {/* Query limit reached banner */}
         {queriesDisabled && (
@@ -547,15 +611,19 @@ export function CenterPane({
               <div className="flex items-center gap-2">
                 <AlertTriangle className="h-3.5 w-3.5 flex-shrink-0 text-amber-600" />
                 <span className="text-xs font-medium text-amber-800">
-                  Guest query limit reached (5/5)
+                  {isAuthenticated
+                    ? 'Daily limit reached (25/25) — resets in 24 hours'
+                    : 'Guest query limit reached (5/5)'}
                 </span>
               </div>
-              <button
-                onClick={onSignInClick}
-                className="rounded border border-amber-400 bg-white px-2.5 py-1 text-[11px] font-medium text-amber-700 transition-colors hover:bg-amber-50"
-              >
-                Sign in for 25/day
-              </button>
+              {!isAuthenticated && (
+                <button
+                  onClick={onSignInClick}
+                  className="rounded border border-amber-400 bg-white px-2.5 py-1 text-[11px] font-medium text-amber-700 transition-colors hover:bg-amber-50"
+                >
+                  Sign in for 25/day
+                </button>
+              )}
             </div>
           </div>
         )}

@@ -1,12 +1,16 @@
 
-  import { createRoot } from "react-dom/client";
-  import { BrowserRouter } from "react-router";
-  import App from "./app/App.tsx";
-  import "./styles/index.css";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import App from "./app/App.tsx";
+import "./styles/index.css";
 
-  createRoot(document.getElementById("root")!).render(
-    <BrowserRouter>
+const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID ?? '';
+
+createRoot(document.getElementById("root")!).render(
+  <BrowserRouter>
+    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <App />
-    </BrowserRouter>
-  );
-  
+    </GoogleOAuthProvider>
+  </BrowserRouter>
+);

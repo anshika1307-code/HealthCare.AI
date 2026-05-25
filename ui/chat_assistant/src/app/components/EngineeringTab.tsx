@@ -1,15 +1,14 @@
+import { useState } from 'react';
 import { FileText, Github, FlaskConical, ExternalLink, CheckCircle2 } from 'lucide-react';
-import { GITHUB_URL, RAGAS_METRICS, SYSTEM_STATS } from '../config';
+import { GITHUB_URL } from '../config';
+import { useMetrics } from '../hooks/useMetrics';
+import EvalReportModal from './EvalReportModal';
 
 const GREEN = '#3B6D11';
-const GREEN_BG = '#EAF3DE';
-const GREEN_BORDER = '#C0DD97';
 const AMBER = '#854F0B';
 const AMBER_BG = '#FAEEDA';
 const AMBER_BORDER = '#FAC775';
 const PRIMARY_BLUE = '#185FA5';
-const BLUE_BG = '#E6F1FB';
-const BLUE_BORDER = '#B5D4F4';
 const TEXT_PRIMARY = '#1A1A1A';
 const TEXT_SECONDARY = '#555';
 const TEXT_TERTIARY = '#888';
@@ -18,14 +17,21 @@ interface MetricCellProps {
   label: string;
   value: string;
   color: string;
+  live?: boolean;
 }
 
-function MetricCell({ label, value, color }: MetricCellProps) {
+function MetricCell({ label, value, color, live }: MetricCellProps) {
   return (
     <div className="rounded-lg border bg-white p-3" style={{ borderColor: '#E5E7EB' }}>
-      <p className="text-[10px] font-medium uppercase tracking-wider" style={{ color: TEXT_TERTIARY }}>
-        {label}
-      </p>
+      <div className="flex items-center gap-1">
+        <p className="text-[10px] font-medium uppercase tracking-wider" style={{ color: TEXT_TERTIARY }}>
+          {label}
+        </p>
+        {live && (
+          <span className="rounded-full px-1 py-0 text-[8px] font-semibold uppercase tracking-wide"
+            style={{ backgroundColor: '#EAF3DE', color: GREEN }}>live</span>
+        )}
+      </div>
       <p className="mt-1 text-base font-medium" style={{ color }}>
         {value}
       </p>
@@ -54,55 +60,75 @@ const KEY_DECISIONS = [
   },
   {
     num: 4,
-    title: 'gpt-4o-mini with extractive system prompt',
+    title: 'Groq Llama-3.3-70B primary + OpenAI gpt-4o-mini fallback',
     detail:
-      'Strict context-only prompt prevents training-data hallucination. Improved faithfulness from 0.62 to 0.74 vs. generative prompt.',
+      'Groq cuts LLM latency from ~9s to ~300ms at zero cost. OpenAI fallback activates on Groq rate-limit. Embeddings remain on text-embedding-3-small.',
   },
 ];
 
 export default function EngineeringTab() {
+  const m = useMetrics();
+  const [evalOpen, setEvalOpen] = useState(false);
+
   return (
     <div className="space-y-6 p-5">
       {/* System Health */}
       <section>
-        <h2
-          className="mb-3 text-[10px] font-medium uppercase tracking-wider"
-          style={{ color: TEXT_TERTIARY }}
-        >
-          System Health
-        </h2>
+        <div className="mb-3 flex items-center justify-between">
+          <h2 className="text-[10px] font-medium uppercase tracking-wider" style={{ color: TEXT_TERTIARY }}>
+            System Health
+          </h2>
+          {m.queryCount !== null && (
+            <span className="text-[10px]" style={{ color: TEXT_TERTIARY }}>
+              {m.queryCount} total queries · {m.errorCount ?? 0} errors
+            </span>
+          )}
+        </div>
         <div className="grid grid-cols-3 gap-3">
           <MetricCell
             label="Avg faithfulness"
-            value={RAGAS_METRICS.faithfulness.toString()}
-            color={GREEN}
+            value={m.faithfulness.toFixed(4)}
+            color={m.faithfulness >= m.evalThreshold ? GREEN : AMBER}
+            live={!m.error && m.queryCount !== null}
           />
           <MetricCell
             label="Answer relevancy"
-            value={RAGAS_METRICS.answerRelevancy.toString()}
+            value={m.answerRelevancy.toFixed(4)}
             color={AMBER}
+            live={!m.error && m.queryCount !== null}
           />
           <MetricCell
             label="Context precision"
-            value={RAGAS_METRICS.contextPrecision.toString()}
+            value={m.contextPrecision.toFixed(4)}
             color={GREEN}
+            live={!m.error && m.queryCount !== null}
           />
           <MetricCell
             label="Context recall"
-            value={RAGAS_METRICS.contextRecall.toString()}
+            value={m.contextRecall.toFixed(4)}
             color={GREEN}
+            live={!m.error && m.queryCount !== null}
           />
           <MetricCell
             label="p50 latency"
-            value={`${SYSTEM_STATS.p50ms}ms`}
+            value={`${m.p50ms}ms`}
             color={PRIMARY_BLUE}
+            live={!m.error && m.avgLatencyMs !== null}
           />
           <MetricCell
             label="Eval passing"
-            value={`${SYSTEM_STATS.evalPassing}/${SYSTEM_STATS.evalTotal}`}
+            value={`${m.evalPassing}/${m.evalTotal}`}
             color={GREEN}
           />
         </div>
+        {m.avgConfidence !== null && (
+          <p className="mt-2 text-[10px]" style={{ color: TEXT_TERTIARY }}>
+            Live avg confidence: <span className="font-medium" style={{ color: PRIMARY_BLUE }}>
+              {m.avgConfidence.toFixed(4)}
+            </span>
+            {m.lowConfidenceCount !== null && ` · ${m.lowConfidenceCount} low-confidence queries`}
+          </p>
+        )}
       </section>
 
       {/* Architecture & Docs */}
@@ -125,7 +151,7 @@ export default function EngineeringTab() {
             DECISIONS.md
           </a>
           <a
-            href={GITHUB_URL + '/blob/main/docs/ARCHITECTURE.md'}
+            href={GITHUB_URL + '/blob/main/docs/basic_architecture.md'}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-1.5 rounded border px-3 py-1.5 text-xs font-medium transition-colors hover:bg-gray-50"
@@ -144,16 +170,14 @@ export default function EngineeringTab() {
             <Github className="h-3.5 w-3.5" />
             GitHub
           </a>
-          <a
-            href="/eval_report.json"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={() => setEvalOpen(true)}
             className="flex items-center gap-1.5 rounded border px-3 py-1.5 text-xs font-medium transition-colors hover:bg-gray-50"
             style={{ borderColor: '#D1D5DB', color: TEXT_SECONDARY }}
           >
             <FlaskConical className="h-3.5 w-3.5" />
             Eval Report
-          </a>
+          </button>
           <a
             href={GITHUB_URL + '/actions'}
             target="_blank"
@@ -203,6 +227,8 @@ export default function EngineeringTab() {
         </div>
       </section>
 
+      <EvalReportModal open={evalOpen} onOpenChange={setEvalOpen} />
+
       {/* CI/CD Status */}
       <section>
         <h2
@@ -215,13 +241,12 @@ export default function EngineeringTab() {
           className="rounded-lg border bg-white p-3"
           style={{ borderColor: '#E5E7EB' }}
         >
-          {/* Main status row */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <CheckCircle2 className="h-4 w-4 flex-shrink-0" style={{ color: GREEN }} />
               <span className="text-xs" style={{ color: TEXT_PRIMARY }}>
-                GitHub Actions · eval gate · faithfulness {RAGAS_METRICS.faithfulness} vs threshold{' '}
-                {RAGAS_METRICS.threshold}
+                GitHub Actions · eval gate · faithfulness {m.faithfulness.toFixed(4)} vs threshold{' '}
+                {m.evalThreshold}
               </span>
             </div>
             <span className="text-[11px]" style={{ color: TEXT_TERTIARY }}>
@@ -229,15 +254,16 @@ export default function EngineeringTab() {
             </span>
           </div>
 
-          {/* Warning note */}
-          <div
-            className="mt-2.5 rounded border p-2"
-            style={{ backgroundColor: AMBER_BG, borderColor: AMBER_BORDER }}
-          >
-            <p className="text-[11px] leading-relaxed" style={{ color: AMBER }}>
-              ⚠ Just below 0.75 threshold — running eval with latest prompt changes
-            </p>
-          </div>
+          {m.faithfulness < m.evalThreshold && (
+            <div
+              className="mt-2.5 rounded border p-2"
+              style={{ backgroundColor: AMBER_BG, borderColor: AMBER_BORDER }}
+            >
+              <p className="text-[11px] leading-relaxed" style={{ color: AMBER }}>
+                ⚠ Just below {m.evalThreshold} threshold — running eval with latest prompt changes
+              </p>
+            </div>
+          )}
         </div>
       </section>
     </div>

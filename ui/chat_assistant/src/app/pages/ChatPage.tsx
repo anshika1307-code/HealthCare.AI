@@ -1,12 +1,26 @@
-import { useState } from 'react';
-import { Dna, Activity, Clock } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
+import { Activity, Clock, LogOut } from 'lucide-react';
+
+function HealthcareAILogo({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      {/* Medical cross */}
+      <rect x="6" y="1" width="4" height="14" rx="2" fill="#185FA5" />
+      <rect x="1" y="6" width="14" height="4" rx="2" fill="#185FA5" />
+      {/* Center AI node */}
+      <circle cx="8" cy="8" r="2.2" fill="white" />
+      <circle cx="8" cy="8" r="1.2" fill="#185FA5" />
+    </svg>
+  );
+}
 import { LeftRail } from '../components/LeftRail';
 import { CenterPane } from '../components/CenterPane';
 import { RightRail } from '../components/RightRail';
 import EngineeringTab from '../components/EngineeringTab';
 import MetricsTab from '../components/MetricsTab';
-import AccessModal from '../components/AccessModal';
-import { RAGAS_METRICS, SYSTEM_STATS } from '../config';
+import AccessModal, { GoogleUser } from '../components/AccessModal';
+import { useMetrics } from '../hooks/useMetrics';
 
 interface Citation {
   guidelineId: string;
@@ -47,10 +61,41 @@ const GUIDELINES_BASE = [
 type ActiveTab = 'query' | 'engineering' | 'metrics';
 
 const GUEST_LIMIT = 5;
+const AUTH_LIMIT = 25;
 const PRIMARY_BLUE = '#185FA5';
 const GREEN = '#3B6D11';
 const GREEN_BG = '#EAF3DE';
 const GREEN_BORDER = '#C0DD97';
+
+function loadStoredUser(): GoogleUser | null {
+  try {
+    const stored = localStorage.getItem('clinicalrag_user');
+    return stored ? (JSON.parse(stored) as GoogleUser) : null;
+  } catch {
+    return null;
+  }
+}
+
+/** Persist query count per user per calendar day — resets automatically on a new day. */
+function loadQueryCount(userId: string): number {
+  try {
+    const raw = localStorage.getItem(`clinicalrag_qcount_${userId}`);
+    if (!raw) return 0;
+    const { date, count } = JSON.parse(raw) as { date: string; count: number };
+    return date === new Date().toISOString().slice(0, 10) ? count : 0;
+  } catch {
+    return 0;
+  }
+}
+
+function saveQueryCount(userId: string, count: number) {
+  try {
+    localStorage.setItem(
+      `clinicalrag_qcount_${userId}`,
+      JSON.stringify({ date: new Date().toISOString().slice(0, 10), count }),
+    );
+  } catch {}
+}
 
 export default function ChatPage() {
   const [activeTab, setActiveTab] = useState<ActiveTab>('query');
@@ -58,8 +103,36 @@ export default function ChatPage() {
   const [citationCounts, setCitationCounts] = useState<Record<string, number>>({
     FDA: 0, ADA: 0, JNC8: 0,
   });
-  const [queryCount, setQueryCount] = useState(0);
+  const navigate = useNavigate();
+  const liveMetrics = useMetrics();
+  const storedUser = loadStoredUser();
+  const [queryCount, setQueryCount] = useState(
+    storedUser?.id ? loadQueryCount(storedUser.id) : 0,
+  );
   const [modalOpen, setModalOpen] = useState(false);
+  const [user, setUser] = useState<GoogleUser | null>(storedUser);
+
+  const queryLimit = user ? AUTH_LIMIT : GUEST_LIMIT;
+  const queriesRemaining = queryLimit - queryCount;
+
+  // Persist count whenever it changes (signed-in users only)
+  useEffect(() => {
+    if (user?.id) saveQueryCount(user.id, queryCount);
+  }, [user?.id, queryCount]);
+
+  const handleSignIn = (userData: GoogleUser) => {
+    setUser(userData);
+    // Restore today's count for this user — don't reset to 0 (that's the loophole)
+    setQueryCount(loadQueryCount(userData.id));
+    localStorage.setItem('clinicalrag_user', JSON.stringify(userData));
+    setModalOpen(false);
+  };
+
+  const handleSignOut = () => {
+    setUser(null);
+    setQueryCount(0); // guest starts fresh
+    localStorage.removeItem('clinicalrag_user');
+  };
 
   const handleCitationsChange = (citations: Citation[]) => {
     const counts: Record<string, number> = { FDA: 0, ADA: 0, JNC8: 0 };
@@ -75,8 +148,6 @@ export default function ChatPage() {
     sectionsUsed: citationCounts[g.id] ?? 0,
   }));
 
-  const queriesRemaining = GUEST_LIMIT - queryCount;
-
   const tabs: { id: ActiveTab; label: string }[] = [
     { id: 'query', label: 'Query' },
     { id: 'engineering', label: 'Engineering' },
@@ -90,25 +161,29 @@ export default function ChatPage() {
         className="flex flex-shrink-0 items-center justify-between border-b px-4"
         style={{ height: 48, borderColor: '#E5E7EB' }}
       >
-        <div className="flex items-center gap-2">
-          <Dna className="h-4 w-4" style={{ color: PRIMARY_BLUE }} />
+        <button
+          onClick={() => navigate('/')}
+          className="flex items-center gap-2 rounded px-1 py-0.5 transition-colors hover:bg-gray-50"
+          aria-label="Go to home"
+        >
+          <HealthcareAILogo size={16} />
           <span className="text-sm font-bold" style={{ color: '#1A1A1A' }}>
-            ClinicalRAG
+            healthCare<span style={{ color: PRIMARY_BLUE }}>.AI</span>
           </span>
-        </div>
+        </button>
 
         <div className="flex items-center gap-3 text-xs">
           <div className="flex items-center gap-1">
             <Activity className="h-3 w-3" style={{ color: GREEN }} />
             <span className="font-medium" style={{ color: GREEN }}>
-              {RAGAS_METRICS.faithfulness}
+              {liveMetrics.faithfulness.toFixed(4)}
             </span>
             <span style={{ color: '#888' }}> faithfulness</span>
           </div>
           <span style={{ color: '#D1D5DB' }}>|</span>
           <div className="flex items-center gap-1">
             <Clock className="h-3 w-3 text-gray-400" />
-            <span style={{ color: '#555' }}>{SYSTEM_STATS.p50ms}ms p50</span>
+            <span style={{ color: '#555' }}>{liveMetrics.p50ms}ms p50</span>
           </div>
           <span style={{ color: '#D1D5DB' }}>|</span>
           <div
@@ -149,61 +224,88 @@ export default function ChatPage() {
               ))}
             </div>
 
+            {/* Auth / query counter area */}
             <div className="flex items-center gap-2">
-              <span className="text-[11px]" style={{ color: '#888' }}>
-                Guest ·{' '}
-                <span
-                  style={{ color: queriesRemaining <= 1 ? '#854F0B' : '#555' }}
-                  className="font-medium"
-                >
-                  {queriesRemaining} of {GUEST_LIMIT} remaining
-                </span>
-              </span>
-              <button
-                className="rounded border px-2 py-0.5 text-[11px] font-medium transition-colors hover:bg-gray-50"
-                style={{ borderColor: '#D1D5DB', color: '#555' }}
-                onClick={() => setModalOpen(true)}
-              >
-                Sign in
-              </button>
+              {user ? (
+                <>
+                  {user.picture && (
+                    <img
+                      src={user.picture}
+                      alt={user.name}
+                      className="h-5 w-5 rounded-full"
+                    />
+                  )}
+                  <span className="text-[11px] text-gray-600">{user.name}</span>
+                  <span style={{ color: '#D1D5DB' }}>·</span>
+                  <span
+                    className="text-[11px] font-medium"
+                    style={{ color: queriesRemaining <= 3 ? '#854F0B' : '#555' }}
+                  >
+                    {queriesRemaining} of {AUTH_LIMIT} remaining
+                  </span>
+                  <button
+                    onClick={handleSignOut}
+                    className="flex items-center gap-1 rounded border px-2 py-0.5 text-[11px] font-medium transition-colors hover:bg-gray-50"
+                    style={{ borderColor: '#D1D5DB', color: '#555' }}
+                    title="Sign out"
+                  >
+                    <LogOut className="h-3 w-3" />
+                    Sign out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <span className="text-[11px]" style={{ color: '#888' }}>
+                    Guest ·{' '}
+                    <span
+                      style={{ color: queriesRemaining <= 1 ? '#854F0B' : '#555' }}
+                      className="font-medium"
+                    >
+                      {queriesRemaining} of {GUEST_LIMIT} remaining
+                    </span>
+                  </span>
+                  <button
+                    className="rounded border px-2 py-0.5 text-[11px] font-medium transition-colors hover:bg-gray-50"
+                    style={{ borderColor: '#D1D5DB', color: '#555' }}
+                    onClick={() => setModalOpen(true)}
+                  >
+                    Sign in
+                  </button>
+                </>
+              )}
             </div>
           </div>
 
-          {/* Tab content */}
+          {/* Tab content — always mounted to preserve CenterPane state on tab switch */}
           <div className="flex flex-1 overflow-hidden">
-            {activeTab === 'query' && (
-              /* relative so RightRail overlay positions against this container */
-              <div className="relative flex flex-1 overflow-hidden">
-                <CenterPane
-                  onCitationClick={setSelectedCitation}
-                  activeCitation={selectedCitation}
-                  onCitationsChange={handleCitationsChange}
-                  queriesRemaining={queriesRemaining}
-                  queriesDisabled={queryCount >= GUEST_LIMIT}
-                  onQueryComplete={() => setQueryCount((c) => c + 1)}
-                  onSignInClick={() => setModalOpen(true)}
-                />
-                {/* Overlay — does not squeeze CenterPane */}
-                {selectedCitation && (
-                  <div className="absolute bottom-0 right-0 top-0 z-10 w-96 shadow-xl">
-                    <RightRail
-                      selectedCitation={selectedCitation}
-                      onClose={() => setSelectedCitation(null)}
-                    />
-                  </div>
-                )}
-              </div>
-            )}
-            {activeTab === 'engineering' && (
-              <div className="flex-1 overflow-auto">
-                <EngineeringTab />
-              </div>
-            )}
-            {activeTab === 'metrics' && (
-              <div className="flex-1 overflow-auto">
-                <MetricsTab />
-              </div>
-            )}
+            <div className={activeTab === 'query' ? 'relative flex flex-1 overflow-hidden' : 'hidden'}>
+              <CenterPane
+                onCitationClick={setSelectedCitation}
+                activeCitation={selectedCitation}
+                onCitationsChange={handleCitationsChange}
+                queriesRemaining={queriesRemaining}
+                queriesDisabled={queryCount >= queryLimit}
+                isAuthenticated={!!user}
+                userToken={user?.token}
+                userId={user?.id}
+                onQueryComplete={() => setQueryCount((c) => c + 1)}
+                onSignInClick={() => setModalOpen(true)}
+              />
+              {selectedCitation && (
+                <div className="absolute bottom-0 right-0 top-0 z-10 w-96 shadow-xl">
+                  <RightRail
+                    selectedCitation={selectedCitation}
+                    onClose={() => setSelectedCitation(null)}
+                  />
+                </div>
+              )}
+            </div>
+            <div className={activeTab === 'engineering' ? 'flex-1 overflow-auto' : 'hidden'}>
+              <EngineeringTab />
+            </div>
+            <div className={activeTab === 'metrics' ? 'flex-1 overflow-auto' : 'hidden'}>
+              <MetricsTab />
+            </div>
           </div>
         </div>
       </div>
@@ -211,7 +313,8 @@ export default function ChatPage() {
       <AccessModal
         open={modalOpen}
         onOpenChange={setModalOpen}
-        guestDisabled={queryCount >= GUEST_LIMIT}
+        guestDisabled={!user && queryCount >= GUEST_LIMIT}
+        onSignIn={handleSignIn}
       />
     </div>
   );
