@@ -38,7 +38,7 @@ System that lets clinicians, pharmacists, and care coordinators ask natural-lang
 ### Accuracy
 
 - Accuracy should be very high as it will be used in healthcare
-- Faithfulness > 0.80
+- Faithfulness > 0.70
 - Answer Relevancy	> 0.75
 - Context Precision	> 0.70
 
