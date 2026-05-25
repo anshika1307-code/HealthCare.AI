@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import asyncio
 import logging
+from functools import partial
 from typing import Any
 
 from retrieval.bm25_retriever import BM25Retriever
@@ -89,7 +90,9 @@ class RetrievalPipeline:
         doc_id_filter = filters.get("document_id") if filters else None
         dense_results, bm25_results = await asyncio.gather(
             self._dense.search(query_vector, filters=filters),
-            loop.run_in_executor(None, self._bm25.search, query_text, doc_id_filter),
+            loop.run_in_executor(
+                None, partial(self._bm25.search, query_text, filter_doc_id=doc_id_filter)
+            ),
         )
 
         logger.debug(
