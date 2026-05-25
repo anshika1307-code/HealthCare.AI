@@ -19,6 +19,7 @@ Flags:
     --mlflow-run-name Name for this MLflow run
     --dry-run         Preprocess + embed first batch only — no Qdrant writes
 """
+
 from __future__ import annotations
 
 import argparse
@@ -36,16 +37,16 @@ sys.path.insert(0, str(_REPO_ROOT / "src"))
 
 try:
     from dotenv import load_dotenv
+
     load_dotenv(_REPO_ROOT / ".env")
 except ImportError:
     pass  # fall back to env vars already set in the shell
 
 import mlflow
-from qdrant_client import QdrantClient
-
 from configs.embedding import EMBEDDING_CONFIG
 from configs.ingestion import DOCUMENTS
 from configs.retrieval import RETRIEVAL_CONFIG
+from qdrant_client import QdrantClient
 from src.embedding.base import make_indexable
 from src.embedding.indexer import QdrantIndexer
 from src.ingestion.config import get_doc_config
@@ -58,16 +59,18 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-QDRANT_URL     = os.getenv("QDRANT_URL", "http://localhost:6333")
+QDRANT_URL = os.getenv("QDRANT_URL", "http://localhost:6333")
 QDRANT_API_KEY = os.getenv("QDRANT_API_KEY")
 
 
 def _build_embedder(provider: str):
     if provider == "openai":
         from src.embedding.openai_embedder import OpenAIEmbedder
+
         return OpenAIEmbedder(EMBEDDING_CONFIG)
     elif provider == "bge":
         from src.embedding.bge_embedder import BGEEmbedder
+
         return BGEEmbedder(EMBEDDING_CONFIG)
     raise ValueError(f"Unknown provider {provider!r}. Choose 'openai' or 'bge'.")
 
@@ -75,6 +78,7 @@ def _build_embedder(provider: str):
 def _git_sha() -> str:
     try:
         import git
+
         return git.Repo(_REPO_ROOT).head.commit.hexsha[:8]
     except Exception:
         return "unknown"
@@ -109,18 +113,22 @@ def run(
     any_doc_failed = False
 
     with mlflow.start_run(run_name=run_name) as mlrun:
-        mlflow.log_params({
-            "embedding_model": embedder.model_name,
-            "provider":        provider,
-            "dimensions":      embedder.dimensions,
-            "batch_size":      EMBEDDING_CONFIG.batch_size,
-            "normalize":       EMBEDDING_CONFIG.normalize,
-            "total_docs":      len(DOCUMENTS),
-        })
-        mlflow.set_tags({
-            "run_date": datetime.datetime.utcnow().isoformat(),
-            "git_sha":  _git_sha(),
-        })
+        mlflow.log_params(
+            {
+                "embedding_model": embedder.model_name,
+                "provider": provider,
+                "dimensions": embedder.dimensions,
+                "batch_size": EMBEDDING_CONFIG.batch_size,
+                "normalize": EMBEDDING_CONFIG.normalize,
+                "total_docs": len(DOCUMENTS),
+            }
+        )
+        mlflow.set_tags(
+            {
+                "run_date": datetime.datetime.utcnow().isoformat(),
+                "git_sha": _git_sha(),
+            }
+        )
 
         for entry in DOCUMENTS:
             pdf_path = _REPO_ROOT / entry.pdf_path
@@ -155,7 +163,9 @@ def run(
 
             if dry_run:
                 cap = EMBEDDING_CONFIG.batch_size
-                logger.info("[dry-run] Embedding first %d of %d chunks", min(cap, len(texts)), len(texts))
+                logger.info(
+                    "[dry-run] Embedding first %d of %d chunks", min(cap, len(texts)), len(texts)
+                )
                 texts = texts[:cap]
                 indexable = indexable[:cap]
 
@@ -171,7 +181,9 @@ def run(
 
             elapsed = time.perf_counter() - t0
             total_embed_time += elapsed
-            total_batches += max(1, (len(texts) + EMBEDDING_CONFIG.batch_size - 1) // EMBEDDING_CONFIG.batch_size)
+            total_batches += max(
+                1, (len(texts) + EMBEDDING_CONFIG.batch_size - 1) // EMBEDDING_CONFIG.batch_size
+            )
 
             if dry_run:
                 logger.info("[dry-run] Skipping Qdrant upsert for %s.", entry.doc_id)
@@ -182,20 +194,22 @@ def run(
             total_chunks += success
             if failed_ids:
                 failed_batches += 1
-                logger.warning(
-                    "%d chunks failed to upsert for %s", len(failed_ids), entry.doc_id
-                )
+                logger.warning("%d chunks failed to upsert for %s", len(failed_ids), entry.doc_id)
 
         avg_batch_time = total_embed_time / total_batches if total_batches else 0.0
-        mlflow.log_metrics({
-            "total_chunks_indexed":   total_chunks,
-            "total_embedding_time_s": round(total_embed_time, 3),
-            "avg_batch_time_s":       round(avg_batch_time, 3),
-            "failed_batches":         failed_batches,
-        })
+        mlflow.log_metrics(
+            {
+                "total_chunks_indexed": total_chunks,
+                "total_embedding_time_s": round(total_embed_time, 3),
+                "avg_batch_time_s": round(avg_batch_time, 3),
+                "failed_batches": failed_batches,
+            }
+        )
         logger.info(
             "Ingestion complete: %d chunks indexed, %.1fs embed time, MLflow run=%s",
-            total_chunks, total_embed_time, mlrun.info.run_id,
+            total_chunks,
+            total_embed_time,
+            mlrun.info.run_id,
         )
 
     if not dry_run and not any_doc_failed:
@@ -208,9 +222,7 @@ def run(
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(
-        description="Ingest PDFs: preprocess → embed → Qdrant → BM25."
-    )
+    parser = argparse.ArgumentParser(description="Ingest PDFs: preprocess → embed → Qdrant → BM25.")
     parser.add_argument(
         "--provider",
         choices=["openai", "bge"],

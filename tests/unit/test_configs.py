@@ -96,16 +96,22 @@ class TestEmbeddingConfig:
 
 class TestLLMConfig:
     def test_default_provider(self):
-        assert LLMConfig().provider == "openai"
+        assert LLMConfig().provider == "groq"
 
     def test_default_model(self):
-        assert LLMConfig().model_name == "gpt-4o-mini"
+        assert LLMConfig().model_name == "llama-3.3-70b-versatile"
+
+    def test_default_fallback_model(self):
+        assert LLMConfig().fallback_model_name == "gpt-4o-mini"
+
+    def test_default_suggestions_model(self):
+        assert LLMConfig().suggestions_model_name == "llama-3.1-8b-instant"
 
     def test_default_temperature(self):
         assert LLMConfig().temperature == 0.0
 
     def test_default_max_tokens(self):
-        assert LLMConfig().max_output_tokens == 512
+        assert LLMConfig().max_output_tokens == 256
 
     def test_default_context_window(self):
         assert LLMConfig().context_window_tokens == 128_000
@@ -139,7 +145,7 @@ class TestLLMConfig:
         assert LLM_CONFIG is cfg2
 
     def test_singleton_is_correct_model(self):
-        assert LLM_CONFIG.model_name == "gpt-4o-mini"
+        assert LLM_CONFIG.model_name == "llama-3.3-70b-versatile"
 
 
 # ===========================================================================
@@ -157,8 +163,8 @@ class TestDenseConfig:
     def test_default_distance_metric(self):
         assert DenseConfig().distance_metric == "cosine"
 
-    def test_default_score_threshold_is_none(self):
-        assert DenseConfig().score_threshold is None
+    def test_default_score_threshold(self):
+        assert DenseConfig().score_threshold == pytest.approx(0.25)
 
     def test_filter_fields_contains_doc_type(self):
         assert "doc_type" in DenseConfig().filter_fields
@@ -216,7 +222,7 @@ class TestRRFConfig:
         assert cfg.bm25_weight == pytest.approx(1.3)
 
     def test_default_fusion_pool_size(self):
-        assert RRFConfig().fusion_pool_size == 60
+        assert RRFConfig().fusion_pool_size == 40
 
     def test_pool_size_larger_than_individual_top_k(self):
         assert RRFConfig().fusion_pool_size > DenseConfig().top_k
@@ -232,7 +238,7 @@ class TestRerankerConfig:
         assert "cross-encoder" in RerankerConfig().model_name
 
     def test_default_top_n(self):
-        assert RerankerConfig().top_n == 5
+        assert RerankerConfig().top_n == 3
 
     def test_default_batch_size(self):
         assert RerankerConfig().batch_size == 32

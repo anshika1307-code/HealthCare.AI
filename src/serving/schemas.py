@@ -40,3 +40,4 @@ class QueryResponse(BaseModel):
     low_confidence: bool
     warning_message: str = ""
     filters_applied: dict[str, Any] = Field(default_factory=dict)
+    suggested_queries: list[str] = Field(default_factory=list)

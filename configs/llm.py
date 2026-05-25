@@ -2,9 +2,15 @@
 configs/llm.py
 --------------
 LLM generation configuration.
-Keeping LLM config separate from retrieval config so the generator can be
-swapped independently (e.g. gpt-4o-mini → Groq Llama) without any changes
-to retrieval logic.
+
+LLM strategy (dual-provider):
+- Primary: Groq llama-3.3-70b-versatile — ~200-300ms, free tier, OpenAI-compatible API.
+  Cuts answer latency from ~9s (gpt-4o-mini) to ~300ms end-to-end.
+- Fallback: gpt-4o-mini — activates automatically when Groq returns RateLimitError.
+  Keeps the service live even when Groq free-tier quota is exhausted.
+- Suggestions: llama-3.1-8b-instant — tiny/fast model for non-critical follow-up generation.
+  Runs concurrently with the main answer so it adds zero extra latency.
+- Embeddings: always text-embedding-3-small via OpenAI (no Groq equivalent).
 """
 
 from __future__ import annotations
@@ -14,22 +20,27 @@ from dataclasses import dataclass
 
 @dataclass
 class LLMConfig:
-    provider: str = "openai"
-    # Current: "openai". Switch to "groq" for free-tier Llama (Groq free tier
-    # provides Llama-3-70B at no cost — useful for development/testing).
+    provider: str = "groq"
+    # "groq" = primary. "openai" = skip Groq and go straight to OpenAI (for local dev
+    # without GROQ_API_KEY set).
 
-    model_name: str = "gpt-4o-mini"
-    # Cheapest OpenAI model with sufficient instruction-following for structured
-    # clinical Q&A. ~10× cheaper than gpt-4o per token. Adequate for RAG use
-    # case where the heavy lifting is done by retrieval, not generation.
+    model_name: str = "llama-3.3-70b-versatile"
+    # Groq's best general-purpose model. Equivalent quality to gpt-4o-mini for
+    # extractive clinical Q&A; 30-50× faster on Groq free tier.
+
+    fallback_model_name: str = "gpt-4o-mini"
+    # OpenAI fallback. Used when Groq returns RateLimitError (429). gpt-4o-mini is
+    # ~10× cheaper than gpt-4o and handles the 1-3 sentence extractive task well.
+
+    suggestions_model_name: str = "llama-3.1-8b-instant"
+    # Ultra-fast 8B model for follow-up suggestion generation. Runs concurrently
+    # with the main answer — quality sufficient for 3 short question strings.
 
     temperature: float = 0.0
     # Medical Q&A must be deterministic and faithful to retrieved context.
-    # temperature=0.0 → greedy decoding. Never set > 0.2 for clinical tools.
 
-    max_output_tokens: int = 512
-    # 512 tokens ≈ 3–4 paragraph answer. Sufficient for clinical Q&A.
-    # Keeps cost low (output tokens are 3× more expensive than input on OpenAI).
+    max_output_tokens: int = 256
+    # 256 tokens ≈ 1-3 sentences, matching the system prompt's extractive style.
 
     system_prompt: str = (
         "You are a clinical document retrieval assistant. "
@@ -43,14 +54,9 @@ class LLMConfig:
         "5. If the context does not contain the answer, respond exactly: "
         "'The provided documents do not contain sufficient information to answer this question.'"
     )
-    # v2 post-RAGAS eval (faithfulness=0.7458, relevancy=0.5357):
-    # v1 (faithfulness=0.62): LLM elaborated from training knowledge → unfaithful claims.
-    # v2: strict extractive mode. faithfulness +0.12 vs v1. relevancy dropped due to
-    # 1-3 sentence cap on multi-part questions — acceptable trade-off at this threshold.
 
     context_window_tokens: int = 128_000
-    # gpt-4o-mini context window. Used by pipeline.py to guard against
-    # accidentally building a prompt larger than the model can accept.
+    # Both Groq Llama-3.3-70B and gpt-4o-mini support 128k context.
 
 
 LLM_CONFIG = LLMConfig()

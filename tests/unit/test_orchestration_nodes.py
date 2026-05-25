@@ -238,7 +238,8 @@ class TestGenerateNode:
     async def test_calls_chat_completions_create(self, llm_client, cfg, state):
         node = make_generate_node(llm_client, cfg)
         await node(state)
-        llm_client.chat.completions.create.assert_called_once()
+        # 2 calls: main answer + concurrent suggestions
+        assert llm_client.chat.completions.create.call_count == 2
 
     @pytest.mark.asyncio
     async def test_uses_configured_model(self, llm_client, cfg, state):
@@ -251,14 +252,14 @@ class TestGenerateNode:
     async def test_uses_configured_temperature(self, llm_client, cfg, state):
         node = make_generate_node(llm_client, cfg)
         await node(state)
-        _, kwargs = llm_client.chat.completions.create.call_args
+        _, kwargs = llm_client.chat.completions.create.call_args_list[0]
         assert kwargs["temperature"] == pytest.approx(0.0)
 
     @pytest.mark.asyncio
     async def test_uses_configured_max_tokens(self, llm_client, cfg, state):
         node = make_generate_node(llm_client, cfg)
         await node(state)
-        _, kwargs = llm_client.chat.completions.create.call_args
+        _, kwargs = llm_client.chat.completions.create.call_args_list[0]
         assert kwargs["max_tokens"] == 512
 
     @pytest.mark.asyncio
@@ -274,7 +275,7 @@ class TestGenerateNode:
     async def test_system_message_is_system_prompt(self, llm_client, cfg, state):
         node = make_generate_node(llm_client, cfg)
         await node(state)
-        _, kwargs = llm_client.chat.completions.create.call_args
+        _, kwargs = llm_client.chat.completions.create.call_args_list[0]
         system_msg = next(m for m in kwargs["messages"] if m["role"] == "system")
         assert system_msg["content"] == "You are a clinical assistant."
 

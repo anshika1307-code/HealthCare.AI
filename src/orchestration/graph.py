@@ -39,6 +39,7 @@ class GraphState(TypedDict, total=False):
     query_vector: list[float]  # set by embed_query node
     retrieval_result: RetrievalResult  # set by retrieve node
     answer: str  # set by generate node
+    suggested_queries: list[str]  # set by generate node (concurrent with answer)
     embed_ms: float  # set by embed_query node (timing)
     retrieve_ms: float  # set by retrieve node (timing)
     generate_ms: float  # set by generate node (timing)
@@ -54,15 +55,17 @@ def build_graph(
     pipeline: RetrievalPipeline,
     llm_client: openai.AsyncOpenAI,
     llm_config: LLMConfig | None = None,
+    groq_client: openai.AsyncOpenAI | None = None,
 ):
     """
     Compile the LangGraph StateGraph with all three nodes bound to their deps.
 
     Args:
-        embedder:    Embedding provider (OpenAIEmbedder or BGEEmbedder).
-        pipeline:    Fully initialised RetrievalPipeline (heavy: loaded once).
-        llm_client:  AsyncOpenAI client (or compatible) for generation.
-        llm_config:  LLM generation parameters; defaults to LLM_CONFIG singleton.
+        embedder:     Embedding provider (OpenAIEmbedder or BGEEmbedder).
+        pipeline:     Fully initialised RetrievalPipeline (heavy: loaded once).
+        llm_client:   AsyncOpenAI client — used as fallback when Groq rate-limits.
+        llm_config:   LLM generation parameters; defaults to LLM_CONFIG singleton.
+        groq_client:  Optional Groq-backed AsyncOpenAI client (primary for speed).
 
     Returns:
         A compiled LangGraph graph ready for ainvoke().
@@ -71,7 +74,9 @@ def build_graph(
 
     workflow.add_node("embed_query", make_embed_node(embedder))
     workflow.add_node("retrieve", make_retrieve_node(pipeline))
-    workflow.add_node("generate", make_generate_node(llm_client, llm_config))
+    workflow.add_node(
+        "generate", make_generate_node(llm_client, llm_config, groq_client=groq_client)
+    )
 
     workflow.add_edge(START, "embed_query")
     workflow.add_edge("embed_query", "retrieve")

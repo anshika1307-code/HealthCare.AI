@@ -17,6 +17,7 @@ It is NOT responsible for embedding the query — the caller passes the vector.
 
 from __future__ import annotations
 
+import asyncio
 import logging
 from typing import Any
 
@@ -79,15 +80,17 @@ class RetrievalPipeline:
         logger.info("RetrievalPipeline.retrieve: %r", query_text[:80])
 
         # ----------------------------------------------------------
-        # Stage 1 + 2: Dense and BM25 run concurrently
+        # Stage 1 + 2: Dense (Qdrant network call) and BM25 (in-memory)
+        # run truly concurrently via asyncio.gather. BM25 is wrapped in
+        # run_in_executor so it doesn't block the event loop while dense
+        # is awaiting the Qdrant response.
         # ----------------------------------------------------------
-        dense_coro = self._dense.search(query_vector, filters=filters)
-        # BM25 is synchronous but fast (in-memory) — run in the event loop directly
-        bm25_results = self._bm25.search(
-            query_text,
-            filter_doc_id=filters.get("document_id") if filters else None,
+        loop = asyncio.get_event_loop()
+        doc_id_filter = filters.get("document_id") if filters else None
+        dense_results, bm25_results = await asyncio.gather(
+            self._dense.search(query_vector, filters=filters),
+            loop.run_in_executor(None, self._bm25.search, query_text, doc_id_filter),
         )
-        dense_results = await dense_coro
 
         logger.debug(
             "Dense: %d hits | BM25: %d hits",

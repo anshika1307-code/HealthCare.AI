@@ -10,6 +10,7 @@ Usage:
 
 The generated pickle is loaded by BM25Retriever.from_cache() at server startup.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -23,6 +24,7 @@ _REPO_ROOT = Path(__file__).resolve().parents[1]
 
 try:
     from dotenv import load_dotenv
+
     load_dotenv(_REPO_ROOT / ".env")
 except ImportError:
     pass  # fall back to env vars already set in the shell
@@ -31,15 +33,15 @@ except ImportError:
 sys.path.insert(0, str(_REPO_ROOT / "src"))
 sys.path.insert(0, str(_REPO_ROOT))
 
+from configs.retrieval import RETRIEVAL_CONFIG
 from qdrant_client import QdrantClient
 
-from configs.retrieval import RETRIEVAL_CONFIG
 from retrieval.bm25_retriever import BM25Corpus
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
 logger = logging.getLogger(__name__)
 
-QDRANT_URL     = os.getenv("QDRANT_URL", "http://localhost:6333")
+QDRANT_URL = os.getenv("QDRANT_URL", "http://localhost:6333")
 QDRANT_API_KEY = os.getenv("QDRANT_API_KEY")
 DEFAULT_BATCH = 200
 
@@ -103,7 +105,9 @@ def build_index(collection_name: str, output_path: Path) -> None:
 
     logger.info(
         "BM25 corpus saved: %d chunks → %s (%.1f KB)",
-        len(chunk_ids), output_path, output_path.stat().st_size / 1024,
+        len(chunk_ids),
+        output_path,
+        output_path.stat().st_size / 1024,
     )
 
 

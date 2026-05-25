@@ -59,6 +59,7 @@ ignore = [
 "src/evaluation/**" = ["E402", "I001"]
 "src/ingestion/run_batch.py" = ["E402", "I001"]
 "src/ingestion/preprocessor.py" = ["E402", "I001"]
+"scripts/**" = ["E402", "I001"]
 
 [tool.ruff.format]
 quote-style = "double"

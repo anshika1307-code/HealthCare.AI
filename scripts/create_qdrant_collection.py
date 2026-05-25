@@ -12,6 +12,7 @@ Usage:
     python scripts/create_qdrant_collection.py --force-recreate
     python scripts/create_qdrant_collection.py --dimensions 768 --collection healthcare_chunks_bge
 """
+
 from __future__ import annotations
 
 import argparse
@@ -25,25 +26,25 @@ sys.path.insert(0, str(_REPO_ROOT))
 
 try:
     from dotenv import load_dotenv
+
     load_dotenv(_REPO_ROOT / ".env")
 except ImportError:
     pass  # fall back to env vars already set in the shell
 
-from qdrant_client import QdrantClient
-from qdrant_client.models import Distance, PayloadSchemaType, VectorParams
-
 from configs.embedding import EMBEDDING_CONFIG
 from configs.retrieval import RETRIEVAL_CONFIG
+from qdrant_client import QdrantClient
+from qdrant_client.models import Distance, PayloadSchemaType, VectorParams
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
 logger = logging.getLogger(__name__)
 
-QDRANT_URL     = os.getenv("QDRANT_URL", "http://localhost:6333")
+QDRANT_URL = os.getenv("QDRANT_URL", "http://localhost:6333")
 QDRANT_API_KEY = os.getenv("QDRANT_API_KEY")
 
 _DISTANCE_MAP = {
     "cosine": Distance.COSINE,
-    "dot":    Distance.DOT,
+    "dot": Distance.DOT,
     "euclid": Distance.EUCLID,
 }
 
@@ -73,7 +74,9 @@ def create_collection(
     dist = _DISTANCE_MAP.get(distance, Distance.COSINE)
     logger.info(
         "Creating collection %r: dim=%d distance=%s",
-        collection_name, dimensions, distance,
+        collection_name,
+        dimensions,
+        distance,
     )
     client.create_collection(
         collection_name=collection_name,
@@ -107,9 +110,7 @@ def create_collection(
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(
-        description="Create Qdrant collection for healthcare chunks."
-    )
+    parser = argparse.ArgumentParser(description="Create Qdrant collection for healthcare chunks.")
     parser.add_argument(
         "--collection",
         default=RETRIEVAL_CONFIG.dense.collection_name,

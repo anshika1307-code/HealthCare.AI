@@ -193,15 +193,17 @@ class TestGraphInvoke:
         client = _make_llm_client()
         graph = build_graph(_make_embedder(), _make_pipeline(), client)
         await graph.ainvoke({"query": "q"})
-        client.chat.completions.create.assert_called_once()
+        # 2 calls: main answer + concurrent suggestions
+        assert client.chat.completions.create.call_count == 2
 
     @pytest.mark.asyncio
     async def test_custom_llm_config_respected(self):
         client = _make_llm_client()
-        cfg = LLMConfig(model_name="gpt-4o", temperature=0.1, max_output_tokens=256)
+        # fallback_model_name is used as the primary OpenAI model when groq_client=None
+        cfg = LLMConfig(fallback_model_name="gpt-4o", temperature=0.1, max_output_tokens=256)
         graph = build_graph(_make_embedder(), _make_pipeline(), client, llm_config=cfg)
         await graph.ainvoke({"query": "q"})
-        _, kwargs = client.chat.completions.create.call_args
+        _, kwargs = client.chat.completions.create.call_args_list[0]
         assert kwargs["model"] == "gpt-4o"
         assert kwargs["temperature"] == pytest.approx(0.1)
         assert kwargs["max_tokens"] == 256

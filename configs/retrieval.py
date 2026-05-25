@@ -48,9 +48,11 @@ class DenseConfig:
         ]
     )
 
-    score_threshold: float | None = None
-    # None = no score gate at dense-search time; let RRF + reranker gate quality.
-    # Set ≈ 0.30 post-RAGAS eval if low-relevance dense hits pollute fusion pool.
+    score_threshold: float | None = 0.25
+    # Filters out dense hits with cosine similarity < 0.25 before they reach
+    # RRF + reranker. Prevents clearly irrelevant chunks from polluting the
+    # fusion pool and causing spurious confidence drops. Tune down to 0.20 if
+    # recall drops on rare medical acronym queries.
 
 
 # ---------------------------------------------------------------------------
@@ -107,11 +109,12 @@ class RRFConfig:
     # while the dense model (text-embedding-3-small, general purpose) may
     # under-weight. 1.3 is conservative — revert to 1.0 if precision drops.
 
-    fusion_pool_size: int = 60
-    # Top-60 from the fused list fed to the cross-encoder reranker.
-    # Increased from 40 post-RAGAS eval to give the reranker more candidates
-    # when the correct chunk ranks 30–50 in the fused list. With top_k=30 from
-    # each retriever, max unique candidates = 60; pool_size=60 passes them all.
+    fusion_pool_size: int = 40
+    # Top-40 from the fused list fed to the cross-encoder reranker.
+    # Reduced from 60 for latency: 40 pairs fit in a single batch_size=32 + 8
+    # (still 2 passes but significantly fewer pairs). The marginal chunks at
+    # rank 41-60 rarely contain the correct answer — they scored low in both
+    # dense and BM25 before fusion. Revert to 60 if recall drops.
 
 
 # ---------------------------------------------------------------------------
@@ -127,10 +130,11 @@ class RerankerConfig:
     # 40 (query, chunk) pairs. BGE reranker is higher quality but 3× larger —
     # unacceptable on a free-tier server (512MB RAM budget).
 
-    top_n: int = 5
-    # decision.md: "top 5 for final context window".
-    # 5 × 512-token chunks ≈ 2,560 tokens → well inside gpt-4o-mini's 128k
-    # context window while keeping prompt cost minimal.
+    top_n: int = 3
+    # Reduced from 5 for latency: 3 × 512-token chunks ≈ 1,536 tokens fed to
+    # the LLM, cutting prompt size by ~40% and generation time accordingly.
+    # The top-3 reranked chunks carry the vast majority of signal on a
+    # 4-document corpus; chunks 4-5 are usually redundant sections.
 
     batch_size: int = 32
     # Cross-encoder batch size. 32 pairs × (query + 512-token chunk) fits in

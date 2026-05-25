@@ -17,9 +17,15 @@ from __future__ import annotations
 
 import asyncio
 import logging
+import os
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
 from typing import Any
+
+# huggingface_hub's httpx client has a lifecycle bug on Python 3.14+ where the
+# client is closed before the metadata HEAD request completes. Since the model is
+# pre-downloaded (Dockerfile line 16 / first local run), skip the network check.
+os.environ.setdefault("HF_HUB_OFFLINE", "1")
 
 from configs.retrieval import RETRIEVAL_CONFIG, RerankerConfig
 from sentence_transformers import CrossEncoder
@@ -178,7 +184,7 @@ class CrossEncoderReranker:
 
                 batch_scores = [1.0 / (1.0 + math.exp(-s)) for s in raw]
             else:
-                batch_scores = list(raw)
+                batch_scores = [float(s) for s in raw]
             all_scores.extend(batch_scores)
 
         return all_scores

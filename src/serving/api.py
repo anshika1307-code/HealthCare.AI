@@ -23,6 +23,8 @@ Optional:
 
 from __future__ import annotations
 
+import hashlib
+import json
 import logging
 import os
 import time
@@ -67,8 +69,22 @@ logger = logging.getLogger(__name__)
 
 _DEFAULT_BM25_PATH = Path("data/cache/bm25_corpus.pkl")
 
-# Rate limiter — keyed by client IP
-_limiter = Limiter(key_func=get_remote_address)
+
+def _rate_key(request: Request) -> str:
+    """Use a hash of the Bearer token for authed users, IP for guests."""
+    auth = request.headers.get("Authorization", "")
+    if auth.startswith("Bearer ") and len(auth) > 20:
+        token = auth.removeprefix("Bearer ").strip()
+        return "user:" + hashlib.sha256(token.encode()).hexdigest()[:16]
+    return "ip:" + get_remote_address(request)
+
+
+def _query_limit(key: str) -> str:
+    """25/day for authenticated users (user: key), 5/day for guests (ip: key)."""
+    return "25/day" if key.startswith("user:") else "5/day"
+
+
+_limiter = Limiter(key_func=_rate_key)
 
 # Token counter — cl100k_base matches gpt-4o-mini and text-embedding-3-small
 _tokenizer = tiktoken.get_encoding("cl100k_base")
@@ -105,11 +121,24 @@ async def lifespan(app: FastAPI):
     # Embedding provider (synchronous; called in thread pool inside embed_query node)
     embedder = OpenAIEmbedder(EMBEDDING_CONFIG)
 
-    # LLM client
-    llm_client = openai.AsyncOpenAI()
+    # LLM clients — Groq as primary (fast/free), OpenAI as fallback
+    openai_client = openai.AsyncOpenAI()
+    groq_api_key = (os.getenv("GROQ_API_KEY") or "").strip() or None
+    groq_client = (
+        openai.AsyncOpenAI(
+            api_key=groq_api_key,
+            base_url="https://api.groq.com/openai/v1",
+        )
+        if groq_api_key
+        else None
+    )
+    if groq_client:
+        logger.info("Groq client initialised — using %s as primary LLM", LLM_CONFIG.model_name)
+    else:
+        logger.warning("GROQ_API_KEY not set — falling back to OpenAI for all generation")
 
     # Compile the LangGraph pipeline once — reused for every request
-    graph = build_graph(embedder, pipeline, llm_client, LLM_CONFIG)
+    graph = build_graph(embedder, pipeline, openai_client, LLM_CONFIG, groq_client=groq_client)
 
     # Observability — graceful: if Redis is down metrics are silently skipped
     metrics = RAGMetrics(redis_url=redis_url)
@@ -140,12 +169,13 @@ app = FastAPI(
 )
 
 app.state.limiter = _limiter
-app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)  # type: ignore[arg-type]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["GET", "POST"],
+    allow_origins=["https://health-care-ai-one.vercel.app", "http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
     allow_headers=["*"],
 )
 
@@ -191,6 +221,20 @@ async def metrics_snapshot():
         raise HTTPException(status_code=503, detail="Redis unavailable") from exc
 
 
+@app.get("/eval-report")
+async def eval_report():
+    """Serve the most recent RAGAS evaluation report (eval_report.json)."""
+    candidates = [
+        Path("eval_report.json"),
+        Path(__file__).resolve().parents[2] / "eval_report.json",
+    ]
+    for path in candidates:
+        if path.exists():
+            with open(path) as f:
+                return json.load(f)
+    raise HTTPException(status_code=404, detail="eval_report.json not found")
+
+
 @app.get("/health")
 async def health():
     """Liveness + Qdrant connectivity check."""
@@ -203,7 +247,7 @@ async def health():
 
 
 @app.post("/query", response_model=QueryResponse)
-@_limiter.limit("20/minute")
+@_limiter.limit(_query_limit)
 async def query(request: Request, body: QueryRequest) -> QueryResponse:
     """
     Submit a clinical question and receive a sourced answer.
@@ -312,4 +356,5 @@ async def query(request: Request, body: QueryRequest) -> QueryResponse:
         low_confidence=retrieval_result.low_confidence,
         warning_message=retrieval_result.warning_message,
         filters_applied=retrieval_result.filters_applied,
+        suggested_queries=final_state.get("suggested_queries", []),
     )

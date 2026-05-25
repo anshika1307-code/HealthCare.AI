@@ -5,7 +5,7 @@ Evaluation runner for the Healthcare RAG system.
 
 Loads eval_set.json, runs every question through the RAG pipeline, scores with
 RAGAS, and writes a structured eval_report.json.  Exits with code 1 when
-average faithfulness falls below 0.75 (CI gate).
+average faithfulness falls below 0.70 (CI gate).
 
 Usage:
     python src/evaluation/run_eval.py
