@@ -357,7 +357,7 @@ pip install -r requirements.txt
 docker compose -f docker/docker-compose.yml up -d
 
 # 5. Create Qdrant collection (one-time)
-$env:PYTHONPATH = "src"
+$env:PYTHONPATH = "src" or export PYTHONPATH="src" (mac)
 python scripts/create_qdrant_collection.py
 
 # 6. Ingest PDFs (one-time, ~3-8 min, ~$0.04 OpenAI cost)
